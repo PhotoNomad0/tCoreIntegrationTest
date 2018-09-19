@@ -64,6 +64,10 @@ module.exports = {
     languageID: {
       selector: "body > div:nth-child(11) > div > div:nth-child(1) > div > div > div:nth-child(1) > div:nth-child(5) > div > div:nth-child(2) > input[type=\"text\"]",
       id: "Language ID"
+    },
+    enterURL: {
+      selector: "body > div:nth-child(11) > div > div:nth-child(1) > div > div > div:nth-child(1) > div:nth-child(4) > div > input[type=\"text\"]",
+      id: "Enter URL"
     }
   }
 };

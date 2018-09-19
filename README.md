@@ -1,13 +1,9 @@
-# electron-spectron-example
-Electron selenium testing using spectron.
-
-[![Build Status](https://travis-ci.org/StephenDavidson/electron-spectron-example.svg?branch=master)](https://travis-ci.org/StephenDavidson/electron-spectron-example)
+# tCoreIntegrationTest
+translationCore testing using spectron.
 
 # Setup
 
 ```
-git clone https://github.com/StephenDavidson/electron-spectron-example
-cd electron-spectron-example
 npm install
 ```
 
