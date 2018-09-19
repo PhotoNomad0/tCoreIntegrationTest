@@ -4,7 +4,7 @@
   "description": "Example test automation of electron app using spectron",
   "main": "index.js",
   "scripts": {
-    "test": "node ./node_modules/mocha/bin/_mocha",
+    "test": "node ./node_modules/mocha/bin/_mocha ./test/**/*test.js",
     "lint": "node ./node_modules/.bin/eslint ."
   },
   "repository": {
@@ -29,6 +29,7 @@
     "electron": "^2.0.9",
     "eslint": "^5.5.0",
     "mocha": "^5.2.0",
+    "path-extra": "^4.2.1",
     "spectron": "^4.0.0"
   },
   "engines": {
