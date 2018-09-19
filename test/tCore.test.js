@@ -16,9 +16,12 @@ describe('Sample Test', () => {
     console.log("starting");
     await app.client.pause(5000).waitUntilWindowLoaded()
       .getWindowCount()
-      .should.eventually.not.equal(0);
+      .should.eventually.have.at.least(1);
     await app.client.browserWindow.isVisible().should.eventually.equal(true);
-    await app.client.windowByIndex(1).waitUntilWindowLoaded().click('button*=Get');
+    await app.client.windowByIndex(1).waitUntilWindowLoaded().getText('button.btn-prime').then(function (text) {
+      console.log('The button text content is ' + text);
+    });
+    await app.client.click('button*=Get');
     await app.client.pause(1000).click('button*=Project');
     await app.client.pause(1000).click('button[tabindex="0"]');
     await app.client.pause(1000).click('#content > div > div.container-fluid > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(2) > div > div > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(2) > button');
