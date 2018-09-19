@@ -1,6 +1,6 @@
 const hooks = require('./hooks');
-const config = require('../config').get(process.env.NODE_ENV);
-const SearchPage = require('./page-objects/search.page');
+const config = require('../../config').get(process.env.NODE_ENV);
+const SearchPage = require('./search.page');
 
 describe('Sample Test', () => {
   let app;
