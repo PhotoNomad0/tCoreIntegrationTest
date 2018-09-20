@@ -1,5 +1,22 @@
 /* eslint-disable quotes */
-module.exports = {
+
+const TEMPLATES = {
+  generalAlertDialog: {
+    selector: "body > div:nth-child(4) > div > div:nth-child(1) > div > div",
+    id: "General Alert Dialog",
+    prompt: {
+      selector: "body > div:nth-child(4) > div > div:nth-child(1) > div > div > div:nth-child(1) > div:nth-child(4) > table > tbody > tr > td:nth-child(2) > div > span"
+    },
+    title: {
+      selector: "body > div:nth-child(4) > div > div:nth-child(1) > div > div > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > span"
+    },
+    primary: {
+      selector: "body > div:nth-child(4) > div > div:nth-child(1) > div > div > div:nth-child(2) > button"
+    }
+  },
+};
+
+const DEFINITIONS = {
   getStartedButton: {
     selector: "#content > div > div.container-fluid > div:nth-child(2) > div > div > button",
     text: "Get Started!"
@@ -15,17 +32,34 @@ module.exports = {
     selector: "#content > div > div.container-fluid > div:nth-child(2) > div > div > div:nth-child(1) > div > div > div:nth-child(1) > div:nth-child(5) > span",
     id: "Project Navigation"
   },
-  menuButton: {
+  importMenuButton: {
     selector: "#content > div > div.container-fluid > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(2) > div > div > div:nth-child(2) > div > div > div > button",
-    id: "Menu Button"
+    id: "Menu Button",
+    localImportButton: {
+      selector: "#content > div > div.container-fluid > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(2) > div > div > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(2) > button",
+      id: "Local Import Button"
+    },
+    onlineImportButton: {
+      selector: "#content > div > div.container-fluid > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(2) > div > div > div:nth-child(2) > div > div > div:nth-child(3) > div:nth-child(2) > button",
+      id: "Online Import Button"
+    },
+    close: {
+      selector: "#content > div > div.container-fluid > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(2) > div > div > div:nth-child(2) > div > div > div:nth-child(4) > div:nth-child(2) > button",
+      id: "Close"
+    }
   },
-  localImportButton: {
-    selector: "#content > div > div.container-fluid > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(2) > div > div > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(2) > button",
-    id: "Local Import Button"
-  },
-  onlineImportButton: {
-    selector: "#content > div > div.container-fluid > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(2) > div > div > div:nth-child(2) > div > div > div:nth-child(3) > div:nth-child(2) > button",
-    id: "Online Import Button"
+  renamedtDialog: {
+    ...TEMPLATES.generalAlertDialog,
+    id: "Renamed Dialog",
+    title: {
+      selector: TEMPLATES.generalAlertDialog.title.selector,
+      text: "Alert",
+      id: "Title"
+    },
+    ok: {
+      selector: TEMPLATES.generalAlertDialog.primary.selector,
+      text: "OK"
+    }
   },
   onlineDialog: {
     selector: "body > div:nth-child(4) > div > div:nth-child(1) > div > div",
@@ -73,6 +107,14 @@ module.exports = {
   projectCheckerDialog: {
     selector: "#project-information-card",
     id: "project Checker Dialog",
+    continue: {
+      selector: "body > div:nth-child(3) > div > div:nth-child(1) > div > div > div:nth-child(2) > div > button.btn-prime",
+      text: "Continue"
+    },
+    cancel: {
+      selector: "body > div:nth-child(3) > div > div:nth-child(1) > div > div > div:nth-child(2) > div > button.btn-second",
+      text: "Cancel"
+    },
     targetLangId: {
       selector: "#project-information-card > div > table > tbody > tr:nth-child(1) > td:nth-child(2) > div > div:nth-child(2) > input[type=\"text\"]",
       id: "Target Language Identifier"
@@ -99,3 +141,5 @@ module.exports = {
     }
   }
 };
+
+module.exports = DEFINITIONS;

@@ -1,25 +1,62 @@
 /* eslint-disable quotes,no-console */
 const fs = require('fs-extra');
 const tCoreConnect = require('./tCoreConnect');
+const path = require('path');
+const ospath = require('ospath');
 const Elements = require('./page-objects/elements');
-var assert = require('assert');
+const _ = require('lodash');
+const assert = require('assert');
 
 let app;
 let testCount = 0;
 const navigationDelay = 500; // TODO: for slowing down for demo
 
 describe('tCore Test', () => {
+  before(async () => {
+    app = await tCoreConnect.startApp();
+    await startTcore();
+  });
+
   beforeEach(async () => {
     testCount++;
     fs.removeSync(getLogFilePath());
-    app = await tCoreConnect.startApp();
   });
 
-  afterEach(async() => {
+  after(async() => {
     await tCoreConnect.stopApp(app);
   });
 
+  it('do online import access cancel', async() => {
+    await setToProjectPage();
+    await clickOn(Elements.importMenuButton);
+    // await clickOn(Elements.localImportButton);
+    await clickOn(Elements.importMenuButton.onlineImportButton);
+    await navigateDialog(Elements.onlineDialog, 'cancel');
+    await clickOn(Elements.importMenuButton.close);
+  });
+
+  it('do online search', async() => {
+    await setToProjectPage();
+    await clickOn(Elements.importMenuButton);
+    // await clickOn(Elements.localImportButton);
+    // await clickOn(Elements.onlineImportButton);
+    // await navigateDialog(Elements.onlineDialog, 'cancel');
+    await clickOn(Elements.importMenuButton.onlineImportButton);
+    await navigateDialog(Elements.onlineDialog, 'access_internet');
+
+    // do import
+    const importConfig = {
+      user: 'tCore-test-data',
+      languageID: 'fr',
+      import: false,
+      search: true
+    };
+    await navigateOnlineImportDialog(importConfig);
+  });
+
   it('do online import', async() => {
+    const PROJECTS_PATH = path.join(ospath.home(), 'translationCore', 'projects');
+    const newTargetLangId = "zzzz";
     const sourceProject = 'https://git.door43.org/tCore-test-data/AlignedUlt_en';
     const settings_en_tit_algn = {
       targetLangId: "algn",
@@ -29,33 +66,39 @@ describe('tCore Test', () => {
       languageDirectionLtr: true,
       bookName: "Titus (tit)"
     };
-    await startTcore();
+    const projectName = `${settings_en_tit_algn.languageId}_${newTargetLangId}_tit_book`;
+    const projectPath = path.join(PROJECTS_PATH, projectName);
+    console.log("making sure test project removed: " + projectPath);
+    fs.removeSync(projectPath);
     await setToProjectPage();
-    await clickOn(Elements.menuButton);
+    await clickOn(Elements.importMenuButton);
     // await clickOn(Elements.localImportButton);
-    await clickOn(Elements.onlineImportButton);
-    await navigateDialog(Elements.onlineDialog, 'cancel');
-    await clickOn(Elements.onlineImportButton);
+    // await clickOn(Elements.onlineImportButton);
+    // await navigateDialog(Elements.onlineDialog, 'cancel');
+    await clickOn(Elements.importMenuButton.onlineImportButton);
     await navigateDialog(Elements.onlineDialog, 'access_internet');
 
     // do import
-    await navigateDialog(Elements.onlineImportDialog, null); // make sure dialog shown
-    // await setValue(Elements.onlineImportDialog.user, ''); // seems to be issue with setting to empty string
-    await setValue(Elements.onlineImportDialog.user, 'tCore-test-data'); // seems to be issue with setting to empty string
-    await setValue(Elements.onlineImportDialog.languageID, 'fr');
-    // await navigateDialog(Elements.onlineImportDialog, 'search');
-    await setValue(Elements.onlineImportDialog.enterURL, sourceProject);
-    await navigateDialog(Elements.onlineImportDialog, 'import', false);
-    await navigateDialog(Elements.onlineDialog, 'access_internet');
-    
-    // entering project information
-    await app.client.pause(3000);
-    await waitForDialog(Elements.projectCheckerDialog);
-    await verifyProjectInfoDialog(settings_en_tit_algn);
-    await setValue(Elements.projectCheckerDialog.targetLangId, "zzzz");
+    const importConfig = {
+      languageID: 'fr',
+      sourceProject,
+      import: true,
+      search: false
+    };
+    await navigateOnlineImportDialog(importConfig);
 
-    log("showing search");
-    await app.client.pause(10000);
+    // navigate project information dialog
+    const projectInfoConfig = {
+      targetLangId: newTargetLangId,
+      continue: true
+    };
+    await navigateProjectInfoDialog(settings_en_tit_algn, projectInfoConfig);
+
+    // navigate renamed dialog
+    const renamedDialogConfig = _.cloneDeep(Elements.renamedtDialog);
+    renamedDialogConfig.prompt.text = `Your local project has been named\n    ${projectName}`;
+    await navigateRenamedDialog(renamedDialogConfig);
+    fs.removeSync(projectPath);
   });
   
   // disabled because we don't have a way to interact with file system dialog
@@ -125,7 +168,7 @@ async function setValue(elementObj, text) {
  * @return {Promise<void>}
  */
 async function verifyValue(elementObj, text) {
-  log('checking "' + elementObj.id + '" for "' + text + '"');
+  log('checking "' + (elementObj.id || elementObj.text) + '" for "' + text + '"');
   await app.client.getValue(elementObj.selector).then(value => {
     verifyTextIsMatched(value, text);
   });
@@ -155,7 +198,7 @@ function verifyTextIsMatched(text, matchText) {
  * @return {Promise<void>}
  */
 async function verifyText(elementObj, text, exact = true) {
-  log('checking "' + elementObj.id + '" for "' + text + '"');
+  log('checking "' + (elementObj.id || elementObj.text) + '" for "' + text + '"');
   if (exact) {
     await app.client.getText(elementObj.selector).should.eventually.equal(text);
   } else {
@@ -181,7 +224,7 @@ async function clickOn(elementObj, exact = true) {
 }
 
 async function waitForDialog(elementObj) {
-  log('navigating "' + (elementObj.id) + '"');
+  log('waiting for "' + (elementObj.id) + '"');
   await app.client.pause(navigationDelay);
   await app.client.isVisible(elementObj.selector).should.eventually.equal(true);
   log('"' + (elementObj.id) + '" is visible');
@@ -215,4 +258,54 @@ function log(text) {
 
 async function setToProjectPage() {
   await clickOn(Elements.projectNavigation);
+}
+
+async function navigateOnlineImportDialog(importConfig) {
+  await navigateDialog(Elements.onlineImportDialog, null); // make sure dialog shown
+  // await setValue(Elements.onlineImportDialog.user, ''); // seems to be issue with setting to empty string
+  if (importConfig.user) {
+    await setValue(Elements.onlineImportDialog.user, (importConfig.user)); // seems to be issue with setting to empty string
+  }
+  if (importConfig.languageID) {
+    await setValue(Elements.onlineImportDialog.languageID, importConfig.languageID);
+  }
+  if (importConfig.search) {
+    await navigateDialog(Elements.onlineImportDialog, 'search');
+    app.client.pause(5000);
+  }
+  if (importConfig.sourceProject) {
+    await setValue(Elements.onlineImportDialog.enterURL, importConfig.sourceProject);
+  }
+  if (importConfig.import) {
+    await navigateDialog(Elements.onlineImportDialog, 'import', false);
+    await navigateDialog(Elements.onlineDialog, 'access_internet');
+  } else {
+    await navigateDialog(Elements.onlineImportDialog, 'cancel');
+  }
+}
+
+async function navigateProjectInfoDialog(settings_en_tit_algn, projectInfoConfig) {
+  await app.client.pause(3000);
+  await waitForDialog(Elements.projectCheckerDialog);
+  await verifyProjectInfoDialog(settings_en_tit_algn);
+  if (projectInfoConfig.targetLangId) {
+    await setValue(Elements.projectCheckerDialog.targetLangId, projectInfoConfig.targetLangId);
+  }
+  if (projectInfoConfig.continue) {
+    await navigateDialog(Elements.projectCheckerDialog, 'continue');
+  } else {
+    await navigateDialog(Elements.projectCheckerDialog, 'cancel');
+  }
+}
+
+async function navigateRenamedDialog(renamedDialogConfig) {
+  await app.client.pause(3000);
+  await waitForDialog(renamedDialogConfig);
+  if (renamedDialogConfig.title.text) {
+    await verifyText(renamedDialogConfig.title, renamedDialogConfig.title.text);
+  }
+  if (renamedDialogConfig.prompt.text) {
+    await verifyText(renamedDialogConfig.prompt, renamedDialogConfig.prompt.text);
+  }
+  await navigateDialog(renamedDialogConfig, 'ok');
 }
