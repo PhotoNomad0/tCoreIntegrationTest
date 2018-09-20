@@ -69,5 +69,33 @@ module.exports = {
       selector: "body > div:nth-child(11) > div > div:nth-child(1) > div > div > div:nth-child(1) > div:nth-child(4) > div > input[type=\"text\"]",
       id: "Enter URL"
     }
+  },
+  projectCheckerDialog: {
+    selector: "#project-information-card",
+    id: "project Checker Dialog",
+    targetLangId: {
+      selector: "#project-information-card > div > table > tbody > tr:nth-child(1) > td:nth-child(2) > div > div:nth-child(2) > input[type=\"text\"]",
+      id: "Target Language Identifier"
+    },
+    languageName: {
+      selector: "#Language-Name-TextBox-AutoComplete",
+      id: "Language Name"
+    },
+    languageId: {
+      selector: "#Language-Id-TextBox-AutoComplete",
+      id: "Language ID"
+    },
+    resourceId: {
+      selector: "#project-information-card > div > table > tbody > tr:nth-child(2) > td:nth-child(2) > div > div:nth-child(2) > input[type=\"text\"]",
+      id: "Resource ID"
+    },
+    languageDirection: {
+      selector: "#language-direction-SelectField > div:nth-child(1) > div:nth-child(2)",
+      id: "Language Direction"
+    },
+    bookName: {
+      selector: "#book-dropdown-menu-selectField > div:nth-child(1) > div:nth-child(2)",
+      id: "Book Name"
+    }
   }
 };

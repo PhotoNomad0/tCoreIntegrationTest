@@ -19,26 +19,50 @@ describe('tCore Test', () => {
     await tCoreConnect.stopApp(app);
   });
 
-  it('opens USFM import', async() => {
+  it('do online import', async() => {
+    const sourceProject = 'https://git.door43.org/tCore-test-data/AlignedUlt_en';
     await startTcore();
-    await clickOn(Elements.projectNavigation);
+    await setToProjectPage();
     await clickOn(Elements.menuButton);
     // await clickOn(Elements.localImportButton);
     await clickOn(Elements.onlineImportButton);
     await navigateDialog(Elements.onlineDialog, 'cancel');
-
     await clickOn(Elements.onlineImportButton);
     await navigateDialog(Elements.onlineDialog, 'access_internet');
 
+    // do import
     await navigateDialog(Elements.onlineImportDialog, null); // make sure dialog shown
     // await setValue(Elements.onlineImportDialog.user, ''); // seems to be issue with setting to empty string
     await setValue(Elements.onlineImportDialog.user, 'tCore-test-data'); // seems to be issue with setting to empty string
     await setValue(Elements.onlineImportDialog.languageID, 'fr');
     // await navigateDialog(Elements.onlineImportDialog, 'search');
-    await setValue(Elements.onlineImportDialog.enterURL, 'https://git.door43.org/tCore-test-data/fr_eph_text_ulb');
+    await setValue(Elements.onlineImportDialog.enterURL, sourceProject);
     await navigateDialog(Elements.onlineImportDialog, 'import', false);
     await navigateDialog(Elements.onlineDialog, 'access_internet');
+    
+    // entering project information
+    await app.client.pause(3000);
+    await waitForDialog(Elements.projectCheckerDialog);
+    await verifyValue(Elements.projectCheckerDialog.targetLangId, "algn");
+    await verifyValue(Elements.projectCheckerDialog.languageName, "English");
+    await verifyValue(Elements.projectCheckerDialog.languageId, "en");
+    await verifyValue(Elements.projectCheckerDialog.resourceId, "");
+    await verifyText(Elements.projectCheckerDialog.languageDirection, "Left to right");
+    await verifyText(Elements.projectCheckerDialog.bookName, "Titus (tit)");
+    await setValue(Elements.projectCheckerDialog.targetLangId, "zzzz");
 
+    log("showing search");
+    await app.client.pause(10000);
+    await app.client.getTitle().should.equal('Five');
+  });
+  
+  // disabled because we don't have a way to interact with file system dialog
+  it.skip('opens USFM import', async() => {
+    await startTcore();
+    await clickOn(Elements.projectNavigation);
+    await clickOn(Elements.menuButton);
+    await clickOn(Elements.localImportButton);
+    
     log("showing search");
     await app.client.pause(10000);
     await app.client.getTitle().should.equal('Five');
@@ -67,16 +91,63 @@ async function startTcore() {
 /**
  * set value in input
  * @param {Object} elementObj - item to set
- * @param text
+ * @param {string} text
  * @return {Promise<void>}
  */
 async function setValue(elementObj, text) {
   await app.client.pause(navigationDelay);
-  log('setting "' + (elementObj.text || elementObj.id) + '" to "' + text + '"');
+  log('setting "' + elementObj.id + '" to "' + text + '"');
   //TODO: seems to fail with empty string
   await app.client.element(elementObj.selector).setValue(text);
   await app.client.pause(200);
   await app.client.getValue(elementObj.selector).should.eventually.equal(text);
+}
+
+/**
+ * check value in input
+ * @param {Object} elementObj - item to set
+ * @param {string} text
+ * @return {Promise<void>}
+ */
+async function verifyValue(elementObj, text) {
+  log('checking "' + elementObj.id + '" for "' + text + '"');
+  await app.client.getValue(elementObj.selector).then(value => {
+    verifyTextIsMatched(value, text);
+  });
+}
+
+/**
+ * check value in input
+ * @param {Object} elementObj - item to set
+ * @param {string} text
+ * @return {Promise<void>}
+ */
+async function waitForValue(elementObj, text) {
+  await app.client.pause(navigationDelay);
+  log('checking "' + elementObj.id + '" for "' + text + '"');
+  await app.client.getValue(elementObj.selector).should.eventually.equal(text);
+}
+
+function verifyTextIsMatched(text, matchText) {
+  assert.equal((text || "").toString().trim(), matchText.trim());
+}
+
+/**
+ * click on element
+ * @param {Object} elementObj - item to click on
+ * @param {string} text
+ * @param {boolean} exact - if true then do exact match, otherwise trim
+ * @return {Promise<void>}
+ */
+async function verifyText(elementObj, text, exact = true) {
+  log('checking "' + elementObj.id + '" for "' + text + '"');
+  if (exact) {
+    await app.client.getText(elementObj.selector).should.eventually.equal(text);
+  } else {
+    await app.client.getText(elementObj.selector).then(text => {
+      verifyTextIsMatched(text, text);
+    });
+  }
 }
 
 /**
@@ -88,11 +159,7 @@ async function setValue(elementObj, text) {
 async function clickOn(elementObj, exact = true) {
   await app.client.pause(navigationDelay);
   if (elementObj.text) {
-    if (exact) {
-      await app.client.getText(elementObj.selector).should.eventually.equal(elementObj.text);
-    } else {
-      await app.client.getText(elementObj.selector).then(text => { assert.equal((text || "").trim(), elementObj.text.trim());});
-    }
+    await verifyText(elementObj, elementObj.text, exact);
   }
   log('clicking on "' + (elementObj.text || elementObj.id) + '"');
   await app.client.click(elementObj.selector);
@@ -131,80 +198,6 @@ function log(text) {
   fs.writeFileSync(logPath, current + output + "\n");
 }
 
-// /**
-//  * Recursive function to ensure the correct text.
-//  *
-//  * This command is created in order to compensate the setValue() bug.
-//  * The method (setValue) does not always set the correct value,
-//  * sometimes it just misses some characters.
-//  * This function sets each character at a time and recursively validates
-//  * that the character is actually entered.
-//  *
-//  * @param {String} selector
-//  *   The selector string to grab the element by.
-//  * @param {String} text
-//  *   The text that we want to set as a value.
-//  */
-// browser.addCommand('setValueSafe', (selector, text) => {
-//
-//   let
-//
-//     /**
-//      * Tackle the even weirder decision of WebDriver.io trim the spaces
-//      * of every property value. Even the "value" property's value.
-//      * I understand this for class or href properties but not for value.
-//      * You can see it here : https://github.com/webdriverio/webdriverio/blob/acdd79bff797b295d2196b3616facc9005b6f17d/lib/webdriverio.js#L463
-//      *
-//      * @param {String} elementId
-//      *   ID of a WebElement JSON object of the current element.
-//      *
-//      * @return {String}
-//      *   The value of the `value` attribute.
-//      */
-//     getActualText = elementId =>
-//       browser
-//         .elementIdAttribute(elementId, 'value')
-//         .value
-//     ,
-//
-//     /**
-//      * Recursively sets the specified character.
-//      *
-//      * @param {String} elementId
-//      *   ID of a WebElement JSON object of the current element.
-//      * @param {String} text
-//      *   The entire text to set.
-//      * @param {Number} i
-//      *   The index of the current iteration over the string.
-//      */
-//     setChar = (elementId, text, i) => {
-//       const
-//         currentChar  = text[i],
-//         expectedText = text.slice(0, i + 1);
-//
-//       // Send keystroke.
-//       browser.elementIdValue(elementId, currentChar);
-//
-//       // Wait for text to be actually entered. If fails - Recurse.
-//       // When fails after 1000ms we assume the request was somehow destroyed
-//       // so we activate again.
-//       try {
-//         browser
-//           .waitUntil(() => getActualText(elementId) == expectedText, 1000, "failed", 16)
-//       } catch (e) {
-//         setChar(elementId, text, i);
-//       }
-//     };
-//
-//   // Get the ID of the selected elements WebElement JSON object.
-//   const elementId = browser.element(selector).value.ELEMENT;
-//
-//   // Clear the input before entering new value.
-//   browser.elementIdClear(elementId);
-//   browser.waitUntil(() => getActualText(elementId) == '');
-//
-//   // Set each character of the text separately with setChar().
-//   for (let i = 0; i < text.length; i++) {
-//     setChar(elementId, text, i);
-//   }
-// });
+async function setToProjectPage() {
+  await clickOn(Elements.projectNavigation);
+}
