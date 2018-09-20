@@ -5,13 +5,16 @@ const TEMPLATES = {
     selector: "body > div:nth-child(4) > div > div:nth-child(1) > div > div",
     id: "General Alert Dialog",
     prompt: {
-      selector: "body > div:nth-child(4) > div > div:nth-child(1) > div > div > div:nth-child(1) > div:nth-child(4) > table > tbody > tr > td:nth-child(2) > div > span"
+      selector: "body > div:nth-child(4) > div > div:nth-child(1) > div > div > div:nth-child(1) > div:nth-child(4) > table > tbody > tr > td:nth-child(2) > div"
     },
     title: {
-      selector: "body > div:nth-child(4) > div > div:nth-child(1) > div > div > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > span"
+      selector: "body > div:nth-child(4) > div > div:nth-child(1) > div > div > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > span:nth-child(1)"
     },
     primary: {
       selector: "body > div:nth-child(4) > div > div:nth-child(1) > div > div > div:nth-child(2) > button"
+    },
+    secondary: {
+      selector: "body > div:nth-child(4) > div > div:nth-child(1) > div > div > div:nth-child(2) > button.btn-second"
     }
   },
 };
@@ -48,7 +51,7 @@ const DEFINITIONS = {
       id: "Close"
     }
   },
-  renamedtDialog: {
+  renamedDialog: {
     ...TEMPLATES.generalAlertDialog,
     id: "Renamed Dialog",
     title: {
@@ -59,6 +62,27 @@ const DEFINITIONS = {
     ok: {
       selector: TEMPLATES.generalAlertDialog.primary.selector,
       text: "OK"
+    }
+  },
+  importCancelDialog: {
+    ...TEMPLATES.generalAlertDialog,
+    id: "Cancel Dialog",
+    title: {
+      selector: TEMPLATES.generalAlertDialog.title.selector,
+      text: "Alert",
+      id: "Title"
+    },
+    prompt: {
+      ...TEMPLATES.generalAlertDialog.prompt,
+      text: "Canceling now will abort the import process and the project will need to be re-imported before it can be used."
+    },
+    continueImport: {
+      selector: TEMPLATES.generalAlertDialog.primary.selector,
+      text: "Continue Import"
+    },
+    cancelImport: {
+      selector: TEMPLATES.generalAlertDialog.secondary.selector,
+      text: "Cancel Import"
     }
   },
   onlineDialog: {
@@ -139,6 +163,16 @@ const DEFINITIONS = {
       selector: "#book-dropdown-menu-selectField > div:nth-child(1) > div:nth-child(2)",
       id: "Book Name"
     }
+  },
+  toolsPage: {
+    selector: "#content > div > div.container-fluid > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(1) > div > div > div > div > div",
+    text: "Select a tool and a gateway language from the list.\nIn this version of translationCore, the translationWords tool and the Word Alignment tool support New Testament projects.",
+    id: "Tools Page"
+  },
+  projectsPage: {
+    selector: "#content > div > div.container-fluid > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(1) > div > div > div > div > div > p:nth-child(1)",
+    text: "Select a project from the list.",
+    id: "Projects Page"
   }
 };
 
