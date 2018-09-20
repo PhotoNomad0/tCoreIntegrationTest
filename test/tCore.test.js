@@ -21,6 +21,14 @@ describe('tCore Test', () => {
 
   it('do online import', async() => {
     const sourceProject = 'https://git.door43.org/tCore-test-data/AlignedUlt_en';
+    const settings_en_tit_algn = {
+      targetLangId: "algn",
+      languageName: "English",
+      languageId: "en",
+      resourceId: "",
+      languageDirectionLtr: true,
+      bookName: "Titus (tit)"
+    };
     await startTcore();
     await setToProjectPage();
     await clickOn(Elements.menuButton);
@@ -43,17 +51,11 @@ describe('tCore Test', () => {
     // entering project information
     await app.client.pause(3000);
     await waitForDialog(Elements.projectCheckerDialog);
-    await verifyValue(Elements.projectCheckerDialog.targetLangId, "algn");
-    await verifyValue(Elements.projectCheckerDialog.languageName, "English");
-    await verifyValue(Elements.projectCheckerDialog.languageId, "en");
-    await verifyValue(Elements.projectCheckerDialog.resourceId, "");
-    await verifyText(Elements.projectCheckerDialog.languageDirection, "Left to right");
-    await verifyText(Elements.projectCheckerDialog.bookName, "Titus (tit)");
+    await verifyProjectInfoDialog(settings_en_tit_algn);
     await setValue(Elements.projectCheckerDialog.targetLangId, "zzzz");
 
     log("showing search");
     await app.client.pause(10000);
-    await app.client.getTitle().should.equal('Five');
   });
   
   // disabled because we don't have a way to interact with file system dialog
@@ -65,7 +67,6 @@ describe('tCore Test', () => {
     
     log("showing search");
     await app.client.pause(10000);
-    await app.client.getTitle().should.equal('Five');
   });
 });
 
@@ -86,6 +87,20 @@ async function startTcore() {
     log('**** App version "' + text + '" ****');
   });  
   await clickOn(Elements.getStartedButton);
+}
+
+/**
+ * verify the settings in the Project Checker Dialog
+ * @param expectedProjectSettings
+ * @return {Promise<void>}
+ */
+async function verifyProjectInfoDialog(expectedProjectSettings) {
+  await verifyValue(Elements.projectCheckerDialog.targetLangId, expectedProjectSettings.targetLangId);
+  await verifyValue(Elements.projectCheckerDialog.languageName, expectedProjectSettings.languageName);
+  await verifyValue(Elements.projectCheckerDialog.languageId, expectedProjectSettings.languageId);
+  await verifyValue(Elements.projectCheckerDialog.resourceId, expectedProjectSettings.resourceId);
+  await verifyText(Elements.projectCheckerDialog.languageDirection, expectedProjectSettings.languageDirectionLtr ? "Left to right" : "Right to left");
+  await verifyText(Elements.projectCheckerDialog.bookName, expectedProjectSettings.bookName);
 }
 
 /**
