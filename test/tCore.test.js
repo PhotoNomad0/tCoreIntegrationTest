@@ -13,16 +13,21 @@ let testCount = 0;
 const navigationDelay = 500; // TODO: for slowing down for demo
 
 describe('tCore Test', () => {
+  let testName;
+  
   before(async () => {
     fs.removeSync(getLogFilePath());
     app = await tCoreConnect.startApp();
     await startTcore();
   });
 
-  beforeEach(async () => {
+  beforeEach(function() {
+    testName = this.currentTest.title;
+    // console.log('beforeEach', testName);
     testCount++;
     fs.removeSync(getLogFilePath());
     logVersion();
+    log('Test Name: "' + testName + '"');
   });
 
   afterEach(async() => {
@@ -33,7 +38,7 @@ describe('tCore Test', () => {
     await tCoreConnect.stopApp(app);
   });
 
-  it('do online import access cancel', async() => {
+  it.skip('do online import access cancel', async() => {
     await setToProjectPage();
     await clickOn(Elements.importMenuButton);
     // await clickOn(Elements.localImportButton);
