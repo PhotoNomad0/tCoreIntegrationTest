@@ -1,0 +1,4 @@
+Fri, 21 Sep 2018 00:57:59 GMT: **** App version "Version 1.0.0 (undefined)" ****
+Fri, 21 Sep 2018 00:58:00 GMT: waiting for "project Checker Dialog"
+Fri, 21 Sep 2018 00:58:00 GMT: clicking on "Project Navigation"
+Fri, 21 Sep 2018 00:58:00 GMT: #### FInished Test ####

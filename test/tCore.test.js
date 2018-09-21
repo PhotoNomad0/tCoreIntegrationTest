@@ -1,8 +1,11 @@
+/* eslint-env jest */
 /* eslint-disable quotes,no-console */
 const fs = require('fs-extra');
 const tCoreConnect = require('./tCoreConnect');
 const path = require('path');
 const ospath = require('ospath');
+const chai = require('chai');
+const chaiAsPromised = require('chai-as-promised');
 const Elements = require('./page-objects/elements');
 const _ = require('lodash');
 const assert = require('assert');
@@ -12,14 +15,18 @@ let version;
 let testCount = 0;
 const navigationDelay = 500; // TODO: for slowing down for demo
 
+
 describe('tCore Test', () => {
-  before(async () => {
+  beforeAll(async () => {
+    chai.should();
+    chai.use(chaiAsPromised);
     fs.removeSync(getLogFilePath());
     app = await tCoreConnect.startApp();
     await startTcore();
-  });
+  }, 10000);
 
   beforeEach(async () => {
+    jest.setTimeout(20000);
     testCount++;
     fs.removeSync(getLogFilePath());
     logVersion();
@@ -29,11 +36,12 @@ describe('tCore Test', () => {
     log("#### FInished Test ####");
   });
   
-  after(async() => {
+  afterAll(async() => {
     await tCoreConnect.stopApp(app);
   });
 
-  it('do online import access cancel', async() => {
+  it('do online import access cancel', async(done) => {
+    log(JSON.stringify(this, null, 2));
     await setToProjectPage();
     await clickOn(Elements.importMenuButton);
     // await clickOn(Elements.localImportButton);
@@ -41,7 +49,8 @@ describe('tCore Test', () => {
     await navigateDialog(Elements.onlineDialog, 'cancel');
     await clickOn(Elements.importMenuButton.close);
     await verifyOnSpecificPage(Elements.projectsPage);
-  });
+    done();
+  }, 50000);
 
   it('do online search', async() => {
     await setToProjectPage();
@@ -105,7 +114,7 @@ describe('tCore Test', () => {
     log("showing search");
     await app.client.pause(10000);
   });
-});
+}, 100000);
 
 //
 // helpers

@@ -1,0 +1,6 @@
+Fri, 21 Sep 2018 00:57:29 GMT: **** App version "undefined" ****
+Fri, 21 Sep 2018 00:57:29 GMT: {}
+Fri, 21 Sep 2018 00:57:30 GMT: The button text content is "Get Started!"
+Fri, 21 Sep 2018 00:57:30 GMT: **** App version "Version 1.0.0 (undefined)" ****
+Fri, 21 Sep 2018 00:57:30 GMT: clicking on "Project Navigation"
+Fri, 21 Sep 2018 00:57:30 GMT: #### FInished Test ####
