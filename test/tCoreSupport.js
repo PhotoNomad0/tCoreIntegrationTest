@@ -227,18 +227,39 @@ async function navigateOnlineImportDialog(importConfig) {
   }
 }
 
+function getSelectorForBookN(bookNumber) {
+  const selector = Elements.projectCheckerDialog.bookNameN.selector.replace('$N', bookNumber);
+  log("book selector " + bookNumber + ": " + selector);
+  return selector;
+}
+
+async function selectBookName(settings) {
+  await clickOn(Elements.projectCheckerDialog.bookDropDownButton);
+  let offset = 0;
+  const selector2 = getSelectorForBookN(2);
+  await app.client.pause(500).getText(selector2).then(text => {
+    log("book 2 is: " + text);
+    if (text.indexOf('(mat)') >= 0) {
+      offset  = 39;
+    }
+  });
+  const parts = settings.newBookName.split('-');
+  const bookNumber = parseInt(parts[0]);
+  if (bookNumber < 41) {
+    offset += -1; // there is a gap between OT and NT
+  }
+  const selector = getSelectorForBookN(bookNumber - offset);
+  await clickOn({selector});
+  const match = "(" + parts[1].toLowerCase() + ")";
+  await verifyContainsText(Elements.projectCheckerDialog.bookName, match);
+}
+
 async function navigateProjectInfoDialog(settings) {
   await app.client.pause(3000);
   await waitForDialog(Elements.projectCheckerDialog);
   await verifyProjectInfoDialog(settings);
   if (settings.newBookName) {
-    await clickOn(Elements.projectCheckerDialog.bookDropDownButton);
-    const parts = settings.newBookName.split('-');
-    const selector = Elements.projectCheckerDialog.bookNameN.selector.replace('$N', parseInt(parts[0]));
-    log("book selector: " + selector);
-    await clickOn({selector});
-    const match = "(" + parts[1].toLowerCase() + ")";
-    await verifyContainsText(Elements.projectCheckerDialog.bookName, match);
+    await selectBookName(settings);
   }
   if (settings.newLanguageId) {
     await setValue(Elements.projectCheckerDialog.languageId, settings.newLanguageId);
