@@ -163,10 +163,10 @@ async function clickOn(elementObj, exact = true) {
   await app.client.click(elementObj.selector);
 }
 
-async function waitForDialog(elementObj) {
+async function waitForDialog(elementObj, extraDelay) {
   log('waiting for "' + (elementObj.id) + '"');
-  await app.client.pause(navigationDelay);
-  await app.client.isVisible(elementObj.selector).should.eventually.equal(true);
+  await app.client.pause(navigationDelay + extraDelay)
+    .isVisible(elementObj.selector).should.eventually.equal(true);
   log('"' + (elementObj.id) + '" is visible');
 }
 
@@ -298,7 +298,7 @@ async function verifyOnSpecificPage(verifyPage) {
 async function doOnlineProjectImport(projectName, sourceProject, continueOnProjectInfo, projectInfoSettings) {
   const PROJECTS_PATH = path.join(ospath.home(), 'translationCore', 'projects');
   const projectPath = path.join(PROJECTS_PATH, projectName);
-  console.log("making sure test project removed: " + projectPath);
+  log("making sure test project removed: " + projectPath);
   fs.removeSync(projectPath);
   await setToProjectPage();
   await openImportDialog(Elements.importTypeOptions.online);
@@ -323,6 +323,7 @@ async function doOnlineProjectImport(projectName, sourceProject, continueOnProje
 
   if (continueOnProjectInfo) {
     if (projectInfoSettings.errorMessage) {
+      await waitForDialog(Elements.importErrorDialog, 2000);
       await verifyContainsText(Elements.importErrorDialog.prompt, projectInfoSettings.errorMessage);
       await navigateGeneralDialog(Elements.importErrorDialog, 'ok');
       await verifyOnSpecificPage(Elements.projectsPage);
@@ -337,7 +338,7 @@ async function doOnlineProjectImport(projectName, sourceProject, continueOnProje
     await navigateGeneralDialog(Elements.importCancelDialog, 'cancelImport');
     await verifyOnSpecificPage(Elements.projectsPage);
   }
-  fs.removeSync(projectPath);
+  // fs.removeSync(projectPath); // TODO: cannot remove until deselected
 }
 
 function parseSearchResult(text) {

@@ -120,7 +120,7 @@ describe('tCore Test', () => {
   });
 
   it('do online import https://git.door43.org/tCore-test-data/AlignedUlb_hi', async() => {
-    const newTargetLangId = "zzzz";
+    const newTargetLangId = "zzzy";
     const sourceProject = "https://git.door43.org/tCore-test-data/AlignedUlb_hi";
     const projectInfoSettings = {
       newLanguageId: "en",
@@ -129,7 +129,7 @@ describe('tCore Test', () => {
       errorMessage: "Error occurred while importing your project.\nCould not download the project from https://git.door43.org/tCore-test-data/AlignedUlb_hi to "
     };
     const continueOnProjectInfo = true;
-    const projectName = `${projectInfoSettings.languageId}_${newTargetLangId}_tit_book`;
+    const projectName = `${projectInfoSettings.newLanguageId}_${newTargetLangId}_tit_book`;
     await tCore.doOnlineProjectImport(projectName, sourceProject, continueOnProjectInfo, projectInfoSettings);
     log("#### Finished Test ####");
   });
