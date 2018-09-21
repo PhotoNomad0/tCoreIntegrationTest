@@ -38,7 +38,7 @@ describe('tCore Test', () => {
     await tCoreConnect.stopApp(app);
   });
 
-  it('do online import access cancel', async() => {
+  it.skip('do online import access cancel', async() => {
     await tCore.setToProjectPage();
     await tCore.openImportDialog(Elements.importTypeOptions.online);
     await tCore.navigateDialog(Elements.onlineDialog, 'cancel');
@@ -47,7 +47,7 @@ describe('tCore Test', () => {
     log("#### Finished Test ####");
   });
 
-  it('do online search', async() => {
+  it.skip('do online search', async() => {
     let searchResults;
     await tCore.setToProjectPage();
     await tCore.openImportDialog(Elements.importTypeOptions.online);
@@ -84,10 +84,10 @@ describe('tCore Test', () => {
     log("#### Finished Test ####");
   });
 
-  it('do online import with cancel', async() => {
+  it.skip('do online import with cancel', async() => {
     const newTargetLangId = "zzzz";
     const sourceProject = 'https://git.door43.org/tCore-test-data/AlignedUlt_en';
-    const settings_en_tit_algn = {
+    const projectInfoSettings = {
       targetLangId: "algn",
       languageName: "English",
       languageId: "en",
@@ -96,28 +96,44 @@ describe('tCore Test', () => {
       bookName: "Titus (tit)"
     };
     const continueOnProjectInfo = false;
-    const projectName = `${settings_en_tit_algn.languageId}_${newTargetLangId}_tit_book`;
-    await tCore.doOnlineProjectImport(projectName, sourceProject, newTargetLangId, continueOnProjectInfo, settings_en_tit_algn);
+    const projectName = `${projectInfoSettings.languageId}_${newTargetLangId}_tit_book`;
+    await tCore.doOnlineProjectImport(projectName, sourceProject, newTargetLangId, continueOnProjectInfo, projectInfoSettings);
     log("#### Finished Test ####");
   });
 
-  it('do online import', async() => {
+  it('do online import https://git.door43.org/tCore-test-data/AlignedUlt_en', async() => {
     const newTargetLangId = "zzzz";
     const sourceProject = 'https://git.door43.org/tCore-test-data/AlignedUlt_en';
-    const settings_en_tit_algn = {
+    const projectInfoSettings = {
       targetLangId: "algn",
       languageName: "English",
       languageId: "en",
       resourceId: "",
       languageDirectionLtr: true,
-      bookName: "Titus (tit)"
+      bookName: "Titus (tit)",
+      newTargetLangId
     };
     const continueOnProjectInfo = true;
-    const projectName = `${settings_en_tit_algn.languageId}_${newTargetLangId}_tit_book`;
-    await tCore.doOnlineProjectImport(projectName, sourceProject, newTargetLangId, continueOnProjectInfo, settings_en_tit_algn);
+    const projectName = `${projectInfoSettings.languageId}_${newTargetLangId}_tit_book`;
+    await tCore.doOnlineProjectImport(projectName, sourceProject, continueOnProjectInfo, projectInfoSettings);
     log("#### Finished Test ####");
   });
 
+  it('do online import https://git.door43.org/tCore-test-data/AlignedUlb_hi', async() => {
+    const newTargetLangId = "zzzz";
+    const sourceProject = "https://git.door43.org/tCore-test-data/AlignedUlb_hi";
+    const projectInfoSettings = {
+      newLanguageId: "en",
+      newBookName: "57-TIT",
+      newTargetLangId,
+      errorMessage: "Error occurred while importing your project.\nCould not download the project from https://git.door43.org/tCore-test-data/AlignedUlb_hi to "
+    };
+    const continueOnProjectInfo = true;
+    const projectName = `${projectInfoSettings.languageId}_${newTargetLangId}_tit_book`;
+    await tCore.doOnlineProjectImport(projectName, sourceProject, continueOnProjectInfo, projectInfoSettings);
+    log("#### Finished Test ####");
+  });
+  
   // disabled because we don't have a way to interact with file system dialog
   it.skip('opens USFM import', async() => {
     await tCore.startTcore();

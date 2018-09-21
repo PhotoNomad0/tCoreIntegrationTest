@@ -5,10 +5,12 @@ const TEMPLATES = {
     selector: "body > div:nth-child(4) > div > div:nth-child(1) > div > div",
     id: "General Alert Dialog",
     prompt: {
-      selector: "body > div:nth-child(4) > div > div:nth-child(1) > div > div > div:nth-child(1) > div:nth-child(4) > table > tbody > tr > td:nth-child(2) > div"
+      selector: "body > div:nth-child(4) > div > div:nth-child(1) > div > div > div:nth-child(1) > div:nth-child(4) > table > tbody > tr > td:nth-child(2) > div",
+      id: "Prompt"
     },
     title: {
-      selector: "body > div:nth-child(4) > div > div:nth-child(1) > div > div > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > span:nth-child(1)"
+      selector: "body > div:nth-child(4) > div > div:nth-child(1) > div > div > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > span:nth-child(1)",
+      id: "Title"
     },
     primary: {
       selector: "body > div:nth-child(4) > div > div:nth-child(1) > div > div > div:nth-child(2) > button"
@@ -59,6 +61,19 @@ const DEFINITIONS = {
   renamedDialog: {
     ...TEMPLATES.generalAlertDialog,
     id: "Renamed Dialog",
+    title: {
+      selector: TEMPLATES.generalAlertDialog.title.selector,
+      text: "Alert",
+      id: "Title"
+    },
+    ok: {
+      selector: TEMPLATES.generalAlertDialog.primary.selector,
+      text: "OK"
+    }
+  },
+  importErrorDialog: {
+    ...TEMPLATES.generalAlertDialog,
+    id: "Import Error Dialog",
     title: {
       selector: TEMPLATES.generalAlertDialog.title.selector,
       text: "Alert",
@@ -196,7 +211,15 @@ const DEFINITIONS = {
     bookName: {
       selector: "#book-dropdown-menu-selectField > div:nth-child(1) > div:nth-child(2)",
       id: "Book Name"
-    }
+    },
+    bookDropDownButton: {
+      selector: "#book-dropdown-menu-selectField > div:nth-child(1) > button",
+      id: "Book Drop Down"
+    },
+    bookNameN: {
+      selector: "body > div:nth-child(12) > div > div > div > div:nth-child($N) > span",
+      id: "Book Name N"
+    } 
   },
   toolsPage: {
     selector: "#content > div > div.container-fluid > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(1) > div > div > div > div > div",

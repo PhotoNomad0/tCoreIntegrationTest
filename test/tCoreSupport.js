@@ -43,12 +43,24 @@ async function startTcore() {
  * @return {Promise<void>}
  */
 async function verifyProjectInfoDialog(expectedProjectSettings) {
-  await verifyValue(Elements.projectCheckerDialog.targetLangId, expectedProjectSettings.targetLangId);
-  await verifyValue(Elements.projectCheckerDialog.languageName, expectedProjectSettings.languageName);
-  await verifyValue(Elements.projectCheckerDialog.languageId, expectedProjectSettings.languageId);
-  await verifyValue(Elements.projectCheckerDialog.resourceId, expectedProjectSettings.resourceId);
-  await verifyText(Elements.projectCheckerDialog.languageDirection, expectedProjectSettings.languageDirectionLtr ? "Left to right" : "Right to left");
-  await verifyText(Elements.projectCheckerDialog.bookName, expectedProjectSettings.bookName);
+  if (expectedProjectSettings.targetLangId) {
+    await verifyValue(Elements.projectCheckerDialog.targetLangId, expectedProjectSettings.targetLangId);
+  }
+  if (expectedProjectSettings.languageName) {
+    await verifyValue(Elements.projectCheckerDialog.languageName, expectedProjectSettings.languageName);
+  }
+  if (expectedProjectSettings.languageId) {
+    await verifyValue(Elements.projectCheckerDialog.languageId, expectedProjectSettings.languageId);
+  }
+  if (expectedProjectSettings.resourceId) {
+    await verifyValue(Elements.projectCheckerDialog.resourceId, expectedProjectSettings.resourceId);
+  }
+  if (expectedProjectSettings.languageDirectionLtr) {
+    await verifyText(Elements.projectCheckerDialog.languageDirection, expectedProjectSettings.languageDirectionLtr ? "Left to right" : "Right to left");
+  }
+  if (expectedProjectSettings.bookName) {
+    await verifyText(Elements.projectCheckerDialog.bookName, expectedProjectSettings.bookName);
+  }
 }
 
 /**
@@ -103,14 +115,14 @@ function verifyTextIsMatched(text, matchText) {
 }
 
 /**
- * click on element
- * @param {Object} elementObj - item to click on
+ * verify text in element
+ * @param {Object} elementObj - item to verify
  * @param {string} text
  * @param {boolean} exact - if true then do exact match, otherwise trim
  * @return {Promise<void>}
  */
 async function verifyText(elementObj, text, exact = true) {
-  log('checking "' + (elementObj.id || elementObj.text) + '" for "' + text + '"');
+  log('checking "' + (elementObj.id || elementObj.text) + '" equals "' + text + '"');
   if (exact) {
     await app.client.getText(elementObj.selector).should.eventually.equal(text);
   } else {
@@ -118,6 +130,22 @@ async function verifyText(elementObj, text, exact = true) {
       verifyTextIsMatched(text_, text);
     });
   }
+}
+
+/**
+ * verify element contains match
+ * @param {Object} elementObj - item to verify
+ * @param {string} match
+ * @return {Promise<void>}
+ */
+async function verifyContainsText(elementObj, match) {
+  log('checking "' + (elementObj.id || elementObj.text) + '" contains "' + match + '"');
+  await app.client.getText(elementObj.selector).then(text_ => {
+    log("found text: '" + text_ + "'");
+    if (text_.indexOf(match) < 0) {
+      assert.fail("'" + match + "' not in '" + text_ + "'");
+    }
+  });
 }
 
 /**
@@ -199,14 +227,26 @@ async function navigateOnlineImportDialog(importConfig) {
   }
 }
 
-async function navigateProjectInfoDialog(settings_en_tit_algn, projectInfoConfig) {
+async function navigateProjectInfoDialog(settings) {
   await app.client.pause(3000);
   await waitForDialog(Elements.projectCheckerDialog);
-  await verifyProjectInfoDialog(settings_en_tit_algn);
-  if (projectInfoConfig.targetLangId) {
-    await setValue(Elements.projectCheckerDialog.targetLangId, projectInfoConfig.targetLangId);
+  await verifyProjectInfoDialog(settings);
+  if (settings.newBookName) {
+    await clickOn(Elements.projectCheckerDialog.bookDropDownButton);
+    const parts = settings.newBookName.split('-');
+    const selector = Elements.projectCheckerDialog.bookNameN.selector.replace('$N', parseInt(parts[0]));
+    log("book selector: " + selector);
+    await clickOn({selector});
+    const match = "(" + parts[1].toLowerCase() + ")";
+    await verifyContainsText(Elements.projectCheckerDialog.bookName, match);
   }
-  if (projectInfoConfig.continue) {
+  if (settings.newLanguageId) {
+    await setValue(Elements.projectCheckerDialog.languageId, settings.newLanguageId);
+  }
+  if (settings.newTargetLangId) {
+    await setValue(Elements.projectCheckerDialog.targetLangId, settings.newTargetLangId);
+  }
+  if (settings.continue) {
     await navigateDialog(Elements.projectCheckerDialog, 'continue');
   } else {
     await navigateDialog(Elements.projectCheckerDialog, 'cancel');
@@ -234,7 +274,7 @@ async function verifyOnSpecificPage(verifyPage) {
   }
 }
 
-async function doOnlineProjectImport(projectName, sourceProject, newTargetLangId, continueOnProjectInfo, settings_en_tit_algn) {
+async function doOnlineProjectImport(projectName, sourceProject, continueOnProjectInfo, projectInfoSettings) {
   const PROJECTS_PATH = path.join(ospath.home(), 'translationCore', 'projects');
   const projectPath = path.join(PROJECTS_PATH, projectName);
   console.log("making sure test project removed: " + projectPath);
@@ -254,17 +294,24 @@ async function doOnlineProjectImport(projectName, sourceProject, newTargetLangId
 
   // navigate project information dialog
   const projectInfoConfig = {
-    targetLangId: newTargetLangId,
+    ...projectInfoSettings,
     continue: continueOnProjectInfo
   };
-  await navigateProjectInfoDialog(settings_en_tit_algn, projectInfoConfig);
+  console.log("projectInfoConfig: " + JSON.stringify(projectInfoConfig, null, 2));
+  await navigateProjectInfoDialog(projectInfoConfig);
 
   if (continueOnProjectInfo) {
-    // navigate renamed dialog
-    const renamedDialogConfig = _.cloneDeep(Elements.renamedDialog);
-    renamedDialogConfig.prompt.text = `Your local project has been named\n    ${projectName}`;
-    await navigateGeneralDialog(renamedDialogConfig, 'ok');
-    await verifyOnSpecificPage(Elements.toolsPage);
+    if (projectInfoSettings.errorMessage) {
+      await verifyContainsText(Elements.importErrorDialog.prompt, projectInfoSettings.errorMessage);
+      await navigateGeneralDialog(Elements.importErrorDialog, 'ok');
+      await verifyOnSpecificPage(Elements.projectsPage);
+    } else {
+      // navigate renamed dialog
+      const renamedDialogConfig = _.cloneDeep(Elements.renamedDialog);
+      renamedDialogConfig.prompt.text = `Your local project has been named\n    ${projectName}`;
+      await navigateGeneralDialog(renamedDialogConfig, 'ok');
+      await verifyOnSpecificPage(Elements.toolsPage);
+    }
   } else {
     await navigateGeneralDialog(Elements.importCancelDialog, 'cancelImport');
     await verifyOnSpecificPage(Elements.projectsPage);
