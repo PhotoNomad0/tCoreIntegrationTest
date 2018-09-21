@@ -51,6 +51,11 @@ const DEFINITIONS = {
       id: "Close"
     }
   },
+  importTypeOptions: {
+    local: 'localImportButton',
+    online: 'onlineImportButton',
+    close: 'close'
+  },
   renamedDialog: {
     ...TEMPLATES.generalAlertDialog,
     id: "Renamed Dialog",
