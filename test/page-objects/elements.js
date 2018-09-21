@@ -64,6 +64,23 @@ const DEFINITIONS = {
       text: "OK"
     }
   },
+  searchingWaitDialog: {
+    ...TEMPLATES.generalAlertDialog,
+    id: "Searching Please Wait Dialog",
+    title: {
+      selector: TEMPLATES.generalAlertDialog.title.selector,
+      text: "Alert",
+      id: "Title"
+    },
+    prompt: {
+      ...TEMPLATES.generalAlertDialog.prompt,
+      text: "Searching, please wait..."
+    },
+    ok: {
+      selector: TEMPLATES.generalAlertDialog.primary.selector,
+      text: "OK"
+    }
+  },
   importCancelDialog: {
     ...TEMPLATES.generalAlertDialog,
     id: "Cancel Dialog",
@@ -114,6 +131,18 @@ const DEFINITIONS = {
     search: {
       selector: "body > div:nth-child(11) > div > div:nth-child(1) > div > div > div:nth-child(1) > div:nth-child(5) > div > button",
       text: "Search"
+    },
+    searchResultN: {
+      selector: "body > div:nth-child(11) > div > div:nth-child(1) > div > div > div:nth-child(1) > table > tbody > tr:nth-child($N)",
+      id: "Search Result N"
+    },
+    searchResultCheckBoxN: {
+      selector:     "body > div:nth-child(11) > div > div:nth-child(1) > div > div > div:nth-child(1) > table > tbody > tr:nth-child($N) > td:nth-child(1) > div > input[type=\"checkbox\"]",
+      id: "Search Result CheckBox N"
+    },
+    searchResults: {
+      selector: "body > div:nth-child(11) > div > div:nth-child(1) > div > div > div:nth-child(1) > table > tbody > tr",
+      id: "Search Results"
     },
     user: {
       selector: "body > div:nth-child(11) > div > div:nth-child(1) > div > div > div:nth-child(1) > div:nth-child(5) > div > div:nth-child(1) > input[type=\"text\"]",

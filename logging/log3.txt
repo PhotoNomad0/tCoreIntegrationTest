@@ -1,0 +1,52 @@
+Fri, 21 Sep 2018 12:51:21 GMT: **** App version "Version 1.0.0 (undefined)" ****
+Fri, 21 Sep 2018 12:51:21 GMT: clicking on "Project Navigation"
+Fri, 21 Sep 2018 12:51:21 GMT: waiting for "Projects Page"
+Fri, 21 Sep 2018 12:51:22 GMT: "Projects Page" is visible
+Fri, 21 Sep 2018 12:51:22 GMT: checking "Projects Page" for "Select a project from the list."
+Fri, 21 Sep 2018 12:51:22 GMT: clicking on "Menu Button"
+Fri, 21 Sep 2018 12:51:23 GMT: clicking on "Online Import Button"
+Fri, 21 Sep 2018 12:51:23 GMT: waiting for "Online Dialog"
+Fri, 21 Sep 2018 12:51:24 GMT: "Online Dialog" is visible
+Fri, 21 Sep 2018 12:51:24 GMT: checking "Access Internet" for "Access Internet"
+Fri, 21 Sep 2018 12:51:24 GMT: clicking on "Access Internet"
+Fri, 21 Sep 2018 12:51:25 GMT: waiting for "DCS Import Dialog"
+Fri, 21 Sep 2018 12:51:25 GMT: "DCS Import Dialog" is visible
+Fri, 21 Sep 2018 12:51:26 GMT: setting "Language ID" to "fr"
+Fri, 21 Sep 2018 12:51:27 GMT: setting "Enter URL" to "https://git.door43.org/tCore-test-data/AlignedUlt_en"
+Fri, 21 Sep 2018 12:51:34 GMT: waiting for "DCS Import Dialog"
+Fri, 21 Sep 2018 12:51:34 GMT: "DCS Import Dialog" is visible
+Fri, 21 Sep 2018 12:51:35 GMT: checking "Import" for "Import"
+Fri, 21 Sep 2018 12:51:35 GMT: clicking on "Import"
+Fri, 21 Sep 2018 12:51:35 GMT: waiting for "Online Dialog"
+Fri, 21 Sep 2018 12:51:36 GMT: "Online Dialog" is visible
+Fri, 21 Sep 2018 12:51:36 GMT: checking "Access Internet" for "Access Internet"
+Fri, 21 Sep 2018 12:51:36 GMT: clicking on "Access Internet"
+Fri, 21 Sep 2018 12:51:39 GMT: waiting for "project Checker Dialog"
+Fri, 21 Sep 2018 12:51:40 GMT: "project Checker Dialog" is visible
+Fri, 21 Sep 2018 12:51:40 GMT: checking "Target Language Identifier" for "algn"
+Fri, 21 Sep 2018 12:51:40 GMT: checking "Language Name" for "English"
+Fri, 21 Sep 2018 12:51:40 GMT: checking "Language ID" for "en"
+Fri, 21 Sep 2018 12:51:40 GMT: checking "Resource ID" for ""
+Fri, 21 Sep 2018 12:51:40 GMT: checking "Language Direction" for "Left to right"
+Fri, 21 Sep 2018 12:51:40 GMT: checking "Book Name" for "Titus (tit)"
+Fri, 21 Sep 2018 12:51:41 GMT: setting "Target Language Identifier" to "zzzz"
+Fri, 21 Sep 2018 12:51:41 GMT: waiting for "project Checker Dialog"
+Fri, 21 Sep 2018 12:51:42 GMT: "project Checker Dialog" is visible
+Fri, 21 Sep 2018 12:51:42 GMT: checking "Continue" for "Continue"
+Fri, 21 Sep 2018 12:51:42 GMT: clicking on "Continue"
+Fri, 21 Sep 2018 12:51:46 GMT: waiting for "Renamed Dialog"
+Fri, 21 Sep 2018 12:51:46 GMT: "Renamed Dialog" is visible
+Fri, 21 Sep 2018 12:51:46 GMT: checking "Title" for "Alert"
+Fri, 21 Sep 2018 12:51:46 GMT: checking "Your local project has been named
+    en_zzzz_tit_book" for "Your local project has been named
+    en_zzzz_tit_book"
+Fri, 21 Sep 2018 12:51:47 GMT: waiting for "Renamed Dialog"
+Fri, 21 Sep 2018 12:51:47 GMT: "Renamed Dialog" is visible
+Fri, 21 Sep 2018 12:51:48 GMT: checking "OK" for "OK"
+Fri, 21 Sep 2018 12:51:48 GMT: clicking on "OK"
+Fri, 21 Sep 2018 12:51:48 GMT: waiting for "Tools Page"
+Fri, 21 Sep 2018 12:51:48 GMT: "Tools Page" is visible
+Fri, 21 Sep 2018 12:51:48 GMT: checking "Tools Page" for "Select a tool and a gateway language from the list.
+In this version of translationCore, the translationWords tool and the Word Alignment tool support New Testament projects."
+Fri, 21 Sep 2018 12:51:48 GMT: #### Finished Test ####
+Fri, 21 Sep 2018 12:51:48 GMT: Test Ended
