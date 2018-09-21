@@ -36,6 +36,11 @@ describe('tCore Test', () => {
   
   after(async() => {
     await tCoreConnect.stopApp(app);
+    const cleanupFiles = tCore.getCleanupFileList();
+    for (let file of cleanupFiles) {
+      console.log("Cleaning out: " + file);
+      fs.removeSync(file);
+    }
   });
 
   it.skip('do online import access cancel', async() => {

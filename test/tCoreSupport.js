@@ -10,6 +10,11 @@ let app;
 let version;
 let testCount = 0;
 let navigationDelay = 0;
+const cleanupFileList = [];
+
+function getCleanupFileList() {
+  return cleanupFileList;
+}
 
 function logVersion() {
   log('**** App version "' + version + '" ****');
@@ -295,11 +300,16 @@ async function verifyOnSpecificPage(verifyPage) {
   }
 }
 
+function fileCleanup(projectPath) {
+  fs.removeSync(projectPath);
+  cleanupFileList.push(projectPath); // record for final cleanup
+}
+
 async function doOnlineProjectImport(projectName, sourceProject, continueOnProjectInfo, projectInfoSettings) {
   const PROJECTS_PATH = path.join(ospath.home(), 'translationCore', 'projects');
   const projectPath = path.join(PROJECTS_PATH, projectName);
   log("making sure test project removed: " + projectPath);
-  fs.removeSync(projectPath);
+  fileCleanup(projectPath);
   await setToProjectPage();
   await openImportDialog(Elements.importTypeOptions.online);
   await navigateDialog(Elements.onlineDialog, 'access_internet');
@@ -430,6 +440,7 @@ function log(text) {
 const tCoreSupport = {
   clickOn,
   doOnlineProjectImport,
+  getCleanupFileList,
   getLogFilePath,
   getSearchResults,
   indexInSearchResults,
