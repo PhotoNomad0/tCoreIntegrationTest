@@ -260,7 +260,7 @@ async function selectBookName(settings) {
 }
 
 async function navigateProjectInfoDialog(settings) {
-  await app.client.pause(3000);
+  await app.client.pause(1000);
   await waitForDialog(Elements.projectCheckerDialog);
   await verifyProjectInfoDialog(settings);
   if (settings.newBookName) {
@@ -280,7 +280,7 @@ async function navigateProjectInfoDialog(settings) {
 }
 
 async function navigateGeneralDialog(dialogConfig, buttonClick) {
-  await app.client.pause(3000);
+  await app.client.pause(1000);
   await waitForDialog(dialogConfig);
   if (dialogConfig.title.text) {
     await verifyText(dialogConfig.title, dialogConfig.title.text);

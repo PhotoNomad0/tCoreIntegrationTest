@@ -179,7 +179,7 @@ const DEFINITIONS = {
   },
   projectCheckerDialog: {
     selector: "#project-information-card",
-    id: "project Checker Dialog",
+    id: "Project Info Checker Dialog",
     continue: {
       selector: "body > div:nth-child(3) > div > div:nth-child(1) > div > div > div:nth-child(2) > div > button.btn-prime",
       text: "Continue"
