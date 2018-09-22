@@ -19,6 +19,16 @@ const TEMPLATES = {
       selector: "body > div:nth-child(4) > div > div:nth-child(1) > div > div > div:nth-child(2) > button.btn-second"
     }
   },
+  projectStepperDialog: {
+    continue: {
+      selector: "body > div:nth-child(3) > div > div:nth-child(1) > div > div > div:nth-child(2) > div > button.btn-prime",
+      text: "Continue"
+    },
+    cancel: {
+      selector: "body > div:nth-child(3) > div > div:nth-child(1) > div > div > div:nth-child(2) > div > button.btn-second",
+      text: "Cancel"
+    }
+  }
 };
 
 const DEFINITIONS = {
@@ -177,17 +187,25 @@ const DEFINITIONS = {
       id: "Enter URL"
     }
   },
-  projectCheckerDialog: {
+  missingVersesCheckerDialog: {
+    ...TEMPLATES.projectStepperDialog,
+    selector: "body > div:nth-child(3) > div > div:nth-child(1) > div > div > div:nth-child(1)",
+    id: "Missing Verses Checker Dialog",
+    missingVersesLabel: {
+      selector: "body > div:nth-child(3) > div > div:nth-child(1) > div > div > div:nth-child(1) > div > div:nth-child(2) > div:nth-child(2) > div > div:nth-child(1)",
+      id: "Missing Verses Label",
+      text: "Missing Verses"
+    },
+    instructions: {
+      selector: "body > div:nth-child(3) > div > div:nth-child(1) > div > div > div:nth-child(1) > div > div:nth-child(2) > div:nth-child(1) > div > div",
+      id: "Instructions",
+      text: "Some verses are missing from your project."
+    }
+  },
+  projectInfoCheckerDialog: {
+    ...TEMPLATES.projectStepperDialog,
     selector: "#project-information-card",
     id: "Project Info Checker Dialog",
-    continue: {
-      selector: "body > div:nth-child(3) > div > div:nth-child(1) > div > div > div:nth-child(2) > div > button.btn-prime",
-      text: "Continue"
-    },
-    cancel: {
-      selector: "body > div:nth-child(3) > div > div:nth-child(1) > div > div > div:nth-child(2) > div > button.btn-second",
-      text: "Cancel"
-    },
     targetLangId: {
       selector: "#project-information-card > div > table > tbody > tr:nth-child(1) > td:nth-child(2) > div > div:nth-child(2) > input[type=\"text\"]",
       id: "Target Language Identifier"

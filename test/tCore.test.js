@@ -9,6 +9,7 @@ const tCore = require('./tCoreSupport');
 let app;
 let testCount = 0;
 const navigationDelay = 500; // TODO: for slowing down for demo
+let finished = false;
 
 describe('tCore Test', () => {
   let testName;
@@ -45,7 +46,7 @@ describe('tCore Test', () => {
       await tCore.navigateDialog(Elements.onlineDialog, 'cancel');
       await tCore.clickOn(Elements.importMenuButton.close);
       await tCore.verifyOnSpecificPage(Elements.projectsPage);
-      log("#### Finished Test ####");
+      finished = true;
     });
 
     it('do online search', async () => {
@@ -82,7 +83,7 @@ describe('tCore Test', () => {
 
       await tCore.navigateDialog(Elements.onlineImportDialog, 'cancel');
       await tCore.verifyOnSpecificPage(Elements.projectsPage);
-      log("#### Finished Test ####");
+      finished = true;
     });
 
     it('do online import with cancel on Project Info', async () => {
@@ -102,7 +103,7 @@ describe('tCore Test', () => {
       const continueOnProjectInfo = false;
       const projectName = `${languageId}_${newTargetLangId}_${bookId}_book`;
       await tCore.doOnlineProjectImport(projectName, sourceProject, continueOnProjectInfo, projectInfoSettings);
-      log("#### Finished Test ####");
+      finished = true;
     });
     
     // disabled because we don't have a way to interact with file system dialog
@@ -118,7 +119,7 @@ describe('tCore Test', () => {
   });
 
   describe('Import Tests', () => {
-    it.skip('online import tCore should succeed - https://git.door43.org/tCore-test-data/AlignedUlt_en', async () => {
+    it('online import tCore should succeed - https://git.door43.org/tCore-test-data/AlignedUlt_en', async () => {
       const newTargetLangId = "zzzz";
       const sourceProject = 'https://git.door43.org/tCore-test-data/AlignedUlt_en';
       const languageId = "en";
@@ -135,10 +136,10 @@ describe('tCore Test', () => {
       const continueOnProjectInfo = true;
       const projectName = `${languageId}_${newTargetLangId}_${bookId}_book`;
       await tCore.doOnlineProjectImport(projectName, sourceProject, continueOnProjectInfo, projectInfoSettings);
-      log("#### Finished Test ####");
+      finished = true;
     });
 
-    it.skip('online import USFM should error - https://git.door43.org/tCore-test-data/AlignedUlb_hi', async () => {
+    it('online import USFM should error - https://git.door43.org/tCore-test-data/AlignedUlb_hi', async () => {
       const newTargetLangId = "zzzy";
       const sourceProject = "https://git.door43.org/tCore-test-data/AlignedUlb_hi";
       const languageId = "hi";
@@ -152,10 +153,10 @@ describe('tCore Test', () => {
       const continueOnProjectInfo = true;
       const projectName = `${languageId}_${newTargetLangId}_${bookId}_book`;
       await tCore.doOnlineProjectImport(projectName, sourceProject, continueOnProjectInfo, projectInfoSettings);
-      log("#### Finished Test ####");
+      finished = true;
     });
     
-    it.skip('online import ts-desktop should succeed - https://git.door43.org/tCore-test-data/es-419_eph_text_ulb', async () => {
+    it('online import ts-desktop should succeed - https://git.door43.org/tCore-test-data/es-419_eph_text_ulb', async () => {
       const newTargetLangId = "zzzx";
       const sourceProject = "https://git.door43.org/tCore-test-data/es-419_eph_text_ulb";
       const languageId = "es-419";
@@ -172,10 +173,10 @@ describe('tCore Test', () => {
       const continueOnProjectInfo = true;
       const projectName = `${languageId}_${newTargetLangId}_${bookId}_book`;
       await tCore.doOnlineProjectImport(projectName, sourceProject, continueOnProjectInfo, projectInfoSettings);
-      log("#### Finished Test ####");
+      finished = true;
     });
     
-    it.skip('online import USFM should error - https://git.door43.org/tCore-test-data/sw_tit_text_ulb_L3', async () => {
+    it('online import tc-desktop 0.7.0 with checking should error - https://git.door43.org/tCore-test-data/sw_tit_text_ulb_L3', async () => {
       const newTargetLangId = "zzzw";
       const sourceProject = "https://git.door43.org/tCore-test-data/sw_tit_text_ulb_L3";
       const languageId = "sw";
@@ -186,10 +187,10 @@ describe('tCore Test', () => {
       const continueOnProjectInfo = true;
       const projectName = `${languageId}_${newTargetLangId}_${bookId}_book`;
       await tCore.doOnlineProjectImport(projectName, sourceProject, continueOnProjectInfo, projectInfoSettings);
-      log("#### Finished Test ####");
+      finished = true;
     });
 
-    it.skip('online import USFM should error - https://git.door43.org/tCore-test-data/ceb_jas_text_ulb_L-', async () => {
+    it('online import tc-desktop pre-0.7.0 with checking should error - https://git.door43.org/tCore-test-data/ceb_jas_text_ulb_L-', async () => {
       const newTargetLangId = "zzzv";
       const sourceProject = "https://git.door43.org/tCore-test-data/ceb_jas_text_ulb_L-";
       const languageId = "ceb";
@@ -200,10 +201,10 @@ describe('tCore Test', () => {
       const continueOnProjectInfo = true;
       const projectName = `${languageId}_${newTargetLangId}_${bookId}_book`;
       await tCore.doOnlineProjectImport(projectName, sourceProject, continueOnProjectInfo, projectInfoSettings);
-      log("#### Finished Test ####");
+      finished = true;
     });
 
-    it('online import ts-desktop should succeed - https://git.door43.org/tCore-test-data/ar_mat_text_ulb', async () => {
+    it('online import tc-desktop 0.7.0 no checking should succeed - https://git.door43.org/tCore-test-data/ar_mat_text_ulb', async () => {
       const newTargetLangId = "zzzu";
       const sourceProject = "https://git.door43.org/tCore-test-data/ar_mat_text_ulb";
       const languageId = "ar";
@@ -215,14 +216,34 @@ describe('tCore Test', () => {
         resourceId: "Unlocked Literal Bible",
         languageDirectionLtr: false,
         bookName: "Matthew (mat)",
+        newTargetLangId
+      };
+      const continueOnProjectInfo = true;
+      const projectName = `${languageId}_${newTargetLangId}_${bookId}_book`;
+      await tCore.doOnlineProjectImport(projectName, sourceProject, continueOnProjectInfo, projectInfoSettings);
+      finished = true;
+    });
+    
+    it('online import tc-desktop 0.8.0 no checking should succeed - https://git.door43.org/tCore-test-data/es-419_luk', async () => {
+      const newTargetLangId = "zzzt";
+      const sourceProject = "https://git.door43.org/tCore-test-data/es-419_luk";
+      const languageId = "es-419";
+      const bookId = "luk";
+      const projectInfoSettings = {
+        targetLangId: "ulb",
+        languageName: "es-419",
+        languageId,
+        resourceId: "Unlocked Literal Bible",
+        languageDirectionLtr: true,
+        bookName: "Luke (luk)",
         newTargetLangId,
         missingVerses: true
       };
       const continueOnProjectInfo = true;
       const projectName = `${languageId}_${newTargetLangId}_${bookId}_book`;
       await tCore.doOnlineProjectImport(projectName, sourceProject, continueOnProjectInfo, projectInfoSettings);
-      log("#### Finished Test ####");
-    });
+      finished = true;
+    }); 
 
   });
 
@@ -243,8 +264,13 @@ function beforEachTest(testName) {
   fs.removeSync(tCore.getLogFilePath());
   tCore.logVersion();
   log('Test Name: "' + testName + '"');
+  finished = false;
 }
 
 function afterEachTest() {
-  log("Test Ended");
+  if (!finished) {
+    log("#### Test did not finish ####");
+  } else {
+    log("Test Ended Successfully");
+  }
 }

@@ -2,7 +2,7 @@
 const fs = require('fs-extra');
 const path = require('path');
 const ospath = require('ospath');
-const Elements = require('./page-objects/elements');
+const TCORE = require('./page-objects/elements');
 const _ = require('lodash');
 const assert = require('assert');
 
@@ -32,12 +32,12 @@ async function startTcore() {
     .getWindowCount()
     .should.eventually.have.at.least(1);
   await app.client.browserWindow.isVisible().should.eventually.equal(true);
-  await app.client.windowByIndex(1).waitUntilWindowLoaded().getText(Elements.getStartedButton.selector).then(text => {
+  await app.client.windowByIndex(1).waitUntilWindowLoaded().getText(TCORE.getStartedButton.selector).then(text => {
     log('The button text content is "' + text + '"');
   });
-  version = await getText(Elements.versionLabel);
+  version = await getText(TCORE.versionLabel);
   logVersion();
-  await clickOn(Elements.getStartedButton);
+  await clickOn(TCORE.getStartedButton);
 }
 
 /**
@@ -47,22 +47,22 @@ async function startTcore() {
  */
 async function verifyProjectInfoDialog(expectedProjectSettings) {
   if (expectedProjectSettings.targetLangId) {
-    await verifyValue(Elements.projectCheckerDialog.targetLangId, expectedProjectSettings.targetLangId);
+    await verifyValue(TCORE.projectInfoCheckerDialog.targetLangId, expectedProjectSettings.targetLangId);
   }
   if (expectedProjectSettings.languageName) {
-    await verifyValue(Elements.projectCheckerDialog.languageName, expectedProjectSettings.languageName);
+    await verifyValue(TCORE.projectInfoCheckerDialog.languageName, expectedProjectSettings.languageName);
   }
   if (expectedProjectSettings.languageId) {
-    await verifyValue(Elements.projectCheckerDialog.languageId, expectedProjectSettings.languageId);
+    await verifyValue(TCORE.projectInfoCheckerDialog.languageId, expectedProjectSettings.languageId);
   }
   if (expectedProjectSettings.resourceId) {
-    await verifyValue(Elements.projectCheckerDialog.resourceId, expectedProjectSettings.resourceId);
+    await verifyValue(TCORE.projectInfoCheckerDialog.resourceId, expectedProjectSettings.resourceId);
   }
   if (expectedProjectSettings.languageDirectionLtr) {
-    await verifyText(Elements.projectCheckerDialog.languageDirection, expectedProjectSettings.languageDirectionLtr ? "Left to right" : "Right to left");
+    await verifyText(TCORE.projectInfoCheckerDialog.languageDirection, expectedProjectSettings.languageDirectionLtr ? "Left to right" : "Right to left");
   }
   if (expectedProjectSettings.bookName) {
-    await verifyText(Elements.projectCheckerDialog.bookName, expectedProjectSettings.bookName);
+    await verifyText(TCORE.projectInfoCheckerDialog.bookName, expectedProjectSettings.bookName);
   }
 }
 
@@ -176,11 +176,11 @@ async function verifyContainsText(elementObj, match) {
  * @return {Promise<void>}
  */
 async function clickOn(elementObj, exact = true) {
+  log('clicking on "' + (elementObj.text || elementObj.id) + '"');
   await app.client.pause(navigationDelay);
   if (elementObj.text) {
     await verifyText(elementObj, elementObj.text, exact);
   }
-  log('clicking on "' + (elementObj.text || elementObj.id) + '"');
   await app.client.click(elementObj.selector);
 }
 
@@ -199,6 +199,7 @@ async function waitForDialog(elementObj, extraDelay) {
  * @return {Promise<void>}
  */
 async function navigateDialog(elementObj, clickOn_ = null, exact = true) {
+  log('Navigate dialog: "' + (elementObj.id) + '"');
   await waitForDialog(elementObj);
   if (clickOn_) {
     await clickOn(elementObj[clickOn_], exact);
@@ -206,8 +207,8 @@ async function navigateDialog(elementObj, clickOn_ = null, exact = true) {
 }
 
 async function setToProjectPage() {
-  await clickOn(Elements.projectNavigation);
-  await verifyOnSpecificPage(Elements.projectsPage);
+  await clickOn(TCORE.projectNavigation);
+  await verifyOnSpecificPage(TCORE.projectsPage);
 }
 
 async function waitForElementToComeAndGo(elementObj) {
@@ -220,42 +221,42 @@ async function waitForElementToComeAndGo(elementObj) {
 }
 
 async function navigateOnlineImportDialog(importConfig) {
-  await navigateDialog(Elements.onlineImportDialog, null); // make sure dialog shown
+  await navigateDialog(TCORE.onlineImportDialog, null); // make sure dialog shown
   if (importConfig.waitForInitialSearchCompletion) {
     app.client.pause(1000);
-    await waitForElementToComeAndGo(Elements.searchingWaitDialog.prompt);
+    await waitForElementToComeAndGo(TCORE.searchingWaitDialog.prompt);
   }
   // await setValue(Elements.onlineImportDialog.user, ''); // seems to be issue with setting to empty string
   if (importConfig.user) {
-    await setValue(Elements.onlineImportDialog.user, (importConfig.user)); // seems to be issue with setting to empty string
+    await setValue(TCORE.onlineImportDialog.user, (importConfig.user)); // seems to be issue with setting to empty string
   }
   if (importConfig.languageID) {
-    await setValue(Elements.onlineImportDialog.languageID, importConfig.languageID);
+    await setValue(TCORE.onlineImportDialog.languageID, importConfig.languageID);
   }
   if (importConfig.search) {
-    await navigateDialog(Elements.onlineImportDialog, 'search');
-    await waitForElementToComeAndGo(Elements.searchingWaitDialog.prompt);
+    await navigateDialog(TCORE.onlineImportDialog, 'search');
+    await waitForElementToComeAndGo(TCORE.searchingWaitDialog.prompt);
   }
   if (importConfig.sourceProject) {
-    await setValue(Elements.onlineImportDialog.enterURL, importConfig.sourceProject);
+    await setValue(TCORE.onlineImportDialog.enterURL, importConfig.sourceProject);
   }
   if (importConfig.import) {
-    await navigateDialog(Elements.onlineImportDialog, 'import', false);
-    await navigateDialog(Elements.onlineDialog, 'access_internet');
+    await navigateDialog(TCORE.onlineImportDialog, 'import', false);
+    await navigateDialog(TCORE.onlineDialog, 'access_internet');
   }
   if (importConfig.cancel) {
-    await navigateDialog(Elements.onlineImportDialog, 'cancel');
+    await navigateDialog(TCORE.onlineImportDialog, 'cancel');
   }
 }
 
 function getSelectorForBookN(bookNumber) {
-  const selector = Elements.projectCheckerDialog.bookNameN.selector.replace('$N', bookNumber);
+  const selector = TCORE.projectInfoCheckerDialog.bookNameN.selector.replace('$N', bookNumber);
   log("book selector " + bookNumber + ": " + selector);
   return selector;
 }
 
 async function selectBookName(settings) {
-  await clickOn(Elements.projectCheckerDialog.bookDropDownButton);
+  await clickOn(TCORE.projectInfoCheckerDialog.bookDropDownButton);
   let offset = 0;
   const selector2 = getSelectorForBookN(2);
   const book2 = await getText({selector: selector2}, 500);
@@ -272,25 +273,39 @@ async function selectBookName(settings) {
   const selector = getSelectorForBookN(bookNumber - offset);
   await clickOn({selector});
   const match = "(" + parts[1].toLowerCase() + ")";
-  await verifyContainsText(Elements.projectCheckerDialog.bookName, match);
+  await verifyContainsText(TCORE.projectInfoCheckerDialog.bookName, match);
 }
 
 async function navigateProjectInfoDialog(settings) {
-  await waitForDialog(Elements.projectCheckerDialog, 1000);
+  log("Navigating Project Info Checker");
+  await waitForDialog(TCORE.projectInfoCheckerDialog, 1000);
   await verifyProjectInfoDialog(settings);
   if (settings.newBookName) {
     await selectBookName(settings);
   }
   if (settings.newLanguageId) {
-    await setValue(Elements.projectCheckerDialog.languageId, settings.newLanguageId);
+    await setValue(TCORE.projectInfoCheckerDialog.languageId, settings.newLanguageId);
   }
   if (settings.newTargetLangId) {
-    await setValue(Elements.projectCheckerDialog.targetLangId, settings.newTargetLangId);
+    await setValue(TCORE.projectInfoCheckerDialog.targetLangId, settings.newTargetLangId);
   }
   if (settings.continue) {
-    await navigateDialog(Elements.projectCheckerDialog, 'continue');
+    await navigateDialog(TCORE.projectInfoCheckerDialog, 'continue');
   } else {
-    await navigateDialog(Elements.projectCheckerDialog, 'cancel');
+    await navigateDialog(TCORE.projectInfoCheckerDialog, 'cancel');
+  }
+}
+
+async function navigateMissingVersesDialog(settings) {
+  log("Navigating Missing Verses Checker");
+  await waitForDialog(TCORE.missingVersesCheckerDialog, 1000);
+  await verifyText(TCORE.missingVersesCheckerDialog.missingVersesLabel, TCORE.missingVersesCheckerDialog.missingVersesLabel.text);
+  await verifyText(TCORE.missingVersesCheckerDialog.instructions, TCORE.missingVersesCheckerDialog.instructions.text);
+  // log("Elements.missingVersesCheckerDialog: " + JSON.stringify(Elements.missingVersesCheckerDialog, null, 2));
+  if (settings.continue) {
+    await navigateDialog(TCORE.missingVersesCheckerDialog, 'continue');
+  } else {
+    await navigateDialog(TCORE.missingVersesCheckerDialog, 'cancel');
   }
 }
 
@@ -332,8 +347,8 @@ async function doOnlineProjectImport(projectName, sourceProject, continueOnProje
   log("making sure test project removed: " + projectPath);
   fileCleanup(projectPath);
   await setToProjectPage();
-  await openImportDialog(Elements.importTypeOptions.online);
-  await navigateDialog(Elements.onlineDialog, 'access_internet');
+  await openImportDialog(TCORE.importTypeOptions.online);
+  await navigateDialog(TCORE.onlineDialog, 'access_internet');
 
   // do import
   const importConfig = {
@@ -345,11 +360,11 @@ async function doOnlineProjectImport(projectName, sourceProject, continueOnProje
   await navigateOnlineImportDialog(importConfig);
   
   if (projectInfoSettings.preProjectInfoErrorMessage) {
-    const importErrorDialog = _.cloneDeep(Elements.importErrorDialog);
+    const importErrorDialog = _.cloneDeep(TCORE.importErrorDialog);
     importErrorDialog.prompt.text = projectInfoSettings.preProjectInfoErrorMessage;
-    await waitForDialog(Elements.importErrorDialog);
-    await navigateGeneralDialog(Elements.importErrorDialog, 'ok');
-    await verifyOnSpecificPage(Elements.projectsPage);
+    await waitForDialog(TCORE.importErrorDialog);
+    await navigateGeneralDialog(TCORE.importErrorDialog, 'ok');
+    await verifyOnSpecificPage(TCORE.projectsPage);
     return;
   }
 
@@ -360,42 +375,45 @@ async function doOnlineProjectImport(projectName, sourceProject, continueOnProje
   };
   
   if (!projectInfoSettings.noProjectInfoDialog) {
-    console.log("projectInfoConfig: " + JSON.stringify(projectInfoConfig, null, 2));
     await navigateProjectInfoDialog(projectInfoConfig);
   }
 
+  if (projectInfoSettings.missingVerses) {
+    await navigateMissingVersesDialog({ continue: true});
+  }
+  
   if (continueOnProjectInfo || !projectInfoSettings.noProjectInfoDialog) {
     if (projectInfoSettings.errorMessage) {
-      await waitForDialog(Elements.importErrorDialog, 2000);
-      await verifyContainsText(Elements.importErrorDialog.prompt, projectInfoSettings.errorMessage);
-      await navigateGeneralDialog(Elements.importErrorDialog, 'ok');
-      await verifyOnSpecificPage(Elements.projectsPage);
+      await waitForDialog(TCORE.importErrorDialog, 2000);
+      await verifyContainsText(TCORE.importErrorDialog.prompt, projectInfoSettings.errorMessage);
+      await navigateGeneralDialog(TCORE.importErrorDialog, 'ok');
+      await verifyOnSpecificPage(TCORE.projectsPage);
     } else {
-      await app.client.waitForExist(Elements.searchingWaitDialog.title.selector, 5000);
-      let text = await getText(Elements.searchingWaitDialog.prompt);
+      await app.client.waitForExist(TCORE.searchingWaitDialog.title.selector, 5000);
+      let text = await getText(TCORE.searchingWaitDialog.prompt);
       if (loadingTextShown(text)) {
         log("Loading/Importing Dialog shown, wait for it to go away");
         while (loadingTextShown(text)) {
           await app.client.pause(500);
           try {
-            text = await getText(Elements.searchingWaitDialog.prompt);
+            text = await getText(TCORE.searchingWaitDialog.prompt);
           } catch (e) {
             text = "";
           }
         }
-        await waitForDialog(Elements.renamedDialog);
+        await waitForDialog(TCORE.renamedDialog);
       }
 
       // navigate renamed dialog
-      const renamedDialogConfig = _.cloneDeep(Elements.renamedDialog);
+      const renamedDialogConfig = _.cloneDeep(TCORE.renamedDialog);
       renamedDialogConfig.prompt.text = `Your local project has been named\n    ${projectName}`;
       await navigateGeneralDialog(renamedDialogConfig, 'ok');
-      await verifyOnSpecificPage(Elements.toolsPage);
+      await verifyOnSpecificPage(TCORE.toolsPage);
     }
   } else {
-    await waitForDialog(Elements.importErrorDialog);
-    await navigateGeneralDialog(Elements.importCancelDialog, 'cancelImport');
-    await verifyOnSpecificPage(Elements.projectsPage);
+    await waitForDialog(TCORE.importErrorDialog);
+    await navigateGeneralDialog(TCORE.importCancelDialog, 'cancelImport');
+    await verifyOnSpecificPage(TCORE.projectsPage);
   }
   // fs.removeSync(projectPath); // TODO: cannot remove until deselected
 }
@@ -437,13 +455,13 @@ function indexInSearchResults(searchResults, match, column = 0) {
  */
 async function getSearchResults() {
   log("Getting Search Results:");
-  const elements = await app.client.$$(Elements.onlineImportDialog.searchResults.selector);
+  const elements = await app.client.$$(TCORE.onlineImportDialog.searchResults.selector);
   const childIndexesArray = Array.from(Array(elements.length + 1).keys()).splice(1);
   // log("childIndexesArray: " + JSON.stringify(childIndexesArray));
   const searchResults = [];
   for (let item of childIndexesArray) {
     // log("item: " + item);
-    const selector = Elements.onlineImportDialog.searchResultN.selector.replace('$N', item);
+    const selector = TCORE.onlineImportDialog.searchResultN.selector.replace('$N', item);
     // log("selector: " + selector);
     const text = await getText({selector});
     const params = parseSearchResult(text);
@@ -455,21 +473,21 @@ async function getSearchResults() {
 async function selectSearchItem(index, verifyText) {
   index++; // search results start at index 1
   log('selecting search result "' + index + '"');
-  const selector = Elements.onlineImportDialog.searchResultCheckBoxN.selector.replace('$N', index);
+  const selector = TCORE.onlineImportDialog.searchResultCheckBoxN.selector.replace('$N', index);
   const clickOnCheckbox = {
-    ...Elements.onlineImportDialog.searchResultCheckBoxN,
+    ...TCORE.onlineImportDialog.searchResultCheckBoxN,
     selector
   };
   await clickOn(clickOnCheckbox);
   if (verifyText) {
     log('verifying selected URL "' + verifyText + '"');
-    await waitForValue(Elements.onlineImportDialog.enterURL, verifyText);
+    await waitForValue(TCORE.onlineImportDialog.enterURL, verifyText);
   }
 }
 
 async function openImportDialog(importSelection) {
-  await clickOn(Elements.importMenuButton);
-  await clickOn(Elements.importMenuButton[importSelection]);
+  await clickOn(TCORE.importMenuButton);
+  await clickOn(TCORE.importMenuButton[importSelection]);
 }
 
 function getLogFilePath() {
