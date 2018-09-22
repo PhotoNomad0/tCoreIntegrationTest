@@ -35,10 +35,8 @@ async function startTcore() {
   await app.client.windowByIndex(1).waitUntilWindowLoaded().getText(Elements.getStartedButton.selector).then(text => {
     log('The button text content is "' + text + '"');
   });
-  await app.client.getText(Elements.versionLabel.selector).then(text => {
-    version = text;
-    logVersion();
-  });  
+  version = await getText(Elements.versionLabel);
+  logVersion();
   await clickOn(Elements.getStartedButton);
 }
 
@@ -120,6 +118,26 @@ function verifyTextIsMatched(text, matchText) {
 }
 
 /**
+ * read current text in element
+ * @param {Object} elementObj - item to verify
+ * @return {Promise<*>}
+ */
+async function getText(elementObj, delay = 0) {
+  const id = (elementObj.id || elementObj.text);
+  if (id) {
+    log('reading "' + id + '"');
+  }
+  let text;
+  await app.client.pause(delay).getText(elementObj.selector).then(text_ => {
+    text = text_;
+    if (id) {
+      log('value of "' + (elementObj.id || elementObj.text) + '" is "' + text + '"');
+    }
+  });
+  return text;
+}
+
+/**
  * verify text in element
  * @param {Object} elementObj - item to verify
  * @param {string} text
@@ -131,9 +149,8 @@ async function verifyText(elementObj, text, exact = true) {
   if (exact) {
     await app.client.getText(elementObj.selector).should.eventually.equal(text);
   } else {
-    await app.client.getText(elementObj.selector).then(text_ => {
-      verifyTextIsMatched(text_, text);
-    });
+    const actualText = await getText(elementObj);
+    verifyTextIsMatched(actualText, text);
   }
 }
 
@@ -145,12 +162,11 @@ async function verifyText(elementObj, text, exact = true) {
  */
 async function verifyContainsText(elementObj, match) {
   log('checking "' + (elementObj.id || elementObj.text) + '" contains "' + match + '"');
-  await app.client.getText(elementObj.selector).then(text_ => {
-    log("found text: '" + text_ + "'");
-    if (text_.indexOf(match) < 0) {
-      assert.fail("'" + match + "' not in '" + text_ + "'");
-    }
-  });
+  const actualText = await getText(elementObj);
+  log("found text: '" + actualText + "'");
+  if (!actualText.includes(match)) {
+    assert.fail("'" + match + "' not in '" + actualText + "'");
+  }
 }
 
 /**
@@ -194,20 +210,20 @@ async function setToProjectPage() {
   await verifyOnSpecificPage(Elements.projectsPage);
 }
 
-async function waitForPleaseWaitDialogToLeave() {
+async function waitForElementToComeAndGo(elementObj) {
   log("Waiting for searching dialog");
   // app.client.pause(500);
   // await navigateDialog(Elements.searchingWaitDialog); // wait for searching please wait dialog
-  await app.client.waitForExist(Elements.searchingWaitDialog.prompt.selector, 5000); // wait for searching please wait dialog
+  await app.client.waitForExist(elementObj.selector, 5000); // wait for searching please wait dialog
   log("Waiting for searching dialog to finish");
-  await app.client.waitForExist(Elements.searchingWaitDialog.prompt.selector, 5000, true); // wait until searching please wait disappears
+  await app.client.waitForExist(elementObj.selector, 5000, true); // wait until searching please wait disappears
 }
 
 async function navigateOnlineImportDialog(importConfig) {
   await navigateDialog(Elements.onlineImportDialog, null); // make sure dialog shown
   if (importConfig.waitForInitialSearchCompletion) {
     app.client.pause(1000);
-    await waitForPleaseWaitDialogToLeave();
+    await waitForElementToComeAndGo(Elements.searchingWaitDialog.prompt);
   }
   // await setValue(Elements.onlineImportDialog.user, ''); // seems to be issue with setting to empty string
   if (importConfig.user) {
@@ -218,7 +234,7 @@ async function navigateOnlineImportDialog(importConfig) {
   }
   if (importConfig.search) {
     await navigateDialog(Elements.onlineImportDialog, 'search');
-    await waitForPleaseWaitDialogToLeave();
+    await waitForElementToComeAndGo(Elements.searchingWaitDialog.prompt);
   }
   if (importConfig.sourceProject) {
     await setValue(Elements.onlineImportDialog.enterURL, importConfig.sourceProject);
@@ -242,12 +258,12 @@ async function selectBookName(settings) {
   await clickOn(Elements.projectCheckerDialog.bookDropDownButton);
   let offset = 0;
   const selector2 = getSelectorForBookN(2);
-  await app.client.pause(500).getText(selector2).then(text => {
-    log("book 2 is: " + text);
-    if (text.indexOf('(mat)') >= 0) {
-      offset  = 39;
-    }
-  });
+  const book2 = await getText({selector: selector2}, 500);
+  log("book 2 is: " + book2);
+  if (book2.includes('(mat)')) {
+    offset  = 39;
+  }
+
   const parts = settings.newBookName.split('-');
   const bookNumber = parseInt(parts[0]);
   if (bookNumber < 41) {
@@ -260,8 +276,7 @@ async function selectBookName(settings) {
 }
 
 async function navigateProjectInfoDialog(settings) {
-  await app.client.pause(1000);
-  await waitForDialog(Elements.projectCheckerDialog);
+  await waitForDialog(Elements.projectCheckerDialog, 1000);
   await verifyProjectInfoDialog(settings);
   if (settings.newBookName) {
     await selectBookName(settings);
@@ -280,8 +295,7 @@ async function navigateProjectInfoDialog(settings) {
 }
 
 async function navigateGeneralDialog(dialogConfig, buttonClick) {
-  await app.client.pause(1000);
-  await waitForDialog(dialogConfig);
+  await waitForDialog(dialogConfig, 1000);
   if (dialogConfig.title.text) {
     await verifyText(dialogConfig.title, dialogConfig.title.text);
   }
@@ -305,8 +319,15 @@ function fileCleanup(projectPath) {
   cleanupFileList.push(projectPath); // record for final cleanup
 }
 
+function loadingTextShown(text) {
+  return text.includes("Loading...") || text.includes("Please wait...");
+}
+
 async function doOnlineProjectImport(projectName, sourceProject, continueOnProjectInfo, projectInfoSettings) {
   const PROJECTS_PATH = path.join(ospath.home(), 'translationCore', 'projects');
+  if (projectName.includes("undefined")) {
+    assert.fail("Invalid Project Name: " + projectName);
+  }
   const projectPath = path.join(PROJECTS_PATH, projectName);
   log("making sure test project removed: " + projectPath);
   fileCleanup(projectPath);
@@ -322,22 +343,49 @@ async function doOnlineProjectImport(projectName, sourceProject, continueOnProje
     search: false
   };
   await navigateOnlineImportDialog(importConfig);
+  
+  if (projectInfoSettings.preProjectInfoErrorMessage) {
+    const importErrorDialog = _.cloneDeep(Elements.importErrorDialog);
+    importErrorDialog.prompt.text = projectInfoSettings.preProjectInfoErrorMessage;
+    await waitForDialog(Elements.importErrorDialog);
+    await navigateGeneralDialog(Elements.importErrorDialog, 'ok');
+    await verifyOnSpecificPage(Elements.projectsPage);
+    return;
+  }
 
   // navigate project information dialog
   const projectInfoConfig = {
     ...projectInfoSettings,
     continue: continueOnProjectInfo
   };
-  console.log("projectInfoConfig: " + JSON.stringify(projectInfoConfig, null, 2));
-  await navigateProjectInfoDialog(projectInfoConfig);
+  
+  if (!projectInfoSettings.noProjectInfoDialog) {
+    console.log("projectInfoConfig: " + JSON.stringify(projectInfoConfig, null, 2));
+    await navigateProjectInfoDialog(projectInfoConfig);
+  }
 
-  if (continueOnProjectInfo) {
+  if (continueOnProjectInfo || !projectInfoSettings.noProjectInfoDialog) {
     if (projectInfoSettings.errorMessage) {
       await waitForDialog(Elements.importErrorDialog, 2000);
       await verifyContainsText(Elements.importErrorDialog.prompt, projectInfoSettings.errorMessage);
       await navigateGeneralDialog(Elements.importErrorDialog, 'ok');
       await verifyOnSpecificPage(Elements.projectsPage);
     } else {
+      await app.client.waitForExist(Elements.searchingWaitDialog.title.selector, 5000);
+      let text = await getText(Elements.searchingWaitDialog.prompt);
+      if (loadingTextShown(text)) {
+        log("Loading/Importing Dialog shown, wait for it to go away");
+        while (loadingTextShown(text)) {
+          await app.client.pause(500);
+          try {
+            text = await getText(Elements.searchingWaitDialog.prompt);
+          } catch (e) {
+            text = "";
+          }
+        }
+        await waitForDialog(Elements.renamedDialog);
+      }
+
       // navigate renamed dialog
       const renamedDialogConfig = _.cloneDeep(Elements.renamedDialog);
       renamedDialogConfig.prompt.text = `Your local project has been named\n    ${projectName}`;
@@ -345,6 +393,7 @@ async function doOnlineProjectImport(projectName, sourceProject, continueOnProje
       await verifyOnSpecificPage(Elements.toolsPage);
     }
   } else {
+    await waitForDialog(Elements.importErrorDialog);
     await navigateGeneralDialog(Elements.importCancelDialog, 'cancelImport');
     await verifyOnSpecificPage(Elements.projectsPage);
   }
@@ -396,11 +445,9 @@ async function getSearchResults() {
     // log("item: " + item);
     const selector = Elements.onlineImportDialog.searchResultN.selector.replace('$N', item);
     // log("selector: " + selector);
-    await app.client.getText(selector).then(text => {
-      // log("content: " + text);
-      const params = parseSearchResult(text);
-      searchResults.push(params);
-    });
+    const text = await getText({selector});
+    const params = parseSearchResult(text);
+    searchResults.push(params);
   }
   return searchResults;
 }
@@ -462,7 +509,7 @@ const tCoreSupport = {
   verifyText,
   verifyValue,
   waitForDialog,
-  waitForPleaseWaitDialogToLeave,
+  waitForElementToComeAndGo,
   waitForValue
 };
 
