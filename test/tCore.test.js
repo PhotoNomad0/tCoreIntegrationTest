@@ -118,7 +118,7 @@ describe('tCore Test', () => {
     });
   });
 
-  describe('Import Tests', () => {
+  describe.skip('Import Tests', () => {
     it('online import tCore should succeed - https://git.door43.org/tCore-test-data/AlignedUlt_en', async () => {
       const newTargetLangId = "zzzz";
       const sourceProject = 'https://git.door43.org/tCore-test-data/AlignedUlt_en';
@@ -243,9 +243,144 @@ describe('tCore Test', () => {
       const projectName = `${languageId}_${newTargetLangId}_${bookId}_book`;
       await tCore.doOnlineProjectImport(projectName, sourceProject, continueOnProjectInfo, projectInfoSettings);
       finished = true;
-    }); 
+    });
 
+    it('online import tc-desktop 0.8.0 with checking should succeed - https://git.door43.org/tCore-test-data/es-419_tit_ulb', async () => {
+      const newTargetLangId = "zzzs";
+      const sourceProject = "https://git.door43.org/tCore-test-data/es-419_tit_ulb";
+      const languageId = "es-419";
+      const bookId = "tit";
+      const projectInfoSettings = {
+        targetLangId: "ulb",
+        languageName: "Español Latin America",
+        languageId,
+        resourceId: "Unlocked Literal Bible",
+        languageDirectionLtr: true,
+        bookName: "Titus (tit)",
+        newTargetLangId,
+        missingVerses: true
+      };
+      const continueOnProjectInfo = true;
+      const projectName = `${languageId}_${newTargetLangId}_${bookId}_book`;
+      await tCore.doOnlineProjectImport(projectName, sourceProject, continueOnProjectInfo, projectInfoSettings);
+      finished = true;
+    });
+    
+    it('online import tc-desktop 0.8.1 with alignment, no checking should succeed - https://git.door43.org/tCore-test-data/English_tit', async () => {
+      const newTargetLangId = "zzzs";
+      const sourceProject = "https://git.door43.org/tCore-test-data/English_tit";
+      const languageId = "en";
+      const bookId = "tit";
+      const projectInfoSettings = {
+        languageName: "English",
+        languageId,
+        languageDirectionLtr: true,
+        bookName: "Titus (tit)",
+        newTargetLangId
+      };
+      const continueOnProjectInfo = true;
+      const projectName = `${languageId}_${newTargetLangId}_${bookId}_book`;
+      await tCore.doOnlineProjectImport(projectName, sourceProject, continueOnProjectInfo, projectInfoSettings);
+      finished = true;
+    });
+
+    it('online import tc-desktop 0.9.0 no checking should succeed - https://git.door43.org/tCore-test-data/am_1co_ulb', async () => {
+      const newTargetLangId = "zzzr";
+      const sourceProject = "https://git.door43.org/tCore-test-data/am_1co_ulb";
+      const languageId = "am";
+      const bookId = "1co";
+      const projectInfoSettings = {
+        targetLangId: "ulb",
+        languageName: "አማርኛ",
+        languageId,
+        resourceId: "Unlocked Literal Bible",
+        languageDirectionLtr: true,
+        bookName: "1 Corinthians (1co)",
+        newTargetLangId
+      };
+      const continueOnProjectInfo = true;
+      const projectName = `${languageId}_${newTargetLangId}_${bookId}_book`;
+      await tCore.doOnlineProjectImport(projectName, sourceProject, continueOnProjectInfo, projectInfoSettings);
+      finished = true;
+    });
+
+    it('online import tc-desktop 0.9.0 with checking should succeed - https://git.door43.org/tCore-test-data/el_tit', async () => {
+      const newTargetLangId = "zzzq";
+      const sourceProject = "https://git.door43.org/tCore-test-data/el_tit";
+      const languageId = "el";
+      const bookId = "tit";
+      const projectInfoSettings = {
+        languageName: "ελληνικά",
+        languageId,
+        languageDirectionLtr: true,
+        bookName: "Titus (tit)",
+        newTargetLangId
+      };
+      const continueOnProjectInfo = true;
+      const projectName = `${languageId}_${newTargetLangId}_${bookId}_book`;
+      await tCore.doOnlineProjectImport(projectName, sourceProject, continueOnProjectInfo, projectInfoSettings);
+      finished = true;
+    });
+
+    it('online import tc-desktop should succeed - https://git.door43.org/tCore-test-data/fr_test_tit_book', async () => {
+      const newTargetLangId = "zzzp";
+      const sourceProject = "https://git.door43.org/tCore-test-data/fr_test_tit_book";
+      const languageId = "fr";
+      const bookId = "tit";
+      const projectInfoSettings = {
+        languageName: "français",
+        languageId,
+        resourceId: "Unlocked Literal Bible",
+        targetLangId: "test",
+        languageDirectionLtr: true,
+        bookName: "Titus (tit)",
+        newTargetLangId
+      };
+      const continueOnProjectInfo = true;
+      const projectName = `${languageId}_${newTargetLangId}_${bookId}_book`;
+      await tCore.doOnlineProjectImport(projectName, sourceProject, continueOnProjectInfo, projectInfoSettings);
+      finished = true;
+    });
+
+    it('online import tc-desktop should succeed - https://git.door43.org/tCore-test-data/AlignedUlt_en', async () => {
+      const newTargetLangId = "zzzo";
+      const sourceProject = "https://git.door43.org/tCore-test-data/AlignedUlt_en";
+      const languageId = "en";
+      const bookId = "tit";
+      const projectInfoSettings = {
+        languageName: "English",
+        languageId,
+        targetLangId: "algn",
+        languageDirectionLtr: true,
+        bookName: "Titus (tit)",
+        newTargetLangId
+      };
+      const continueOnProjectInfo = true;
+      const projectName = `${languageId}_${newTargetLangId}_${bookId}_book`;
+      await tCore.doOnlineProjectImport(projectName, sourceProject, continueOnProjectInfo, projectInfoSettings);
+      finished = true;
+    });
   });
+
+  it('online import tc-desktop should succeed, no rename - https://git.door43.org/tCore-test-data/fr_test_tit_book', async () => {
+    const sourceProject = "https://git.door43.org/tCore-test-data/fr_test_tit_book";
+    const languageId = "fr";
+    const bookId = "tit";
+    const projectInfoSettings = {
+      languageName: "français",
+      languageId,
+      resourceId: "Unlocked Literal Bible",
+      targetLangId: "test",
+      languageDirectionLtr: true,
+      bookName: "Titus (tit)",
+      noRename: true
+    };
+    const continueOnProjectInfo = true;
+    const projectName = `${languageId}_${projectInfoSettings.targetLangId}_${bookId}_book`;
+    await tCore.doOnlineProjectImport(projectName, sourceProject, continueOnProjectInfo, projectInfoSettings);
+    finished = true;
+  });
+  
 
 });
 

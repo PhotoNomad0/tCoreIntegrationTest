@@ -404,10 +404,12 @@ async function doOnlineProjectImport(projectName, sourceProject, continueOnProje
         await waitForDialog(TCORE.renamedDialog);
       }
 
-      // navigate renamed dialog
-      const renamedDialogConfig = _.cloneDeep(TCORE.renamedDialog);
-      renamedDialogConfig.prompt.text = `Your local project has been named\n    ${projectName}`;
-      await navigateGeneralDialog(renamedDialogConfig, 'ok');
+      if (!projectInfoSettings.noRename) {
+        // navigate renamed dialog
+        const renamedDialogConfig = _.cloneDeep(TCORE.renamedDialog);
+        renamedDialogConfig.prompt.text = `Your local project has been named\n    ${projectName}`;
+        await navigateGeneralDialog(renamedDialogConfig, 'ok');
+      }
       await verifyOnSpecificPage(TCORE.toolsPage);
     }
   } else {
