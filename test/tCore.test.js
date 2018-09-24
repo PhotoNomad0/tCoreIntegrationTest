@@ -5,7 +5,7 @@ const Elements = require('./page-objects/elements');
 const _ = require('lodash');
 const assert = require('assert');
 const tCore = require('./tCoreSupport');
-// const dialogAddon = require('spectron-dialog-addon');
+const dialogAddon = require('spectron-dialog-addon').default;
 
 let app;
 let testCount = 0;
@@ -40,9 +40,9 @@ describe('tCore Test', () => {
     }
   });
   
-  // disabled because we don't have a way to interact with file system dialog
-  it.skip('opens USFM import', async() => {
-    // dialogAddon.default.mock([ { method: 'showOpenDialog', value: ['faked.txt'] } ]);
+  // testing fake - seems to be working now - test needs to be finised
+  it('opens USFM import', async() => {
+    dialogAddon.mock([ { method: 'showOpenDialog', value: ['faked.txt'] } ]);
     await tCore.setToProjectPage();
     await tCore.openImportDialog(Elements.importTypeOptions.local);
 

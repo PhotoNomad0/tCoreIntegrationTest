@@ -4,7 +4,7 @@ const chai = require('chai');
 const chaiAsPromised = require('chai-as-promised');
 const electron = require('electron');
 const path = require('path');
-// const dialogAddon = require('spectron-dialog-addon');
+const dialogAddon = require('spectron-dialog-addon').default;
 
 const appPath = path.join(__dirname, '../../translationCore/src/main.js');
 console.log('appPath', appPath);
@@ -16,12 +16,13 @@ global.before(() => {
 
 module.exports = {
   async startApp() {
-    const app = await new Application({
+    const app = new Application({
       path: electron,
       args: [appPath]
-    }).start();
+    });
+    dialogAddon.apply(app);
+    await app.start();
     chaiAsPromised.transferPromiseness = app.transferPromiseness;
-    // dialogAddon.default.apply(app);
     return app;
   },
 
