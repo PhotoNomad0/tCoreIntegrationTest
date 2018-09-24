@@ -5,7 +5,7 @@ const Elements = require('./page-objects/elements');
 const _ = require('lodash');
 const assert = require('assert');
 const tCore = require('./tCoreSupport');
-const fakeDialog = require('spectron-fake-dialog');
+// const dialogAddon = require('spectron-dialog-addon');
 
 let app;
 let testCount = 0;
@@ -41,12 +41,12 @@ describe('tCore Test', () => {
   });
   
   // disabled because we don't have a way to interact with file system dialog
-  it('opens USFM import', async() => {
-    fakeDialog.mock([ { method: 'showOpenDialog', value: ['faked.txt'] } ]);
+  it.skip('opens USFM import', async() => {
+    // dialogAddon.default.mock([ { method: 'showOpenDialog', value: ['faked.txt'] } ]);
     await tCore.setToProjectPage();
     await tCore.openImportDialog(Elements.importTypeOptions.local);
 
-    log("showing search");
+    log("should not show import dialog");
     await app.client.pause(10000);
   });
   
@@ -361,28 +361,27 @@ describe('tCore Test', () => {
       await tCore.doOnlineProjectImport(projectName, sourceProject, continueOnProjectInfo, projectInfoSettings);
       finished = true;
     });
-  });
 
-  it.skip('online import tc-desktop should succeed, no rename - https://git.door43.org/tCore-test-data/fr_test_tit_book', async () => {
-    const sourceProject = "https://git.door43.org/tCore-test-data/fr_test_tit_book";
-    const languageId = "fr";
-    const bookId = "tit";
-    const projectInfoSettings = {
-      languageName: "français",
-      languageId,
-      resourceId: "Unlocked Literal Bible",
-      targetLangId: "test",
-      languageDirectionLtr: true,
-      bookName: "Titus (tit)",
-      noRename: true
-    };
-    const continueOnProjectInfo = true;
-    const projectName = `${languageId}_${projectInfoSettings.targetLangId}_${bookId}_book`;
-    await tCore.doOnlineProjectImport(projectName, sourceProject, continueOnProjectInfo, projectInfoSettings);
-    finished = true;
+    it('online import tc-desktop should succeed, no rename - https://git.door43.org/tCore-test-data/fr_test_tit_book', async () => {
+      const sourceProject = "https://git.door43.org/tCore-test-data/fr_test_tit_book";
+      const languageId = "fr";
+      const bookId = "tit";
+      const projectInfoSettings = {
+        languageName: "français",
+        languageId,
+        resourceId: "Unlocked Literal Bible",
+        targetLangId: "test",
+        languageDirectionLtr: true,
+        bookName: "Titus (tit)",
+        noRename: true
+      };
+      const continueOnProjectInfo = true;
+      const projectName = `${languageId}_${projectInfoSettings.targetLangId}_${bookId}_book`;
+      await tCore.doOnlineProjectImport(projectName, sourceProject, continueOnProjectInfo, projectInfoSettings);
+      finished = true;
+    });
   });
   
-
 });
 
 //

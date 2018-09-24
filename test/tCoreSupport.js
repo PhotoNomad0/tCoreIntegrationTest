@@ -177,11 +177,11 @@ async function verifyContainsText(elementObj, match) {
  * @return {Promise<void>}
  */
 async function clickOn(elementObj, exact = true) {
-  log('clicking on "' + (elementObj.text || elementObj.id) + '"');
   await app.client.pause(navigationDelay);
   if (elementObj.text) {
     await verifyText(elementObj, elementObj.text, exact);
   }
+  log('clicking on "' + (elementObj.text || elementObj.id) + '"');
   await app.client.click(elementObj.selector);
 }
 
@@ -390,29 +390,30 @@ async function doOnlineProjectImport(projectName, sourceProject, continueOnProje
       await navigateGeneralDialog(TCORE.importErrorDialog, 'ok');
       await verifyOnSpecificPage(TCORE.projectsPage);
     } else {
-      await app.client.waitForExist(TCORE.searchingWaitDialog.title.selector, 5000);
-      let text = await getText(TCORE.searchingWaitDialog.prompt);
-      if (loadingTextShown(text)) {
-        log("Loading/Importing Dialog shown, wait for it to go away");
-        while (loadingTextShown(text)) {
-          await app.client.pause(500);
-          try {
-            text = await getText(TCORE.searchingWaitDialog.prompt);
-          } catch (e) {
-            text = "";
-          }
-        }
-        await waitForDialog(TCORE.renamedDialog);
-      }
-
       if (!projectInfoSettings.noRename) {
+        log("checking for Alert Dialog shown");
+        await app.client.waitForExist(TCORE.searchingWaitDialog.title.selector, 5000);
+        let text = await getText(TCORE.searchingWaitDialog.prompt);
+        if (loadingTextShown(text)) {
+          log("Loading/Importing Dialog shown, wait for it to go away");
+          while (loadingTextShown(text)) {
+            await app.client.pause(500);
+            try {
+              text = await getText(TCORE.searchingWaitDialog.prompt);
+            } catch (e) {
+              text = "";
+            }
+          }
+          await waitForDialog(TCORE.renamedDialog);
+        }
+
         // navigate renamed dialog
         const renamedDialogConfig = _.cloneDeep(TCORE.renamedDialog);
         renamedDialogConfig.prompt.text = `Your local project has been named\n    ${projectName}`;
         await navigateGeneralDialog(renamedDialogConfig, 'ok');
       }
-      await verifyOnSpecificPage(TCORE.toolsPage);
     }
+    await verifyOnSpecificPage(TCORE.toolsPage);
   } else {
     await waitForDialog(TCORE.importErrorDialog);
     await navigateGeneralDialog(TCORE.importCancelDialog, 'cancelImport');
