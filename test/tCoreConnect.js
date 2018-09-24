@@ -4,6 +4,7 @@ const chai = require('chai');
 const chaiAsPromised = require('chai-as-promised');
 const electron = require('electron');
 const path = require('path');
+const fakeDialog = require('spectron-fake-dialog');
 
 const appPath = path.join(__dirname, '../../translationCore/src/main.js');
 console.log('appPath', appPath);
@@ -20,6 +21,7 @@ module.exports = {
       args: [appPath]
     }).start();
     chaiAsPromised.transferPromiseness = app.transferPromiseness;
+    fakeDialog.apply(app);
     return app;
   },
 

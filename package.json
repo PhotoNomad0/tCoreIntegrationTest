@@ -34,7 +34,8 @@
     "mocha": "^5.2.0",
     "ospath": "1.2.2",
     "path-extra": "^4.2.1",
-    "spectron": "4.0.0"
+    "spectron": "4.0.0",
+    "spectron-fake-dialog": "0.0.1"
   },
   "engines": {
     "node": "^8.12.0"

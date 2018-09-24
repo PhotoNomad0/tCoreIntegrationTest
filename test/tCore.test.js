@@ -5,6 +5,7 @@ const Elements = require('./page-objects/elements');
 const _ = require('lodash');
 const assert = require('assert');
 const tCore = require('./tCoreSupport');
+const fakeDialog = require('spectron-fake-dialog');
 
 let app;
 let testCount = 0;
@@ -38,7 +39,17 @@ describe('tCore Test', () => {
       fs.removeSync(file);
     }
   });
+  
+  // disabled because we don't have a way to interact with file system dialog
+  it('opens USFM import', async() => {
+    fakeDialog.mock([ { method: 'showOpenDialog', value: ['faked.txt'] } ]);
+    await tCore.setToProjectPage();
+    await tCore.openImportDialog(Elements.importTypeOptions.local);
 
+    log("showing search");
+    await app.client.pause(10000);
+  });
+  
   describe.skip('Misc. Tests', () => {
     it('do online import access cancel', async () => {
       await tCore.setToProjectPage();
@@ -105,17 +116,7 @@ describe('tCore Test', () => {
       await tCore.doOnlineProjectImport(projectName, sourceProject, continueOnProjectInfo, projectInfoSettings);
       finished = true;
     });
-    
-    // disabled because we don't have a way to interact with file system dialog
-    it.skip('opens USFM import', async() => {
-      await tCore.startTcore();
-      await tCore.clickOn(Elements.projectNavigation);
-      await tCore.clickOn(Elements.menuButton);
-      await tCore.clickOn(Elements.localImportButton);
 
-      log("showing search");
-      await app.client.pause(10000);
-    });
   });
 
   describe.skip('Import Tests', () => {
@@ -362,7 +363,7 @@ describe('tCore Test', () => {
     });
   });
 
-  it('online import tc-desktop should succeed, no rename - https://git.door43.org/tCore-test-data/fr_test_tit_book', async () => {
+  it.skip('online import tc-desktop should succeed, no rename - https://git.door43.org/tCore-test-data/fr_test_tit_book', async () => {
     const sourceProject = "https://git.door43.org/tCore-test-data/fr_test_tit_book";
     const languageId = "fr";
     const bookId = "tit";

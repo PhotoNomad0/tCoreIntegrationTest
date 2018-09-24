@@ -5,6 +5,7 @@ const ospath = require('ospath');
 const TCORE = require('./page-objects/elements');
 const _ = require('lodash');
 const assert = require('assert');
+// import { expect } from 'chai';
 
 let app;
 let version;
