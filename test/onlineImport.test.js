@@ -1,70 +1,43 @@
 /* eslint-disable quotes,no-console */
-const fs = require('fs-extra');
-const tCoreConnect = require('./tCoreConnect');
-const Elements = require('./page-objects/elements');
+const TCORE = require('./page-objects/elements');
 const _ = require('lodash');
 const assert = require('assert');
 const tCore = require('./tCoreSupport');
-const dialogAddon = require('spectron-dialog-addon').default;
-
-let app;
-let testCount = 0;
-const navigationDelay = 500; // TODO: for slowing down for demo
-let finished = false;
+const utils = require('./utils');
 
 describe('tCore Test', () => {
-  let testName;
   
   before(async () => {
-    tCore.initializeTest(app, testCount, navigationDelay);
-    fs.removeSync(tCore.getLogFilePath());
-    app = await tCoreConnect.startApp();
-    tCore.initializeTest(app, testCount, navigationDelay);
-    await tCore.startTcore();
+    await utils.beforeAll();
   });
 
   beforeEach(function() {
-    beforEachTest.call(this, testName);
+    utils.beforeEachTest(this.currentTest.title);
   });
 
   afterEach(() => {
-    afterEachTest();
+    utils.afterEachTest();
   });
 
   after(async() => {
-    await tCoreConnect.stopApp(app);
-    const cleanupFiles = tCore.getCleanupFileList();
-    for (let file of cleanupFiles) {
-      console.log("Cleaning out: " + file);
-      fs.removeSync(file);
-    }
-  });
-  
-  // testing fake - seems to be working now - test needs to be finished
-  it.skip('opens USFM import', async() => {
-    dialogAddon.mock([ { method: 'showOpenDialog', value: ['faked.txt'] } ]);
-    await tCore.setToProjectPage();
-    await tCore.openImportDialog(Elements.importTypeOptions.local);
-
-    log("should not show import dialog");
-    await app.client.pause(10000);
+    await utils.afterAll();
   });
   
   describe.skip('Misc. Tests', () => {
     it('do online import access cancel', async () => {
       await tCore.setToProjectPage();
-      await tCore.openImportDialog(Elements.importTypeOptions.online);
-      await tCore.navigateDialog(Elements.onlineDialog, 'cancel');
-      await tCore.clickOn(Elements.importMenuButton.close);
-      await tCore.verifyOnSpecificPage(Elements.projectsPage);
-      finished = true;
+      await tCore.openImportDialog(TCORE.importTypeOptions.online);
+      await tCore.navigateDialog(TCORE.onlineDialog, 'cancel');
+      await tCore.clickOn(TCORE.importMenuButton.close);
+      await tCore.verifyOnSpecificPage(TCORE.projectsPage);
+      utils.testFinished();
     });
 
     it('do online search', async () => {
       let searchResults;
       await tCore.setToProjectPage();
-      await tCore.openImportDialog(Elements.importTypeOptions.online);
-      await tCore.navigateDialog(Elements.onlineDialog, 'access_internet');
+      await tCore.openImportDialog(TCORE.importTypeOptions.online);
+      await tCore.navigateDialog(TCORE.onlineDialog, 'access_internet');
 
       // get initial results
       const importConfigInitial = {
@@ -92,9 +65,9 @@ describe('tCore Test', () => {
       searchResults = await tCore.getSearchResults();
       // log("searchResults: " + JSON.stringify(searchResults, null, 2));
 
-      await tCore.navigateDialog(Elements.onlineImportDialog, 'cancel');
-      await tCore.verifyOnSpecificPage(Elements.projectsPage);
-      finished = true;
+      await tCore.navigateDialog(TCORE.onlineImportDialog, 'cancel');
+      await tCore.verifyOnSpecificPage(TCORE.projectsPage);
+      utils.testFinished();
     });
 
     it('do online import with cancel on Project Info', async () => {
@@ -114,12 +87,12 @@ describe('tCore Test', () => {
       const continueOnProjectInfo = false;
       const projectName = `${languageId}_${newTargetLangId}_${bookId}_book`;
       await tCore.doOnlineProjectImport(projectName, sourceProject, continueOnProjectInfo, projectInfoSettings);
-      finished = true;
+      utils.testFinished();
     });
 
   });
 
-  describe('Import Tests', () => {
+  describe.skip('Import Tests', () => {
     it('online import tCore should succeed - https://git.door43.org/tCore-test-data/AlignedUlt_en', async () => {
       const newTargetLangId = "zzzz";
       const sourceProject = 'https://git.door43.org/tCore-test-data/AlignedUlt_en';
@@ -137,7 +110,7 @@ describe('tCore Test', () => {
       const continueOnProjectInfo = true;
       const projectName = `${languageId}_${newTargetLangId}_${bookId}_book`;
       await tCore.doOnlineProjectImport(projectName, sourceProject, continueOnProjectInfo, projectInfoSettings);
-      finished = true;
+      utils.testFinished();
     });
 
     it('online import USFM should error - https://git.door43.org/tCore-test-data/AlignedUlb_hi', async () => {
@@ -154,7 +127,7 @@ describe('tCore Test', () => {
       const continueOnProjectInfo = true;
       const projectName = `${languageId}_${newTargetLangId}_${bookId}_book`;
       await tCore.doOnlineProjectImport(projectName, sourceProject, continueOnProjectInfo, projectInfoSettings);
-      finished = true;
+      utils.testFinished();
     });
 
     it('online import ts-desktop should succeed - https://git.door43.org/tCore-test-data/es-419_eph_text_ulb', async () => {
@@ -174,7 +147,7 @@ describe('tCore Test', () => {
       const continueOnProjectInfo = true;
       const projectName = `${languageId}_${newTargetLangId}_${bookId}_book`;
       await tCore.doOnlineProjectImport(projectName, sourceProject, continueOnProjectInfo, projectInfoSettings);
-      finished = true;
+      utils.testFinished();
     });
     
     it('online import tc-desktop 0.7.0 with checking should error - https://git.door43.org/tCore-test-data/sw_tit_text_ulb_L3', async () => {
@@ -188,7 +161,7 @@ describe('tCore Test', () => {
       const continueOnProjectInfo = true;
       const projectName = `${languageId}_${newTargetLangId}_${bookId}_book`;
       await tCore.doOnlineProjectImport(projectName, sourceProject, continueOnProjectInfo, projectInfoSettings);
-      finished = true;
+      utils.testFinished();
     });
 
     it('online import tc-desktop pre-0.7.0 with checking should error - https://git.door43.org/tCore-test-data/ceb_jas_text_ulb_L-', async () => {
@@ -202,7 +175,7 @@ describe('tCore Test', () => {
       const continueOnProjectInfo = true;
       const projectName = `${languageId}_${newTargetLangId}_${bookId}_book`;
       await tCore.doOnlineProjectImport(projectName, sourceProject, continueOnProjectInfo, projectInfoSettings);
-      finished = true;
+      utils.testFinished();
     });
 
     it('online import tc-desktop 0.7.0 no checking should succeed - https://git.door43.org/tCore-test-data/ar_mat_text_ulb', async () => {
@@ -222,7 +195,7 @@ describe('tCore Test', () => {
       const continueOnProjectInfo = true;
       const projectName = `${languageId}_${newTargetLangId}_${bookId}_book`;
       await tCore.doOnlineProjectImport(projectName, sourceProject, continueOnProjectInfo, projectInfoSettings);
-      finished = true;
+      utils.testFinished();
     });
     
     it('online import tc-desktop 0.8.0 no checking should succeed - https://git.door43.org/tCore-test-data/es-419_luk', async () => {
@@ -243,7 +216,7 @@ describe('tCore Test', () => {
       const continueOnProjectInfo = true;
       const projectName = `${languageId}_${newTargetLangId}_${bookId}_book`;
       await tCore.doOnlineProjectImport(projectName, sourceProject, continueOnProjectInfo, projectInfoSettings);
-      finished = true;
+      utils.testFinished();
     });
 
     it('online import tc-desktop 0.8.0 with checking should succeed - https://git.door43.org/tCore-test-data/es-419_tit_ulb', async () => {
@@ -264,7 +237,7 @@ describe('tCore Test', () => {
       const continueOnProjectInfo = true;
       const projectName = `${languageId}_${newTargetLangId}_${bookId}_book`;
       await tCore.doOnlineProjectImport(projectName, sourceProject, continueOnProjectInfo, projectInfoSettings);
-      finished = true;
+      utils.testFinished();
     });
     
     it('online import tc-desktop 0.8.1 with alignment, no checking should succeed - https://git.door43.org/tCore-test-data/English_tit', async () => {
@@ -282,7 +255,7 @@ describe('tCore Test', () => {
       const continueOnProjectInfo = true;
       const projectName = `${languageId}_${newTargetLangId}_${bookId}_book`;
       await tCore.doOnlineProjectImport(projectName, sourceProject, continueOnProjectInfo, projectInfoSettings);
-      finished = true;
+      utils.testFinished();
     });
 
     it('online import tc-desktop 0.9.0 no checking should succeed - https://git.door43.org/tCore-test-data/am_1co_ulb', async () => {
@@ -302,7 +275,7 @@ describe('tCore Test', () => {
       const continueOnProjectInfo = true;
       const projectName = `${languageId}_${newTargetLangId}_${bookId}_book`;
       await tCore.doOnlineProjectImport(projectName, sourceProject, continueOnProjectInfo, projectInfoSettings);
-      finished = true;
+      utils.testFinished();
     });
 
     it('online import tc-desktop 0.9.0 with checking should succeed - https://git.door43.org/tCore-test-data/el_tit', async () => {
@@ -320,7 +293,7 @@ describe('tCore Test', () => {
       const continueOnProjectInfo = true;
       const projectName = `${languageId}_${newTargetLangId}_${bookId}_book`;
       await tCore.doOnlineProjectImport(projectName, sourceProject, continueOnProjectInfo, projectInfoSettings);
-      finished = true;
+      utils.testFinished();
     });
 
     it('online import tc-desktop should succeed - https://git.door43.org/tCore-test-data/fr_test_tit_book', async () => {
@@ -340,7 +313,7 @@ describe('tCore Test', () => {
       const continueOnProjectInfo = true;
       const projectName = `${languageId}_${newTargetLangId}_${bookId}_book`;
       await tCore.doOnlineProjectImport(projectName, sourceProject, continueOnProjectInfo, projectInfoSettings);
-      finished = true;
+      utils.testFinished();
     });
 
     it('online import tc-desktop should succeed - https://git.door43.org/tCore-test-data/AlignedUlt_en', async () => {
@@ -359,7 +332,7 @@ describe('tCore Test', () => {
       const continueOnProjectInfo = true;
       const projectName = `${languageId}_${newTargetLangId}_${bookId}_book`;
       await tCore.doOnlineProjectImport(projectName, sourceProject, continueOnProjectInfo, projectInfoSettings);
-      finished = true;
+      utils.testFinished();
     });
 
     it('online import tc-desktop should succeed, no rename - https://git.door43.org/tCore-test-data/fr_test_tit_book', async () => {
@@ -378,7 +351,7 @@ describe('tCore Test', () => {
       const continueOnProjectInfo = true;
       const projectName = `${languageId}_${projectInfoSettings.targetLangId}_${bookId}_book`;
       await tCore.doOnlineProjectImport(projectName, sourceProject, continueOnProjectInfo, projectInfoSettings);
-      finished = true;
+      utils.testFinished();
     });
 
   });
@@ -390,23 +363,5 @@ describe('tCore Test', () => {
 //
 
 function log(text) {
-  tCore.log(text);
-}
-
-function beforEachTest(testName) {
-  testName = this.currentTest.title;
-  // console.log('beforeEach', testName);
-  tCore.initializeTest(app, ++testCount, navigationDelay);
-  fs.removeSync(tCore.getLogFilePath());
-  tCore.logVersion();
-  log('Test ' + testCount + ' Name: "' + testName + '"');
-  finished = false;
-}
-
-function afterEachTest() {
-  if (!finished) {
-    log("#### Test " + testCount + " did not finish ####");
-  } else {
-    log("Test " + testCount + " Ended Successfully");
-  }
+  utils.log(text);
 }

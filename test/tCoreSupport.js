@@ -3,6 +3,7 @@ const fs = require('fs-extra');
 const path = require('path');
 const ospath = require('ospath');
 const TCORE = require('./page-objects/elements');
+const dialogAddon = require('spectron-dialog-addon').default;
 const _ = require('lodash');
 const assert = require('assert');
 // import { expect } from 'chai';
@@ -59,7 +60,7 @@ async function verifyProjectInfoDialog(expectedProjectSettings) {
   if (expectedProjectSettings.resourceId) {
     await verifyValue(TCORE.projectInfoCheckerDialog.resourceId, expectedProjectSettings.resourceId);
   }
-  if (expectedProjectSettings.languageDirectionLtr) {
+  if (expectedProjectSettings.languageDirectionLtr !== undefined) {
     await verifyText(TCORE.projectInfoCheckerDialog.languageDirection, expectedProjectSettings.languageDirectionLtr ? "Left to right" : "Right to left");
   }
   if (expectedProjectSettings.bookName) {
@@ -310,6 +311,28 @@ async function navigateMissingVersesDialog(settings) {
   }
 }
 
+async function navigateCopyrightDialog(settings) {
+  log("Navigating Copyright");
+  await waitForDialog(TCORE.copyrightDialog, 1000);
+  await verifyContainsText(TCORE.copyrightDialog.licensesLabel, TCORE.copyrightDialog.licensesLabel.text);
+  await verifyText(TCORE.copyrightDialog.instructions, TCORE.copyrightDialog.instructions.text);
+  if (settings.license) {
+    const checkBox = TCORE.copyrightDialog[settings.license];
+    if (checkBox) {
+      await clickOn(checkBox);
+    } else {
+      const message = "copyright button not found: " + settings.license;
+      log(message);
+      assert.fail(message);
+    }
+  }
+  if (settings.continue) {
+    await navigateDialog(TCORE.missingVersesCheckerDialog, 'continue');
+  } else {
+    await navigateDialog(TCORE.missingVersesCheckerDialog, 'cancel');
+  }
+}
+
 async function navigateGeneralDialog(dialogConfig, buttonClick) {
   await waitForDialog(dialogConfig, 1000);
   if (dialogConfig.title.text) {
@@ -330,16 +353,11 @@ async function verifyOnSpecificPage(verifyPage) {
   }
 }
 
-function fileCleanup(projectPath) {
-  fs.removeSync(projectPath);
-  cleanupFileList.push(projectPath); // record for final cleanup
-}
-
 function loadingTextShown(text) {
   return text.includes("Loading...") || text.includes("Please wait...");
 }
 
-async function delayWhileInfoDialogShown() {
+async function delayWhileWaitDialogShown() {
   log("checking for Alert Dialog shown");
   let loadingDialogFound = false;
   await app.client.waitForExist(TCORE.searchingWaitDialog.title.selector, 5000);
@@ -359,14 +377,47 @@ async function delayWhileInfoDialogShown() {
   return loadingDialogFound;
 }
 
-async function doOnlineProjectImport(projectName, sourceProject, continueOnProjectInfo, projectInfoSettings) {
+function projectRemoval(projectName) {
   const PROJECTS_PATH = path.join(ospath.home(), 'translationCore', 'projects');
   if (projectName.includes("undefined")) {
     assert.fail("Invalid Project Name: " + projectName);
   }
   const projectPath = path.join(PROJECTS_PATH, projectName);
   log("making sure test project removed: " + projectPath);
-  fileCleanup(projectPath);
+  fs.removeSync(projectPath);
+  cleanupFileList.push(projectPath); // record for final cleanup
+}
+
+async function navigateImportResults(continueOnProjectInfo, projectInfoSettings, projectName) {
+  if (continueOnProjectInfo || !projectInfoSettings.noProjectInfoDialog) {
+    if (projectInfoSettings.errorMessage) {
+      await waitForDialog(TCORE.importErrorDialog, 2000);
+      await verifyContainsText(TCORE.importErrorDialog.prompt, projectInfoSettings.errorMessage);
+      await navigateGeneralDialog(TCORE.importErrorDialog, 'ok');
+      await verifyOnSpecificPage(TCORE.projectsPage);
+    } else {
+      if (!projectInfoSettings.noRename) {
+        let loadingDialogFound = await delayWhileWaitDialogShown();
+        if (loadingDialogFound) {
+          await waitForDialog(TCORE.renamedDialog);
+        }
+
+        // navigate renamed dialog
+        const renamedDialogConfig = _.cloneDeep(TCORE.renamedDialog);
+        renamedDialogConfig.prompt.text = `Your local project has been named\n    ${projectName}`;
+        await navigateGeneralDialog(renamedDialogConfig, 'ok');
+      }
+    }
+    await verifyOnSpecificPage(TCORE.toolsPage);
+  } else {
+    await waitForDialog(TCORE.importErrorDialog);
+    await navigateGeneralDialog(TCORE.importCancelDialog, 'cancelImport');
+    await verifyOnSpecificPage(TCORE.projectsPage);
+  }
+}
+
+async function doOnlineProjectImport(projectName, sourceProject, continueOnProjectInfo, projectInfoSettings) {
+  projectRemoval(projectName);
   await setToProjectPage();
   await openImportDialog(TCORE.importTypeOptions.online);
   await navigateDialog(TCORE.onlineDialog, 'access_internet');
@@ -396,39 +447,14 @@ async function doOnlineProjectImport(projectName, sourceProject, continueOnProje
   };
   
   if (!projectInfoSettings.noProjectInfoDialog) {
-    await delayWhileInfoDialogShown();
+    await delayWhileWaitDialogShown();
     await navigateProjectInfoDialog(projectInfoConfig);
   }
 
   if (projectInfoSettings.missingVerses) {
     await navigateMissingVersesDialog({ continue: true});
   }
-  
-  if (continueOnProjectInfo || !projectInfoSettings.noProjectInfoDialog) {
-    if (projectInfoSettings.errorMessage) {
-      await waitForDialog(TCORE.importErrorDialog, 2000);
-      await verifyContainsText(TCORE.importErrorDialog.prompt, projectInfoSettings.errorMessage);
-      await navigateGeneralDialog(TCORE.importErrorDialog, 'ok');
-      await verifyOnSpecificPage(TCORE.projectsPage);
-    } else {
-      if (!projectInfoSettings.noRename) {
-        let loadingDialogFound = await delayWhileInfoDialogShown();
-        if (loadingDialogFound) {
-          await waitForDialog(TCORE.renamedDialog);
-        }
-        
-        // navigate renamed dialog
-        const renamedDialogConfig = _.cloneDeep(TCORE.renamedDialog);
-        renamedDialogConfig.prompt.text = `Your local project has been named\n    ${projectName}`;
-        await navigateGeneralDialog(renamedDialogConfig, 'ok');
-      }
-    }
-    await verifyOnSpecificPage(TCORE.toolsPage);
-  } else {
-    await waitForDialog(TCORE.importErrorDialog);
-    await navigateGeneralDialog(TCORE.importCancelDialog, 'cancelImport');
-    await verifyOnSpecificPage(TCORE.projectsPage);
-  }
+  await navigateImportResults(continueOnProjectInfo, projectInfoSettings, projectName);
   // fs.removeSync(projectPath); // TODO: cannot remove until deselected
 }
 
@@ -516,8 +542,48 @@ function log(text) {
   fs.writeFileSync(logPath, current + output + "\n");
 }
 
+function mockDialogPath(file) {
+  const usfmPath = path.resolve(file);
+  const exists = (fs.existsSync(usfmPath));
+  if (exists) {
+    dialogAddon.mock([{method: 'showOpenDialog', value: [usfmPath]}]);
+  }
+}
+
+async function doLocalProjectImport(projectSettings, continueOnProjectInfo, projectName) {
+  projectRemoval(projectName);
+  mockDialogPath(projectSettings.importPath);
+  await setToProjectPage();
+  await openImportDialog(TCORE.importTypeOptions.local);
+
+  if (projectSettings.preProjectInfoErrorMessage) {
+    const importErrorDialog = _.cloneDeep(TCORE.importErrorDialog);
+    importErrorDialog.prompt.text = projectSettings.preProjectInfoErrorMessage;
+    await waitForDialog(TCORE.importErrorDialog);
+    await navigateGeneralDialog(TCORE.importErrorDialog, 'ok');
+    await verifyOnSpecificPage(TCORE.projectsPage);
+
+  } else { // no error expected yet
+
+    await delayWhileWaitDialogShown();
+    await navigateCopyrightDialog({license: projectSettings.license, continue: true});
+
+    if (!projectSettings.noProjectInfoDialog) {
+      await navigateProjectInfoDialog({...projectSettings, continue: continueOnProjectInfo});
+    }
+
+    if (projectSettings.missingVerses) {
+      await navigateMissingVersesDialog({continue: true});
+    }
+
+    await navigateImportResults(continueOnProjectInfo, projectSettings, projectName);
+  }
+}
+
 const tCoreSupport = {
   clickOn,
+  delayWhileWaitDialogShown,
+  doLocalProjectImport,
   doOnlineProjectImport,
   getCleanupFileList,
   getLogFilePath,
@@ -526,12 +592,16 @@ const tCoreSupport = {
   initializeTest,
   log,
   logVersion,
+  navigateCopyrightDialog,
   navigateDialog,
   navigateGeneralDialog,
+  navigateImportResults,
+  navigateMissingVersesDialog,
   navigateOnlineImportDialog,
   navigateProjectInfoDialog,
   openImportDialog,
   parseSearchResult,
+  projectRemoval,
   selectSearchItem,
   setToProjectPage,
   setValue,

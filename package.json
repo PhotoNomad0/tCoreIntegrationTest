@@ -6,7 +6,7 @@
   "scripts": {
     "test": "node ./node_modules/mocha/bin/_mocha ./test/**/*test.js",
     "lint": "node ./node_modules/.bin/eslint .",
-    "debug-test": "mocha --inspect-brk ./test/tCore.test.js"
+    "debug-test": "mocha --inspect-brk ./test/usfmImport.test.js"
   },
   "repository": {
     "type": "git",

@@ -187,6 +187,37 @@ const DEFINITIONS = {
       id: "Enter URL"
     }
   },
+  copyrightDialog: {
+    ...TEMPLATES.projectStepperDialog,
+    selector: "body > div:nth-child(3) > div > div:nth-child(1) > div > div > div:nth-child(1)",
+    id: "Copyright Dialog",
+    licensesLabel: {
+      selector: "body > div:nth-child(3) > div > div:nth-child(1) > div > div > div:nth-child(1) > div > div:nth-child(2) > div:nth-child(2) > div",
+      id: "Licenses Label",
+      text: "Licenses"
+    },
+    instructions: {
+      selector: "body > div:nth-child(3) > div > div:nth-child(1) > div > div > div:nth-child(1) > div > div:nth-child(2) > div:nth-child(1) > div > div > div > div > div",
+      id: "Instructions",
+      text: "Please select the copyright status for this project."
+    },
+    cc0PublicDomain: {
+      selector: "body > div:nth-child(3) > div > div:nth-child(1) > div > div > div:nth-child(1) > div > div:nth-child(2) > div:nth-child(2) > div > div > div > div:nth-child(1) > div:nth-child(2) > div > input[type=\"checkbox\"]",
+      id: "Public Domain"
+    },
+    creativeCommons: {
+      selector: "body > div:nth-child(3) > div > div:nth-child(1) > div > div > div:nth-child(1) > div > div:nth-child(2) > div:nth-child(2) > div > div > div > div:nth-child(2) > div:nth-child(2) > div > input[type=\"checkbox\"]",
+      id: "Creative Commons"
+    },
+    ccShareAlike: {
+      selector: "body > div:nth-child(3) > div > div:nth-child(1) > div > div > div:nth-child(1) > div > div:nth-child(2) > div:nth-child(2) > div > div > div > div:nth-child(3) > div:nth-child(2) > div > input[type=\"checkbox\"]",
+      id: "Share Alike"
+    },
+    noneOfTheAbove: {
+      selector: "body > div:nth-child(3) > div > div:nth-child(1) > div > div > div:nth-child(1) > div > div:nth-child(2) > div:nth-child(2) > div > div > div > div:nth-child(4) > div:nth-child(2) > div > input[type=\"checkbox\"]",
+      id: "None Of The Above"
+    }
+  },
   missingVersesCheckerDialog: {
     ...TEMPLATES.projectStepperDialog,
     selector: "body > div:nth-child(3) > div > div:nth-child(1) > div > div > div:nth-child(1)",

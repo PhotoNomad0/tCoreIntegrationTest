@@ -30,6 +30,7 @@ npm run debug-test
 To change the test to debug, edit this line in package.json and change the path to the test:
 
 ``` 
-"debug-test": "mocha --inspect-brk ./test/tCore.test.js"
+"debug-test": "mocha --inspect-brk ./test/onlineImport.test.js"
 ```
 
+Open Chrome to `chrome://inspect`
