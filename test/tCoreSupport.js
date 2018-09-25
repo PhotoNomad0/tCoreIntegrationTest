@@ -339,6 +339,26 @@ function loadingTextShown(text) {
   return text.includes("Loading...") || text.includes("Please wait...");
 }
 
+async function delayWhileInfoDialogShown() {
+  log("checking for Alert Dialog shown");
+  let loadingDialogFound = false;
+  await app.client.waitForExist(TCORE.searchingWaitDialog.title.selector, 5000);
+  let text = await getText(TCORE.searchingWaitDialog.prompt);
+  if (loadingTextShown(text)) {
+    loadingDialogFound = true;
+    log("Loading/Importing Dialog shown, wait for it to go away");
+    while (loadingTextShown(text)) {
+      await app.client.pause(500);
+      try {
+        text = await getText(TCORE.searchingWaitDialog.prompt);
+      } catch (e) {
+        text = "";
+      }
+    }
+  }
+  return loadingDialogFound;
+}
+
 async function doOnlineProjectImport(projectName, sourceProject, continueOnProjectInfo, projectInfoSettings) {
   const PROJECTS_PATH = path.join(ospath.home(), 'translationCore', 'projects');
   if (projectName.includes("undefined")) {
@@ -376,6 +396,7 @@ async function doOnlineProjectImport(projectName, sourceProject, continueOnProje
   };
   
   if (!projectInfoSettings.noProjectInfoDialog) {
+    await delayWhileInfoDialogShown();
     await navigateProjectInfoDialog(projectInfoConfig);
   }
 
@@ -391,22 +412,11 @@ async function doOnlineProjectImport(projectName, sourceProject, continueOnProje
       await verifyOnSpecificPage(TCORE.projectsPage);
     } else {
       if (!projectInfoSettings.noRename) {
-        log("checking for Alert Dialog shown");
-        await app.client.waitForExist(TCORE.searchingWaitDialog.title.selector, 5000);
-        let text = await getText(TCORE.searchingWaitDialog.prompt);
-        if (loadingTextShown(text)) {
-          log("Loading/Importing Dialog shown, wait for it to go away");
-          while (loadingTextShown(text)) {
-            await app.client.pause(500);
-            try {
-              text = await getText(TCORE.searchingWaitDialog.prompt);
-            } catch (e) {
-              text = "";
-            }
-          }
+        let loadingDialogFound = await delayWhileInfoDialogShown();
+        if (loadingDialogFound) {
           await waitForDialog(TCORE.renamedDialog);
         }
-
+        
         // navigate renamed dialog
         const renamedDialogConfig = _.cloneDeep(TCORE.renamedDialog);
         renamedDialogConfig.prompt.text = `Your local project has been named\n    ${projectName}`;

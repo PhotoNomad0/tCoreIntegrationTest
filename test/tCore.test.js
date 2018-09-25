@@ -40,8 +40,8 @@ describe('tCore Test', () => {
     }
   });
   
-  // testing fake - seems to be working now - test needs to be finised
-  it('opens USFM import', async() => {
+  // testing fake - seems to be working now - test needs to be finished
+  it.skip('opens USFM import', async() => {
     dialogAddon.mock([ { method: 'showOpenDialog', value: ['faked.txt'] } ]);
     await tCore.setToProjectPage();
     await tCore.openImportDialog(Elements.importTypeOptions.local);
@@ -119,7 +119,7 @@ describe('tCore Test', () => {
 
   });
 
-  describe.skip('Import Tests', () => {
+  describe('Import Tests', () => {
     it('online import tCore should succeed - https://git.door43.org/tCore-test-data/AlignedUlt_en', async () => {
       const newTargetLangId = "zzzz";
       const sourceProject = 'https://git.door43.org/tCore-test-data/AlignedUlt_en';
@@ -149,14 +149,14 @@ describe('tCore Test', () => {
         newLanguageId: languageId,
         newBookName: "57-TIT",
         newTargetLangId,
-        errorMessage: "Error occurred while importing your project.\nCould not download the project from https://git.door43.org/tCore-test-data/AlignedUlb_hi to "
+        preProjectInfoErrorMessage: "Error occurred while importing your project.\nCould not download the project from https://git.door43.org/tCore-test-data/AlignedUlb_hi to "
       };
       const continueOnProjectInfo = true;
       const projectName = `${languageId}_${newTargetLangId}_${bookId}_book`;
       await tCore.doOnlineProjectImport(projectName, sourceProject, continueOnProjectInfo, projectInfoSettings);
       finished = true;
     });
-    
+
     it('online import ts-desktop should succeed - https://git.door43.org/tCore-test-data/es-419_eph_text_ulb', async () => {
       const newTargetLangId = "zzzx";
       const sourceProject = "https://git.door43.org/tCore-test-data/es-419_eph_text_ulb";
@@ -380,6 +380,7 @@ describe('tCore Test', () => {
       await tCore.doOnlineProjectImport(projectName, sourceProject, continueOnProjectInfo, projectInfoSettings);
       finished = true;
     });
+
   });
   
 });
@@ -398,14 +399,14 @@ function beforEachTest(testName) {
   tCore.initializeTest(app, ++testCount, navigationDelay);
   fs.removeSync(tCore.getLogFilePath());
   tCore.logVersion();
-  log('Test Name: "' + testName + '"');
+  log('Test ' + testCount + ' Name: "' + testName + '"');
   finished = false;
 }
 
 function afterEachTest() {
   if (!finished) {
-    log("#### Test did not finish ####");
+    log("#### Test " + testCount + " did not finish ####");
   } else {
-    log("Test Ended Successfully");
+    log("Test " + testCount + " Ended Successfully");
   }
 }
