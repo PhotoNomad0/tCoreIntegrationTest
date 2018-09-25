@@ -16,3 +16,5 @@ Also in `./test/tCoreConnect.js` change `appPath` to either
 ```
 npm test
 ```
+
+Uses Mocha test framework so tests are run sequentially and in order.  Tests look quite similar to `jest`.
