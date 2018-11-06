@@ -4,7 +4,7 @@ const utils = require('./utils');
 
 let app;
 
-describe.skip('tCore Test', () => {
+describe('WA Test', () => {
   
   before(async () => {
     app = await utils.beforeAll();
@@ -22,7 +22,7 @@ describe.skip('tCore Test', () => {
     await utils.afterAll();
   });
 
-  describe.skip('Import Tests', () => {
+  describe('WA Tests', () => {
     it('opens USFM import', async () => {
       const newTargetLangId = "zzxz";
       const languageId = "hi";

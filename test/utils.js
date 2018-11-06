@@ -14,15 +14,15 @@ let testName;
 // helpers
 //
 
-function log(text) {
+export function log(text) {
   tCore.log(text);
 }
 
-function testFinished() {
+export function testFinished() {
   finished = true;
 }
 
-async function beforeAll() {
+export async function beforeAll() {
   tCore.initializeTest(app, testCount, navigationDelay);
   fs.removeSync(tCore.getLogFilePath());
   if (!app) {
@@ -33,7 +33,16 @@ async function beforeAll() {
   return app;
 }
 
-function beforeEachTest(testName_) {
+export async function afterAll() {
+  await tCoreConnect.stopApp(app);
+  const cleanupFiles = tCore.getCleanupFileList();
+  for (let file of cleanupFiles) {
+    console.log("Cleaning out: " + file);
+    fs.removeSync(file);
+  }
+}
+
+export function beforeEachTest(testName_) {
   testName = testName_;
   // console.log('beforeEach', testName);
   tCore.initializeTest(app, ++testCount, navigationDelay);
@@ -43,7 +52,7 @@ function beforeEachTest(testName_) {
   finished = false;
 }
 
-function afterEachTest() {
+export function afterEachTest() {
   if (!finished) {
     log("#### Test " + testCount + " did not finish ####");
   } else {
