@@ -39,6 +39,7 @@ describe.skip('tCore Test', () => {
       };
       const projectName = `${languageId}_${newTargetLangId}_${bookId}_book`;
       await tCore.doLocalProjectImport(projectSettings, continueOnProjectInfo, projectName);
+      utils.testFinished();
     });
   });
 });

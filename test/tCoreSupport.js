@@ -30,7 +30,8 @@ function initializeTest(app_, count, navigationDelay_) {
 
 async function startTcore() {
   log("starting tCore");
-  await app.client.pause(2000).waitUntilWindowLoaded()
+  await app.client.pause(4000);
+  await app.client.waitUntilWindowLoaded()
     .getWindowCount()
     .should.eventually.have.at.least(1);
   await app.client.browserWindow.isVisible().should.eventually.equal(true);
@@ -348,9 +349,11 @@ async function navigateGeneralDialog(dialogConfig, buttonClick) {
 
 async function verifyOnSpecificPage(verifyPage) {
   await navigateDialog(verifyPage, null); // make sure page shown
+  log("verify on specific page");
   if (verifyPage.text) {
     await verifyText(verifyPage, verifyPage.text);
   }
+  log("finished verify on specific page");
 }
 
 function loadingTextShown(text) {
@@ -588,6 +591,7 @@ const tCoreSupport = {
   getCleanupFileList,
   getLogFilePath,
   getSearchResults,
+  getText,
   indexInSearchResults,
   initializeTest,
   log,

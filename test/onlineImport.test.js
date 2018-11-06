@@ -92,7 +92,7 @@ describe.skip('tCore Test', () => {
 
   });
 
-  describe.skip('Import Tests', () => {
+  describe('Import Tests', () => {
     it('online import tCore should succeed - https://git.door43.org/tCore-test-data/AlignedUlt_en', async () => {
       const newTargetLangId = "zzzz";
       const sourceProject = 'https://git.door43.org/tCore-test-data/AlignedUlt_en';

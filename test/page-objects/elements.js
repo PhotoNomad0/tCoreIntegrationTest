@@ -1,4 +1,5 @@
 /* eslint-disable quotes */
+const _ = require('lodash');
 
 const TEMPLATES = {
   generalAlertDialog: {
@@ -28,6 +29,19 @@ const TEMPLATES = {
       selector: "body > div:nth-child(3) > div > div:nth-child(1) > div > div > div:nth-child(2) > div > button.btn-second",
       text: "Cancel"
     }
+  },
+  toolN: function(position, label) {
+    return {
+      id: label,
+      launchButton: {
+        id: label + " launch button",
+        selector: "#content > div > div.container-fluid > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(2) > div > div > div > div:nth-child(" + position + ") > div > div:nth-child(6) > span > button"
+      },
+      expandScripturePane: {
+        id: label + " expand scripture pane",
+        selector: "#content > div > div.container-fluid > div:nth-child(2) > div > div > div > div:nth-child(4) > div:nth-child(1) > div > div.inner-container > div.title-bar > span.glyphicon.glyphicon-fullscreen"
+      }
+    };
   }
 };
 
@@ -279,7 +293,56 @@ const DEFINITIONS = {
     selector: "#content > div > div.container-fluid > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(1) > div > div > div > div > div > p:nth-child(1)",
     text: "Select a project from the list.",
     id: "Projects Page"
+  },
+  wordAlignment: mergeToTemplate(TEMPLATES.toolN(2, 'wordAlignment'), {}),
+  translationWords: mergeToTemplate(TEMPLATES.toolN(1, 'translationWords'), {}),
+  groupMenu: {
+    id: "Group Menu",
+    header: {
+      id: "Group Menu Header",
+      selector: "#groups-menu-header"
+    }
+  },
+  expandedScripturePane: {
+    id: "Expanded Scripture Pane",
+    selector: "#expandedScripturePane",
+    title: {
+      id: "Expanded Scripture Pane",
+      selector: "#expandedScripturePaneTitle"
+    },
+    verseRows: {
+      id: "verse rows",
+      selector: "div.verse-row-container"
+    },
+    verseRowN: function(position, verse) {
+      return {
+        id: "Verse " + verse,
+        selector: "div.verse-row-container > div:nth-child(" + position + ")"
+      };
+    },
+    editN: function(position, verse) {
+      return {
+        id: "Edit Verse " + verse,
+        selector: "div.verse-row-container > div:nth-child(" + position + ") button"
+      };
+    }
+  },
+  verseEditor: {
+    id: "Verse Editor",
+    selector: "#verse-editor-field",
+    next: {
+      id: "Verse Editor Next",
+      selector: ""
+    }
   }
 };
+
+function mergeToTemplate(template, override) {
+  const props = _.cloneDeep(template);
+  for (let key of Object.keys(override)) {
+    props[key] = override[key];
+  }
+  return props;
+}
 
 module.exports = DEFINITIONS;
