@@ -59,13 +59,13 @@ describe('tCore Test', () => {
         await tCore.navigateDialog(TCORE.expandedScripturePane.verseRows);
         await tCore.navigateDialog(TCORE.expandedScripturePane.verseRowN(1, "verseRow 1"));
         const verseCount = verses[chapter - 1];
-        for (let row = 1; row <= verseCount; row++) {
+        for (let verse = 1; verse <= verseCount; verse++) {
           await app.client.pause(500);
           const editReason = [TCORE.verseEditor.reasonSpelling, TCORE.verseEditor.reasonPunctuation,
             TCORE.verseEditor.reasonWordChoice, TCORE.verseEditor.reasonMeaning,
-            TCORE.verseEditor.reasonGrammar, TCORE.verseEditor.reasonOther][row % 6];
-          await tCore.clickOn(TCORE.expandedScripturePane.editN(row, 'verse ' + row));
-          await tCore.setValue(TCORE.verseEditor, 'verse text ' + row);
+            TCORE.verseEditor.reasonGrammar, TCORE.verseEditor.reasonOther][verse % 6];
+          await tCore.clickOn(TCORE.expandedScripturePane.editN(verse, 'verse ' + verse));
+          await tCore.setValue(TCORE.verseEditor, chapter + ':' + verse +' - verse text ' + verse);
           await tCore.clickOn(TCORE.verseEditor.next);
           await tCore.clickOn(editReason);
           await tCore.clickOn(TCORE.verseEditor.save);
