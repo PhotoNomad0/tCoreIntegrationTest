@@ -43,16 +43,25 @@ describe('tCore Test', () => {
       await tCore.clickOn(TCORE.wordAlignment.launchButton);
       await app.client.pause(6000);
       await tCore.navigateDialog(TCORE.groupMenu.header);
-      await retryStep(10, async () => {
-        tCore.clickOn(TCORE.wordAlignment.expandScripturePane);
-      }, "clicking expandScripturePane");
+      // await retryStep(10, async () => {
+      //   tCore.clickOn(TCORE.wordAlignment.expandScripturePane);
+      // }, "clicking expandScripturePane");
+      await tCore.clickOn(TCORE.wordAlignment.expandScripturePane);
       await app.client.pause(3000);
       await tCore.navigateDialog(TCORE.expandedScripturePane);
       const scripturePaneTitle = await tCore.getText(TCORE.expandedScripturePane.title);
       log("scripturePaneTitle= " + scripturePaneTitle);
       await tCore.navigateDialog(TCORE.expandedScripturePane.verseRows);
       await tCore.navigateDialog(TCORE.expandedScripturePane.verseRowN(1, "verseRow 1"));
-      await tCore.clickOn(TCORE.expandedScripturePane.editN(2, 'v2'));
+      const row = 2;
+      const editReason = [TCORE.verseEditor.reasonSpelling, TCORE.verseEditor.reasonPunctuation, 
+        TCORE.verseEditor.reasonWordChoice, TCORE.verseEditor.reasonMeaning,
+        TCORE.verseEditor.reasonGrammar, TCORE.verseEditor.reasonOther][row % 6];
+      await tCore.clickOn(TCORE.expandedScripturePane.editN(2, 'verse ' + row));
+      await tCore.setValue(TCORE.verseEditor, 'verse text ' + row);
+      await tCore.clickOn(TCORE.verseEditor.next);
+      await tCore.clickOn(editReason);
+      await tCore.clickOn(TCORE.verseEditor.save);
       await app.client.pause(7000);
       utils.testFinished();
     });

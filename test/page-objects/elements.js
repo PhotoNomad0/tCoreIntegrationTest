@@ -332,7 +332,39 @@ const DEFINITIONS = {
     selector: "#verse-editor-field",
     next: {
       id: "Verse Editor Next",
-      selector: ""
+      selector: "body div.stepper-body > div.actions > button.btn-prime"
+    },
+    save: {
+      id: "Verse Editor Save",
+      selector: "body div.stepper-body > div.actions > button.btn-prime"
+    },
+    cancel: {
+      id: "Verse Editor Cancel",
+      selector: "body div.stepper-body > div.actions > button.btn-second"
+    },
+    reasonSpelling: {
+      id: "Reason Spelling",
+      selector: "body div.stepper-body > div.screen > div > div:nth-child(1) > label:nth-child(1) input"
+    },
+    reasonPunctuation: {
+      id: "Reason Punctuation",
+      selector: "body div.stepper-body > div.screen > div > div:nth-child(1) > label:nth-child(2) input"
+    },
+    reasonWordChoice: {
+      id: "Reason Word Choice",
+      selector: "body div.stepper-body > div.screen > div > div:nth-child(1) > label:nth-child(3) input"
+    },
+    reasonMeaning: {
+      id: "Reason Meaning",
+      selector: "body div.stepper-body > div.screen > div > div:nth-child(2) > label:nth-child(1) input"
+    },
+    reasonGrammar: {
+      id: "Reason Grammar",
+      selector: "body div.stepper-body > div.screen > div > div:nth-child(2) > label:nth-child(2) input"
+    },
+    reasonOther: {
+      id: "Reason Other",
+      selector: "body div.stepper-body > div.screen > div > div:nth-child(2) > label:nth-child(3) input"
     }
   }
 };
