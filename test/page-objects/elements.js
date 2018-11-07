@@ -311,10 +311,12 @@ const DEFINITIONS = {
   },
   expandedScripturePane: {
     id: "Expanded Scripture Pane",
-    selector: "#expandedScripturePane",
+    selector: "//body/div[8]/div[2]",
+    old: "#expandedScripturePane",
     title: {
-      id: "Expanded Scripture Pane",
-      selector: "#expandedScripturePaneTitle"
+      id: "Expanded Scripture Pane Title",
+      selector: "//body/div[8]/div[2]/div[1]/div",
+      old: "#expandedScripturePaneTitle"
     },
     verseRows: {
       id: "verse rows",

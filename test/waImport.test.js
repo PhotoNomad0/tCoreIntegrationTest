@@ -2,12 +2,15 @@
 const tCore = require('./tCoreSupport');
 const utils = require('./utils');
 const TCORE = require('./page-objects/elements');
+const assert = require('assert');
+const BIBLES = require('./fixtures/index.json');
 
 let app;
 
-describe('tCore Test', () => {
-  const verses = [16, 15, 15];
-  
+describe('WA Acts', () => {
+  const bookId = "act";
+  let chapters = BIBLES[bookId];
+
   before(async () => {
     app = await utils.beforeAll();
   });
@@ -27,18 +30,16 @@ describe('tCore Test', () => {
   describe('WA Tests', () => {
     it('does USFM import and opens WA', async () => {
       const newTargetLangId = "zzyz";
-      const languageId = "hi";
-      const bookId = "tit";
+      const languageId = "en";
       const continueOnProjectInfo = true;
       const projectSettings = {
-        importPath: './test/fixtures/hi_test_tit.usfm',
+        importPath: './test/fixtures/45-ACT.usfm',
         license: 'ccShareAlike',
-        languageName: "Hindi",
-        languageId,
-        languageDirectionLtr: true,
-        bookName: "Titus (tit)",
+        bookName: "Acts (act)",
         newTargetLangId,
+        newLanguageId: languageId
       };
+      assert.ok(chapters);
       const projectName = `${languageId}_${newTargetLangId}_${bookId}_book`;
       await tCore.doLocalProjectImport(projectSettings, continueOnProjectInfo, projectName);
       await tCore.clickOn(TCORE.wordAlignment.launchButton);
@@ -47,8 +48,12 @@ describe('tCore Test', () => {
       utils.testFinished();
     });
     
-    for (let chapter = 1; chapter <= verses.length; chapter++) {
+    for (let chapter = 1; chapter <= chapters.chapters; chapter++) {
+      
       it('edit chapter ' + chapter, async () => {
+        assert.ok(chapters);
+        const verseCount = chapters[chapter];
+        assert.ok(verseCount);
         await tCore.clickOn(TCORE.groupMenu.chapterN(chapter, 'c' + chapter));
         await app.client.pause(500);
         await tCore.clickOn(TCORE.wordAlignment.expandScripturePane);
@@ -58,17 +63,20 @@ describe('tCore Test', () => {
         log("scripturePaneTitle= " + scripturePaneTitle);
         await tCore.navigateDialog(TCORE.expandedScripturePane.verseRows);
         await tCore.navigateDialog(TCORE.expandedScripturePane.verseRowN(1, "verseRow 1"));
-        const verseCount = verses[chapter - 1];
+
         for (let verse = 1; verse <= verseCount; verse++) {
           await app.client.pause(500);
+          log("Editing verse " + verse);
           const editReason = [TCORE.verseEditor.reasonSpelling, TCORE.verseEditor.reasonPunctuation,
             TCORE.verseEditor.reasonWordChoice, TCORE.verseEditor.reasonMeaning,
             TCORE.verseEditor.reasonGrammar, TCORE.verseEditor.reasonOther][verse % 6];
           await tCore.clickOn(TCORE.expandedScripturePane.editN(verse, 'verse ' + verse));
+          await tCore.navigateDialog(TCORE.verseEditor);
           await tCore.setValue(TCORE.verseEditor, chapter + ':' + verse +' - verse text ' + verse);
           await tCore.clickOn(TCORE.verseEditor.next);
           await tCore.clickOn(editReason);
           await tCore.clickOn(TCORE.verseEditor.save);
+          log("Done editing verse " + verse);
         }
         await tCore.clickOn(TCORE.expandedScripturePane.close);
         utils.testFinished();

@@ -6,7 +6,9 @@ const electron = require('electron');
 const path = require('path');
 const dialogAddon = require('spectron-dialog-addon').default;
 
-const appPath = path.join(__dirname, '../../translationCore/src/main.js');
+const appPath = path.join(__dirname, '../../translationCore/src/main.js'); // launch from source
+// const appPath = '/Applications/translationCore.app/Contents/MacOS/translationCore'; // directly launch app
+
 console.log('appPath', appPath);
 
 global.before(() => {
@@ -16,10 +18,19 @@ global.before(() => {
 
 module.exports = {
   async startApp() {
-    const app = new Application({
-      path: electron,
-      args: [appPath]
-    });
+    const useElectron = (appPath.indexOf('main.js') >= 0);
+    let app;
+    if (useElectron) {
+      app = new Application({
+        path: electron,
+        args: [appPath]
+      });
+    } else {
+      // launch app directly
+      app = new Application({
+        path: appPath
+      });
+    }
     dialogAddon.apply(app);
     await app.start();
     chaiAsPromised.transferPromiseness = app.transferPromiseness;
