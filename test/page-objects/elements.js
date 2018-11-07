@@ -301,6 +301,12 @@ const DEFINITIONS = {
     header: {
       id: "Group Menu Header",
       selector: "#groups-menu-header"
+    },
+    chapterN: function(position, chapter) {
+      return {
+        id: "Chapter " + chapter,
+        selector: "#groups-menu-container > div.groups > div:nth-child(" + position + ") > div"
+      };
     }
   },
   expandedScripturePane: {
@@ -325,6 +331,10 @@ const DEFINITIONS = {
         id: "Edit Verse " + verse,
         selector: "div.verse-row-container > div:nth-child(" + position + ") button"
       };
+    },
+    close: {
+      id: "Close",
+      selector: "#expandedScripturePane button"
     }
   },
   verseEditor: {

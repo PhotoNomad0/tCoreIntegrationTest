@@ -6,6 +6,7 @@ const TCORE = require('./page-objects/elements');
 let app;
 
 describe('tCore Test', () => {
+  const verses = [16, 15, 15];
   
   before(async () => {
     app = await utils.beforeAll();
@@ -24,7 +25,7 @@ describe('tCore Test', () => {
   });
 
   describe('WA Tests', () => {
-    it('opens USFM import', async () => {
+    it('does USFM import and opens WA', async () => {
       const newTargetLangId = "zzyz";
       const languageId = "hi";
       const bookId = "tit";
@@ -43,28 +44,36 @@ describe('tCore Test', () => {
       await tCore.clickOn(TCORE.wordAlignment.launchButton);
       await app.client.pause(6000);
       await tCore.navigateDialog(TCORE.groupMenu.header);
-      // await retryStep(10, async () => {
-      //   tCore.clickOn(TCORE.wordAlignment.expandScripturePane);
-      // }, "clicking expandScripturePane");
-      await tCore.clickOn(TCORE.wordAlignment.expandScripturePane);
-      await app.client.pause(3000);
-      await tCore.navigateDialog(TCORE.expandedScripturePane);
-      const scripturePaneTitle = await tCore.getText(TCORE.expandedScripturePane.title);
-      log("scripturePaneTitle= " + scripturePaneTitle);
-      await tCore.navigateDialog(TCORE.expandedScripturePane.verseRows);
-      await tCore.navigateDialog(TCORE.expandedScripturePane.verseRowN(1, "verseRow 1"));
-      const row = 2;
-      const editReason = [TCORE.verseEditor.reasonSpelling, TCORE.verseEditor.reasonPunctuation, 
-        TCORE.verseEditor.reasonWordChoice, TCORE.verseEditor.reasonMeaning,
-        TCORE.verseEditor.reasonGrammar, TCORE.verseEditor.reasonOther][row % 6];
-      await tCore.clickOn(TCORE.expandedScripturePane.editN(2, 'verse ' + row));
-      await tCore.setValue(TCORE.verseEditor, 'verse text ' + row);
-      await tCore.clickOn(TCORE.verseEditor.next);
-      await tCore.clickOn(editReason);
-      await tCore.clickOn(TCORE.verseEditor.save);
-      await app.client.pause(7000);
       utils.testFinished();
     });
+    
+    for (let chapter = 1; chapter <= verses.length; chapter++) {
+      it('edit chapter ' + chapter, async () => {
+        await tCore.clickOn(TCORE.groupMenu.chapterN(chapter, 'c' + chapter));
+        await app.client.pause(500);
+        await tCore.clickOn(TCORE.wordAlignment.expandScripturePane);
+        await app.client.pause(500);
+        await tCore.navigateDialog(TCORE.expandedScripturePane);
+        const scripturePaneTitle = await tCore.getText(TCORE.expandedScripturePane.title);
+        log("scripturePaneTitle= " + scripturePaneTitle);
+        await tCore.navigateDialog(TCORE.expandedScripturePane.verseRows);
+        await tCore.navigateDialog(TCORE.expandedScripturePane.verseRowN(1, "verseRow 1"));
+        const verseCount = verses[chapter - 1];
+        for (let row = 1; row <= verseCount; row++) {
+          await app.client.pause(500);
+          const editReason = [TCORE.verseEditor.reasonSpelling, TCORE.verseEditor.reasonPunctuation,
+            TCORE.verseEditor.reasonWordChoice, TCORE.verseEditor.reasonMeaning,
+            TCORE.verseEditor.reasonGrammar, TCORE.verseEditor.reasonOther][row % 6];
+          await tCore.clickOn(TCORE.expandedScripturePane.editN(row, 'verse ' + row));
+          await tCore.setValue(TCORE.verseEditor, 'verse text ' + row);
+          await tCore.clickOn(TCORE.verseEditor.next);
+          await tCore.clickOn(editReason);
+          await tCore.clickOn(TCORE.verseEditor.save);
+        }
+        await tCore.clickOn(TCORE.expandedScripturePane.close);
+        utils.testFinished();
+      }).timeout(100000);
+    }
   });
 });
 
