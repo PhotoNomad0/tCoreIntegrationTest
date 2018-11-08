@@ -9,15 +9,15 @@ const BooksOfTheBible = require('./BooksOfTheBible');
 let app;
 
 describe('WA Tests', () => {
-  // const bookId = "act";
-  // const importFile = '45-ACT.usfm';
-  const bookId = "tit";
-  const importFile = 'hi_test_tit.usfm';
+  const bookId = "act";
+  const importFile = '45-ACT.usfm';
+  // const bookId = "tit";
+  // const importFile = 'hi_test_tit.usfm';
   
   const chapters = BIBLE_SIZES[bookId];
   const bookName = BooksOfTheBible.getAllBibleBooks()[bookId] + " (" + bookId + ")";
   console.log("bookName = " + bookName);
-
+  
   before(async () => {
     app = await utils.beforeAll();
   });
@@ -36,6 +36,7 @@ describe('WA Tests', () => {
 
   describe('WA ' + bookId, () => {
     it('does USFM import and opens WA', async () => {
+      await logMemoryUsage();
       const newTargetLangId = "zzyz";
       const languageId = "en";
       const continueOnProjectInfo = true;
@@ -52,6 +53,7 @@ describe('WA Tests', () => {
       await tCore.clickOn(TCORE.wordAlignment.launchButton);
       await app.client.pause(6000);
       await tCore.navigateDialog(TCORE.groupMenu.header);
+      await logMemoryUsage();
       utils.testFinished();
     });
     
@@ -61,16 +63,19 @@ describe('WA Tests', () => {
         assert.ok(chapters);
         const verseCount = chapters[chapter];
         assert.ok(verseCount);
+        await logMemoryUsage();
+        log("Chapter " + chapter + ", Number of verses= " + verseCount);
         await clickOnRetry(TCORE.groupMenu.chapterN(chapter, 'c' + chapter));
         await clickOnRetry(TCORE.wordAlignment.expandScripturePane);
         await app.client.pause(500);
-        await tCore.navigateDialog(TCORE.expandedScripturePane);
+        await navigateRetry(TCORE.expandedScripturePane);
         const scripturePaneTitle = await tCore.getText(TCORE.expandedScripturePane.title);
         log("scripturePaneTitle= " + scripturePaneTitle);
-        await tCore.navigateDialog(TCORE.expandedScripturePane.verseRows);
-        await tCore.navigateDialog(TCORE.expandedScripturePane.verseRowN(1, "verseRow 1"));
+        await navigateRetry(TCORE.expandedScripturePane.verseRows);
+        await navigateRetry(TCORE.expandedScripturePane.verseRowN(1, "verseRow 1"));
         let verseStartTime = new Date();
         let chapterStartTime = verseStartTime;
+        const times = [];
 
         for (let verse = 1; verse <= verseCount; verse++) {
           log("Editing verse " + verse);
@@ -85,16 +90,22 @@ describe('WA Tests', () => {
           await clickOnRetry(TCORE.verseEditor.save);
           log("Done editing verse " + verse);
           let verseEndTime = new Date();
-          log("Verse edit time " + (verseEndTime - verseStartTime) / 1000 + " seconds");
+          const elapsed = (verseEndTime - verseStartTime) / 1000;
+          times.push(elapsed);
+          log("Verse edit time " + elapsed + " seconds");
           verseStartTime = verseEndTime;
         }  
 
         await clickOnRetry(TCORE.expandedScripturePane.close);
         let averageVerseEditTime = ((new Date()) - chapterStartTime) / 1000 / verseCount;
-        log("Average verse edit time " + Math.round(averageVerseEditTime) + " seconds");
+        log("Average verse edit time " + round1(averageVerseEditTime) + " seconds");
+        const min = round1(Math.min(...times));
+        const max = round1(Math.max(...times));
+        log("min/max verse edit times " + min + "/" + max + " seconds");
+        await logMemoryUsage();
 
         utils.testFinished();
-      }).timeout(250000);
+      }).timeout(350000);
     }
   });
 });
@@ -103,11 +114,28 @@ describe('WA Tests', () => {
 // helpers
 //
 
+async function logMemoryUsage() {
+  const usage = await app.rendererProcess.getProcessMemoryInfo();
+  log("Memory Usage: " + JSON.stringify(usage, null, 2));
+}
+
+function round1(value) {
+  return Math.round(value * 10) / 10; 
+}
+
 async function clickOnRetry(elementObj, count = 10, delay = 500) {
   await retryStep(count, async () => {
     await tCore.clickOn(elementObj);
-  }, "clicking on " + (elementObj.text || elementObj.id), 
+  }, "clicking on " + (elementObj.text || elementObj.id),
   delay);
+}
+
+async function navigateRetry(elementObj, count = 10, delay = 500) {
+  await retryStep(count, async () => {
+    app.client.waitForExist(elementObj.selector, 5000);
+  }, "waiting for " + (elementObj.text || elementObj.id),
+  delay);
+  await tCore.navigateDialog(elementObj);
 }
 
 async function retryStep(count, operation, name, delay = 500) {
