@@ -3,13 +3,20 @@ const tCore = require('./tCoreSupport');
 const utils = require('./utils');
 const TCORE = require('./page-objects/elements');
 const assert = require('assert');
-const BIBLES = require('./fixtures/index.json');
+const BIBLE_SIZES = require('./fixtures/index.json');
+const BooksOfTheBible = require('./BooksOfTheBible');
 
 let app;
 
-describe('WA Acts', () => {
-  const bookId = "act";
-  let chapters = BIBLES[bookId];
+describe('WA Tests', () => {
+  // const bookId = "act";
+  // const importFile = '45-ACT.usfm';
+  const bookId = "tit";
+  const importFile = 'hi_test_tit.usfm';
+  
+  const chapters = BIBLE_SIZES[bookId];
+  const bookName = BooksOfTheBible.getAllBibleBooks()[bookId] + " (" + bookId + ")";
+  console.log("bookName = " + bookName);
 
   before(async () => {
     app = await utils.beforeAll();
@@ -27,15 +34,15 @@ describe('WA Acts', () => {
     await utils.afterAll();
   });
 
-  describe('WA Tests', () => {
+  describe('WA ' + bookId, () => {
     it('does USFM import and opens WA', async () => {
       const newTargetLangId = "zzyz";
       const languageId = "en";
       const continueOnProjectInfo = true;
       const projectSettings = {
-        importPath: './test/fixtures/45-ACT.usfm',
+        importPath: './test/fixtures/' + importFile,
         license: 'ccShareAlike',
-        bookName: "Acts (act)",
+        bookName: bookName,
         newTargetLangId,
         newLanguageId: languageId
       };
@@ -54,33 +61,40 @@ describe('WA Acts', () => {
         assert.ok(chapters);
         const verseCount = chapters[chapter];
         assert.ok(verseCount);
-        await tCore.clickOn(TCORE.groupMenu.chapterN(chapter, 'c' + chapter));
-        await app.client.pause(500);
-        await tCore.clickOn(TCORE.wordAlignment.expandScripturePane);
+        await clickOnRetry(TCORE.groupMenu.chapterN(chapter, 'c' + chapter));
+        await clickOnRetry(TCORE.wordAlignment.expandScripturePane);
         await app.client.pause(500);
         await tCore.navigateDialog(TCORE.expandedScripturePane);
         const scripturePaneTitle = await tCore.getText(TCORE.expandedScripturePane.title);
         log("scripturePaneTitle= " + scripturePaneTitle);
         await tCore.navigateDialog(TCORE.expandedScripturePane.verseRows);
         await tCore.navigateDialog(TCORE.expandedScripturePane.verseRowN(1, "verseRow 1"));
+        let verseStartTime = new Date();
+        let chapterStartTime = verseStartTime;
 
         for (let verse = 1; verse <= verseCount; verse++) {
-          await app.client.pause(500);
           log("Editing verse " + verse);
           const editReason = [TCORE.verseEditor.reasonSpelling, TCORE.verseEditor.reasonPunctuation,
             TCORE.verseEditor.reasonWordChoice, TCORE.verseEditor.reasonMeaning,
             TCORE.verseEditor.reasonGrammar, TCORE.verseEditor.reasonOther][verse % 6];
-          await tCore.clickOn(TCORE.expandedScripturePane.editN(verse, 'verse ' + verse));
+          await clickOnRetry(TCORE.expandedScripturePane.editN(verse, 'verse ' + verse));
           await tCore.navigateDialog(TCORE.verseEditor);
           await tCore.setValue(TCORE.verseEditor, chapter + ':' + verse +' - verse text ' + verse);
-          await tCore.clickOn(TCORE.verseEditor.next);
-          await tCore.clickOn(editReason);
-          await tCore.clickOn(TCORE.verseEditor.save);
+          await clickOnRetry(TCORE.verseEditor.next);
+          await clickOnRetry(editReason);
+          await clickOnRetry(TCORE.verseEditor.save);
           log("Done editing verse " + verse);
-        }
-        await tCore.clickOn(TCORE.expandedScripturePane.close);
+          let verseEndTime = new Date();
+          log("Verse edit time " + (verseEndTime - verseStartTime) / 1000 + " seconds");
+          verseStartTime = verseEndTime;
+        }  
+
+        await clickOnRetry(TCORE.expandedScripturePane.close);
+        let averageVerseEditTime = ((new Date()) - chapterStartTime) / 1000 / verseCount;
+        log("Average verse edit time " + Math.round(averageVerseEditTime) + " seconds");
+
         utils.testFinished();
-      }).timeout(100000);
+      }).timeout(250000);
     }
   });
 });
@@ -89,7 +103,14 @@ describe('WA Acts', () => {
 // helpers
 //
 
-async function retryStep(count, operation, name) {
+async function clickOnRetry(elementObj, count = 10, delay = 500) {
+  await retryStep(count, async () => {
+    await tCore.clickOn(elementObj);
+  }, "clicking on " + (elementObj.text || elementObj.id), 
+  delay);
+}
+
+async function retryStep(count, operation, name, delay = 500) {
   let success = false;
   for (let i = 0; i < count; i++) {
     log(name + ", step= " + (i + 1));
@@ -98,7 +119,9 @@ async function retryStep(count, operation, name) {
       await operation();
       success = true;
     } catch (e) {
+      log(name + ", failed step " + (i + 1));
       success = false;
+      await app.client.pause(delay);
     }
     if (success) {
       log(name + ", finished in step " + (i + 1));

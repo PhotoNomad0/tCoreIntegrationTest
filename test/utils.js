@@ -9,6 +9,11 @@ const navigationDelay = 500; // TODO: for slowing down for demo
 let finished = false;
 let app;
 let testName;
+let testStartTime = 0;
+let allStartTime = 0;
+let testEndTime = 0;
+let allEndTime = 0;
+
 
 //
 // helpers
@@ -45,6 +50,7 @@ async function afterAll() {
 
 function beforeEachTest(testName_) {
   testName = testName_;
+  testStartTime = new Date();
   // console.log('beforeEach', testName);
   tCore.initializeTest(app, ++testCount, navigationDelay);
   fs.removeSync(tCore.getLogFilePath());
@@ -53,12 +59,18 @@ function beforeEachTest(testName_) {
   finished = false;
 }
 
+function getElapsedTestTime() {
+  return (testEndTime - testStartTime) / 1000;
+}
+
 function afterEachTest() {
   if (!finished) {
     log("#### Test " + testCount + " did not finish ####");
   } else {
     log("Test " + testCount + " Ended Successfully");
   }
+  testEndTime = new Date();
+  log("Test run time " + Math.round(getElapsedTestTime()) + " seconds");
 }
 
 const utils = {
@@ -66,6 +78,7 @@ const utils = {
   beforeEachTest,
   afterEachTest,
   afterAll,
+  getElapsedTestTime,
   log,
   testFinished
 };

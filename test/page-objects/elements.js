@@ -312,11 +312,9 @@ const DEFINITIONS = {
   expandedScripturePane: {
     id: "Expanded Scripture Pane",
     selector: "//body/div[8]/div[2]",
-    old: "#expandedScripturePane",
     title: {
       id: "Expanded Scripture Pane Title",
-      selector: "//body/div[8]/div[2]/div[1]/div",
-      old: "#expandedScripturePaneTitle"
+      selector: "//body/div[8]/div[2]/div[1]/div"
     },
     verseRows: {
       id: "verse rows",
@@ -336,7 +334,7 @@ const DEFINITIONS = {
     },
     close: {
       id: "Close",
-      selector: "#expandedScripturePane button"
+      selector: "//body/div[8]/div[2]/div[3]/button"
     }
   },
   verseEditor: {

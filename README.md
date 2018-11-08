@@ -45,3 +45,6 @@ To change the test to debug, edit this line in package.json and change the path 
 ```
 
 Open Chrome to `chrome://inspect`
+
+# Tips
+When tests fail prematurely with no indication, may need to increase timeout() on test
