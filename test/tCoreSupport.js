@@ -209,8 +209,12 @@ async function navigateDialog(elementObj, clickOn_ = null, exact = true) {
   }
 }
 
-async function setToProjectPage() {
-  await clickOn(TCORE.projectNavigation);
+async function setToProjectPage(fromTool = false) {
+  if (fromTool) {
+    await clickOn(TCORE.projectNavigationFromTool);
+  } else {
+    await clickOn(TCORE.projectNavigation);
+  } 
   await verifyOnSpecificPage(TCORE.projectsPage);
 }
 
