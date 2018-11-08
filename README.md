@@ -3,13 +3,15 @@ translationCore testing using spectron.
 
 # Setup
 
+Do `node -v` to check node version.  I'm using latest version 8.x.  Don't know if newer versions would work.
+
 ```
 npm i
 ```
 
 Also in `./test/tCoreConnect.js` change `appPath` to either 
 * point to where the source is found (`'../../translationCore/src/main.js'`) or 
-* to the app (`/Applications/translationCore.app/Contents/MacOS/translationCore`) - this is doesn't work yet, electron version conflicts?
+* to the app (`/Applications/translationCore.app/Contents/MacOS/translationCore`) - this doesn't work yet, electron version conflicts?
 
 
 # Running Tests

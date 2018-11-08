@@ -110,7 +110,7 @@ describe('WA Tests', () => {
         await logMemoryUsage();
 
         utils.testFinished();
-      }).timeout(350000);
+      }).timeout(1000000);
     }
   });
 });
