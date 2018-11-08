@@ -8,6 +8,11 @@ const BooksOfTheBible = require('./BooksOfTheBible');
 
 let app;
 
+/**
+ * does USFM import of project and then opens WA.  Then using expanded scripture pane edits each verse in each chapter.
+ * on memory usage it looks like privateBytes follows the size of the Electron Helper
+ */
+
 describe('WA Tests', () => {
   const bookId = "act";
   const importFile = '45-ACT.usfm';
@@ -83,7 +88,7 @@ describe('WA Tests', () => {
             TCORE.verseEditor.reasonWordChoice, TCORE.verseEditor.reasonMeaning,
             TCORE.verseEditor.reasonGrammar, TCORE.verseEditor.reasonOther][verse % 6];
           await clickOnRetry(TCORE.expandedScripturePane.editN(verse, 'verse ' + verse));
-          await tCore.navigateDialog(TCORE.verseEditor);
+          await navigateRetry(TCORE.verseEditor);
           await tCore.setValue(TCORE.verseEditor, chapter + ':' + verse +' - verse text ' + verse);
           await clickOnRetry(TCORE.verseEditor.next);
           await clickOnRetry(editReason);
