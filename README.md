@@ -3,7 +3,7 @@ translationCore testing using spectron.
 
 # Setup
 
-Do `node -v` to check node version.  I'm using latest version 8.x.  Don't know if newer versions would work.
+Do `node -v` to check node version.  I'm using version v8.9.3 on one PC and v8.12.0 on the other.  Don't know if newer major versions would work.
 
 ```
 npm i
