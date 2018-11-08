@@ -13,7 +13,7 @@ Also in `./test/tCoreConnect.js` change `appPath` to either
 * point to where the source is found (`'../../translationCore/src/main.js'`) or 
 * to the app (`/Applications/translationCore.app/Contents/MacOS/translationCore`) *- this doesn't work yet, electron version conflicts?*
 
-**_Note:_** *When running compiled app, spectron can click the start button that shows the app, but hangs on clicking on "Project Navigation" at top of app screen.  Not sure why that would be.*
+**_Note:_** *When running compiled app, spectron launches the app and can click the get started button that shows the app, but hangs trying to click on "Project Navigation" at top of app screen.  Not sure why that would be.*
 
 
 # Running Tests
