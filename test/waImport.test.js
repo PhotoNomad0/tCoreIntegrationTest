@@ -48,8 +48,8 @@ describe('WA Tests', () => {
     const baseTargetLangId = "zzx";
     const newTargetLangId = (baseTargetLangId + String.fromCharCode(64 + testNum)).toLowerCase();
 
-    describe('WA ' + bookId + ", Test run = " + testNum, () => {
-      it('does USFM import and opens WA', async () => {
+    describe('WA ' + bookId, () => {
+      it('does USFM import of ' + bookId + ' and opens WA, Test run = ' + testNum, async () => {
         const languageId = "en";
         const continueOnProjectInfo = true;
         const projectSettings = {
