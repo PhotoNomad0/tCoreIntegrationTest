@@ -5,18 +5,20 @@ const assert = require('assert');
 const tCore = require('./tCoreSupport');
 const utils = require('./utils');
 
+let app;
+
 describe.skip('tCore Test', () => {
-  
+
   before(async () => {
-    await utils.beforeAll();
+    app = await utils.beforeAll();
   });
 
-  beforeEach(function() {
-    utils.beforeEachTest(this.currentTest.title);
+  beforeEach(async function() {
+    await utils.beforeEachTest(this.currentTest.title);
   });
 
-  afterEach(() => {
-    utils.afterEachTest();
+  afterEach(async () => {
+    await utils.afterEachTest();
   });
 
   after(async() => {

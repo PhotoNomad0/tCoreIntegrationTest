@@ -1,7 +1,7 @@
-# tCoreIntegrationTest
+## tCoreIntegrationTest
 translationCore testing using spectron.
 
-# Setup
+## Setup
 
 Do `node -v` to check node version.  I'm using version v8.9.3 on one PC and v8.12.0 on the other.  Don't know if newer major versions would work.
 
@@ -16,14 +16,14 @@ Also in `./test/tCoreConnect.js` change `appPath` to either
 **_Note:_** *When running compiled app, spectron launches the app and can click the get started button that shows the app, but hangs trying to click on "Project Navigation" at top of app screen.  Not sure why that would be.*
 
 
-# Running Tests
+## Running Tests
 ```
 npm test
 ```
 
 Uses Mocha test framework so tests are run sequentially and in order.  Tests look quite similar to `jest`.
 
-# Enabling/Disabling Suites/Tests
+## Enabling/Disabling Suites/Tests
 
 All the tests are in path `./test/*.test.js`.
 - Enabling: 
@@ -34,7 +34,7 @@ All the tests are in path `./test/*.test.js`.
   - any test suites can be disabled (skipped) by adding `.skip(`.  For example change `describe(` to `describe.skip(`.
   - any tests can be disabled (skipped) by adding `.skip(`.  For example change `it(` to `it.skip(`.
    
-# Debugging Tests
+## Debugging Tests
 Here is a great description how to use Chrome to debug the scripts: https://glebbahmutov.com/blog/debugging-mocha-using-inspector/
 
 To start debugger on a test:
@@ -50,5 +50,5 @@ To change the test to debug, edit this line in package.json and change the path 
 
 Open Chrome to `chrome://inspect`
 
-# Tips
+## Tips
 When tests fail prematurely with no indication, may need to increase timeout() on test

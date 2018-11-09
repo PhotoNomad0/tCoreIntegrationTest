@@ -10,9 +10,9 @@ let finished = false;
 let app;
 let testName;
 let testStartTime = 0;
-let allStartTime = 0;
 let testEndTime = 0;
-let allEndTime = 0;
+const maxMemory = 2250000;
+let initialMemoryUsage = 0;
 
 
 //
@@ -28,6 +28,15 @@ function testFinished() {
   finished = true;
 }
 
+async function logMemoryUsage() {
+  const usage = await app.rendererProcess.getProcessMemoryInfo();
+  const memoryUsage = usage.privateBytes;
+  if (!initialMemoryUsage) {
+    initialMemoryUsage = memoryUsage;
+  }
+  log("Memory Usage: " + memoryUsage + ", pressure: " + Math.round(memoryUsage/maxMemory*100) + "%, growth: " + Math.round((memoryUsage/initialMemoryUsage-1)*100));
+}
+
 async function beforeAll() {
   tCore.initializeTest(app, testCount, navigationDelay);
   fs.removeSync(tCore.getLogFilePath());
@@ -35,7 +44,10 @@ async function beforeAll() {
     app = await tCoreConnect.startApp();
   }
   tCore.initializeTest(app, testCount, navigationDelay);
+  log('Starting tCore');
   await tCore.startTcore();
+  log('tCore started');
+  await logMemoryUsage();
   return app;
 }
 
@@ -48,7 +60,7 @@ async function afterAll() {
   }
 }
 
-function beforeEachTest(testName_) {
+async function beforeEachTest(testName_) {
   testName = testName_;
   testStartTime = new Date();
   // console.log('beforeEach', testName);
@@ -57,13 +69,14 @@ function beforeEachTest(testName_) {
   tCore.logVersion();
   log('Test ' + testCount + ' Name: "' + testName + '"');
   finished = false;
+  await logMemoryUsage();
 }
 
 function getElapsedTestTime() {
   return (testEndTime - testStartTime) / 1000;
 }
 
-function afterEachTest() {
+async function afterEachTest() {
   if (!finished) {
     log("#### Test " + testCount + " did not finish ####");
   } else {
@@ -71,6 +84,7 @@ function afterEachTest() {
   }
   testEndTime = new Date();
   log("Test run time " + Math.round(getElapsedTestTime()) + " seconds");
+  await logMemoryUsage();
 }
 
 const utils = {

@@ -32,12 +32,12 @@ describe('WA Tests', () => {
     app = await utils.beforeAll();
   });
 
-  beforeEach(function() {
-    utils.beforeEachTest(this.currentTest.title);
+  beforeEach(async function() {
+    await utils.beforeEachTest(this.currentTest.title);
   });
 
-  afterEach(() => {
-    utils.afterEachTest();
+  afterEach(async () => {
+    await utils.afterEachTest();
   });
 
   after(async() => {
@@ -50,7 +50,6 @@ describe('WA Tests', () => {
 
     describe('WA ' + bookId, () => {
       it('does USFM import and opens WA', async () => {
-        await logMemoryUsage();
         const languageId = "en";
         const continueOnProjectInfo = true;
         const projectSettings = {
@@ -66,7 +65,6 @@ describe('WA Tests', () => {
         await tCore.clickOn(TCORE.wordAlignment.launchButton);
         await app.client.pause(6000);
         await tCore.navigateDialog(TCORE.groupMenu.header);
-        await logMemoryUsage();
         utils.testFinished();
       });
 
@@ -76,7 +74,6 @@ describe('WA Tests', () => {
           assert.ok(chapters);
           const verseCount = chapters[chapter];
           assert.ok(verseCount);
-          await logMemoryUsage();
           log("Chapter " + chapter + ", Number of verses= " + verseCount);
           await clickOnRetry(TCORE.groupMenu.chapterN(chapter, 'c' + chapter));
           await clickOnRetry(TCORE.wordAlignment.expandScripturePane);
@@ -116,17 +113,14 @@ describe('WA Tests', () => {
           const min = round1(Math.min(...times));
           const max = round1(Math.max(...times));
           log("min/max verse edit times " + min + "/" + max + " seconds");
-          await logMemoryUsage();
 
           utils.testFinished();
         }).timeout(1000000);
       }
 
       it('closes WA and back to projects page', async () => {
-        await logMemoryUsage();
         await tCore.setToProjectPage(true);
         await app.client.pause(6000);
-        await logMemoryUsage();
         utils.testFinished();
       });
     });
@@ -136,11 +130,6 @@ describe('WA Tests', () => {
 //
 // helpers
 //
-
-async function logMemoryUsage() {
-  const usage = await app.rendererProcess.getProcessMemoryInfo();
-  log("Memory Usage: " + JSON.stringify(usage, null, 2));
-}
 
 function round1(value) {
   return Math.round(value * 10) / 10; 
