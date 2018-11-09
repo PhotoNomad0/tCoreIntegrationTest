@@ -13,8 +13,11 @@ const TEMPLATES = {
       selector: "body > div:nth-child(4) > div > div:nth-child(1) > div > div > div:nth-child(1) > div:nth-child(1) > div:nth-child(2) > span:nth-child(1)",
       id: "Title"
     },
-    primary: {
+    single: {
       selector: "body > div:nth-child(4) > div > div:nth-child(1) > div > div > div:nth-child(2) > button"
+    },
+    prime: {
+      selector: "body > div:nth-child(4) > div > div:nth-child(1) > div > div > div:nth-child(2) > button.btn-prime"
     },
     secondary: {
       selector: "body > div:nth-child(4) > div > div:nth-child(1) > div > div > div:nth-child(2) > button.btn-second"
@@ -42,6 +45,12 @@ const TEMPLATES = {
         selector: "#content > div > div.container-fluid > div:nth-child(2) > div > div > div > div:nth-child(4) > div:nth-child(1) > div > div.inner-container > div.title-bar > span.glyphicon.glyphicon-fullscreen"
       }
     };
+  },
+  projectCardN: function(position) {
+    return "#content > div > div.container-fluid > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(2) > div > div > div:nth-child(1) > div > div:nth-child(" + position + ") ";
+  },
+  projectCardMenuItemN: function(item) {
+    return "body > div:nth-child(12) > div > div > div > div > div:nth-child(" + item + ")";
   }
 };
 
@@ -95,7 +104,45 @@ const DEFINITIONS = {
       id: "Title"
     },
     ok: {
-      selector: TEMPLATES.generalAlertDialog.primary.selector,
+      selector: TEMPLATES.generalAlertDialog.single.selector,
+      text: "OK"
+    }
+  },
+  usfmExport: {
+    ...TEMPLATES.generalAlertDialog,
+    id: "USFM Export Dialog",
+    title: {
+      selector: TEMPLATES.generalAlertDialog.title.selector,
+      text: "Alert",
+      id: "Title"
+    },
+    selectUsfm2: {
+      id: "USFM 2",
+      selector: TEMPLATES.generalAlertDialog.prompt.selector + " > div > div:nth-child(2) > div:nth-child(1)"
+    },
+    selectUsfm3: {
+      id: "USFM 3",
+      selector: TEMPLATES.generalAlertDialog.prompt.selector + " > div > div:nth-child(2) > div:nth-child(2)"
+    },
+    export: {
+      selector: TEMPLATES.generalAlertDialog.prime.selector,
+      text: "Export"
+    },
+    cancel: {
+      selector: TEMPLATES.generalAlertDialog.secondary.selector,
+      text: "Cancel"
+    }
+  },
+  exportResultsDialog: {
+    ...TEMPLATES.generalAlertDialog,
+    id: "Export Results Dialog",
+    title: {
+      selector: TEMPLATES.generalAlertDialog.title.selector,
+      text: "Alert",
+      id: "Title"
+    },
+    ok: {
+      selector: TEMPLATES.generalAlertDialog.single.selector,
       text: "OK"
     }
   },
@@ -108,7 +155,7 @@ const DEFINITIONS = {
       id: "Title"
     },
     ok: {
-      selector: TEMPLATES.generalAlertDialog.primary.selector,
+      selector: TEMPLATES.generalAlertDialog.single.selector,
       text: "OK"
     }
   },
@@ -125,7 +172,7 @@ const DEFINITIONS = {
       text: "Searching, please wait..."
     },
     ok: {
-      selector: TEMPLATES.generalAlertDialog.primary.selector,
+      selector: TEMPLATES.generalAlertDialog.single.selector,
       text: "OK"
     }
   },
@@ -142,7 +189,7 @@ const DEFINITIONS = {
       text: "Canceling now will abort the import process and the project will need to be re-imported before it can be used."
     },
     continueImport: {
-      selector: TEMPLATES.generalAlertDialog.primary.selector,
+      selector: TEMPLATES.generalAlertDialog.single.selector,
       text: "Continue Import"
     },
     cancelImport: {
@@ -297,6 +344,24 @@ const DEFINITIONS = {
     selector: "#content > div > div.container-fluid > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(1) > div > div > div > div > div > p:nth-child(1)",
     text: "Select a project from the list.",
     id: "Projects Page"
+  },
+  projectsList: {
+    projectCardMenuN: function(position) {
+      return {
+        id: "Project Card Menu " + position,
+        selector: TEMPLATES.projectCardN(position) + "> div > div > div > div > div:nth-child(2) > div:nth-child(1) > div:nth-child(1)",
+      };
+    },
+    projectCardMenuExportUSB: {
+      id: "Project Card Menu 'Export to USFM'",
+      selector: TEMPLATES.projectCardMenuItemN(1)
+    },
+    projectCardTitleN: function(position) {
+      return {
+        id: "Project Card Title " + position,
+        selector: TEMPLATES.projectCardN(position) + "> div > div > div > div > div:nth-child(1) > span",
+      };
+    },
   },
   wordAlignment: mergeToTemplate(TEMPLATES.toolN(2, 'wordAlignment'), {}),
   translationWords: mergeToTemplate(TEMPLATES.toolN(1, 'translationWords'), {}),

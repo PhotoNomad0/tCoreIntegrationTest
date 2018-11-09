@@ -549,11 +549,16 @@ function log(text) {
   fs.writeFileSync(logPath, current + output + "\n");
 }
 
-function mockDialogPath(file) {
+function mockDialogPath(file, isSaveDialog = false) {
   const usfmPath = path.resolve(file);
   const exists = (fs.existsSync(usfmPath));
-  if (exists) {
-    dialogAddon.mock([{method: 'showOpenDialog', value: [usfmPath]}]);
+  if (isSaveDialog || exists) {
+    const method = isSaveDialog ? 'showSaveDialog' : 'showOpenDialog';
+    const returnValue = isSaveDialog ? usfmPath : [usfmPath];
+    dialogAddon.mock([{method: method, value: returnValue}]);
+  } else {
+    log("File '" + file + "' does not exist");
+    assert.fail("mockDialogPath: File '" + file + "' does not exist");
   }
 }
 
@@ -639,6 +644,7 @@ const tCoreSupport = {
   initializeTest,
   log,
   logVersion,
+  mockDialogPath,
   navigateCopyrightDialog,
   navigateDialog,
   navigateGeneralDialog,
