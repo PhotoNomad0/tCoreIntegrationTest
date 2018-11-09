@@ -3,8 +3,6 @@ const tCore = require('./tCoreSupport');
 const utils = require('./utils');
 const TCORE = require('./page-objects/elements');
 const assert = require('assert');
-const BIBLE_SIZES = require('./fixtures/index.json');
-const BooksOfTheBible = require('./BooksOfTheBible');
 
 let app;
 
@@ -13,7 +11,7 @@ let app;
  * on memory usage it looks like privateBytes follows the size of the Electron Helper
  */
 
-describe('WA Tests', () => {
+describe.skip('WA Tests', () => {
   const sources = [
     { bookId: "jud", importFile: '66-JUD.usfm' },
     { bookId: "tit", importFile: 'hi_test_tit.usfm' },
@@ -39,13 +37,9 @@ describe('WA Tests', () => {
   });
 
   for (let testNum = 1; testNum <= testCount; testNum++) {
-    const { bookId, importFile } = sources[(testNum-1) % sources.length];
-    const chapters = BIBLE_SIZES[bookId];
-    const bookName = BooksOfTheBible.getAllBibleBooks()[bookId] + " (" + bookId + ")";
-    console.log("bookName = " + bookName);
-    
-    const baseTargetLangId = "zzx";
-    const newTargetLangId = (baseTargetLangId + String.fromCharCode(64 + testNum)).toLowerCase();
+    const {bookId, importFile} = sources[(testNum-1) % sources.length];
+    const {chapters, bookName} = utils.getBibleData(bookId);
+    const newTargetLangId = utils.generateTargetLanguageID();
 
     describe('WA ' + bookId, () => {
       it('does USFM import of ' + bookId + ' and opens WA, Test run = ' + testNum, async () => {

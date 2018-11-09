@@ -627,6 +627,7 @@ async function retryStep(count, operation, name, delay = 500) {
   }
   if (!success) {
     log(name + ", Failed!");
+    assert.fail("Retry " + name + ", Failed!");
   }
 }
 

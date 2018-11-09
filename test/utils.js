@@ -3,6 +3,8 @@ const fs = require('fs-extra');
 const _ = require('lodash');
 const tCore = require('./tCoreSupport');
 const tCoreConnect = require('./tCoreConnect');
+const BIBLE_SIZES = require('./fixtures/index.json');
+const BooksOfTheBible = require('./BooksOfTheBible');
 
 let testCount = 0;
 const navigationDelay = 500; // TODO: for slowing down for demo
@@ -26,6 +28,28 @@ function log(text) {
 function testFinished() {
   log("test finished");
   finished = true;
+}
+
+/**
+ * look up size of book and name of book
+ * @param bookId
+ * @return {{chapters: *, bookName: string}}
+ */
+function getBibleData(bookId) {
+  const chapters = _.cloneDeep(BIBLE_SIZES[bookId]);
+  const bookName = BooksOfTheBible.getAllBibleBooks()[bookId] + " (" + bookId + ")";
+  return {chapters, bookName};
+}
+
+function generateTargetLanguageID() {
+  let major = 0;
+  let minor = testCount;
+  if (minor > 25) {
+    major = minor / 26;
+    minor = minor % 26;
+  }
+  const newTargetLangId = ("zz" + String.fromCharCode(65 + major) + String.fromCharCode(65 + minor)).toLowerCase();
+  return newTargetLangId;
 }
 
 async function logMemoryUsage() {
@@ -92,6 +116,8 @@ const utils = {
   beforeEachTest,
   afterEachTest,
   afterAll,
+  generateTargetLanguageID,
+  getBibleData,
   getElapsedTestTime,
   log,
   testFinished

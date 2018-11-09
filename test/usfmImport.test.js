@@ -14,8 +14,7 @@ let app;
  * does USFM import of project and then exports as USFM.
  */
 
-describe.skip('USFM Tests', () => {
-
+describe('USFM Tests', () => {
   before(async () => {
     app = await utils.beforeAll();
   });
@@ -34,54 +33,118 @@ describe.skip('USFM Tests', () => {
   
   describe('Import/Export Tests', () => {
     it('do USFM import and export', async () => {
-      const USFM3 = true;
-      const newTargetLangId = "zzxz";
+      const newTargetLangId = utils.generateTargetLanguageID();
+      const usfmSelect = TCORE.usfmExport.selectUsfm3;
       const languageId = "hi";
       const bookId = "tit";
+      const {bookName} = utils.getBibleData(bookId);
       const continueOnProjectInfo = true;
       const project_id = languageId + "_" + newTargetLangId + "_" + bookId + "_book";
       const testFile = '57-TIT-AlignedHI.usfm';
+      const importPath = './test/fixtures/' + testFile;
       const projectSettings = {
-        importPath: './test/fixtures/' + testFile,
+        importPath,
         license: 'ccShareAlike',
         languageName: "Hindi",
         languageId,
         languageDirectionLtr: true,
-        bookName: "Titus (tit)",
+        bookName,
         newTargetLangId,
       };
-      const projectName = `${languageId}_${newTargetLangId}_${bookId}_book`;
-      await tCore.doLocalProjectImport(projectSettings, continueOnProjectInfo, projectName);
-      await tCore.setToProjectPage();
-      const cardNumber = await findCardNumber(project_id);
-      assert.ok(cardNumber >= 0);
-      await tCore.clickOnRetry(TCORE.projectsList.projectCardMenuN(cardNumber));
-      await tCore.clickOnRetry(TCORE.projectsList.projectCardMenuExportUSB);
-      await tCore.waitForDialog(TCORE.usfmExport);
-      await tCore.clickOnRetry(USFM3 ? TCORE.usfmExport.selectUsfm3 : TCORE.usfmExport.selectUsfm2);
-      const outputFileName = testFile;
-      const outputFile = path.join(TEST_PATH, outputFileName);
-      fs.ensureDirSync(TEST_PATH);
-      fs.removeSync(outputFile);
-      await tCore.mockDialogPath(outputFile, true);
-      await tCore.clickOnRetry(TCORE.usfmExport.export);
-      await app.client.pause(3000);
-      log("File '" + outputFile + "' exists: " + fs.existsSync(outputFile));
-      // const logs = await app.client.getRenderProcessLogs();
-      // log("Logs:\n" + JSON.stringify(logs, null, 2));
-      await tCore.waitForDialog(TCORE.exportResultsDialog);
-      const expectedText = path.parse(testFile).name + " has been successfully exported to " + outputFileName + ".";
-      await tCore.verifyText(TCORE.exportResultsDialog.prompt, expectedText);
-      await tCore.clickOnRetry(TCORE.exportResultsDialog.ok);
-      await app.client.pause(2000);
-      utils.testFinished();
+      await doUsfmImportExportTest(languageId, newTargetLangId, bookId, projectSettings, continueOnProjectInfo, project_id, usfmSelect, testFile, importPath);
+    });
+
+    it('do USFM import and export', async () => {
+      const newTargetLangId = utils.generateTargetLanguageID();
+      const usfmSelect = 0;
+      const newLanguageId = "en";
+      const bookId = "act";
+      const {bookName} = utils.getBibleData(bookId);
+      const continueOnProjectInfo = true;
+      const project_id = newLanguageId + "_" + newTargetLangId + "_" + bookId + "_book";
+      const testFile = '45-ACT.usfm';
+      const importPath = './test/fixtures/' + testFile;
+      const projectSettings = {
+        importPath,
+        license: 'ccShareAlike',
+        languageDirectionLtr: true,
+        bookName,
+        newTargetLangId,
+        newLanguageId
+      };
+      await doUsfmImportExportTest(newLanguageId, newTargetLangId, bookId, projectSettings, continueOnProjectInfo, project_id, usfmSelect, testFile, importPath);
     });
   });
+
 });
 
 //
 // helpers
 //
+
+/**
+ * do an USFM import, export and compare test
+ * @param languageId
+ * @param newTargetLangId
+ * @param bookId
+ * @param projectSettings
+ * @param continueOnProjectInfo
+ * @param project_id
+ * @param usfmSelection
+ * @param testFile
+ * @param importPath
+ * @return {Promise<void>}
+ */
+async function doUsfmImportExportTest(languageId, newTargetLangId, bookId, projectSettings, continueOnProjectInfo, project_id, usfmSelection, testFile, importPath) {
+  const projectName = `${languageId}_${newTargetLangId}_${bookId}_book`;
+  await tCore.doLocalProjectImport(projectSettings, continueOnProjectInfo, projectName);
+  await tCore.setToProjectPage();
+  const cardNumber = await findCardNumber(project_id);
+  assert.ok(cardNumber >= 0);
+  await tCore.clickOnRetry(TCORE.projectsList.projectCardMenuN(cardNumber));
+  await tCore.clickOnRetry(TCORE.projectsList.projectCardMenuExportUSB);
+  const outputFileName = testFile;
+  const outputFile = path.join(TEST_PATH, outputFileName);
+  fs.ensureDirSync(TEST_PATH);
+  fs.removeSync(outputFile);
+  await tCore.mockDialogPath(outputFile, true);
+  if (usfmSelection) {
+    await tCore.waitForDialog(TCORE.usfmExport);
+    await tCore.clickOnRetry(usfmSelection);
+    await tCore.clickOnRetry(TCORE.usfmExport.export);
+  }
+  await app.client.pause(1000);
+  log("File '" + outputFile + "' exists: " + fs.existsSync(outputFile));
+  // const logs = await app.client.getRenderProcessLogs();
+  // log("Logs:\n" + JSON.stringify(logs, null, 2));
+  await tCore.waitForDialog(TCORE.exportResultsDialog);
+  const expectedText = path.parse(testFile).name + " has been successfully exported to " + outputFileName + ".";
+  await tCore.verifyText(TCORE.exportResultsDialog.prompt, expectedText);
+  await tCore.clickOnRetry(TCORE.exportResultsDialog.ok);
+  let sourceUsfm = trimIdTag(fs.readFileSync(importPath).toString());
+  const outputUsfm = trimIdTag(fs.readFileSync(outputFile).toString());
+  assert.equal(sourceUsfm.length, outputUsfm.length);
+  assert.ok(sourceUsfm === outputUsfm);
+  assert.equal(sourceUsfm, outputUsfm);
+  utils.testFinished();
+}
+
+/**
+ * trim unique part off of \id tag
+ * @param text
+ * @return {string}
+ */
+function trimIdTag(text) {
+  let pos = text.indexOf('\\id ');
+  const start = text.substr(0, pos);
+  let rest = text.substr(pos);
+  pos = rest.indexOf('\n');
+  let id = rest.substr(0, pos);
+  rest = rest.substr(pos);
+  const parts = id.split(' ');
+  id = [parts[0],parts[1]].join(' ');
+  return start + id + rest;
+}
 
 async function findCardNumber(name) {
   let cardText;
