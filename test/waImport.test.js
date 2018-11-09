@@ -13,7 +13,7 @@ let app;
  * on memory usage it looks like privateBytes follows the size of the Electron Helper
  */
 
-describe.skip('WA Tests', () => {
+describe('WA Tests', () => {
   // const bookId = "act";
   // const importFile = '45-ACT.usfm';
   // const bookId = "tit";
