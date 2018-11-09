@@ -14,19 +14,13 @@ let app;
  */
 
 describe('WA Tests', () => {
-  // const bookId = "act";
-  // const importFile = '45-ACT.usfm';
-  // const bookId = "tit";
-  // const importFile = 'hi_test_tit.usfm';
-  // const bookId = "act";
-  // const importFile = '45-ACT.usfm';
-  const bookId = "jud";
-  const importFile = '66-JUD.usfm';
-  const testCount = 2;
-  
-  const chapters = BIBLE_SIZES[bookId];
-  const bookName = BooksOfTheBible.getAllBibleBooks()[bookId] + " (" + bookId + ")";
-  console.log("bookName = " + bookName);
+  const sources = [
+    { bookId: "jud", importFile: '66-JUD.usfm' },
+    { bookId: "tit", importFile: 'hi_test_tit.usfm' },
+    { bookId: "act", importFile: '45-ACT.usfm' }
+  ];
+
+  const testCount = 3;
   
   before(async () => {
     app = await utils.beforeAll();
@@ -45,11 +39,17 @@ describe('WA Tests', () => {
   });
 
   for (let testNum = 1; testNum <= testCount; testNum++) {
+    const { bookId, importFile } = sources[(testNum-1) % sources.length];
+    const chapters = BIBLE_SIZES[bookId];
+    const bookName = BooksOfTheBible.getAllBibleBooks()[bookId] + " (" + bookId + ")";
+    console.log("bookName = " + bookName);
+    
     const baseTargetLangId = "zzx";
     const newTargetLangId = (baseTargetLangId + String.fromCharCode(64 + testNum)).toLowerCase();
 
     describe('WA ' + bookId, () => {
       it('does USFM import of ' + bookId + ' and opens WA, Test run = ' + testNum, async () => {
+        log("Loading '" + importFile + "' for testing");
         const languageId = "en";
         const continueOnProjectInfo = true;
         const projectSettings = {
@@ -71,7 +71,7 @@ describe('WA Tests', () => {
       for (let chapter = 1; chapter <= chapters.chapters; chapter++) {
 
         it('edit chapter ' + chapter + ", Test run = " + testNum, async () => {
-          log("Test run = " + testNum);
+          log("Test run " + testNum + ", importFile '" + importFile + "'");
           assert.ok(chapters);
           const verseCount = chapters[chapter];
           assert.ok(verseCount);
@@ -120,6 +120,7 @@ describe('WA Tests', () => {
       }
 
       it('closes WA and back to projects page', async () => {
+        log("Test run '" + testNum + ", closing importFile '" + importFile + "'");
         await tCore.setToProjectPage(true);
         await app.client.pause(6000);
         utils.testFinished();
