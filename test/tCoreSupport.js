@@ -587,8 +587,47 @@ async function doLocalProjectImport(projectSettings, continueOnProjectInfo, proj
   }
 }
 
+async function clickOnRetry(elementObj, count = 10, delay = 500) {
+  await retryStep(count, async () => {
+    await clickOn(elementObj);
+  }, "clicking on " + (elementObj.text || elementObj.id),
+  delay);
+}
+
+async function navigateRetry(elementObj, count = 10, delay = 500) {
+  await retryStep(count, async () => {
+    app.client.waitForExist(elementObj.selector, 5000);
+  }, "waiting for " + (elementObj.text || elementObj.id),
+  delay);
+  await navigateDialog(elementObj);
+}
+
+async function retryStep(count, operation, name, delay = 500) {
+  let success = false;
+  for (let i = 0; i < count; i++) {
+    log(name + ", step= " + (i + 1));
+    success = false;
+    try {
+      await operation();
+      success = true;
+    } catch (e) {
+      log(name + ", failed step " + (i + 1));
+      success = false;
+      await app.client.pause(delay);
+    }
+    if (success) {
+      log(name + ", finished in step " + (i + 1));
+      break;
+    }
+  }
+  if (!success) {
+    log(name + ", Failed!");
+  }
+}
+
 const tCoreSupport = {
   clickOn,
+  clickOnRetry,
   delayWhileWaitDialogShown,
   doLocalProjectImport,
   doOnlineProjectImport,
@@ -607,9 +646,11 @@ const tCoreSupport = {
   navigateMissingVersesDialog,
   navigateOnlineImportDialog,
   navigateProjectInfoDialog,
+  navigateRetry,
   openImportDialog,
   parseSearchResult,
   projectRemoval,
+  retryStep,
   selectSearchItem,
   setToProjectPage,
   setValue,

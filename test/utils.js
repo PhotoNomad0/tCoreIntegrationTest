@@ -34,7 +34,7 @@ async function logMemoryUsage() {
   if (!initialMemoryUsage) {
     initialMemoryUsage = memoryUsage;
   }
-  log("Memory Usage: " + memoryUsage + ", pressure: " + Math.round(memoryUsage/maxMemory*100) + "%, growth: " + Math.round((memoryUsage/initialMemoryUsage-1)*100));
+  log("Memory Usage: " + memoryUsage + ", pressure: " + Math.round(memoryUsage/maxMemory*100) + "%, growth: " + Math.round((memoryUsage/initialMemoryUsage-1)*100) + "%");
 }
 
 async function beforeAll() {
@@ -77,6 +77,7 @@ function getElapsedTestTime() {
 }
 
 async function afterEachTest() {
+  await logMemoryUsage();
   if (!finished) {
     log("#### Test " + testCount + " did not finish ####");
   } else {
@@ -84,7 +85,6 @@ async function afterEachTest() {
   }
   testEndTime = new Date();
   log("Test run time " + Math.round(getElapsedTestTime()) + " seconds");
-  await logMemoryUsage();
 }
 
 const utils = {
