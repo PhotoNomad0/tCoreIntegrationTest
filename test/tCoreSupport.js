@@ -631,18 +631,62 @@ async function retryStep(count, operation, name, delay = 500) {
   }
 }
 
+async function findToolCardNumber(name) {
+  let cardText;
+  for (let i = 1; i <= 20; i++) {
+    try {
+      cardText = await getText(TCORE.toolN(i, ' card ' + i).title);
+    } catch (e) {
+      break;
+    }
+    if (cardText === name) {
+      log("Card `" + name + "` found at position " + i);
+      return i;
+    } else {
+      log("Skipping Card `" + cardText + "` at position " + i);
+    }
+  }
+  log("Card not found for: " + name);
+  return -1;
+}
+
+async function launchTool(cardName) {
+  const cardNumber = await findToolCardNumber(cardName);
+  await clickOn(TCORE.toolN(cardNumber, cardName).launchButton);
+}
+
+async function findProjectCardNumber(name) {
+  let cardText;
+  for (let i = 1; i <= 20; i++) {
+    try {
+      cardText = await getText(TCORE.projectsList.projectCardTitleN(i));
+    } catch (e) {
+      break;
+    }
+    if (cardText === name) {
+      log("Card " + name + " found at position " + i);
+      return i;
+    }
+  }
+  log("Card not found for " + name);
+  return -1;
+}
+
 const tCoreSupport = {
   clickOn,
   clickOnRetry,
   delayWhileWaitDialogShown,
   doLocalProjectImport,
   doOnlineProjectImport,
+  findToolCardNumber,
+  findProjectCardNumber,
   getCleanupFileList,
   getLogFilePath,
   getSearchResults,
   getText,
   indexInSearchResults,
   initializeTest,
+  launchTool,
   log,
   logVersion,
   mockDialogPath,

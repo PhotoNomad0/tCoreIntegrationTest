@@ -33,19 +33,6 @@ const TEMPLATES = {
       text: "Cancel"
     }
   },
-  toolN: function(position, label) {
-    return {
-      id: label,
-      launchButton: {
-        id: label + " launch button",
-        selector: "#content > div > div.container-fluid > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(2) > div > div > div > div:nth-child(" + position + ") > div > div:nth-child(6) > span > button"
-      },
-      expandScripturePane: {
-        id: label + " expand scripture pane",
-        selector: "#content > div > div.container-fluid > div:nth-child(2) > div > div > div > div:nth-child(4) > div:nth-child(1) > div > div.inner-container > div.title-bar > span.glyphicon.glyphicon-fullscreen"
-      }
-    };
-  },
   projectCardN: function(position) {
     return "#content > div > div.container-fluid > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(2) > div > div > div:nth-child(1) > div > div:nth-child(" + position + ") ";
   },
@@ -363,8 +350,25 @@ const DEFINITIONS = {
       };
     },
   },
-  wordAlignment: mergeToTemplate(TEMPLATES.toolN(2, 'wordAlignment'), {}),
-  translationWords: mergeToTemplate(TEMPLATES.toolN(1, 'translationWords'), {}),
+  toolN: function(position, label) {
+    return {
+      id: label,
+      title: {
+        id: label + " title",
+        selector: "#content > div > div.container-fluid > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(2) > div > div > div > div:nth-child(" + position + ") > div > div:nth-child(2) > div:nth-child(1) > span:nth-child(1)",
+      },
+      launchButton: {
+        id: label + " launch button",
+        selector: "#content > div > div.container-fluid > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(2) > div > div > div > div:nth-child(" + position + ") > div > div:nth-child(6) > span > button"
+      },
+    };
+  },
+  wordAlignment: {
+    expandScripturePane: {
+      id: "wordAlignment expand scripture pane",
+      selector: "#content > div > div.container-fluid > div:nth-child(2) > div > div > div > div:nth-child(4) > div:nth-child(1) > div > div.inner-container > div.title-bar > span.glyphicon.glyphicon-fullscreen"
+    }
+  },
   groupMenu: {
     id: "Group Menu",
     header: {

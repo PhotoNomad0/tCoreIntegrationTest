@@ -56,7 +56,7 @@ describe('WA Tests', () => {
         assert.ok(chapters);
         const projectName = `${languageId}_${newTargetLangId}_${bookId}_book`;
         await tCore.doLocalProjectImport(projectSettings, continueOnProjectInfo, projectName);
-        await tCore.clickOn(TCORE.wordAlignment.launchButton);
+        await tCore.launchTool("Word Alignment");
         await app.client.pause(6000);
         await tCore.navigateDialog(TCORE.groupMenu.header);
         utils.testFinished();

@@ -99,7 +99,7 @@ async function doUsfmImportExportTest(languageId, newTargetLangId, bookId, proje
   const projectName = `${languageId}_${newTargetLangId}_${bookId}_book`;
   await tCore.doLocalProjectImport(projectSettings, continueOnProjectInfo, projectName);
   await tCore.setToProjectPage();
-  const cardNumber = await findCardNumber(project_id);
+  const cardNumber = await tCore.findProjectCardNumber(project_id);
   assert.ok(cardNumber >= 0);
   await tCore.clickOnRetry(TCORE.projectsList.projectCardMenuN(cardNumber));
   await tCore.clickOnRetry(TCORE.projectsList.projectCardMenuExportUSB);
@@ -144,23 +144,6 @@ function trimIdTag(text) {
   const parts = id.split(' ');
   id = [parts[0],parts[1]].join(' ');
   return start + id + rest;
-}
-
-async function findCardNumber(name) {
-  let cardText;
-  for (let i = 1; i <= 20; i++) {
-    try {
-      cardText = await tCore.getText(TCORE.projectsList.projectCardTitleN(i));
-    } catch (e) {
-      break;
-    }
-    if (cardText === name) {
-      log("Card " + name + " found at position " + i);
-      return i;
-    }
-  }
-  log("Card not found for " + name);
-  return -1;
 }
 
 function log(text) {
