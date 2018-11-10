@@ -19,6 +19,8 @@ describe('WA Tests', () => {
   ];
 
   const testCount = 3;
+  let chapterCount = 0;
+  let chapterFinished = 0;
   
   before(async () => {
     app = await utils.beforeAll();
@@ -66,6 +68,7 @@ describe('WA Tests', () => {
 
         it('edit chapter ' + chapter + ", Test run = " + testNum, async () => {
           log("Test run " + testNum + ", importFile '" + importFile + "'");
+          chapterCount++;
           await makeSureExpandedScripturePaneIsClosed();
           assert.ok(chapters);
           const verseCount = chapters[chapter];
@@ -110,6 +113,8 @@ describe('WA Tests', () => {
           const max = round1(Math.max(...times));
           log("min/max verse edit times " + min + "/" + max + " seconds");
 
+          chapterFinished++;
+          log("Completed " + chapterFinished + " of " + chapterCount + " total chapters");
           utils.testFinished();
         }).timeout(1000000);
       }

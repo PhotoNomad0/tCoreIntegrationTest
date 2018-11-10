@@ -13,7 +13,7 @@ let app;
 let testName;
 let testStartTime = 0;
 let testEndTime = 0;
-const maxMemory = 2250000;
+const maxMemory = 2624132;
 let initialMemoryUsage = 0;
 
 
