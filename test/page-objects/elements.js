@@ -333,6 +333,8 @@ const DEFINITIONS = {
     id: "Projects Page"
   },
   projectsList: {
+    id: "Project Cards",
+    selector: "#content > div > div.container-fluid > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(2) > div > div > div:nth-child(1) > div > div",
     projectCardMenuN: function(position) {
       return {
         id: "Project Card Menu " + position,
@@ -343,6 +345,9 @@ const DEFINITIONS = {
       id: "Project Card Menu 'Export to USFM'",
       selector: TEMPLATES.projectCardMenuItemN(1)
     },
+    projectCards: {
+      selector: "#content > div > div.container-fluid > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(2) > div > div > div:nth-child(1) > div > div"
+    },
     projectCardTitleN: function(position) {
       return {
         id: "Project Card Title " + position,
@@ -350,18 +355,22 @@ const DEFINITIONS = {
       };
     },
   },
-  toolN: function(position, label) {
-    return {
-      id: label,
-      title: {
-        id: label + " title",
-        selector: "#content > div > div.container-fluid > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(2) > div > div > div > div:nth-child(" + position + ") > div > div:nth-child(2) > div:nth-child(1) > span:nth-child(1)",
-      },
-      launchButton: {
-        id: label + " launch button",
-        selector: "#content > div > div.container-fluid > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(2) > div > div > div > div:nth-child(" + position + ") > div > div:nth-child(6) > span > button"
-      },
-    };
+  toolsList: {
+    id: "Tool Cards",
+    selector: "#content > div > div.container-fluid > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(2) > div > div > div > div",
+    toolN: function(position, label) {
+      return {
+        id: label,
+        title: {
+          id: label + " title",
+          selector: "#content > div > div.container-fluid > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(2) > div > div > div > div:nth-child(" + position + ") > div > div:nth-child(2) > div:nth-child(1) > span:nth-child(1)",
+        },
+        launchButton: {
+          id: label + " launch button",
+          selector: "#content > div > div.container-fluid > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(2) > div > div > div > div:nth-child(" + position + ") > div > div:nth-child(6) > span > button"
+        },
+      };
+    }
   },
   wordAlignment: {
     expandScripturePane: {
@@ -451,13 +460,5 @@ const DEFINITIONS = {
     }
   }
 };
-
-function mergeToTemplate(template, override) {
-  const props = _.cloneDeep(template);
-  for (let key of Object.keys(override)) {
-    props[key] = override[key];
-  }
-  return props;
-}
 
 module.exports = DEFINITIONS;

@@ -6,7 +6,7 @@
   "scripts": {
     "test": "mocha ./test/**/*test.js",
     "lint": "node ./node_modules/.bin/eslint .",
-    "debug-test": "mocha --inspect-brk ./test/usfmImport.test.js"
+    "debug-test": "mocha --inspect-brk ./test/waImport.test.js"
   },
   "repository": {
     "type": "git",

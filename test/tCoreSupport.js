@@ -497,13 +497,25 @@ function indexInSearchResults(searchResults, match, column = 0) {
 }
 
 /**
+ * returns array of indices of an elements children.  Not sure why this is preferred.  Is it 
+ *      possible that there could be a sparse array returned?
+ * @param element
+ * @return {Promise<number[]>}
+ */
+async function getChildIndices(element) {
+  const elements = await app.client.$$(element.selector);
+  const childIndexesArray = Array.from(Array(elements.length + 1).keys()).splice(1);
+  log("Found " + childIndexesArray.length + " for " + (element.id || element.text));
+  return childIndexesArray;
+}
+
+/**
  * returns a list of the results of search
  * @return {Promise<Array>}
  */
 async function getSearchResults() {
   log("Getting Search Results:");
-  const elements = await app.client.$$(TCORE.onlineImportDialog.searchResults.selector);
-  const childIndexesArray = Array.from(Array(elements.length + 1).keys()).splice(1);
+  const childIndexesArray = await getChildIndices(TCORE.onlineImportDialog.searchResults);
   // log("childIndexesArray: " + JSON.stringify(childIndexesArray));
   const searchResults = [];
   for (let item of childIndexesArray) {
@@ -633,9 +645,10 @@ async function retryStep(count, operation, name, delay = 500) {
 
 async function findToolCardNumber(name) {
   let cardText;
-  for (let i = 1; i <= 20; i++) {
+  const childIndexesArray = await getChildIndices(TCORE.toolsList);
+  for (let i of childIndexesArray) {
     try {
-      cardText = await getText(TCORE.toolN(i, ' card ' + i).title);
+      cardText = await getText(TCORE.toolsList.toolN(i, ' card ' + i).title);
     } catch (e) {
       break;
     }
@@ -652,12 +665,13 @@ async function findToolCardNumber(name) {
 
 async function launchTool(cardName) {
   const cardNumber = await findToolCardNumber(cardName);
-  await clickOn(TCORE.toolN(cardNumber, cardName).launchButton);
+  await clickOn(TCORE.toolsList.toolN(cardNumber, cardName).launchButton);
 }
 
 async function findProjectCardNumber(name) {
   let cardText;
-  for (let i = 1; i <= 20; i++) {
+  const childIndexesArray = await getChildIndices(TCORE.projectsList);
+  for (let i of childIndexesArray) {
     try {
       cardText = await getText(TCORE.projectsList.projectCardTitleN(i));
     } catch (e) {
