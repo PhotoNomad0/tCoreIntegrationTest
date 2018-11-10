@@ -611,11 +611,32 @@ async function clickOnRetry(elementObj, count = 10, delay = 500) {
   delay);
 }
 
-async function navigateRetry(elementObj, count = 10, delay = 500) {
-  await retryStep(count, async () => {
-    app.client.waitForExist(elementObj.selector, 5000);
-  }, "waiting for " + elementDescription(elementObj),
-  delay);
+async function navigateRetry(elementObj, count = 20, delay = 500) {
+  let success = false;
+  const name = elementDescription(elementObj);
+  for (let i = 1; i <= count; i++) {
+    log(name + ", step= " + i);
+    success = false;
+    try {
+      success = await app.client.isVisible(elementObj.selector);
+      if (!success) {
+        log(name + ", not visible step " + i);
+        await app.client.waitForExist(elementObj.selector, 1000);
+      }
+    } catch (e) {
+      log(name + ", failed step " + i);
+      success = false;
+      await app.client.pause(delay);
+    }
+    if (success) {
+      log(name + ", finished in step " + i);
+      break;
+    }
+  }
+  if (!success) {
+    log(name + ", Failed!");
+    assert.fail("Retry " + name + ", Failed!");
+  }
   await navigateDialog(elementObj);
 }
 

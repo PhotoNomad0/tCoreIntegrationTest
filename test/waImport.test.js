@@ -66,6 +66,7 @@ describe('WA Tests', () => {
 
         it('edit chapter ' + chapter + ", Test run = " + testNum, async () => {
           log("Test run " + testNum + ", importFile '" + importFile + "'");
+          await makeSureExpandedScripturePaneIsClosed();
           assert.ok(chapters);
           const verseCount = chapters[chapter];
           assert.ok(verseCount);
@@ -115,6 +116,10 @@ describe('WA Tests', () => {
 
       it('closes WA and back to projects page', async () => {
         log("Test run '" + testNum + ", closing importFile '" + importFile + "'");
+        const visible = await makeSureExpandedScripturePaneIsClosed();
+        if (visible) {
+          log("Expanded Scripture Pane left up");
+        }
         await tCore.setToProjectPage(true);
         await app.client.pause(6000);
         utils.testFinished();
@@ -126,6 +131,21 @@ describe('WA Tests', () => {
 //
 // helpers
 //
+
+async function makeSureExpandedScripturePaneIsClosed() {
+  const visible = await app.client.isVisible(TCORE.expandedScripturePane.selector);
+  if (visible) {
+    log("Expanded Scripture Pane left up");
+    const visibleEditor = await app.client.isVisible(TCORE.verseEditor.cancel.selector);
+    if (visibleEditor) {
+      log("verse editor open, closing");
+      await tCore.clickOnRetry(TCORE.verseEditor.cancel);
+    }
+    log("closing Expanded Scripture Pane");
+    await tCore.clickOnRetry(TCORE.expandedScripturePane.close);
+  }
+  return visible;
+}
 
 function round1(value) {
   return Math.round(value * 10) / 10; 
