@@ -98,7 +98,7 @@ async function setValue(elementObj, text) {
  * @return {Promise<void>}
  */
 async function verifyValue(elementObj, text) {
-  log('checking "' + (elementObj.id || elementObj.text) + '" for "' + text + '"');
+  log('checking "' + elementDescription(elementObj) + '" for "' + text + '"');
   await app.client.getValue(elementObj.selector).then(value => {
     verifyTextIsMatched(value, text);
   });
@@ -126,16 +126,12 @@ function verifyTextIsMatched(text, matchText) {
  * @return {Promise<*>}
  */
 async function getText(elementObj, delay = 0) {
-  const id = (elementObj.id || elementObj.text);
-  if (id) {
-    log('reading "' + id + '"');
-  }
+  const id = elementDescription(elementObj);   
+  log('reading "' + id + '"');
   let text;
   await app.client.pause(delay).getText(elementObj.selector).then(text_ => {
     text = text_;
-    if (id) {
-      log('value of "' + (elementObj.id || elementObj.text) + '" is "' + text + '"');
-    }
+    log('value of "' + id + '" is "' + text + '"');
   });
   return text;
 }
@@ -148,7 +144,7 @@ async function getText(elementObj, delay = 0) {
  * @return {Promise<void>}
  */
 async function verifyText(elementObj, text, exact = true) {
-  log('checking "' + (elementObj.id || elementObj.text) + '" equals "' + text + '"');
+  log('checking "' + elementDescription(elementObj) + '" equals "' + text + '"');
   if (exact) {
     await app.client.getText(elementObj.selector).should.eventually.equal(text);
   } else {
@@ -164,7 +160,7 @@ async function verifyText(elementObj, text, exact = true) {
  * @return {Promise<void>}
  */
 async function verifyContainsText(elementObj, match) {
-  log('checking "' + (elementObj.id || elementObj.text) + '" contains "' + match + '"');
+  log('checking "' + elementDescription(elementObj) + '" contains "' + match + '"');
   const actualText = await getText(elementObj);
   log("found text: '" + actualText + "'");
   if (!actualText.includes(match)) {
@@ -183,7 +179,7 @@ async function clickOn(elementObj, exact = true) {
   if (elementObj.text) {
     await verifyText(elementObj, elementObj.text, exact);
   }
-  log('clicking on "' + (elementObj.text || elementObj.id) + '"');
+  log('clicking on "' + elementDescription(elementObj) + '"');
   await app.client.click(elementObj.selector);
 }
 
@@ -499,13 +495,13 @@ function indexInSearchResults(searchResults, match, column = 0) {
 /**
  * returns array of indices of an elements children.  Not sure why this is preferred.  Is it 
  *      possible that there could be a sparse array returned?
- * @param element
+ * @param elementObj
  * @return {Promise<number[]>}
  */
-async function getChildIndices(element) {
-  const elements = await app.client.$$(element.selector);
+async function getChildIndices(elementObj) {
+  const elements = await app.client.$$(elementObj.selector);
   const childIndexesArray = Array.from(Array(elements.length + 1).keys()).splice(1);
-  log("Found " + childIndexesArray.length + " for " + (element.id || element.text));
+  log("Found " + childIndexesArray.length + " for " + elementDescription(elementObj));
   return childIndexesArray;
 }
 
@@ -604,17 +600,21 @@ async function doLocalProjectImport(projectSettings, continueOnProjectInfo, proj
   }
 }
 
+function elementDescription(elementObj) {
+  return (elementObj.text || elementObj.id || elementObj.selector);
+}
+
 async function clickOnRetry(elementObj, count = 10, delay = 500) {
   await retryStep(count, async () => {
     await clickOn(elementObj);
-  }, "clicking on " + (elementObj.text || elementObj.id),
+  }, "clicking on " + elementDescription(elementObj),
   delay);
 }
 
 async function navigateRetry(elementObj, count = 10, delay = 500) {
   await retryStep(count, async () => {
     app.client.waitForExist(elementObj.selector, 5000);
-  }, "waiting for " + (elementObj.text || elementObj.id),
+  }, "waiting for " + elementDescription(elementObj),
   delay);
   await navigateDialog(elementObj);
 }

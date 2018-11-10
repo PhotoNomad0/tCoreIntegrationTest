@@ -10,8 +10,9 @@ npm i
 ```
 
 Also in `./test/tCoreConnect.js` change `appPath` to either 
-* point to where the source is found (`'../../translationCore/src/main.js'`) or 
-* to the app (`/Applications/translationCore.app/Contents/MacOS/translationCore`) *- this doesn't work yet, electron version conflicts?*
+* point to where the source is found (`'../../translationCore/src/main.js'`) or
+
+~~to the app (`/Applications/translationCore.app/Contents/MacOS/translationCore`) - this doesn't work yet~~
 
 **_Note:_** *When running compiled app, spectron launches the app and can click the get started button that shows the app, but hangs trying to click on "Project Navigation" at top of app screen.  Not sure why that would be.*
 
@@ -50,5 +51,9 @@ To change the test to debug, edit this line in package.json and change the path 
 
 Open Chrome to `chrome://inspect`
 
-## Tips
-When tests fail prematurely with no indication, may need to increase timeout() on test
+## Troubleshooting
+- When tests fail prematurely with no indication, may need to increase timeout() on test.
+- When clicks aren't working, you may still have `chrome://inspect` open from previous debugging or the chrome debugger.
+
+## Unresolved
+- how to get drag and drop working.  Seems that it is still not working in chromium?  https://github.com/electron/spectron/issues/260
