@@ -1,0 +1,675 @@
+Sat, 10 Nov 2018 17:22:06 GMT: **** App version "Version 1.0.2 (undefined)" ****
+Sat, 10 Nov 2018 17:22:06 GMT: Test 58 Name: "edit chapter 11, Test run = 6"
+Sat, 10 Nov 2018 17:22:06 GMT: Memory Usage: 2202704, pressure: 98%, growth: 393%
+Sat, 10 Nov 2018 17:22:06 GMT: Test run 6, importFile '45-ACT.usfm'
+Sat, 10 Nov 2018 17:22:06 GMT: Chapter 11, Number of verses= 30
+Sat, 10 Nov 2018 17:22:06 GMT: clicking on Chapter c11, step= 1
+Sat, 10 Nov 2018 17:22:06 GMT: clicking on "Chapter c11"
+Sat, 10 Nov 2018 17:22:07 GMT: clicking on Chapter c11, finished in step 1
+Sat, 10 Nov 2018 17:22:07 GMT: clicking on wordAlignment expand scripture pane, step= 1
+Sat, 10 Nov 2018 17:22:07 GMT: clicking on "wordAlignment expand scripture pane"
+Sat, 10 Nov 2018 17:22:09 GMT: clicking on wordAlignment expand scripture pane, finished in step 1
+Sat, 10 Nov 2018 17:22:10 GMT: Expanded Scripture Pane, step= 1
+Sat, 10 Nov 2018 17:22:10 GMT: Expanded Scripture Pane, finished in step 1
+Sat, 10 Nov 2018 17:22:10 GMT: Navigate dialog: "Expanded Scripture Pane"
+Sat, 10 Nov 2018 17:22:10 GMT: waiting for "Expanded Scripture Pane"
+Sat, 10 Nov 2018 17:22:10 GMT: "Expanded Scripture Pane" is visible
+Sat, 10 Nov 2018 17:22:10 GMT: reading "Expanded Scripture Pane Title"
+Sat, 10 Nov 2018 17:22:10 GMT: value of "Expanded Scripture Pane Title" is "Acts"
+Sat, 10 Nov 2018 17:22:10 GMT: scripturePaneTitle= Acts
+Sat, 10 Nov 2018 17:22:10 GMT: verse rows, step= 1
+Sat, 10 Nov 2018 17:22:10 GMT: verse rows, finished in step 1
+Sat, 10 Nov 2018 17:22:10 GMT: Navigate dialog: "verse rows"
+Sat, 10 Nov 2018 17:22:10 GMT: waiting for "verse rows"
+Sat, 10 Nov 2018 17:22:10 GMT: "verse rows" is visible
+Sat, 10 Nov 2018 17:22:10 GMT: Verse verseRow 1, step= 1
+Sat, 10 Nov 2018 17:22:10 GMT: Verse verseRow 1, finished in step 1
+Sat, 10 Nov 2018 17:22:10 GMT: Navigate dialog: "Verse verseRow 1"
+Sat, 10 Nov 2018 17:22:10 GMT: waiting for "Verse verseRow 1"
+Sat, 10 Nov 2018 17:22:10 GMT: "Verse verseRow 1" is visible
+Sat, 10 Nov 2018 17:22:10 GMT: Editing verse 1
+Sat, 10 Nov 2018 17:22:10 GMT: clicking on Edit Verse verse 1, step= 1
+Sat, 10 Nov 2018 17:22:11 GMT: clicking on "Edit Verse verse 1"
+Sat, 10 Nov 2018 17:22:11 GMT: clicking on Edit Verse verse 1, finished in step 1
+Sat, 10 Nov 2018 17:22:11 GMT: Verse Editor, step= 1
+Sat, 10 Nov 2018 17:22:11 GMT: Verse Editor, finished in step 1
+Sat, 10 Nov 2018 17:22:11 GMT: Navigate dialog: "Verse Editor"
+Sat, 10 Nov 2018 17:22:11 GMT: waiting for "Verse Editor"
+Sat, 10 Nov 2018 17:22:11 GMT: "Verse Editor" is visible
+Sat, 10 Nov 2018 17:22:12 GMT: setting "Verse Editor" to "11:1 - verse text 1"
+Sat, 10 Nov 2018 17:22:13 GMT: clicking on Verse Editor Next, step= 1
+Sat, 10 Nov 2018 17:22:14 GMT: clicking on "Verse Editor Next"
+Sat, 10 Nov 2018 17:22:14 GMT: clicking on Verse Editor Next, finished in step 1
+Sat, 10 Nov 2018 17:22:14 GMT: clicking on Reason Punctuation, step= 1
+Sat, 10 Nov 2018 17:22:15 GMT: clicking on "Reason Punctuation"
+Sat, 10 Nov 2018 17:22:15 GMT: clicking on Reason Punctuation, finished in step 1
+Sat, 10 Nov 2018 17:22:15 GMT: clicking on Verse Editor Save, step= 1
+Sat, 10 Nov 2018 17:22:15 GMT: clicking on "Verse Editor Save"
+Sat, 10 Nov 2018 17:22:16 GMT: clicking on Verse Editor Save, finished in step 1
+Sat, 10 Nov 2018 17:22:16 GMT: Done editing verse 1
+Sat, 10 Nov 2018 17:22:16 GMT: Verse edit time 6.204 seconds
+Sat, 10 Nov 2018 17:22:16 GMT: Editing verse 2
+Sat, 10 Nov 2018 17:22:16 GMT: clicking on Edit Verse verse 2, step= 1
+Sat, 10 Nov 2018 17:22:17 GMT: clicking on "Edit Verse verse 2"
+Sat, 10 Nov 2018 17:22:19 GMT: clicking on Edit Verse verse 2, finished in step 1
+Sat, 10 Nov 2018 17:22:19 GMT: Verse Editor, step= 1
+Sat, 10 Nov 2018 17:22:19 GMT: Verse Editor, finished in step 1
+Sat, 10 Nov 2018 17:22:19 GMT: Navigate dialog: "Verse Editor"
+Sat, 10 Nov 2018 17:22:19 GMT: waiting for "Verse Editor"
+Sat, 10 Nov 2018 17:22:19 GMT: "Verse Editor" is visible
+Sat, 10 Nov 2018 17:22:20 GMT: setting "Verse Editor" to "11:2 - verse text 2"
+Sat, 10 Nov 2018 17:22:21 GMT: clicking on Verse Editor Next, step= 1
+Sat, 10 Nov 2018 17:22:22 GMT: clicking on "Verse Editor Next"
+Sat, 10 Nov 2018 17:22:22 GMT: clicking on Verse Editor Next, finished in step 1
+Sat, 10 Nov 2018 17:22:22 GMT: clicking on Reason Word Choice, step= 1
+Sat, 10 Nov 2018 17:22:22 GMT: clicking on "Reason Word Choice"
+Sat, 10 Nov 2018 17:22:23 GMT: clicking on Reason Word Choice, finished in step 1
+Sat, 10 Nov 2018 17:22:23 GMT: clicking on Verse Editor Save, step= 1
+Sat, 10 Nov 2018 17:22:23 GMT: clicking on "Verse Editor Save"
+Sat, 10 Nov 2018 17:22:24 GMT: clicking on Verse Editor Save, finished in step 1
+Sat, 10 Nov 2018 17:22:24 GMT: Done editing verse 2
+Sat, 10 Nov 2018 17:22:24 GMT: Verse edit time 7.986 seconds
+Sat, 10 Nov 2018 17:22:24 GMT: Editing verse 3
+Sat, 10 Nov 2018 17:22:24 GMT: clicking on Edit Verse verse 3, step= 1
+Sat, 10 Nov 2018 17:22:25 GMT: clicking on "Edit Verse verse 3"
+Sat, 10 Nov 2018 17:22:29 GMT: clicking on Edit Verse verse 3, finished in step 1
+Sat, 10 Nov 2018 17:22:29 GMT: Verse Editor, step= 1
+Sat, 10 Nov 2018 17:22:29 GMT: Verse Editor, finished in step 1
+Sat, 10 Nov 2018 17:22:29 GMT: Navigate dialog: "Verse Editor"
+Sat, 10 Nov 2018 17:22:29 GMT: waiting for "Verse Editor"
+Sat, 10 Nov 2018 17:22:29 GMT: "Verse Editor" is visible
+Sat, 10 Nov 2018 17:22:29 GMT: setting "Verse Editor" to "11:3 - verse text 3"
+Sat, 10 Nov 2018 17:22:31 GMT: clicking on Verse Editor Next, step= 1
+Sat, 10 Nov 2018 17:22:32 GMT: clicking on "Verse Editor Next"
+Sat, 10 Nov 2018 17:22:32 GMT: clicking on Verse Editor Next, finished in step 1
+Sat, 10 Nov 2018 17:22:32 GMT: clicking on Reason Meaning, step= 1
+Sat, 10 Nov 2018 17:22:33 GMT: clicking on "Reason Meaning"
+Sat, 10 Nov 2018 17:22:33 GMT: clicking on Reason Meaning, finished in step 1
+Sat, 10 Nov 2018 17:22:33 GMT: clicking on Verse Editor Save, step= 1
+Sat, 10 Nov 2018 17:22:33 GMT: clicking on "Verse Editor Save"
+Sat, 10 Nov 2018 17:22:34 GMT: clicking on Verse Editor Save, finished in step 1
+Sat, 10 Nov 2018 17:22:34 GMT: Done editing verse 3
+Sat, 10 Nov 2018 17:22:34 GMT: Verse edit time 10.027 seconds
+Sat, 10 Nov 2018 17:22:34 GMT: Editing verse 4
+Sat, 10 Nov 2018 17:22:34 GMT: clicking on Edit Verse verse 4, step= 1
+Sat, 10 Nov 2018 17:22:35 GMT: clicking on "Edit Verse verse 4"
+Sat, 10 Nov 2018 17:22:37 GMT: clicking on Edit Verse verse 4, finished in step 1
+Sat, 10 Nov 2018 17:22:37 GMT: Verse Editor, step= 1
+Sat, 10 Nov 2018 17:22:37 GMT: Verse Editor, finished in step 1
+Sat, 10 Nov 2018 17:22:37 GMT: Navigate dialog: "Verse Editor"
+Sat, 10 Nov 2018 17:22:37 GMT: waiting for "Verse Editor"
+Sat, 10 Nov 2018 17:22:37 GMT: "Verse Editor" is visible
+Sat, 10 Nov 2018 17:22:38 GMT: setting "Verse Editor" to "11:4 - verse text 4"
+Sat, 10 Nov 2018 17:22:39 GMT: clicking on Verse Editor Next, step= 1
+Sat, 10 Nov 2018 17:22:39 GMT: clicking on "Verse Editor Next"
+Sat, 10 Nov 2018 17:22:40 GMT: clicking on Verse Editor Next, finished in step 1
+Sat, 10 Nov 2018 17:22:40 GMT: clicking on Reason Grammar, step= 1
+Sat, 10 Nov 2018 17:22:40 GMT: clicking on "Reason Grammar"
+Sat, 10 Nov 2018 17:22:40 GMT: clicking on Reason Grammar, finished in step 1
+Sat, 10 Nov 2018 17:22:40 GMT: clicking on Verse Editor Save, step= 1
+Sat, 10 Nov 2018 17:22:41 GMT: clicking on "Verse Editor Save"
+Sat, 10 Nov 2018 17:22:42 GMT: clicking on Verse Editor Save, finished in step 1
+Sat, 10 Nov 2018 17:22:42 GMT: Done editing verse 4
+Sat, 10 Nov 2018 17:22:42 GMT: Verse edit time 7.573 seconds
+Sat, 10 Nov 2018 17:22:42 GMT: Editing verse 5
+Sat, 10 Nov 2018 17:22:42 GMT: clicking on Edit Verse verse 5, step= 1
+Sat, 10 Nov 2018 17:22:43 GMT: clicking on "Edit Verse verse 5"
+Sat, 10 Nov 2018 17:22:44 GMT: clicking on Edit Verse verse 5, finished in step 1
+Sat, 10 Nov 2018 17:22:44 GMT: Verse Editor, step= 1
+Sat, 10 Nov 2018 17:22:45 GMT: Verse Editor, finished in step 1
+Sat, 10 Nov 2018 17:22:45 GMT: Navigate dialog: "Verse Editor"
+Sat, 10 Nov 2018 17:22:45 GMT: waiting for "Verse Editor"
+Sat, 10 Nov 2018 17:22:45 GMT: "Verse Editor" is visible
+Sat, 10 Nov 2018 17:22:45 GMT: setting "Verse Editor" to "11:5 - verse text 5"
+Sat, 10 Nov 2018 17:22:47 GMT: clicking on Verse Editor Next, step= 1
+Sat, 10 Nov 2018 17:22:47 GMT: clicking on "Verse Editor Next"
+Sat, 10 Nov 2018 17:22:47 GMT: clicking on Verse Editor Next, finished in step 1
+Sat, 10 Nov 2018 17:22:47 GMT: clicking on Reason Other, step= 1
+Sat, 10 Nov 2018 17:22:48 GMT: clicking on "Reason Other"
+Sat, 10 Nov 2018 17:22:48 GMT: clicking on Reason Other, finished in step 1
+Sat, 10 Nov 2018 17:22:48 GMT: clicking on Verse Editor Save, step= 1
+Sat, 10 Nov 2018 17:22:49 GMT: clicking on "Verse Editor Save"
+Sat, 10 Nov 2018 17:22:50 GMT: clicking on Verse Editor Save, finished in step 1
+Sat, 10 Nov 2018 17:22:50 GMT: Done editing verse 5
+Sat, 10 Nov 2018 17:22:50 GMT: Verse edit time 7.602 seconds
+Sat, 10 Nov 2018 17:22:50 GMT: Editing verse 6
+Sat, 10 Nov 2018 17:22:50 GMT: clicking on Edit Verse verse 6, step= 1
+Sat, 10 Nov 2018 17:22:50 GMT: clicking on "Edit Verse verse 6"
+Sat, 10 Nov 2018 17:22:52 GMT: clicking on Edit Verse verse 6, finished in step 1
+Sat, 10 Nov 2018 17:22:52 GMT: Verse Editor, step= 1
+Sat, 10 Nov 2018 17:22:52 GMT: Verse Editor, finished in step 1
+Sat, 10 Nov 2018 17:22:52 GMT: Navigate dialog: "Verse Editor"
+Sat, 10 Nov 2018 17:22:52 GMT: waiting for "Verse Editor"
+Sat, 10 Nov 2018 17:22:52 GMT: "Verse Editor" is visible
+Sat, 10 Nov 2018 17:22:53 GMT: setting "Verse Editor" to "11:6 - verse text 6"
+Sat, 10 Nov 2018 17:22:54 GMT: clicking on Verse Editor Next, step= 1
+Sat, 10 Nov 2018 17:22:55 GMT: clicking on "Verse Editor Next"
+Sat, 10 Nov 2018 17:22:55 GMT: clicking on Verse Editor Next, finished in step 1
+Sat, 10 Nov 2018 17:22:55 GMT: clicking on Reason Spelling, step= 1
+Sat, 10 Nov 2018 17:22:55 GMT: clicking on "Reason Spelling"
+Sat, 10 Nov 2018 17:22:56 GMT: clicking on Reason Spelling, finished in step 1
+Sat, 10 Nov 2018 17:22:56 GMT: clicking on Verse Editor Save, step= 1
+Sat, 10 Nov 2018 17:22:56 GMT: clicking on "Verse Editor Save"
+Sat, 10 Nov 2018 17:22:57 GMT: clicking on Verse Editor Save, finished in step 1
+Sat, 10 Nov 2018 17:22:57 GMT: Done editing verse 6
+Sat, 10 Nov 2018 17:22:57 GMT: Verse edit time 7.455 seconds
+Sat, 10 Nov 2018 17:22:57 GMT: Editing verse 7
+Sat, 10 Nov 2018 17:22:57 GMT: clicking on Edit Verse verse 7, step= 1
+Sat, 10 Nov 2018 17:22:58 GMT: clicking on "Edit Verse verse 7"
+Sat, 10 Nov 2018 17:22:59 GMT: clicking on Edit Verse verse 7, finished in step 1
+Sat, 10 Nov 2018 17:22:59 GMT: Verse Editor, step= 1
+Sat, 10 Nov 2018 17:23:00 GMT: Verse Editor, finished in step 1
+Sat, 10 Nov 2018 17:23:00 GMT: Navigate dialog: "Verse Editor"
+Sat, 10 Nov 2018 17:23:00 GMT: waiting for "Verse Editor"
+Sat, 10 Nov 2018 17:23:00 GMT: "Verse Editor" is visible
+Sat, 10 Nov 2018 17:23:00 GMT: setting "Verse Editor" to "11:7 - verse text 7"
+Sat, 10 Nov 2018 17:23:02 GMT: clicking on Verse Editor Next, step= 1
+Sat, 10 Nov 2018 17:23:02 GMT: clicking on "Verse Editor Next"
+Sat, 10 Nov 2018 17:23:02 GMT: clicking on Verse Editor Next, finished in step 1
+Sat, 10 Nov 2018 17:23:02 GMT: clicking on Reason Punctuation, step= 1
+Sat, 10 Nov 2018 17:23:03 GMT: clicking on "Reason Punctuation"
+Sat, 10 Nov 2018 17:23:03 GMT: clicking on Reason Punctuation, finished in step 1
+Sat, 10 Nov 2018 17:23:03 GMT: clicking on Verse Editor Save, step= 1
+Sat, 10 Nov 2018 17:23:04 GMT: clicking on "Verse Editor Save"
+Sat, 10 Nov 2018 17:23:05 GMT: clicking on Verse Editor Save, finished in step 1
+Sat, 10 Nov 2018 17:23:05 GMT: Done editing verse 7
+Sat, 10 Nov 2018 17:23:05 GMT: Verse edit time 7.557 seconds
+Sat, 10 Nov 2018 17:23:05 GMT: Editing verse 8
+Sat, 10 Nov 2018 17:23:05 GMT: clicking on Edit Verse verse 8, step= 1
+Sat, 10 Nov 2018 17:23:05 GMT: clicking on "Edit Verse verse 8"
+Sat, 10 Nov 2018 17:23:07 GMT: clicking on Edit Verse verse 8, finished in step 1
+Sat, 10 Nov 2018 17:23:07 GMT: Verse Editor, step= 1
+Sat, 10 Nov 2018 17:23:07 GMT: Verse Editor, finished in step 1
+Sat, 10 Nov 2018 17:23:07 GMT: Navigate dialog: "Verse Editor"
+Sat, 10 Nov 2018 17:23:07 GMT: waiting for "Verse Editor"
+Sat, 10 Nov 2018 17:23:07 GMT: "Verse Editor" is visible
+Sat, 10 Nov 2018 17:23:08 GMT: setting "Verse Editor" to "11:8 - verse text 8"
+Sat, 10 Nov 2018 17:23:09 GMT: clicking on Verse Editor Next, step= 1
+Sat, 10 Nov 2018 17:23:10 GMT: clicking on "Verse Editor Next"
+Sat, 10 Nov 2018 17:23:10 GMT: clicking on Verse Editor Next, finished in step 1
+Sat, 10 Nov 2018 17:23:10 GMT: clicking on Reason Word Choice, step= 1
+Sat, 10 Nov 2018 17:23:10 GMT: clicking on "Reason Word Choice"
+Sat, 10 Nov 2018 17:23:11 GMT: clicking on Reason Word Choice, finished in step 1
+Sat, 10 Nov 2018 17:23:11 GMT: clicking on Verse Editor Save, step= 1
+Sat, 10 Nov 2018 17:23:11 GMT: clicking on "Verse Editor Save"
+Sat, 10 Nov 2018 17:23:12 GMT: clicking on Verse Editor Save, finished in step 1
+Sat, 10 Nov 2018 17:23:12 GMT: Done editing verse 8
+Sat, 10 Nov 2018 17:23:12 GMT: Verse edit time 7.636 seconds
+Sat, 10 Nov 2018 17:23:12 GMT: Editing verse 9
+Sat, 10 Nov 2018 17:23:12 GMT: clicking on Edit Verse verse 9, step= 1
+Sat, 10 Nov 2018 17:23:13 GMT: clicking on "Edit Verse verse 9"
+Sat, 10 Nov 2018 17:23:15 GMT: clicking on Edit Verse verse 9, finished in step 1
+Sat, 10 Nov 2018 17:23:15 GMT: Verse Editor, step= 1
+Sat, 10 Nov 2018 17:23:15 GMT: Verse Editor, finished in step 1
+Sat, 10 Nov 2018 17:23:15 GMT: Navigate dialog: "Verse Editor"
+Sat, 10 Nov 2018 17:23:15 GMT: waiting for "Verse Editor"
+Sat, 10 Nov 2018 17:23:15 GMT: "Verse Editor" is visible
+Sat, 10 Nov 2018 17:23:15 GMT: setting "Verse Editor" to "11:9 - verse text 9"
+Sat, 10 Nov 2018 17:23:17 GMT: clicking on Verse Editor Next, step= 1
+Sat, 10 Nov 2018 17:23:17 GMT: clicking on "Verse Editor Next"
+Sat, 10 Nov 2018 17:23:18 GMT: clicking on Verse Editor Next, finished in step 1
+Sat, 10 Nov 2018 17:23:18 GMT: clicking on Reason Meaning, step= 1
+Sat, 10 Nov 2018 17:23:18 GMT: clicking on "Reason Meaning"
+Sat, 10 Nov 2018 17:23:18 GMT: clicking on Reason Meaning, finished in step 1
+Sat, 10 Nov 2018 17:23:18 GMT: clicking on Verse Editor Save, step= 1
+Sat, 10 Nov 2018 17:23:19 GMT: clicking on "Verse Editor Save"
+Sat, 10 Nov 2018 17:23:20 GMT: clicking on Verse Editor Save, finished in step 1
+Sat, 10 Nov 2018 17:23:20 GMT: Done editing verse 9
+Sat, 10 Nov 2018 17:23:20 GMT: Verse edit time 7.581 seconds
+Sat, 10 Nov 2018 17:23:20 GMT: Editing verse 10
+Sat, 10 Nov 2018 17:23:20 GMT: clicking on Edit Verse verse 10, step= 1
+Sat, 10 Nov 2018 17:23:20 GMT: clicking on "Edit Verse verse 10"
+Sat, 10 Nov 2018 17:23:22 GMT: clicking on Edit Verse verse 10, finished in step 1
+Sat, 10 Nov 2018 17:23:22 GMT: Verse Editor, step= 1
+Sat, 10 Nov 2018 17:23:22 GMT: Verse Editor, finished in step 1
+Sat, 10 Nov 2018 17:23:22 GMT: Navigate dialog: "Verse Editor"
+Sat, 10 Nov 2018 17:23:22 GMT: waiting for "Verse Editor"
+Sat, 10 Nov 2018 17:23:22 GMT: "Verse Editor" is visible
+Sat, 10 Nov 2018 17:23:23 GMT: setting "Verse Editor" to "11:10 - verse text 10"
+Sat, 10 Nov 2018 17:23:25 GMT: clicking on Verse Editor Next, step= 1
+Sat, 10 Nov 2018 17:23:25 GMT: clicking on "Verse Editor Next"
+Sat, 10 Nov 2018 17:23:25 GMT: clicking on Verse Editor Next, finished in step 1
+Sat, 10 Nov 2018 17:23:25 GMT: clicking on Reason Grammar, step= 1
+Sat, 10 Nov 2018 17:23:26 GMT: clicking on "Reason Grammar"
+Sat, 10 Nov 2018 17:23:26 GMT: clicking on Reason Grammar, finished in step 1
+Sat, 10 Nov 2018 17:23:26 GMT: clicking on Verse Editor Save, step= 1
+Sat, 10 Nov 2018 17:23:27 GMT: clicking on "Verse Editor Save"
+Sat, 10 Nov 2018 17:23:28 GMT: clicking on Verse Editor Save, finished in step 1
+Sat, 10 Nov 2018 17:23:28 GMT: Done editing verse 10
+Sat, 10 Nov 2018 17:23:28 GMT: Verse edit time 7.715 seconds
+Sat, 10 Nov 2018 17:23:28 GMT: Editing verse 11
+Sat, 10 Nov 2018 17:23:28 GMT: clicking on Edit Verse verse 11, step= 1
+Sat, 10 Nov 2018 17:23:28 GMT: clicking on "Edit Verse verse 11"
+Sat, 10 Nov 2018 17:23:30 GMT: clicking on Edit Verse verse 11, finished in step 1
+Sat, 10 Nov 2018 17:23:30 GMT: Verse Editor, step= 1
+Sat, 10 Nov 2018 17:23:30 GMT: Verse Editor, finished in step 1
+Sat, 10 Nov 2018 17:23:30 GMT: Navigate dialog: "Verse Editor"
+Sat, 10 Nov 2018 17:23:30 GMT: waiting for "Verse Editor"
+Sat, 10 Nov 2018 17:23:30 GMT: "Verse Editor" is visible
+Sat, 10 Nov 2018 17:23:31 GMT: setting "Verse Editor" to "11:11 - verse text 11"
+Sat, 10 Nov 2018 17:23:32 GMT: clicking on Verse Editor Next, step= 1
+Sat, 10 Nov 2018 17:23:33 GMT: clicking on "Verse Editor Next"
+Sat, 10 Nov 2018 17:23:33 GMT: clicking on Verse Editor Next, finished in step 1
+Sat, 10 Nov 2018 17:23:33 GMT: clicking on Reason Other, step= 1
+Sat, 10 Nov 2018 17:23:33 GMT: clicking on "Reason Other"
+Sat, 10 Nov 2018 17:23:34 GMT: clicking on Reason Other, finished in step 1
+Sat, 10 Nov 2018 17:23:34 GMT: clicking on Verse Editor Save, step= 1
+Sat, 10 Nov 2018 17:23:34 GMT: clicking on "Verse Editor Save"
+Sat, 10 Nov 2018 17:23:35 GMT: clicking on Verse Editor Save, finished in step 1
+Sat, 10 Nov 2018 17:23:35 GMT: Done editing verse 11
+Sat, 10 Nov 2018 17:23:35 GMT: Verse edit time 7.583 seconds
+Sat, 10 Nov 2018 17:23:35 GMT: Editing verse 12
+Sat, 10 Nov 2018 17:23:35 GMT: clicking on Edit Verse verse 12, step= 1
+Sat, 10 Nov 2018 17:23:36 GMT: clicking on "Edit Verse verse 12"
+Sat, 10 Nov 2018 17:23:38 GMT: clicking on Edit Verse verse 12, finished in step 1
+Sat, 10 Nov 2018 17:23:38 GMT: Verse Editor, step= 1
+Sat, 10 Nov 2018 17:23:38 GMT: Verse Editor, not visible step 1
+Sat, 10 Nov 2018 17:23:38 GMT: Verse Editor, step= 2
+Sat, 10 Nov 2018 17:23:38 GMT: Verse Editor, finished in step 2
+Sat, 10 Nov 2018 17:23:38 GMT: Navigate dialog: "Verse Editor"
+Sat, 10 Nov 2018 17:23:38 GMT: waiting for "Verse Editor"
+Sat, 10 Nov 2018 17:23:38 GMT: "Verse Editor" is visible
+Sat, 10 Nov 2018 17:23:38 GMT: setting "Verse Editor" to "11:12 - verse text 12"
+Sat, 10 Nov 2018 17:23:40 GMT: clicking on Verse Editor Next, step= 1
+Sat, 10 Nov 2018 17:23:40 GMT: clicking on "Verse Editor Next"
+Sat, 10 Nov 2018 17:23:41 GMT: clicking on Verse Editor Next, finished in step 1
+Sat, 10 Nov 2018 17:23:41 GMT: clicking on Reason Spelling, step= 1
+Sat, 10 Nov 2018 17:23:41 GMT: clicking on "Reason Spelling"
+Sat, 10 Nov 2018 17:23:41 GMT: clicking on Reason Spelling, finished in step 1
+Sat, 10 Nov 2018 17:23:41 GMT: clicking on Verse Editor Save, step= 1
+Sat, 10 Nov 2018 17:23:42 GMT: clicking on "Verse Editor Save"
+Sat, 10 Nov 2018 17:23:43 GMT: clicking on Verse Editor Save, finished in step 1
+Sat, 10 Nov 2018 17:23:43 GMT: Done editing verse 12
+Sat, 10 Nov 2018 17:23:43 GMT: Verse edit time 7.665 seconds
+Sat, 10 Nov 2018 17:23:43 GMT: Editing verse 13
+Sat, 10 Nov 2018 17:23:43 GMT: clicking on Edit Verse verse 13, step= 1
+Sat, 10 Nov 2018 17:23:43 GMT: clicking on "Edit Verse verse 13"
+Sat, 10 Nov 2018 17:23:45 GMT: clicking on Edit Verse verse 13, finished in step 1
+Sat, 10 Nov 2018 17:23:45 GMT: Verse Editor, step= 1
+Sat, 10 Nov 2018 17:23:45 GMT: Verse Editor, finished in step 1
+Sat, 10 Nov 2018 17:23:45 GMT: Navigate dialog: "Verse Editor"
+Sat, 10 Nov 2018 17:23:45 GMT: waiting for "Verse Editor"
+Sat, 10 Nov 2018 17:23:45 GMT: "Verse Editor" is visible
+Sat, 10 Nov 2018 17:23:46 GMT: setting "Verse Editor" to "11:13 - verse text 13"
+Sat, 10 Nov 2018 17:23:47 GMT: clicking on Verse Editor Next, step= 1
+Sat, 10 Nov 2018 17:23:48 GMT: clicking on "Verse Editor Next"
+Sat, 10 Nov 2018 17:23:48 GMT: clicking on Verse Editor Next, finished in step 1
+Sat, 10 Nov 2018 17:23:48 GMT: clicking on Reason Punctuation, step= 1
+Sat, 10 Nov 2018 17:23:49 GMT: clicking on "Reason Punctuation"
+Sat, 10 Nov 2018 17:23:49 GMT: clicking on Reason Punctuation, finished in step 1
+Sat, 10 Nov 2018 17:23:49 GMT: clicking on Verse Editor Save, step= 1
+Sat, 10 Nov 2018 17:23:49 GMT: clicking on "Verse Editor Save"
+Sat, 10 Nov 2018 17:23:51 GMT: clicking on Verse Editor Save, finished in step 1
+Sat, 10 Nov 2018 17:23:51 GMT: Done editing verse 13
+Sat, 10 Nov 2018 17:23:51 GMT: Verse edit time 7.717 seconds
+Sat, 10 Nov 2018 17:23:51 GMT: Editing verse 14
+Sat, 10 Nov 2018 17:23:51 GMT: clicking on Edit Verse verse 14, step= 1
+Sat, 10 Nov 2018 17:23:51 GMT: clicking on "Edit Verse verse 14"
+Sat, 10 Nov 2018 17:23:53 GMT: clicking on Edit Verse verse 14, finished in step 1
+Sat, 10 Nov 2018 17:23:53 GMT: Verse Editor, step= 1
+Sat, 10 Nov 2018 17:23:53 GMT: Verse Editor, finished in step 1
+Sat, 10 Nov 2018 17:23:53 GMT: Navigate dialog: "Verse Editor"
+Sat, 10 Nov 2018 17:23:53 GMT: waiting for "Verse Editor"
+Sat, 10 Nov 2018 17:23:53 GMT: "Verse Editor" is visible
+Sat, 10 Nov 2018 17:23:54 GMT: setting "Verse Editor" to "11:14 - verse text 14"
+Sat, 10 Nov 2018 17:23:55 GMT: clicking on Verse Editor Next, step= 1
+Sat, 10 Nov 2018 17:23:56 GMT: clicking on "Verse Editor Next"
+Sat, 10 Nov 2018 17:23:56 GMT: clicking on Verse Editor Next, finished in step 1
+Sat, 10 Nov 2018 17:23:56 GMT: clicking on Reason Word Choice, step= 1
+Sat, 10 Nov 2018 17:23:56 GMT: clicking on "Reason Word Choice"
+Sat, 10 Nov 2018 17:23:57 GMT: clicking on Reason Word Choice, finished in step 1
+Sat, 10 Nov 2018 17:23:57 GMT: clicking on Verse Editor Save, step= 1
+Sat, 10 Nov 2018 17:23:57 GMT: clicking on "Verse Editor Save"
+Sat, 10 Nov 2018 17:23:58 GMT: clicking on Verse Editor Save, finished in step 1
+Sat, 10 Nov 2018 17:23:58 GMT: Done editing verse 14
+Sat, 10 Nov 2018 17:23:58 GMT: Verse edit time 7.675 seconds
+Sat, 10 Nov 2018 17:23:58 GMT: Editing verse 15
+Sat, 10 Nov 2018 17:23:58 GMT: clicking on Edit Verse verse 15, step= 1
+Sat, 10 Nov 2018 17:23:59 GMT: clicking on "Edit Verse verse 15"
+Sat, 10 Nov 2018 17:24:02 GMT: clicking on Edit Verse verse 15, finished in step 1
+Sat, 10 Nov 2018 17:24:02 GMT: Verse Editor, step= 1
+Sat, 10 Nov 2018 17:24:03 GMT: Verse Editor, finished in step 1
+Sat, 10 Nov 2018 17:24:03 GMT: Navigate dialog: "Verse Editor"
+Sat, 10 Nov 2018 17:24:03 GMT: waiting for "Verse Editor"
+Sat, 10 Nov 2018 17:24:03 GMT: "Verse Editor" is visible
+Sat, 10 Nov 2018 17:24:03 GMT: setting "Verse Editor" to "11:15 - verse text 15"
+Sat, 10 Nov 2018 17:24:05 GMT: clicking on Verse Editor Next, step= 1
+Sat, 10 Nov 2018 17:24:05 GMT: clicking on "Verse Editor Next"
+Sat, 10 Nov 2018 17:24:05 GMT: clicking on Verse Editor Next, finished in step 1
+Sat, 10 Nov 2018 17:24:05 GMT: clicking on Reason Meaning, step= 1
+Sat, 10 Nov 2018 17:24:06 GMT: clicking on "Reason Meaning"
+Sat, 10 Nov 2018 17:24:06 GMT: clicking on Reason Meaning, finished in step 1
+Sat, 10 Nov 2018 17:24:06 GMT: clicking on Verse Editor Save, step= 1
+Sat, 10 Nov 2018 17:24:07 GMT: clicking on "Verse Editor Save"
+Sat, 10 Nov 2018 17:24:08 GMT: clicking on Verse Editor Save, finished in step 1
+Sat, 10 Nov 2018 17:24:08 GMT: Done editing verse 15
+Sat, 10 Nov 2018 17:24:08 GMT: Verse edit time 9.497 seconds
+Sat, 10 Nov 2018 17:24:08 GMT: Editing verse 16
+Sat, 10 Nov 2018 17:24:08 GMT: clicking on Edit Verse verse 16, step= 1
+Sat, 10 Nov 2018 17:24:08 GMT: clicking on "Edit Verse verse 16"
+Sat, 10 Nov 2018 17:24:10 GMT: clicking on Edit Verse verse 16, finished in step 1
+Sat, 10 Nov 2018 17:24:10 GMT: Verse Editor, step= 1
+Sat, 10 Nov 2018 17:24:10 GMT: Verse Editor, finished in step 1
+Sat, 10 Nov 2018 17:24:10 GMT: Navigate dialog: "Verse Editor"
+Sat, 10 Nov 2018 17:24:10 GMT: waiting for "Verse Editor"
+Sat, 10 Nov 2018 17:24:10 GMT: "Verse Editor" is visible
+Sat, 10 Nov 2018 17:24:11 GMT: setting "Verse Editor" to "11:16 - verse text 16"
+Sat, 10 Nov 2018 17:24:12 GMT: clicking on Verse Editor Next, step= 1
+Sat, 10 Nov 2018 17:24:13 GMT: clicking on "Verse Editor Next"
+Sat, 10 Nov 2018 17:24:13 GMT: clicking on Verse Editor Next, finished in step 1
+Sat, 10 Nov 2018 17:24:13 GMT: clicking on Reason Grammar, step= 1
+Sat, 10 Nov 2018 17:24:14 GMT: clicking on "Reason Grammar"
+Sat, 10 Nov 2018 17:24:14 GMT: clicking on Reason Grammar, finished in step 1
+Sat, 10 Nov 2018 17:24:14 GMT: clicking on Verse Editor Save, step= 1
+Sat, 10 Nov 2018 17:24:14 GMT: clicking on "Verse Editor Save"
+Sat, 10 Nov 2018 17:24:15 GMT: clicking on Verse Editor Save, finished in step 1
+Sat, 10 Nov 2018 17:24:15 GMT: Done editing verse 16
+Sat, 10 Nov 2018 17:24:15 GMT: Verse edit time 7.691 seconds
+Sat, 10 Nov 2018 17:24:15 GMT: Editing verse 17
+Sat, 10 Nov 2018 17:24:15 GMT: clicking on Edit Verse verse 17, step= 1
+Sat, 10 Nov 2018 17:24:16 GMT: clicking on "Edit Verse verse 17"
+Sat, 10 Nov 2018 17:24:18 GMT: clicking on Edit Verse verse 17, finished in step 1
+Sat, 10 Nov 2018 17:24:18 GMT: Verse Editor, step= 1
+Sat, 10 Nov 2018 17:24:18 GMT: Verse Editor, finished in step 1
+Sat, 10 Nov 2018 17:24:18 GMT: Navigate dialog: "Verse Editor"
+Sat, 10 Nov 2018 17:24:18 GMT: waiting for "Verse Editor"
+Sat, 10 Nov 2018 17:24:18 GMT: "Verse Editor" is visible
+Sat, 10 Nov 2018 17:24:18 GMT: setting "Verse Editor" to "11:17 - verse text 17"
+Sat, 10 Nov 2018 17:24:20 GMT: clicking on Verse Editor Next, step= 1
+Sat, 10 Nov 2018 17:24:20 GMT: clicking on "Verse Editor Next"
+Sat, 10 Nov 2018 17:24:21 GMT: clicking on Verse Editor Next, finished in step 1
+Sat, 10 Nov 2018 17:24:21 GMT: clicking on Reason Other, step= 1
+Sat, 10 Nov 2018 17:24:21 GMT: clicking on "Reason Other"
+Sat, 10 Nov 2018 17:24:21 GMT: clicking on Reason Other, finished in step 1
+Sat, 10 Nov 2018 17:24:21 GMT: clicking on Verse Editor Save, step= 1
+Sat, 10 Nov 2018 17:24:22 GMT: clicking on "Verse Editor Save"
+Sat, 10 Nov 2018 17:24:23 GMT: clicking on Verse Editor Save, finished in step 1
+Sat, 10 Nov 2018 17:24:23 GMT: Done editing verse 17
+Sat, 10 Nov 2018 17:24:23 GMT: Verse edit time 7.712 seconds
+Sat, 10 Nov 2018 17:24:23 GMT: Editing verse 18
+Sat, 10 Nov 2018 17:24:23 GMT: clicking on Edit Verse verse 18, step= 1
+Sat, 10 Nov 2018 17:24:24 GMT: clicking on "Edit Verse verse 18"
+Sat, 10 Nov 2018 17:24:25 GMT: clicking on Edit Verse verse 18, finished in step 1
+Sat, 10 Nov 2018 17:24:25 GMT: Verse Editor, step= 1
+Sat, 10 Nov 2018 17:24:26 GMT: Verse Editor, finished in step 1
+Sat, 10 Nov 2018 17:24:26 GMT: Navigate dialog: "Verse Editor"
+Sat, 10 Nov 2018 17:24:26 GMT: waiting for "Verse Editor"
+Sat, 10 Nov 2018 17:24:26 GMT: "Verse Editor" is visible
+Sat, 10 Nov 2018 17:24:26 GMT: setting "Verse Editor" to "11:18 - verse text 18"
+Sat, 10 Nov 2018 17:24:28 GMT: clicking on Verse Editor Next, step= 1
+Sat, 10 Nov 2018 17:24:28 GMT: clicking on "Verse Editor Next"
+Sat, 10 Nov 2018 17:24:28 GMT: clicking on Verse Editor Next, finished in step 1
+Sat, 10 Nov 2018 17:24:28 GMT: clicking on Reason Spelling, step= 1
+Sat, 10 Nov 2018 17:24:29 GMT: clicking on "Reason Spelling"
+Sat, 10 Nov 2018 17:24:29 GMT: clicking on Reason Spelling, finished in step 1
+Sat, 10 Nov 2018 17:24:29 GMT: clicking on Verse Editor Save, step= 1
+Sat, 10 Nov 2018 17:24:30 GMT: clicking on "Verse Editor Save"
+Sat, 10 Nov 2018 17:24:31 GMT: clicking on Verse Editor Save, finished in step 1
+Sat, 10 Nov 2018 17:24:31 GMT: Done editing verse 18
+Sat, 10 Nov 2018 17:24:31 GMT: Verse edit time 7.681 seconds
+Sat, 10 Nov 2018 17:24:31 GMT: Editing verse 19
+Sat, 10 Nov 2018 17:24:31 GMT: clicking on Edit Verse verse 19, step= 1
+Sat, 10 Nov 2018 17:24:31 GMT: clicking on "Edit Verse verse 19"
+Sat, 10 Nov 2018 17:24:33 GMT: clicking on Edit Verse verse 19, finished in step 1
+Sat, 10 Nov 2018 17:24:33 GMT: Verse Editor, step= 1
+Sat, 10 Nov 2018 17:24:33 GMT: Verse Editor, finished in step 1
+Sat, 10 Nov 2018 17:24:33 GMT: Navigate dialog: "Verse Editor"
+Sat, 10 Nov 2018 17:24:33 GMT: waiting for "Verse Editor"
+Sat, 10 Nov 2018 17:24:33 GMT: "Verse Editor" is visible
+Sat, 10 Nov 2018 17:24:34 GMT: setting "Verse Editor" to "11:19 - verse text 19"
+Sat, 10 Nov 2018 17:24:36 GMT: clicking on Verse Editor Next, step= 1
+Sat, 10 Nov 2018 17:24:36 GMT: clicking on "Verse Editor Next"
+Sat, 10 Nov 2018 17:24:36 GMT: clicking on Verse Editor Next, finished in step 1
+Sat, 10 Nov 2018 17:24:36 GMT: clicking on Reason Punctuation, step= 1
+Sat, 10 Nov 2018 17:24:37 GMT: clicking on "Reason Punctuation"
+Sat, 10 Nov 2018 17:24:37 GMT: clicking on Reason Punctuation, finished in step 1
+Sat, 10 Nov 2018 17:24:37 GMT: clicking on Verse Editor Save, step= 1
+Sat, 10 Nov 2018 17:24:37 GMT: clicking on "Verse Editor Save"
+Sat, 10 Nov 2018 17:24:39 GMT: clicking on Verse Editor Save, finished in step 1
+Sat, 10 Nov 2018 17:24:39 GMT: Done editing verse 19
+Sat, 10 Nov 2018 17:24:39 GMT: Verse edit time 7.825 seconds
+Sat, 10 Nov 2018 17:24:39 GMT: Editing verse 20
+Sat, 10 Nov 2018 17:24:39 GMT: clicking on Edit Verse verse 20, step= 1
+Sat, 10 Nov 2018 17:24:39 GMT: clicking on "Edit Verse verse 20"
+Sat, 10 Nov 2018 17:24:41 GMT: clicking on Edit Verse verse 20, finished in step 1
+Sat, 10 Nov 2018 17:24:41 GMT: Verse Editor, step= 1
+Sat, 10 Nov 2018 17:24:41 GMT: Verse Editor, not visible step 1
+Sat, 10 Nov 2018 17:24:41 GMT: Verse Editor, step= 2
+Sat, 10 Nov 2018 17:24:41 GMT: Verse Editor, finished in step 2
+Sat, 10 Nov 2018 17:24:41 GMT: Navigate dialog: "Verse Editor"
+Sat, 10 Nov 2018 17:24:41 GMT: waiting for "Verse Editor"
+Sat, 10 Nov 2018 17:24:41 GMT: "Verse Editor" is visible
+Sat, 10 Nov 2018 17:24:42 GMT: setting "Verse Editor" to "11:20 - verse text 20"
+Sat, 10 Nov 2018 17:24:45 GMT: clicking on Verse Editor Next, step= 1
+Sat, 10 Nov 2018 17:24:45 GMT: clicking on "Verse Editor Next"
+Sat, 10 Nov 2018 17:24:45 GMT: clicking on Verse Editor Next, finished in step 1
+Sat, 10 Nov 2018 17:24:45 GMT: clicking on Reason Word Choice, step= 1
+Sat, 10 Nov 2018 17:24:46 GMT: clicking on "Reason Word Choice"
+Sat, 10 Nov 2018 17:24:46 GMT: clicking on Reason Word Choice, finished in step 1
+Sat, 10 Nov 2018 17:24:46 GMT: clicking on Verse Editor Save, step= 1
+Sat, 10 Nov 2018 17:24:47 GMT: clicking on "Verse Editor Save"
+Sat, 10 Nov 2018 17:24:48 GMT: clicking on Verse Editor Save, finished in step 1
+Sat, 10 Nov 2018 17:24:48 GMT: Done editing verse 20
+Sat, 10 Nov 2018 17:24:48 GMT: Verse edit time 9.061 seconds
+Sat, 10 Nov 2018 17:24:48 GMT: Editing verse 21
+Sat, 10 Nov 2018 17:24:48 GMT: clicking on Edit Verse verse 21, step= 1
+Sat, 10 Nov 2018 17:24:48 GMT: clicking on "Edit Verse verse 21"
+Sat, 10 Nov 2018 17:24:50 GMT: clicking on Edit Verse verse 21, finished in step 1
+Sat, 10 Nov 2018 17:24:50 GMT: Verse Editor, step= 1
+Sat, 10 Nov 2018 17:24:50 GMT: Verse Editor, finished in step 1
+Sat, 10 Nov 2018 17:24:50 GMT: Navigate dialog: "Verse Editor"
+Sat, 10 Nov 2018 17:24:50 GMT: waiting for "Verse Editor"
+Sat, 10 Nov 2018 17:24:50 GMT: "Verse Editor" is visible
+Sat, 10 Nov 2018 17:24:51 GMT: setting "Verse Editor" to "11:21 - verse text 21"
+Sat, 10 Nov 2018 17:24:52 GMT: clicking on Verse Editor Next, step= 1
+Sat, 10 Nov 2018 17:24:53 GMT: clicking on "Verse Editor Next"
+Sat, 10 Nov 2018 17:24:53 GMT: clicking on Verse Editor Next, finished in step 1
+Sat, 10 Nov 2018 17:24:53 GMT: clicking on Reason Meaning, step= 1
+Sat, 10 Nov 2018 17:24:54 GMT: clicking on "Reason Meaning"
+Sat, 10 Nov 2018 17:24:54 GMT: clicking on Reason Meaning, finished in step 1
+Sat, 10 Nov 2018 17:24:54 GMT: clicking on Verse Editor Save, step= 1
+Sat, 10 Nov 2018 17:24:54 GMT: clicking on "Verse Editor Save"
+Sat, 10 Nov 2018 17:24:55 GMT: clicking on Verse Editor Save, finished in step 1
+Sat, 10 Nov 2018 17:24:55 GMT: Done editing verse 21
+Sat, 10 Nov 2018 17:24:55 GMT: Verse edit time 7.68 seconds
+Sat, 10 Nov 2018 17:24:55 GMT: Editing verse 22
+Sat, 10 Nov 2018 17:24:55 GMT: clicking on Edit Verse verse 22, step= 1
+Sat, 10 Nov 2018 17:24:56 GMT: clicking on "Edit Verse verse 22"
+Sat, 10 Nov 2018 17:24:58 GMT: clicking on Edit Verse verse 22, finished in step 1
+Sat, 10 Nov 2018 17:24:58 GMT: Verse Editor, step= 1
+Sat, 10 Nov 2018 17:24:58 GMT: Verse Editor, finished in step 1
+Sat, 10 Nov 2018 17:24:58 GMT: Navigate dialog: "Verse Editor"
+Sat, 10 Nov 2018 17:24:58 GMT: waiting for "Verse Editor"
+Sat, 10 Nov 2018 17:24:58 GMT: "Verse Editor" is visible
+Sat, 10 Nov 2018 17:24:58 GMT: setting "Verse Editor" to "11:22 - verse text 22"
+Sat, 10 Nov 2018 17:25:00 GMT: clicking on Verse Editor Next, step= 1
+Sat, 10 Nov 2018 17:25:00 GMT: clicking on "Verse Editor Next"
+Sat, 10 Nov 2018 17:25:01 GMT: clicking on Verse Editor Next, finished in step 1
+Sat, 10 Nov 2018 17:25:01 GMT: clicking on Reason Grammar, step= 1
+Sat, 10 Nov 2018 17:25:01 GMT: clicking on "Reason Grammar"
+Sat, 10 Nov 2018 17:25:01 GMT: clicking on Reason Grammar, finished in step 1
+Sat, 10 Nov 2018 17:25:01 GMT: clicking on Verse Editor Save, step= 1
+Sat, 10 Nov 2018 17:25:02 GMT: clicking on "Verse Editor Save"
+Sat, 10 Nov 2018 17:25:03 GMT: clicking on Verse Editor Save, finished in step 1
+Sat, 10 Nov 2018 17:25:03 GMT: Done editing verse 22
+Sat, 10 Nov 2018 17:25:03 GMT: Verse edit time 7.673 seconds
+Sat, 10 Nov 2018 17:25:03 GMT: Editing verse 23
+Sat, 10 Nov 2018 17:25:03 GMT: clicking on Edit Verse verse 23, step= 1
+Sat, 10 Nov 2018 17:25:04 GMT: clicking on "Edit Verse verse 23"
+Sat, 10 Nov 2018 17:25:05 GMT: clicking on Edit Verse verse 23, finished in step 1
+Sat, 10 Nov 2018 17:25:05 GMT: Verse Editor, step= 1
+Sat, 10 Nov 2018 17:25:06 GMT: Verse Editor, finished in step 1
+Sat, 10 Nov 2018 17:25:06 GMT: Navigate dialog: "Verse Editor"
+Sat, 10 Nov 2018 17:25:06 GMT: waiting for "Verse Editor"
+Sat, 10 Nov 2018 17:25:06 GMT: "Verse Editor" is visible
+Sat, 10 Nov 2018 17:25:06 GMT: setting "Verse Editor" to "11:23 - verse text 23"
+Sat, 10 Nov 2018 17:25:08 GMT: clicking on Verse Editor Next, step= 1
+Sat, 10 Nov 2018 17:25:08 GMT: clicking on "Verse Editor Next"
+Sat, 10 Nov 2018 17:25:08 GMT: clicking on Verse Editor Next, finished in step 1
+Sat, 10 Nov 2018 17:25:08 GMT: clicking on Reason Other, step= 1
+Sat, 10 Nov 2018 17:25:09 GMT: clicking on "Reason Other"
+Sat, 10 Nov 2018 17:25:09 GMT: clicking on Reason Other, finished in step 1
+Sat, 10 Nov 2018 17:25:09 GMT: clicking on Verse Editor Save, step= 1
+Sat, 10 Nov 2018 17:25:10 GMT: clicking on "Verse Editor Save"
+Sat, 10 Nov 2018 17:25:11 GMT: clicking on Verse Editor Save, finished in step 1
+Sat, 10 Nov 2018 17:25:11 GMT: Done editing verse 23
+Sat, 10 Nov 2018 17:25:11 GMT: Verse edit time 7.699 seconds
+Sat, 10 Nov 2018 17:25:11 GMT: Editing verse 24
+Sat, 10 Nov 2018 17:25:11 GMT: clicking on Edit Verse verse 24, step= 1
+Sat, 10 Nov 2018 17:25:11 GMT: clicking on "Edit Verse verse 24"
+Sat, 10 Nov 2018 17:25:13 GMT: clicking on Edit Verse verse 24, finished in step 1
+Sat, 10 Nov 2018 17:25:13 GMT: Verse Editor, step= 1
+Sat, 10 Nov 2018 17:25:13 GMT: Verse Editor, finished in step 1
+Sat, 10 Nov 2018 17:25:13 GMT: Navigate dialog: "Verse Editor"
+Sat, 10 Nov 2018 17:25:13 GMT: waiting for "Verse Editor"
+Sat, 10 Nov 2018 17:25:13 GMT: "Verse Editor" is visible
+Sat, 10 Nov 2018 17:25:14 GMT: setting "Verse Editor" to "11:24 - verse text 24"
+Sat, 10 Nov 2018 17:25:15 GMT: clicking on Verse Editor Next, step= 1
+Sat, 10 Nov 2018 17:25:16 GMT: clicking on "Verse Editor Next"
+Sat, 10 Nov 2018 17:25:16 GMT: clicking on Verse Editor Next, finished in step 1
+Sat, 10 Nov 2018 17:25:16 GMT: clicking on Reason Spelling, step= 1
+Sat, 10 Nov 2018 17:25:17 GMT: clicking on "Reason Spelling"
+Sat, 10 Nov 2018 17:25:17 GMT: clicking on Reason Spelling, finished in step 1
+Sat, 10 Nov 2018 17:25:17 GMT: clicking on Verse Editor Save, step= 1
+Sat, 10 Nov 2018 17:25:17 GMT: clicking on "Verse Editor Save"
+Sat, 10 Nov 2018 17:25:19 GMT: clicking on Verse Editor Save, finished in step 1
+Sat, 10 Nov 2018 17:25:19 GMT: Done editing verse 24
+Sat, 10 Nov 2018 17:25:19 GMT: Verse edit time 7.882 seconds
+Sat, 10 Nov 2018 17:25:19 GMT: Editing verse 25
+Sat, 10 Nov 2018 17:25:19 GMT: clicking on Edit Verse verse 25, step= 1
+Sat, 10 Nov 2018 17:25:19 GMT: clicking on "Edit Verse verse 25"
+Sat, 10 Nov 2018 17:25:21 GMT: clicking on Edit Verse verse 25, finished in step 1
+Sat, 10 Nov 2018 17:25:21 GMT: Verse Editor, step= 1
+Sat, 10 Nov 2018 17:25:21 GMT: Verse Editor, finished in step 1
+Sat, 10 Nov 2018 17:25:21 GMT: Navigate dialog: "Verse Editor"
+Sat, 10 Nov 2018 17:25:21 GMT: waiting for "Verse Editor"
+Sat, 10 Nov 2018 17:25:21 GMT: "Verse Editor" is visible
+Sat, 10 Nov 2018 17:25:22 GMT: setting "Verse Editor" to "11:25 - verse text 25"
+Sat, 10 Nov 2018 17:25:24 GMT: clicking on Verse Editor Next, step= 1
+Sat, 10 Nov 2018 17:25:24 GMT: clicking on "Verse Editor Next"
+Sat, 10 Nov 2018 17:25:24 GMT: clicking on Verse Editor Next, finished in step 1
+Sat, 10 Nov 2018 17:25:24 GMT: clicking on Reason Punctuation, step= 1
+Sat, 10 Nov 2018 17:25:25 GMT: clicking on "Reason Punctuation"
+Sat, 10 Nov 2018 17:25:25 GMT: clicking on Reason Punctuation, finished in step 1
+Sat, 10 Nov 2018 17:25:25 GMT: clicking on Verse Editor Save, step= 1
+Sat, 10 Nov 2018 17:25:25 GMT: clicking on "Verse Editor Save"
+Sat, 10 Nov 2018 17:25:27 GMT: clicking on Verse Editor Save, finished in step 1
+Sat, 10 Nov 2018 17:25:27 GMT: Done editing verse 25
+Sat, 10 Nov 2018 17:25:27 GMT: Verse edit time 7.943 seconds
+Sat, 10 Nov 2018 17:25:27 GMT: Editing verse 26
+Sat, 10 Nov 2018 17:25:27 GMT: clicking on Edit Verse verse 26, step= 1
+Sat, 10 Nov 2018 17:25:27 GMT: clicking on "Edit Verse verse 26"
+Sat, 10 Nov 2018 17:25:29 GMT: clicking on Edit Verse verse 26, finished in step 1
+Sat, 10 Nov 2018 17:25:29 GMT: Verse Editor, step= 1
+Sat, 10 Nov 2018 17:25:29 GMT: Verse Editor, not visible step 1
+Sat, 10 Nov 2018 17:25:29 GMT: Verse Editor, step= 2
+Sat, 10 Nov 2018 17:25:29 GMT: Verse Editor, finished in step 2
+Sat, 10 Nov 2018 17:25:29 GMT: Navigate dialog: "Verse Editor"
+Sat, 10 Nov 2018 17:25:29 GMT: waiting for "Verse Editor"
+Sat, 10 Nov 2018 17:25:29 GMT: "Verse Editor" is visible
+Sat, 10 Nov 2018 17:25:30 GMT: setting "Verse Editor" to "11:26 - verse text 26"
+Sat, 10 Nov 2018 17:25:31 GMT: clicking on Verse Editor Next, step= 1
+Sat, 10 Nov 2018 17:25:32 GMT: clicking on "Verse Editor Next"
+Sat, 10 Nov 2018 17:25:32 GMT: clicking on Verse Editor Next, finished in step 1
+Sat, 10 Nov 2018 17:25:32 GMT: clicking on Reason Word Choice, step= 1
+Sat, 10 Nov 2018 17:25:33 GMT: clicking on "Reason Word Choice"
+Sat, 10 Nov 2018 17:25:33 GMT: clicking on Reason Word Choice, finished in step 1
+Sat, 10 Nov 2018 17:25:33 GMT: clicking on Verse Editor Save, step= 1
+Sat, 10 Nov 2018 17:25:33 GMT: clicking on "Verse Editor Save"
+Sat, 10 Nov 2018 17:25:35 GMT: clicking on Verse Editor Save, finished in step 1
+Sat, 10 Nov 2018 17:25:35 GMT: Done editing verse 26
+Sat, 10 Nov 2018 17:25:35 GMT: Verse edit time 8.06 seconds
+Sat, 10 Nov 2018 17:25:35 GMT: Editing verse 27
+Sat, 10 Nov 2018 17:25:35 GMT: clicking on Edit Verse verse 27, step= 1
+Sat, 10 Nov 2018 17:25:35 GMT: clicking on "Edit Verse verse 27"
+Sat, 10 Nov 2018 17:25:37 GMT: clicking on Edit Verse verse 27, finished in step 1
+Sat, 10 Nov 2018 17:25:37 GMT: Verse Editor, step= 1
+Sat, 10 Nov 2018 17:25:37 GMT: Verse Editor, finished in step 1
+Sat, 10 Nov 2018 17:25:37 GMT: Navigate dialog: "Verse Editor"
+Sat, 10 Nov 2018 17:25:37 GMT: waiting for "Verse Editor"
+Sat, 10 Nov 2018 17:25:37 GMT: "Verse Editor" is visible
+Sat, 10 Nov 2018 17:25:38 GMT: setting "Verse Editor" to "11:27 - verse text 27"
+Sat, 10 Nov 2018 17:25:39 GMT: clicking on Verse Editor Next, step= 1
+Sat, 10 Nov 2018 17:25:40 GMT: clicking on "Verse Editor Next"
+Sat, 10 Nov 2018 17:25:40 GMT: clicking on Verse Editor Next, finished in step 1
+Sat, 10 Nov 2018 17:25:40 GMT: clicking on Reason Meaning, step= 1
+Sat, 10 Nov 2018 17:25:41 GMT: clicking on "Reason Meaning"
+Sat, 10 Nov 2018 17:25:41 GMT: clicking on Reason Meaning, finished in step 1
+Sat, 10 Nov 2018 17:25:41 GMT: clicking on Verse Editor Save, step= 1
+Sat, 10 Nov 2018 17:25:41 GMT: clicking on "Verse Editor Save"
+Sat, 10 Nov 2018 17:25:42 GMT: clicking on Verse Editor Save, finished in step 1
+Sat, 10 Nov 2018 17:25:42 GMT: Done editing verse 27
+Sat, 10 Nov 2018 17:25:42 GMT: Verse edit time 7.724 seconds
+Sat, 10 Nov 2018 17:25:42 GMT: Editing verse 28
+Sat, 10 Nov 2018 17:25:42 GMT: clicking on Edit Verse verse 28, step= 1
+Sat, 10 Nov 2018 17:25:43 GMT: clicking on "Edit Verse verse 28"
+Sat, 10 Nov 2018 17:25:45 GMT: clicking on Edit Verse verse 28, finished in step 1
+Sat, 10 Nov 2018 17:25:45 GMT: Verse Editor, step= 1
+Sat, 10 Nov 2018 17:25:45 GMT: Verse Editor, finished in step 1
+Sat, 10 Nov 2018 17:25:45 GMT: Navigate dialog: "Verse Editor"
+Sat, 10 Nov 2018 17:25:45 GMT: waiting for "Verse Editor"
+Sat, 10 Nov 2018 17:25:45 GMT: "Verse Editor" is visible
+Sat, 10 Nov 2018 17:25:45 GMT: setting "Verse Editor" to "11:28 - verse text 28"
+Sat, 10 Nov 2018 17:25:47 GMT: clicking on Verse Editor Next, step= 1
+Sat, 10 Nov 2018 17:25:47 GMT: clicking on "Verse Editor Next"
+Sat, 10 Nov 2018 17:25:48 GMT: clicking on Verse Editor Next, finished in step 1
+Sat, 10 Nov 2018 17:25:48 GMT: clicking on Reason Grammar, step= 1
+Sat, 10 Nov 2018 17:25:48 GMT: clicking on "Reason Grammar"
+Sat, 10 Nov 2018 17:25:48 GMT: clicking on Reason Grammar, finished in step 1
+Sat, 10 Nov 2018 17:25:48 GMT: clicking on Verse Editor Save, step= 1
+Sat, 10 Nov 2018 17:25:49 GMT: clicking on "Verse Editor Save"
+Sat, 10 Nov 2018 17:25:50 GMT: clicking on Verse Editor Save, finished in step 1
+Sat, 10 Nov 2018 17:25:50 GMT: Done editing verse 28
+Sat, 10 Nov 2018 17:25:50 GMT: Verse edit time 7.672 seconds
+Sat, 10 Nov 2018 17:25:50 GMT: Editing verse 29
+Sat, 10 Nov 2018 17:25:50 GMT: clicking on Edit Verse verse 29, step= 1
+Sat, 10 Nov 2018 17:25:51 GMT: clicking on "Edit Verse verse 29"
+Sat, 10 Nov 2018 17:25:52 GMT: clicking on Edit Verse verse 29, finished in step 1
+Sat, 10 Nov 2018 17:25:52 GMT: Verse Editor, step= 1
+Sat, 10 Nov 2018 17:25:52 GMT: Verse Editor, finished in step 1
+Sat, 10 Nov 2018 17:25:52 GMT: Navigate dialog: "Verse Editor"
+Sat, 10 Nov 2018 17:25:52 GMT: waiting for "Verse Editor"
+Sat, 10 Nov 2018 17:25:52 GMT: "Verse Editor" is visible
+Sat, 10 Nov 2018 17:25:53 GMT: setting "Verse Editor" to "11:29 - verse text 29"
+Sat, 10 Nov 2018 17:25:54 GMT: clicking on Verse Editor Next, step= 1
+Sat, 10 Nov 2018 17:25:55 GMT: clicking on "Verse Editor Next"
+Sat, 10 Nov 2018 17:25:55 GMT: clicking on Verse Editor Next, finished in step 1
+Sat, 10 Nov 2018 17:25:55 GMT: clicking on Reason Other, step= 1
+Sat, 10 Nov 2018 17:25:56 GMT: clicking on "Reason Other"
+Sat, 10 Nov 2018 17:25:56 GMT: clicking on Reason Other, finished in step 1
+Sat, 10 Nov 2018 17:25:56 GMT: clicking on Verse Editor Save, step= 1
+Sat, 10 Nov 2018 17:25:56 GMT: clicking on "Verse Editor Save"
+Sat, 10 Nov 2018 17:25:57 GMT: clicking on Verse Editor Save, finished in step 1
+Sat, 10 Nov 2018 17:25:57 GMT: Done editing verse 29
+Sat, 10 Nov 2018 17:25:57 GMT: Verse edit time 7.453 seconds
+Sat, 10 Nov 2018 17:25:57 GMT: Editing verse 30
+Sat, 10 Nov 2018 17:25:57 GMT: clicking on Edit Verse verse 30, step= 1
+Sat, 10 Nov 2018 17:25:58 GMT: clicking on "Edit Verse verse 30"
+Sat, 10 Nov 2018 17:26:01 GMT: clicking on Edit Verse verse 30, finished in step 1
+Sat, 10 Nov 2018 17:26:01 GMT: Verse Editor, step= 1
+Sat, 10 Nov 2018 17:26:01 GMT: Verse Editor, finished in step 1
+Sat, 10 Nov 2018 17:26:01 GMT: Navigate dialog: "Verse Editor"
+Sat, 10 Nov 2018 17:26:01 GMT: waiting for "Verse Editor"
+Sat, 10 Nov 2018 17:26:02 GMT: "Verse Editor" is visible
+Sat, 10 Nov 2018 17:26:02 GMT: setting "Verse Editor" to "11:30 - verse text 30"
+Sat, 10 Nov 2018 17:26:04 GMT: clicking on Verse Editor Next, step= 1
+Sat, 10 Nov 2018 17:26:04 GMT: clicking on "Verse Editor Next"
+Sat, 10 Nov 2018 17:26:04 GMT: clicking on Verse Editor Next, finished in step 1
+Sat, 10 Nov 2018 17:26:04 GMT: clicking on Reason Spelling, step= 1
+Sat, 10 Nov 2018 17:26:05 GMT: clicking on "Reason Spelling"
+Sat, 10 Nov 2018 17:26:05 GMT: clicking on Reason Spelling, finished in step 1
+Sat, 10 Nov 2018 17:26:05 GMT: clicking on Verse Editor Save, step= 1
+Sat, 10 Nov 2018 17:26:06 GMT: clicking on "Verse Editor Save"
+Sat, 10 Nov 2018 17:26:07 GMT: clicking on Verse Editor Save, finished in step 1
+Sat, 10 Nov 2018 17:26:07 GMT: Done editing verse 30
+Sat, 10 Nov 2018 17:26:07 GMT: Verse edit time 9.189 seconds
+Sat, 10 Nov 2018 17:26:07 GMT: clicking on Close, step= 1
+Sat, 10 Nov 2018 17:26:07 GMT: clicking on "Close"
+Sat, 10 Nov 2018 17:26:09 GMT: clicking on Close, finished in step 1
+Sat, 10 Nov 2018 17:26:09 GMT: Chapter 11 finished, Number of verses= 30
+Sat, 10 Nov 2018 17:26:09 GMT: Average verse edit time 8 seconds
+Sat, 10 Nov 2018 17:26:09 GMT: min/max verse edit times 6.2/10 seconds
+Sat, 10 Nov 2018 17:26:09 GMT: test finished
+Sat, 10 Nov 2018 17:26:09 GMT: Memory Usage: 2237004, pressure: 99%, growth: 400%
+Sat, 10 Nov 2018 17:26:09 GMT: Test 58 Ended Successfully
+Sat, 10 Nov 2018 17:26:09 GMT: Test run time 244 seconds

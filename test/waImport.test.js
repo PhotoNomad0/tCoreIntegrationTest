@@ -18,7 +18,7 @@ describe('WA Tests', () => {
     { bookId: "act", importFile: '45-ACT.usfm' }
   ];
 
-  const testCount = 3;
+  const testCount = 8;
   
   before(async () => {
     app = await utils.beforeAll();
