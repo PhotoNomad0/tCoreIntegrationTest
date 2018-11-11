@@ -376,6 +376,24 @@ const DEFINITIONS = {
     expandScripturePane: {
       id: "wordAlignment expand scripture pane",
       selector: "#content > div > div.container-fluid > div:nth-child(2) > div > div > div > div:nth-child(4) > div:nth-child(1) > div > div.inner-container > div.title-bar > span.glyphicon.glyphicon-fullscreen"
+    },
+    wordList: {
+      id: "Word Alignment Word List",
+      selector: "#wordList"
+    },
+    wordListCardN: function(position) {
+      return {
+        id: "Word Card " + position,
+        selector: "#wordList > div:nth-child(" + position + ")"
+      };
+    },
+    alignmentGrid: {
+      id: "Alignment Grid",
+      selector: "#AlignmentGrid"
+    },
+    alignment: {
+      id: "Alignment Item",
+      selector: "#AlignmentGrid > div:nth-child(1)"
     }
   },
   groupMenu: {

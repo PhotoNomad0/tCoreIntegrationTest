@@ -21,6 +21,8 @@ describe('WA Tests', () => {
   const testCount = 3;
   let chapterCount = 0;
   let chapterFinished = 0;
+  let verseAttemptedCount = 0;
+  let versesFinished = 0;
   
   before(async () => {
     app = await utils.beforeAll();
@@ -72,6 +74,7 @@ describe('WA Tests', () => {
           await makeSureExpandedScripturePaneIsClosed();
           assert.ok(chapters);
           const verseCount = chapters[chapter];
+          verseAttemptedCount += verseCount;
           assert.ok(verseCount);
           log("Chapter " + chapter + ", Number of verses= " + verseCount);
           await tCore.clickOnRetry(TCORE.groupMenu.chapterN(chapter, 'c' + chapter));
@@ -103,6 +106,7 @@ describe('WA Tests', () => {
             times.push(elapsed);
             log("Verse edit time " + elapsed + " seconds");
             verseStartTime = verseEndTime;
+            versesFinished++;
           }
 
           await tCore.clickOnRetry(TCORE.expandedScripturePane.close);
@@ -115,6 +119,7 @@ describe('WA Tests', () => {
 
           chapterFinished++;
           log("Completed " + chapterFinished + " of " + chapterCount + " total chapters");
+          log("Completed " + versesFinished + " of " + verseAttemptedCount + " attempted verses");
           utils.testFinished();
         }).timeout(1000000);
       }
