@@ -1,0 +1,62 @@
+Sun, 11 Nov 2018 20:37:26 GMT: **** App version "Version 1.0.2 (undefined)" ****
+Sun, 11 Nov 2018 20:37:26 GMT: Test 115 Name: "does USFM import of jud and opens WA, Test run = 10"
+Sun, 11 Nov 2018 20:37:26 GMT: Memory Usage: 2899220, pressure: 110%, growth: 550%
+Sun, 11 Nov 2018 20:37:26 GMT: Loading '66-JUD.usfm' for testing
+Sun, 11 Nov 2018 20:37:26 GMT: making sure test project removed: C:\Users\blm\translationCore\projects\en_zzaa_jud_book
+Sun, 11 Nov 2018 20:37:26 GMT: clicking on "Project Navigation"
+Sun, 11 Nov 2018 20:37:27 GMT: Navigate dialog: "Projects Page"
+Sun, 11 Nov 2018 20:37:27 GMT: waiting for "Projects Page"
+Sun, 11 Nov 2018 20:37:27 GMT: "Projects Page" is visible
+Sun, 11 Nov 2018 20:37:27 GMT: verify on specific page
+Sun, 11 Nov 2018 20:37:27 GMT: checking "Select a project from the list." equals "Select a project from the list."
+Sun, 11 Nov 2018 20:37:27 GMT: finished verify on specific page
+Sun, 11 Nov 2018 20:37:27 GMT: clicking on "Menu Button"
+Sun, 11 Nov 2018 20:37:28 GMT: clicking on "Local Import Button"
+Sun, 11 Nov 2018 20:37:28 GMT: checking for Alert Dialog shown
+Sun, 11 Nov 2018 20:37:29 GMT: reading "Searching, please wait..."
+Sun, 11 Nov 2018 20:37:29 GMT: value of "Searching, please wait..." is "Importing local project..."
+Sun, 11 Nov 2018 20:37:29 GMT: Navigating Copyright
+Sun, 11 Nov 2018 20:37:29 GMT: waiting for "Copyright Dialog"
+Sun, 11 Nov 2018 20:37:32 GMT: "Copyright Dialog" is visible
+Sun, 11 Nov 2018 20:37:32 GMT: checking "Licenses" contains "Licenses"
+Sun, 11 Nov 2018 20:37:32 GMT: reading "Licenses"
+Sun, 11 Nov 2018 20:37:32 GMT: value of "Licenses" is "Licenses
+CC0 / Public Domain
+See more
+Creative Commons Attribution (CC BY)
+See more
+Creative Commons Attribution-ShareAlike (CC BY-SA)
+See more
+None of the Above
+See more"
+Sun, 11 Nov 2018 20:37:32 GMT: found text: 'Licenses
+CC0 / Public Domain
+See more
+Creative Commons Attribution (CC BY)
+See more
+Creative Commons Attribution-ShareAlike (CC BY-SA)
+See more
+None of the Above
+See more'
+Sun, 11 Nov 2018 20:37:32 GMT: checking "Please select the copyright status for this project." equals "Please select the copyright status for this project."
+Sun, 11 Nov 2018 20:37:33 GMT: clicking on "Share Alike"
+Sun, 11 Nov 2018 20:37:33 GMT: Navigate dialog: "Missing Verses Checker Dialog"
+Sun, 11 Nov 2018 20:37:33 GMT: waiting for "Missing Verses Checker Dialog"
+Sun, 11 Nov 2018 20:37:33 GMT: "Missing Verses Checker Dialog" is visible
+Sun, 11 Nov 2018 20:37:34 GMT: checking "Continue" equals "Continue"
+Sun, 11 Nov 2018 20:37:34 GMT: clicking on "Continue"
+Sun, 11 Nov 2018 20:37:35 GMT: Navigating Project Info Checker
+Sun, 11 Nov 2018 20:37:35 GMT: waiting for "Project Info Checker Dialog"
+Sun, 11 Nov 2018 20:37:37 GMT: "Project Info Checker Dialog" is visible
+Sun, 11 Nov 2018 20:37:37 GMT: checking "Book Name" equals "Jude (jud)"
+Sun, 11 Nov 2018 20:37:37 GMT: setting "Language ID" to "en"
+Sun, 11 Nov 2018 20:37:39 GMT: setting "Target Language Identifier" to "zzaa"
+Sun, 11 Nov 2018 20:37:41 GMT: Navigate dialog: "Project Info Checker Dialog"
+Sun, 11 Nov 2018 20:37:41 GMT: waiting for "Project Info Checker Dialog"
+Sun, 11 Nov 2018 20:37:41 GMT: "Project Info Checker Dialog" is visible
+Sun, 11 Nov 2018 20:37:42 GMT: checking "Continue" equals "Continue"
+Sun, 11 Nov 2018 20:37:42 GMT: clicking on "Continue"
+Sun, 11 Nov 2018 20:37:44 GMT: checking for Alert Dialog shown
+Sun, 11 Nov 2018 20:37:52 GMT: Memory Usage: 2920584, pressure: 111%, growth: 555%
+Sun, 11 Nov 2018 20:37:52 GMT: #### Test 115 did not finish ####
+Sun, 11 Nov 2018 20:37:52 GMT: Test run time 26 seconds

@@ -1,5 +1,10 @@
-Thu, 08 Nov 2018 18:31:15 GMT: starting tCore
-Thu, 08 Nov 2018 18:31:23 GMT: The button text content is "Get Started!"
-Thu, 08 Nov 2018 18:31:23 GMT: **** App version "Version 1.0.2 (4bd6856)" ****
-Thu, 08 Nov 2018 18:31:23 GMT: checking "Get Started!" equals "Get Started!"
-Thu, 08 Nov 2018 18:31:23 GMT: clicking on "Get Started!"
+Sun, 11 Nov 2018 12:54:28 GMT: Starting tCore
+Sun, 11 Nov 2018 12:54:28 GMT: starting tCore
+Sun, 11 Nov 2018 12:54:49 GMT: The button text content is "Get Started!"
+Sun, 11 Nov 2018 12:54:49 GMT: reading "#content > div > div.container-fluid > div:nth-child(2) > div > div > div"
+Sun, 11 Nov 2018 12:54:49 GMT: value of "#content > div > div.container-fluid > div:nth-child(2) > div > div > div" is "Version 1.0.2 (undefined)"
+Sun, 11 Nov 2018 12:54:49 GMT: **** App version "Version 1.0.2 (undefined)" ****
+Sun, 11 Nov 2018 12:54:49 GMT: checking "Get Started!" equals "Get Started!"
+Sun, 11 Nov 2018 12:54:49 GMT: clicking on "Get Started!"
+Sun, 11 Nov 2018 12:54:50 GMT: tCore started
+Sun, 11 Nov 2018 12:54:50 GMT: Memory Usage: 445788, pressure: 17%, growth: 0%

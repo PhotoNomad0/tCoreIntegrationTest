@@ -1,0 +1,39 @@
+Sun, 11 Nov 2018 20:37:52 GMT: **** App version "Version 1.0.2 (undefined)" ****
+Sun, 11 Nov 2018 20:37:52 GMT: Test 116 Name: "edit chapter 1, Test run = 10"
+Sun, 11 Nov 2018 20:37:52 GMT: Memory Usage: 2920584, pressure: 111%, growth: 555%
+Sun, 11 Nov 2018 20:37:52 GMT: Test run 10, importFile '66-JUD.usfm'
+Sun, 11 Nov 2018 20:37:52 GMT: Chapter 1, Number of verses= 25
+Sun, 11 Nov 2018 20:37:52 GMT: clicking on Chapter c1, step= 1
+Sun, 11 Nov 2018 20:37:52 GMT: clicking on "Chapter c1"
+Sun, 11 Nov 2018 20:37:52 GMT: clicking on Chapter c1, failed step 1
+Sun, 11 Nov 2018 20:37:53 GMT: clicking on Chapter c1, step= 2
+Sun, 11 Nov 2018 20:37:53 GMT: clicking on "Chapter c1"
+Sun, 11 Nov 2018 20:37:53 GMT: clicking on Chapter c1, failed step 2
+Sun, 11 Nov 2018 20:37:54 GMT: clicking on Chapter c1, step= 3
+Sun, 11 Nov 2018 20:37:54 GMT: clicking on "Chapter c1"
+Sun, 11 Nov 2018 20:37:54 GMT: clicking on Chapter c1, failed step 3
+Sun, 11 Nov 2018 20:37:55 GMT: clicking on Chapter c1, step= 4
+Sun, 11 Nov 2018 20:37:55 GMT: clicking on "Chapter c1"
+Sun, 11 Nov 2018 20:37:55 GMT: clicking on Chapter c1, failed step 4
+Sun, 11 Nov 2018 20:37:56 GMT: clicking on Chapter c1, step= 5
+Sun, 11 Nov 2018 20:37:57 GMT: clicking on "Chapter c1"
+Sun, 11 Nov 2018 20:37:57 GMT: clicking on Chapter c1, failed step 5
+Sun, 11 Nov 2018 20:37:57 GMT: clicking on Chapter c1, step= 6
+Sun, 11 Nov 2018 20:37:58 GMT: clicking on "Chapter c1"
+Sun, 11 Nov 2018 20:37:58 GMT: clicking on Chapter c1, failed step 6
+Sun, 11 Nov 2018 20:37:58 GMT: clicking on Chapter c1, step= 7
+Sun, 11 Nov 2018 20:37:59 GMT: clicking on "Chapter c1"
+Sun, 11 Nov 2018 20:37:59 GMT: clicking on Chapter c1, failed step 7
+Sun, 11 Nov 2018 20:37:59 GMT: clicking on Chapter c1, step= 8
+Sun, 11 Nov 2018 20:38:00 GMT: clicking on "Chapter c1"
+Sun, 11 Nov 2018 20:38:00 GMT: clicking on Chapter c1, failed step 8
+Sun, 11 Nov 2018 20:38:00 GMT: clicking on Chapter c1, step= 9
+Sun, 11 Nov 2018 20:38:01 GMT: clicking on "Chapter c1"
+Sun, 11 Nov 2018 20:38:01 GMT: clicking on Chapter c1, failed step 9
+Sun, 11 Nov 2018 20:38:01 GMT: clicking on Chapter c1, step= 10
+Sun, 11 Nov 2018 20:38:02 GMT: clicking on "Chapter c1"
+Sun, 11 Nov 2018 20:38:02 GMT: clicking on Chapter c1, failed step 10
+Sun, 11 Nov 2018 20:38:02 GMT: clicking on Chapter c1, Failed!
+Sun, 11 Nov 2018 20:38:02 GMT: Memory Usage: 2903684, pressure: 111%, growth: 551%
+Sun, 11 Nov 2018 20:38:02 GMT: #### Test 116 did not finish ####
+Sun, 11 Nov 2018 20:38:02 GMT: Test run time 11 seconds
