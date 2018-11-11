@@ -432,6 +432,12 @@ const DEFINITIONS = {
         selector: "div.verse-row-container > div:nth-child(" + position + ") button"
       };
     },
+    verseTextN: function(position, column) {
+      return {
+        id: "Verse Text " + position + ', column' + column,
+        selector: "div.verse-row-container > div:nth-child(" + position + ") > div:nth-child(" + column + ") > div > div.verse-content-ltr > span"
+      };
+    },
     close: {
       id: "Close",
       selector: "//body/div[8]/div[2]/div[3]/button"

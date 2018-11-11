@@ -96,17 +96,25 @@ describe('WA Tests', () => {
               TCORE.verseEditor.reasonGrammar, TCORE.verseEditor.reasonOther][verse % 6];
             await tCore.clickOnRetry(TCORE.expandedScripturePane.editN(verse, 'verse ' + verse));
             await tCore.navigateRetry(TCORE.verseEditor);
-            await tCore.setValue(TCORE.verseEditor, chapter + ':' + verse + ' - verse text ' + verse);
+            const newText = chapter + ':' + verse + ' - verse text ' + verse;
+            await tCore.setValue(TCORE.verseEditor, newText);
             await tCore.clickOnRetry(TCORE.verseEditor.next);
             await tCore.clickOnRetry(editReason);
             await tCore.clickOnRetry(TCORE.verseEditor.save);
             log("Done editing verse " + verse);
+            const verifyText = await tCore.getText(TCORE.expandedScripturePane.verseTextN(verse, 1));
+            const verseVerified = verifyText === newText;
+            if (!verseVerified) {
+              log("### verse miscompare ###");
+            }
             let verseEndTime = new Date();
             const elapsed = (verseEndTime - verseStartTime) / 1000;
             times.push(elapsed);
             log("Verse edit time " + elapsed + " seconds");
             verseStartTime = verseEndTime;
-            versesFinished++;
+            if (verseVerified) {
+              versesFinished++;
+            }
           }
 
           await tCore.clickOnRetry(TCORE.expandedScripturePane.close);
