@@ -1,0 +1,55 @@
+Sun, 11 Nov 2018 01:56:21 GMT: **** App version "Version 1.0.2 (undefined)" ****
+Sun, 11 Nov 2018 01:56:21 GMT: Test 93 Name: "edit chapter 8, Test run = 9"
+Sun, 11 Nov 2018 01:56:21 GMT: Memory Usage: 2732908, pressure: 121%, growth: 514%
+Sun, 11 Nov 2018 01:56:21 GMT: Test run 9, importFile '45-ACT.usfm'
+Sun, 11 Nov 2018 01:56:21 GMT: Chapter 8, Number of verses= 40
+Sun, 11 Nov 2018 01:56:21 GMT: clicking on Chapter c8, step= 1
+Sun, 11 Nov 2018 01:56:22 GMT: clicking on "Chapter c8"
+Sun, 11 Nov 2018 01:56:23 GMT: clicking on Chapter c8, finished in step 1
+Sun, 11 Nov 2018 01:56:23 GMT: clicking on wordAlignment expand scripture pane, step= 1
+Sun, 11 Nov 2018 01:56:23 GMT: clicking on "wordAlignment expand scripture pane"
+Sun, 11 Nov 2018 01:56:28 GMT: clicking on wordAlignment expand scripture pane, finished in step 1
+Sun, 11 Nov 2018 01:56:28 GMT: Expanded Scripture Pane, step= 1
+Sun, 11 Nov 2018 01:56:29 GMT: Expanded Scripture Pane, not visible step 1
+Sun, 11 Nov 2018 01:56:29 GMT: Expanded Scripture Pane, step= 2
+Sun, 11 Nov 2018 01:56:29 GMT: Expanded Scripture Pane, not visible step 2
+Sun, 11 Nov 2018 01:56:29 GMT: Expanded Scripture Pane, step= 3
+Sun, 11 Nov 2018 01:56:29 GMT: Expanded Scripture Pane, not visible step 3
+Sun, 11 Nov 2018 01:56:29 GMT: Expanded Scripture Pane, step= 4
+Sun, 11 Nov 2018 01:56:29 GMT: Expanded Scripture Pane, not visible step 4
+Sun, 11 Nov 2018 01:56:29 GMT: Expanded Scripture Pane, step= 5
+Sun, 11 Nov 2018 01:56:29 GMT: Expanded Scripture Pane, not visible step 5
+Sun, 11 Nov 2018 01:56:29 GMT: Expanded Scripture Pane, step= 6
+Sun, 11 Nov 2018 01:56:29 GMT: Expanded Scripture Pane, not visible step 6
+Sun, 11 Nov 2018 01:56:29 GMT: Expanded Scripture Pane, step= 7
+Sun, 11 Nov 2018 01:56:29 GMT: Expanded Scripture Pane, not visible step 7
+Sun, 11 Nov 2018 01:56:29 GMT: Expanded Scripture Pane, step= 8
+Sun, 11 Nov 2018 01:56:29 GMT: Expanded Scripture Pane, not visible step 8
+Sun, 11 Nov 2018 01:56:29 GMT: Expanded Scripture Pane, step= 9
+Sun, 11 Nov 2018 01:56:29 GMT: Expanded Scripture Pane, not visible step 9
+Sun, 11 Nov 2018 01:56:30 GMT: Expanded Scripture Pane, step= 10
+Sun, 11 Nov 2018 01:56:30 GMT: Expanded Scripture Pane, not visible step 10
+Sun, 11 Nov 2018 01:56:30 GMT: Expanded Scripture Pane, step= 11
+Sun, 11 Nov 2018 01:56:30 GMT: Expanded Scripture Pane, not visible step 11
+Sun, 11 Nov 2018 01:56:30 GMT: Expanded Scripture Pane, step= 12
+Sun, 11 Nov 2018 01:56:30 GMT: Expanded Scripture Pane, not visible step 12
+Sun, 11 Nov 2018 01:56:30 GMT: Expanded Scripture Pane, step= 13
+Sun, 11 Nov 2018 01:56:30 GMT: Expanded Scripture Pane, not visible step 13
+Sun, 11 Nov 2018 01:56:30 GMT: Expanded Scripture Pane, step= 14
+Sun, 11 Nov 2018 01:56:30 GMT: Expanded Scripture Pane, not visible step 14
+Sun, 11 Nov 2018 01:56:30 GMT: Expanded Scripture Pane, step= 15
+Sun, 11 Nov 2018 01:56:30 GMT: Expanded Scripture Pane, not visible step 15
+Sun, 11 Nov 2018 01:56:30 GMT: Expanded Scripture Pane, step= 16
+Sun, 11 Nov 2018 01:56:30 GMT: Expanded Scripture Pane, not visible step 16
+Sun, 11 Nov 2018 01:56:30 GMT: Expanded Scripture Pane, step= 17
+Sun, 11 Nov 2018 01:56:30 GMT: Expanded Scripture Pane, not visible step 17
+Sun, 11 Nov 2018 01:56:30 GMT: Expanded Scripture Pane, step= 18
+Sun, 11 Nov 2018 01:56:30 GMT: Expanded Scripture Pane, not visible step 18
+Sun, 11 Nov 2018 01:56:30 GMT: Expanded Scripture Pane, step= 19
+Sun, 11 Nov 2018 01:56:30 GMT: Expanded Scripture Pane, not visible step 19
+Sun, 11 Nov 2018 01:56:30 GMT: Expanded Scripture Pane, step= 20
+Sun, 11 Nov 2018 01:56:30 GMT: Expanded Scripture Pane, not visible step 20
+Sun, 11 Nov 2018 01:56:30 GMT: Expanded Scripture Pane, Failed!
+Sun, 11 Nov 2018 01:56:30 GMT: Memory Usage: 2753044, pressure: 122%, growth: 518%
+Sun, 11 Nov 2018 01:56:31 GMT: #### Test 93 did not finish ####
+Sun, 11 Nov 2018 01:56:31 GMT: Test run time 9 seconds

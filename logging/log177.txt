@@ -1,0 +1,39 @@
+Sun, 11 Nov 2018 02:10:00 GMT: **** App version "Version 1.0.2 (undefined)" ****
+Sun, 11 Nov 2018 02:10:00 GMT: Test 177 Name: "edit chapter 16, Test run = 15"
+Sun, 11 Nov 2018 02:10:00 GMT: Memory Usage: 2655484, pressure: 118%, growth: 496%
+Sun, 11 Nov 2018 02:10:00 GMT: Test run 15, importFile '45-ACT.usfm'
+Sun, 11 Nov 2018 02:10:00 GMT: Chapter 16, Number of verses= 40
+Sun, 11 Nov 2018 02:10:00 GMT: clicking on Chapter c16, step= 1
+Sun, 11 Nov 2018 02:10:00 GMT: clicking on "Chapter c16"
+Sun, 11 Nov 2018 02:10:00 GMT: clicking on Chapter c16, failed step 1
+Sun, 11 Nov 2018 02:10:01 GMT: clicking on Chapter c16, step= 2
+Sun, 11 Nov 2018 02:10:01 GMT: clicking on "Chapter c16"
+Sun, 11 Nov 2018 02:10:01 GMT: clicking on Chapter c16, failed step 2
+Sun, 11 Nov 2018 02:10:02 GMT: clicking on Chapter c16, step= 3
+Sun, 11 Nov 2018 02:10:02 GMT: clicking on "Chapter c16"
+Sun, 11 Nov 2018 02:10:03 GMT: clicking on Chapter c16, failed step 3
+Sun, 11 Nov 2018 02:10:03 GMT: clicking on Chapter c16, step= 4
+Sun, 11 Nov 2018 02:10:04 GMT: clicking on "Chapter c16"
+Sun, 11 Nov 2018 02:10:04 GMT: clicking on Chapter c16, failed step 4
+Sun, 11 Nov 2018 02:10:04 GMT: clicking on Chapter c16, step= 5
+Sun, 11 Nov 2018 02:10:05 GMT: clicking on "Chapter c16"
+Sun, 11 Nov 2018 02:10:05 GMT: clicking on Chapter c16, failed step 5
+Sun, 11 Nov 2018 02:10:05 GMT: clicking on Chapter c16, step= 6
+Sun, 11 Nov 2018 02:10:06 GMT: clicking on "Chapter c16"
+Sun, 11 Nov 2018 02:10:06 GMT: clicking on Chapter c16, failed step 6
+Sun, 11 Nov 2018 02:10:06 GMT: clicking on Chapter c16, step= 7
+Sun, 11 Nov 2018 02:10:07 GMT: clicking on "Chapter c16"
+Sun, 11 Nov 2018 02:10:07 GMT: clicking on Chapter c16, failed step 7
+Sun, 11 Nov 2018 02:10:07 GMT: clicking on Chapter c16, step= 8
+Sun, 11 Nov 2018 02:10:08 GMT: clicking on "Chapter c16"
+Sun, 11 Nov 2018 02:10:08 GMT: clicking on Chapter c16, failed step 8
+Sun, 11 Nov 2018 02:10:08 GMT: clicking on Chapter c16, step= 9
+Sun, 11 Nov 2018 02:10:09 GMT: clicking on "Chapter c16"
+Sun, 11 Nov 2018 02:10:09 GMT: clicking on Chapter c16, failed step 9
+Sun, 11 Nov 2018 02:10:10 GMT: clicking on Chapter c16, step= 10
+Sun, 11 Nov 2018 02:10:10 GMT: clicking on "Chapter c16"
+Sun, 11 Nov 2018 02:10:10 GMT: clicking on Chapter c16, failed step 10
+Sun, 11 Nov 2018 02:10:11 GMT: clicking on Chapter c16, Failed!
+Sun, 11 Nov 2018 02:10:11 GMT: Memory Usage: 2655484, pressure: 118%, growth: 496%
+Sun, 11 Nov 2018 02:10:11 GMT: #### Test 177 did not finish ####
+Sun, 11 Nov 2018 02:10:11 GMT: Test run time 11 seconds

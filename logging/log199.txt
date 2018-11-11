@@ -1,0 +1,9 @@
+Sun, 11 Nov 2018 02:13:14 GMT: **** App version "Version 1.0.2 (undefined)" ****
+Sun, 11 Nov 2018 02:13:14 GMT: Test 199 Name: "does USFM import of act and opens WA, Test run = 18"
+Sun, 11 Nov 2018 02:13:14 GMT: Memory Usage: 2655484, pressure: 118%, growth: 496%
+Sun, 11 Nov 2018 02:13:14 GMT: Loading '45-ACT.usfm' for testing
+Sun, 11 Nov 2018 02:13:14 GMT: making sure test project removed: C:\Users\blm\translationCore\projects\en_zzaa_act_book
+Sun, 11 Nov 2018 02:13:15 GMT: clicking on "Project Navigation"
+Sun, 11 Nov 2018 02:13:15 GMT: Memory Usage: 2655484, pressure: 118%, growth: 496%
+Sun, 11 Nov 2018 02:13:15 GMT: #### Test 199 did not finish ####
+Sun, 11 Nov 2018 02:13:15 GMT: Test run time 1 seconds

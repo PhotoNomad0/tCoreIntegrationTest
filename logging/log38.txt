@@ -1,0 +1,15 @@
+Sat, 10 Nov 2018 22:38:32 GMT: **** App version "Version 1.0.2 (undefined)" ****
+Sat, 10 Nov 2018 22:38:32 GMT: Test 38 Name: "closes WA and back to projects page"
+Sat, 10 Nov 2018 22:38:32 GMT: Memory Usage: 1811596, pressure: 81%, growth: 307%
+Sat, 10 Nov 2018 22:38:32 GMT: Test run '3, closing importFile '45-ACT.usfm'
+Sat, 10 Nov 2018 22:38:33 GMT: clicking on "Project Navigation"
+Sat, 10 Nov 2018 22:38:35 GMT: Navigate dialog: "Projects Page"
+Sat, 10 Nov 2018 22:38:35 GMT: waiting for "Projects Page"
+Sat, 10 Nov 2018 22:38:35 GMT: "Projects Page" is visible
+Sat, 10 Nov 2018 22:38:35 GMT: verify on specific page
+Sat, 10 Nov 2018 22:38:35 GMT: checking "Select a project from the list." equals "Select a project from the list."
+Sat, 10 Nov 2018 22:38:35 GMT: finished verify on specific page
+Sat, 10 Nov 2018 22:38:41 GMT: test finished
+Sat, 10 Nov 2018 22:38:41 GMT: Memory Usage: 1808100, pressure: 80%, growth: 306%
+Sat, 10 Nov 2018 22:38:41 GMT: Test 38 Ended Successfully
+Sat, 10 Nov 2018 22:38:41 GMT: Test run time 10 seconds

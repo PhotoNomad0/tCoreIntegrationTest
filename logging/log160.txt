@@ -1,0 +1,8 @@
+Sun, 11 Nov 2018 02:07:09 GMT: **** App version "Version 1.0.2 (undefined)" ****
+Sun, 11 Nov 2018 02:07:09 GMT: Test 160 Name: "closes WA and back to projects page"
+Sun, 11 Nov 2018 02:07:10 GMT: Memory Usage: 2710716, pressure: 120%, growth: 509%
+Sun, 11 Nov 2018 02:07:10 GMT: Test run '14, closing importFile 'hi_test_tit.usfm'
+Sun, 11 Nov 2018 02:07:10 GMT: clicking on "Project Navigation"
+Sun, 11 Nov 2018 02:07:10 GMT: Memory Usage: 2710716, pressure: 120%, growth: 509%
+Sun, 11 Nov 2018 02:07:10 GMT: #### Test 160 did not finish ####
+Sun, 11 Nov 2018 02:07:10 GMT: Test run time 1 seconds

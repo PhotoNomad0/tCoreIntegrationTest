@@ -1,0 +1,39 @@
+Sun, 11 Nov 2018 01:57:26 GMT: **** App version "Version 1.0.2 (undefined)" ****
+Sun, 11 Nov 2018 01:57:26 GMT: Test 99 Name: "edit chapter 14, Test run = 9"
+Sun, 11 Nov 2018 01:57:27 GMT: Memory Usage: 2753076, pressure: 122%, growth: 518%
+Sun, 11 Nov 2018 01:57:27 GMT: Test run 9, importFile '45-ACT.usfm'
+Sun, 11 Nov 2018 01:57:27 GMT: Chapter 14, Number of verses= 28
+Sun, 11 Nov 2018 01:57:27 GMT: clicking on Chapter c14, step= 1
+Sun, 11 Nov 2018 01:57:27 GMT: clicking on "Chapter c14"
+Sun, 11 Nov 2018 01:57:27 GMT: clicking on Chapter c14, failed step 1
+Sun, 11 Nov 2018 01:57:28 GMT: clicking on Chapter c14, step= 2
+Sun, 11 Nov 2018 01:57:28 GMT: clicking on "Chapter c14"
+Sun, 11 Nov 2018 01:57:28 GMT: clicking on Chapter c14, failed step 2
+Sun, 11 Nov 2018 01:57:29 GMT: clicking on Chapter c14, step= 3
+Sun, 11 Nov 2018 01:57:29 GMT: clicking on "Chapter c14"
+Sun, 11 Nov 2018 01:57:29 GMT: clicking on Chapter c14, failed step 3
+Sun, 11 Nov 2018 01:57:30 GMT: clicking on Chapter c14, step= 4
+Sun, 11 Nov 2018 01:57:30 GMT: clicking on "Chapter c14"
+Sun, 11 Nov 2018 01:57:30 GMT: clicking on Chapter c14, failed step 4
+Sun, 11 Nov 2018 01:57:31 GMT: clicking on Chapter c14, step= 5
+Sun, 11 Nov 2018 01:57:31 GMT: clicking on "Chapter c14"
+Sun, 11 Nov 2018 01:57:32 GMT: clicking on Chapter c14, failed step 5
+Sun, 11 Nov 2018 01:57:32 GMT: clicking on Chapter c14, step= 6
+Sun, 11 Nov 2018 01:57:33 GMT: clicking on "Chapter c14"
+Sun, 11 Nov 2018 01:57:33 GMT: clicking on Chapter c14, failed step 6
+Sun, 11 Nov 2018 01:57:33 GMT: clicking on Chapter c14, step= 7
+Sun, 11 Nov 2018 01:57:34 GMT: clicking on "Chapter c14"
+Sun, 11 Nov 2018 01:57:34 GMT: clicking on Chapter c14, failed step 7
+Sun, 11 Nov 2018 01:57:34 GMT: clicking on Chapter c14, step= 8
+Sun, 11 Nov 2018 01:57:35 GMT: clicking on "Chapter c14"
+Sun, 11 Nov 2018 01:57:35 GMT: clicking on Chapter c14, failed step 8
+Sun, 11 Nov 2018 01:57:35 GMT: clicking on Chapter c14, step= 9
+Sun, 11 Nov 2018 01:57:36 GMT: clicking on "Chapter c14"
+Sun, 11 Nov 2018 01:57:36 GMT: clicking on Chapter c14, failed step 9
+Sun, 11 Nov 2018 01:57:36 GMT: clicking on Chapter c14, step= 10
+Sun, 11 Nov 2018 01:57:37 GMT: clicking on "Chapter c14"
+Sun, 11 Nov 2018 01:57:37 GMT: clicking on Chapter c14, failed step 10
+Sun, 11 Nov 2018 01:57:37 GMT: clicking on Chapter c14, Failed!
+Sun, 11 Nov 2018 01:57:38 GMT: Memory Usage: 2731064, pressure: 121%, growth: 513%
+Sun, 11 Nov 2018 01:57:38 GMT: #### Test 99 did not finish ####
+Sun, 11 Nov 2018 01:57:38 GMT: Test run time 11 seconds

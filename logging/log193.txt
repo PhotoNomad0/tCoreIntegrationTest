@@ -1,0 +1,8 @@
+Sun, 11 Nov 2018 02:12:38 GMT: **** App version "Version 1.0.2 (undefined)" ****
+Sun, 11 Nov 2018 02:12:38 GMT: Test 193 Name: "closes WA and back to projects page"
+Sun, 11 Nov 2018 02:12:38 GMT: Memory Usage: 2655484, pressure: 118%, growth: 496%
+Sun, 11 Nov 2018 02:12:38 GMT: Test run '16, closing importFile '66-JUD.usfm'
+Sun, 11 Nov 2018 02:12:39 GMT: clicking on "Project Navigation"
+Sun, 11 Nov 2018 02:12:39 GMT: Memory Usage: 2655484, pressure: 118%, growth: 496%
+Sun, 11 Nov 2018 02:12:39 GMT: #### Test 193 did not finish ####
+Sun, 11 Nov 2018 02:12:39 GMT: Test run time 1 seconds

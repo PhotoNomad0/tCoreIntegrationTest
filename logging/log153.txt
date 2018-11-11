@@ -1,0 +1,9 @@
+Sun, 11 Nov 2018 02:06:22 GMT: **** App version "Version 1.0.2 (undefined)" ****
+Sun, 11 Nov 2018 02:06:22 GMT: Test 153 Name: "does USFM import of jud and opens WA, Test run = 13"
+Sun, 11 Nov 2018 02:06:22 GMT: Memory Usage: 2710716, pressure: 120%, growth: 509%
+Sun, 11 Nov 2018 02:06:22 GMT: Loading '66-JUD.usfm' for testing
+Sun, 11 Nov 2018 02:06:22 GMT: making sure test project removed: C:\Users\blm\translationCore\projects\en_zzaa_jud_book
+Sun, 11 Nov 2018 02:06:22 GMT: clicking on "Project Navigation"
+Sun, 11 Nov 2018 02:06:23 GMT: Memory Usage: 2710716, pressure: 120%, growth: 509%
+Sun, 11 Nov 2018 02:06:23 GMT: #### Test 153 did not finish ####
+Sun, 11 Nov 2018 02:06:23 GMT: Test run time 1 seconds
