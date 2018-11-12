@@ -1,0 +1,39 @@
+Mon, 12 Nov 2018 06:36:26 GMT: **** App version "Version 1.0.2 (undefined)" ****
+Mon, 12 Nov 2018 06:36:26 GMT: Test 166 Name: "edit chapter 5, Test run = 15"
+Mon, 12 Nov 2018 06:36:26 GMT: Memory Usage: 2823172, pressure: 108%, growth: 532%
+Mon, 12 Nov 2018 06:36:26 GMT: Test run 15, importFile '45-ACT.usfm'
+Mon, 12 Nov 2018 06:36:26 GMT: Chapter 5, Number of verses= 42
+Mon, 12 Nov 2018 06:36:26 GMT: clicking on Chapter c5, step= 1
+Mon, 12 Nov 2018 06:36:26 GMT: clicking on "Chapter c5"
+Mon, 12 Nov 2018 06:36:27 GMT: clicking on Chapter c5, failed step 1
+Mon, 12 Nov 2018 06:36:27 GMT: clicking on Chapter c5, step= 2
+Mon, 12 Nov 2018 06:36:28 GMT: clicking on "Chapter c5"
+Mon, 12 Nov 2018 06:36:28 GMT: clicking on Chapter c5, failed step 2
+Mon, 12 Nov 2018 06:36:28 GMT: clicking on Chapter c5, step= 3
+Mon, 12 Nov 2018 06:36:29 GMT: clicking on "Chapter c5"
+Mon, 12 Nov 2018 06:36:29 GMT: clicking on Chapter c5, failed step 3
+Mon, 12 Nov 2018 06:36:29 GMT: clicking on Chapter c5, step= 4
+Mon, 12 Nov 2018 06:36:30 GMT: clicking on "Chapter c5"
+Mon, 12 Nov 2018 06:36:30 GMT: clicking on Chapter c5, failed step 4
+Mon, 12 Nov 2018 06:36:30 GMT: clicking on Chapter c5, step= 5
+Mon, 12 Nov 2018 06:36:31 GMT: clicking on "Chapter c5"
+Mon, 12 Nov 2018 06:36:31 GMT: clicking on Chapter c5, failed step 5
+Mon, 12 Nov 2018 06:36:31 GMT: clicking on Chapter c5, step= 6
+Mon, 12 Nov 2018 06:36:32 GMT: clicking on "Chapter c5"
+Mon, 12 Nov 2018 06:36:32 GMT: clicking on Chapter c5, failed step 6
+Mon, 12 Nov 2018 06:36:32 GMT: clicking on Chapter c5, step= 7
+Mon, 12 Nov 2018 06:36:33 GMT: clicking on "Chapter c5"
+Mon, 12 Nov 2018 06:36:33 GMT: clicking on Chapter c5, failed step 7
+Mon, 12 Nov 2018 06:36:33 GMT: clicking on Chapter c5, step= 8
+Mon, 12 Nov 2018 06:36:34 GMT: clicking on "Chapter c5"
+Mon, 12 Nov 2018 06:36:34 GMT: clicking on Chapter c5, failed step 8
+Mon, 12 Nov 2018 06:36:34 GMT: clicking on Chapter c5, step= 9
+Mon, 12 Nov 2018 06:36:35 GMT: clicking on "Chapter c5"
+Mon, 12 Nov 2018 06:36:35 GMT: clicking on Chapter c5, failed step 9
+Mon, 12 Nov 2018 06:36:35 GMT: clicking on Chapter c5, step= 10
+Mon, 12 Nov 2018 06:36:36 GMT: clicking on "Chapter c5"
+Mon, 12 Nov 2018 06:36:36 GMT: clicking on Chapter c5, failed step 10
+Mon, 12 Nov 2018 06:36:36 GMT: clicking on Chapter c5, Failed!
+Mon, 12 Nov 2018 06:36:37 GMT: Memory Usage: 2823172, pressure: 108%, growth: 532%
+Mon, 12 Nov 2018 06:36:37 GMT: #### Test 166 did not finish ####
+Mon, 12 Nov 2018 06:36:37 GMT: Test run time 11 seconds

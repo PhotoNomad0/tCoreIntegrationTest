@@ -1,0 +1,96 @@
+Sun, 11 Nov 2018 22:17:52 GMT: **** App version "Version 1.0.2 (undefined)" ****
+Sun, 11 Nov 2018 22:17:52 GMT: Test 9 Name: "does USFM import of act and opens WA, Test run = 3"
+Sun, 11 Nov 2018 22:17:52 GMT: Memory Usage: 621684, pressure: 24%, growth: 39%
+Sun, 11 Nov 2018 22:17:52 GMT: Loading '45-ACT.usfm' for testing
+Sun, 11 Nov 2018 22:17:52 GMT: making sure test project removed: C:\Users\blm\translationCore\projects\en_zzaa_act_book
+Sun, 11 Nov 2018 22:17:53 GMT: clicking on "Project Navigation"
+Sun, 11 Nov 2018 22:17:53 GMT: Navigate dialog: "Projects Page"
+Sun, 11 Nov 2018 22:17:53 GMT: waiting for "Projects Page"
+Sun, 11 Nov 2018 22:17:53 GMT: "Projects Page" is visible
+Sun, 11 Nov 2018 22:17:53 GMT: verify on specific page
+Sun, 11 Nov 2018 22:17:53 GMT: checking "Select a project from the list." equals "Select a project from the list."
+Sun, 11 Nov 2018 22:17:53 GMT: finished verify on specific page
+Sun, 11 Nov 2018 22:17:54 GMT: clicking on "Menu Button"
+Sun, 11 Nov 2018 22:17:54 GMT: clicking on "Local Import Button"
+Sun, 11 Nov 2018 22:17:55 GMT: checking for Alert Dialog shown
+Sun, 11 Nov 2018 22:17:55 GMT: reading "Searching, please wait..."
+Sun, 11 Nov 2018 22:17:55 GMT: value of "Searching, please wait..." is "Importing local project..."
+Sun, 11 Nov 2018 22:17:55 GMT: Navigating Copyright
+Sun, 11 Nov 2018 22:17:55 GMT: waiting for "Copyright Dialog"
+Sun, 11 Nov 2018 22:17:58 GMT: "Copyright Dialog" is visible
+Sun, 11 Nov 2018 22:17:58 GMT: checking "Licenses" contains "Licenses"
+Sun, 11 Nov 2018 22:17:58 GMT: reading "Licenses"
+Sun, 11 Nov 2018 22:17:59 GMT: value of "Licenses" is "Licenses
+CC0 / Public Domain
+See more
+Creative Commons Attribution (CC BY)
+See more
+Creative Commons Attribution-ShareAlike (CC BY-SA)
+See more
+None of the Above
+See more"
+Sun, 11 Nov 2018 22:17:59 GMT: found text: 'Licenses
+CC0 / Public Domain
+See more
+Creative Commons Attribution (CC BY)
+See more
+Creative Commons Attribution-ShareAlike (CC BY-SA)
+See more
+None of the Above
+See more'
+Sun, 11 Nov 2018 22:17:59 GMT: checking "Please select the copyright status for this project." equals "Please select the copyright status for this project."
+Sun, 11 Nov 2018 22:17:59 GMT: clicking on "Share Alike"
+Sun, 11 Nov 2018 22:17:59 GMT: Navigate dialog: "Missing Verses Checker Dialog"
+Sun, 11 Nov 2018 22:17:59 GMT: waiting for "Missing Verses Checker Dialog"
+Sun, 11 Nov 2018 22:17:59 GMT: "Missing Verses Checker Dialog" is visible
+Sun, 11 Nov 2018 22:18:00 GMT: checking "Continue" equals "Continue"
+Sun, 11 Nov 2018 22:18:00 GMT: clicking on "Continue"
+Sun, 11 Nov 2018 22:18:01 GMT: Navigating Project Info Checker
+Sun, 11 Nov 2018 22:18:01 GMT: waiting for "Project Info Checker Dialog"
+Sun, 11 Nov 2018 22:18:02 GMT: "Project Info Checker Dialog" is visible
+Sun, 11 Nov 2018 22:18:02 GMT: checking "Book Name" equals "Acts (act)"
+Sun, 11 Nov 2018 22:18:03 GMT: setting "Language ID" to "en"
+Sun, 11 Nov 2018 22:18:05 GMT: setting "Target Language Identifier" to "zzaa"
+Sun, 11 Nov 2018 22:18:06 GMT: Navigate dialog: "Project Info Checker Dialog"
+Sun, 11 Nov 2018 22:18:06 GMT: waiting for "Project Info Checker Dialog"
+Sun, 11 Nov 2018 22:18:06 GMT: "Project Info Checker Dialog" is visible
+Sun, 11 Nov 2018 22:18:07 GMT: checking "Continue" equals "Continue"
+Sun, 11 Nov 2018 22:18:07 GMT: clicking on "Continue"
+Sun, 11 Nov 2018 22:18:09 GMT: checking for Alert Dialog shown
+Sun, 11 Nov 2018 22:18:11 GMT: reading "Searching, please wait..."
+Sun, 11 Nov 2018 22:18:11 GMT: value of "Searching, please wait..." is "Your local project has been named
+    en_zzaa_act_book"
+Sun, 11 Nov 2018 22:18:11 GMT: waiting for "Renamed Dialog"
+Sun, 11 Nov 2018 22:18:13 GMT: "Renamed Dialog" is visible
+Sun, 11 Nov 2018 22:18:13 GMT: checking "Alert" equals "Alert"
+Sun, 11 Nov 2018 22:18:13 GMT: checking "Your local project has been named
+    en_zzaa_act_book" equals "Your local project has been named
+    en_zzaa_act_book"
+Sun, 11 Nov 2018 22:18:13 GMT: Navigate dialog: "Renamed Dialog"
+Sun, 11 Nov 2018 22:18:13 GMT: waiting for "Renamed Dialog"
+Sun, 11 Nov 2018 22:18:13 GMT: "Renamed Dialog" is visible
+Sun, 11 Nov 2018 22:18:13 GMT: checking "OK" equals "OK"
+Sun, 11 Nov 2018 22:18:14 GMT: clicking on "OK"
+Sun, 11 Nov 2018 22:18:14 GMT: Navigate dialog: "Tools Page"
+Sun, 11 Nov 2018 22:18:14 GMT: waiting for "Tools Page"
+Sun, 11 Nov 2018 22:18:14 GMT: "Tools Page" is visible
+Sun, 11 Nov 2018 22:18:14 GMT: verify on specific page
+Sun, 11 Nov 2018 22:18:14 GMT: checking "Select a tool and a gateway language from the list.
+In this version of translationCore, the translationWords tool and the Word Alignment tool support New Testament projects." equals "Select a tool and a gateway language from the list.
+In this version of translationCore, the translationWords tool and the Word Alignment tool support New Testament projects."
+Sun, 11 Nov 2018 22:18:14 GMT: finished verify on specific page
+Sun, 11 Nov 2018 22:18:14 GMT: Found 2 for Tool Cards
+Sun, 11 Nov 2018 22:18:14 GMT: reading " card 1 title"
+Sun, 11 Nov 2018 22:18:14 GMT: value of " card 1 title" is "translationWords (Part 1)"
+Sun, 11 Nov 2018 22:18:14 GMT: Skipping Card `translationWords (Part 1)` at position 1
+Sun, 11 Nov 2018 22:18:14 GMT: reading " card 2 title"
+Sun, 11 Nov 2018 22:18:14 GMT: value of " card 2 title" is "Word Alignment"
+Sun, 11 Nov 2018 22:18:14 GMT: Card `Word Alignment` found at position 2
+Sun, 11 Nov 2018 22:18:15 GMT: clicking on "Word Alignment launch button"
+Sun, 11 Nov 2018 22:18:21 GMT: Navigate dialog: "Group Menu Header"
+Sun, 11 Nov 2018 22:18:21 GMT: waiting for "Group Menu Header"
+Sun, 11 Nov 2018 22:18:30 GMT: "Group Menu Header" is visible
+Sun, 11 Nov 2018 22:18:30 GMT: test finished
+Sun, 11 Nov 2018 22:18:30 GMT: Memory Usage: 682852, pressure: 26%, growth: 53%
+Sun, 11 Nov 2018 22:18:30 GMT: Test 9 Ended Successfully
+Sun, 11 Nov 2018 22:18:30 GMT: Test run time 39 seconds

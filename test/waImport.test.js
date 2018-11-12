@@ -18,7 +18,7 @@ describe('WA Tests', () => {
     { bookId: "act", importFile: '45-ACT.usfm' }
   ];
 
-  const testCount = 3;
+  const testCount = 15;
   let chapterCount = 0;
   let chapterFinished = 0;
   let verseAttemptedCount = 0;
