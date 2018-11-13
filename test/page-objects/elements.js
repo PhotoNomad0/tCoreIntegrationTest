@@ -397,13 +397,13 @@ const DEFINITIONS = {
     },
     alignmentOL: function(position) {
       return {
-        id: "Alignment Item OL",
+        id: "Alignment Item OL " + position,
         selector: "#AlignmentGrid > div:nth-child(" + (position*2-1) + ") > div > div > div:nth-child(1) > div > div"
       };
     },
     alignmentTarget: function(position) {
       return {
-        id: "Alignment Item Target",
+        id: "Alignment Item Target " + position,
         selector: "#AlignmentGrid > div:nth-child(" + (position*2-1) + ") > div > div > div:nth-child(2)"
       };
     }

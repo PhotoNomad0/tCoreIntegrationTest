@@ -56,3 +56,5 @@ Open Chrome to `chrome://inspect`
 - When clicks aren't working, you may still have `chrome://inspect` open from previous debugging or the chrome debugger.
 - get console logs:  `await app.client.getRenderProcessLogs();`
 
+## Unresolved
+- drag and drop quirks.  On Mac cannot move pointer off app window or drag n drop fails.

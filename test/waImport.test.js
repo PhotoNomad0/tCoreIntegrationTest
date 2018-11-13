@@ -18,6 +18,7 @@ describe('WA Tests', () => {
     { bookId: "act", importFile: '45-ACT.usfm' }
   ];
 
+  const alignEachVerse = true;
   const testCount = 3;
   let chapterCount = 0;
   let chapterFinished = 0;
@@ -78,11 +79,6 @@ describe('WA Tests', () => {
           assert.ok(verseCount);
           log("Chapter " + chapter + ", Number of verses= " + verseCount);
           await tCore.clickOnRetry(TCORE.groupMenu.chapterN(chapter, 'c' + chapter));
-          await tCore.clickOnRetry(TCORE.groupMenu.verseItemN(chapter, 2));
-          const sourceItem = [2, 3];
-          const destinationItem = 3;
-          await dragWordsToAlignment(sourceItem, destinationItem);
-          await app.client.pause(20000);
           await tCore.clickOnRetry(TCORE.wordAlignment.expandScripturePane);
           await app.client.pause(500);
           await tCore.navigateRetry(TCORE.expandedScripturePane);
@@ -112,6 +108,21 @@ describe('WA Tests', () => {
             if (!verseVerified) {
               log("### verse miscompare ###");
             }
+            
+            if (alignEachVerse) {
+              await tCore.clickOnRetry(TCORE.expandedScripturePane.close);
+              await app.client.pause(500);
+              await tCore.clickOnRetry(TCORE.groupMenu.verseItemN(chapter, verse));
+              await app.client.pause(500);
+              const sourceItems = [2];
+              const destinationItem = 1;
+              await dragWordsToAlignment(sourceItems, destinationItem);
+              await app.client.pause(1000);
+              await tCore.clickOnRetry(TCORE.wordAlignment.expandScripturePane);
+              await app.client.pause(500);
+              await tCore.navigateRetry(TCORE.expandedScripturePane);
+            }
+            
             let verseEndTime = new Date();
             const elapsed = (verseEndTime - verseStartTime) / 1000;
             times.push(elapsed);
@@ -167,12 +178,14 @@ async function dragWordsToAlignment(sourceItems, destinationItem) {
   if (!Array.isArray(sourceItems)) {
     sourceItems = [sourceItems];
   }
+  const firstItem = sourceItems[0];
+  sourceItems = sourceItems.reverse();
   for (let sourceItem of sourceItems) {
     const sourceCard = TCORE.wordAlignment.wordListCardN(sourceItem);
     log("Selecting word " + tCore.elementDescription(sourceCard));
     await tCore.clickOnRetry(sourceCard);
   }
-  const sourceCard = TCORE.wordAlignment.wordListCardN(sourceItems[0]);
+  const sourceCard = TCORE.wordAlignment.wordListCardN(firstItem);
   const cardOlText = await tCore.getText(TCORE.wordAlignment.alignmentOL(destinationItem));
   log("Destination Alignment Text= " + cardOlText);
   const alignmentTarget = TCORE.wordAlignment.alignmentTarget(destinationItem);
