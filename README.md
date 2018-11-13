@@ -54,6 +54,5 @@ Open Chrome to `chrome://inspect`
 ## Troubleshooting
 - When tests fail prematurely with no indication, may need to increase timeout() on test.
 - When clicks aren't working, you may still have `chrome://inspect` open from previous debugging or the chrome debugger.
+- get console logs:  `await app.client.getRenderProcessLogs();`
 
-## Unresolved
-- how to get drag and drop working.  Seems that it is still not working in chromium?  https://github.com/electron/spectron/issues/260

@@ -43,7 +43,7 @@ describe('WA Tests', () => {
   for (let testNum = 1; testNum <= testCount; testNum++) {
     const {bookId, importFile} = sources[(testNum-1) % sources.length];
     const {chapters, bookName} = utils.getBibleData(bookId);
-    const newTargetLangId = utils.generateTargetLanguageID(testNum-1);
+    const newTargetLangId = utils.generateTargetLanguageID(sources.length > 1 ? 0 : testNum % 2); // if repeatedly testing same project, alternate ids
 
     describe('WA ' + bookId, () => {
       it('does USFM import of ' + bookId + ' and opens WA, Test run = ' + testNum, async () => {
@@ -78,6 +78,24 @@ describe('WA Tests', () => {
           assert.ok(verseCount);
           log("Chapter " + chapter + ", Number of verses= " + verseCount);
           await tCore.clickOnRetry(TCORE.groupMenu.chapterN(chapter, 'c' + chapter));
+          await tCore.clickOnRetry(TCORE.groupMenu.verseItemN(chapter, 2));
+          const sourceCard = TCORE.wordAlignment.wordListCardN(2);
+          await tCore.clickOnRetry(sourceCard);
+          const cardOL = await tCore.getText(TCORE.wordAlignment.alignmentOL(3));
+          log("cardOL= " + cardOL);
+
+          // await app.browserWindow.dragAndDrop(sourceCard.selector,TCORE.wordAlignment.alignmentTarget(3).selector);
+          // Or
+
+          // await app.client.moveToObject(sourceCard.selector);
+          // await app.client.buttonDown(0);
+          // await app.client.pause(1000);
+          // await app.client.moveToObject(TCORE.wordAlignment.alignmentTarget(3).selector);
+          // await app.client.pause(1000);
+          // await app.client.buttonUp(0);
+          
+          await app.client.dragAndDrop(sourceCard.selector,TCORE.wordAlignment.alignmentTarget(3).selector);
+          await app.client.pause(20000);
           await tCore.clickOnRetry(TCORE.wordAlignment.expandScripturePane);
           await app.client.pause(500);
           await tCore.navigateRetry(TCORE.expandedScripturePane);
@@ -134,6 +152,8 @@ describe('WA Tests', () => {
 
       it('closes WA and back to projects page', async () => {
         log("Test run '" + testNum + ", closing importFile '" + importFile + "'");
+        // const logs = await app.client.getRenderProcessLogs();
+        // log("Logs:\n" + JSON.stringify(logs, null, 2));
         const visible = await makeSureExpandedScripturePaneIsClosed();
         if (visible) {
           log("Expanded Scripture Pane left up");

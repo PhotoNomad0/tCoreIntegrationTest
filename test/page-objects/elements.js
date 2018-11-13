@@ -394,6 +394,18 @@ const DEFINITIONS = {
     alignment: {
       id: "Alignment Item",
       selector: "#AlignmentGrid > div:nth-child(1)"
+    },
+    alignmentOL: function(position) {
+      return {
+        id: "Alignment Item OL",
+        selector: "#AlignmentGrid > div:nth-child(" + (position*2-1) + ") > div > div > div:nth-child(1) > div > div"
+      };
+    },
+    alignmentTarget: function(position) {
+      return {
+        id: "Alignment Item Target",
+        selector: "#AlignmentGrid > div:nth-child(" + (position*2-1) + ") > div > div > div:nth-child(2)"
+      };
     }
   },
   groupMenu: {
@@ -406,6 +418,12 @@ const DEFINITIONS = {
       return {
         id: "Chapter " + chapter,
         selector: "#groups-menu-container > div.groups > div:nth-child(" + position + ") > div"
+      };
+    },
+    verseItemN: function(groupItem, verseItem) {
+      return {
+        id: "Chapter " + groupItem + ", verse " + verseItem,
+        selector: "#groups-menu-container > div.groups > div:nth-child(" + groupItem + ") > div:nth-child(" + (verseItem+1) + ")"
       };
     }
   },
