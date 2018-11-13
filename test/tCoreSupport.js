@@ -713,6 +713,7 @@ const tCoreSupport = {
   delayWhileWaitDialogShown,
   doLocalProjectImport,
   doOnlineProjectImport,
+  elementDescription,
   findToolCardNumber,
   findProjectCardNumber,
   getCleanupFileList,

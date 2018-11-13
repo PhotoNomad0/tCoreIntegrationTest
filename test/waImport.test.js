@@ -79,22 +79,9 @@ describe('WA Tests', () => {
           log("Chapter " + chapter + ", Number of verses= " + verseCount);
           await tCore.clickOnRetry(TCORE.groupMenu.chapterN(chapter, 'c' + chapter));
           await tCore.clickOnRetry(TCORE.groupMenu.verseItemN(chapter, 2));
-          const sourceCard = TCORE.wordAlignment.wordListCardN(2);
-          await tCore.clickOnRetry(sourceCard);
-          const cardOL = await tCore.getText(TCORE.wordAlignment.alignmentOL(3));
-          log("cardOL= " + cardOL);
-
-          // await app.browserWindow.dragAndDrop(sourceCard.selector,TCORE.wordAlignment.alignmentTarget(3).selector);
-          // Or
-
-          // await app.client.moveToObject(sourceCard.selector);
-          // await app.client.buttonDown(0);
-          // await app.client.pause(1000);
-          // await app.client.moveToObject(TCORE.wordAlignment.alignmentTarget(3).selector);
-          // await app.client.pause(1000);
-          // await app.client.buttonUp(0);
-          
-          await app.client.dragAndDrop(sourceCard.selector,TCORE.wordAlignment.alignmentTarget(3).selector);
+          const sourceItem = [2, 3];
+          const destinationItem = 3;
+          await dragWordsToAlignment(sourceItem, destinationItem);
           await app.client.pause(20000);
           await tCore.clickOnRetry(TCORE.wordAlignment.expandScripturePane);
           await app.client.pause(500);
@@ -169,6 +156,29 @@ describe('WA Tests', () => {
 //
 // helpers
 //
+
+/**
+ * drag words to make alignment
+ * @param {Number|Number[]} sourceItems - index or array of indices to drag
+ * @param {Number} destinationItem - index to drop elements
+ * @return {Promise<void>}
+ */
+async function dragWordsToAlignment(sourceItems, destinationItem) {
+  if (!Array.isArray(sourceItems)) {
+    sourceItems = [sourceItems];
+  }
+  for (let sourceItem of sourceItems) {
+    const sourceCard = TCORE.wordAlignment.wordListCardN(sourceItem);
+    log("Selecting word " + tCore.elementDescription(sourceCard));
+    await tCore.clickOnRetry(sourceCard);
+  }
+  const sourceCard = TCORE.wordAlignment.wordListCardN(sourceItems[0]);
+  const cardOlText = await tCore.getText(TCORE.wordAlignment.alignmentOL(destinationItem));
+  log("Destination Alignment Text= " + cardOlText);
+  const alignmentTarget = TCORE.wordAlignment.alignmentTarget(destinationItem);
+  log("Dragging '" + tCore.elementDescription(sourceCard) + "' to '" + tCore.elementDescription(alignmentTarget) + "'");
+  await app.client.dragAndDrop(sourceCard.selector, alignmentTarget.selector);
+}
 
 async function makeSureExpandedScripturePaneIsClosed() {
   const visible = await app.client.isVisible(TCORE.expandedScripturePane.selector);
