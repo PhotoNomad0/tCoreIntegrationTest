@@ -57,4 +57,4 @@ Open Chrome to `chrome://inspect`
 - get console logs:  `await app.client.getRenderProcessLogs();`
 
 ## Unresolved
-- drag and drop quirks.  On Mac cannot move pointer off app window or drag n drop fails.
+- drag and drop quirks.  On Mac cannot move pointer off app window or drag n drop fails.  Also seems to glitch after first.  Dropping on wrong object.

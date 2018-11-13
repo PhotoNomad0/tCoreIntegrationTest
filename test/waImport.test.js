@@ -18,7 +18,7 @@ describe('WA Tests', () => {
     { bookId: "act", importFile: '45-ACT.usfm' }
   ];
 
-  const alignEachVerse = true;
+  const alignEachVerse = false; // alignment is still glitchy
   const testCount = 3;
   let chapterCount = 0;
   let chapterFinished = 0;
@@ -79,6 +79,17 @@ describe('WA Tests', () => {
           assert.ok(verseCount);
           log("Chapter " + chapter + ", Number of verses= " + verseCount);
           await tCore.clickOnRetry(TCORE.groupMenu.chapterN(chapter, 'c' + chapter));
+          await tCore.clickOnRetry(TCORE.groupMenu.verseItemN(chapter, 2));
+          const sourceCard = TCORE.wordAlignment.wordListCardN(2);
+          await tCore.clickOnRetry(sourceCard);
+          const cardOL = await tCore.getText(TCORE.wordAlignment.alignmentOL(3));
+          log("cardOL= " + cardOL);
+          // await app.client.dragAndDrop(sourceCard.selector,TCORE.wordAlignment.alignmentTargetDrop(1).selector);
+          // await dragWordsToAlignment([2, 3], 3);
+          // await dragWordsToAlignment([1, 4], 2);
+          // await dragWordsToAlignment([5, 6], 3);
+          // await dragWordsToAlignment([7, 8], 1);
+          await app.client.pause(20000);
           await tCore.clickOnRetry(TCORE.wordAlignment.expandScripturePane);
           await app.client.pause(500);
           await tCore.navigateRetry(TCORE.expandedScripturePane);
@@ -168,6 +179,14 @@ describe('WA Tests', () => {
 // helpers
 //
 
+async function getElementCenter(sourceCard, name) {
+  let location = await app.client.getLocation(sourceCard.selector);
+  log(name + " Location: " + JSON.stringify(location));
+  let size = await app.client.getElementSize(sourceCard.selector);
+  log(name + " Size: " + JSON.stringify(size));
+  return { x: Math.round(location.x + size.width/2), y:  Math.round(location.y + size.height/2) };
+}
+
 /**
  * drag words to make alignment
  * @param {Number|Number[]} sourceItems - index or array of indices to drag
@@ -188,9 +207,31 @@ async function dragWordsToAlignment(sourceItems, destinationItem) {
   const sourceCard = TCORE.wordAlignment.wordListCardN(firstItem);
   const cardOlText = await tCore.getText(TCORE.wordAlignment.alignmentOL(destinationItem));
   log("Destination Alignment Text= " + cardOlText);
-  const alignmentTarget = TCORE.wordAlignment.alignmentTarget(destinationItem);
-  log("Dragging '" + tCore.elementDescription(sourceCard) + "' to '" + tCore.elementDescription(alignmentTarget) + "'");
-  await app.client.dragAndDrop(sourceCard.selector, alignmentTarget.selector);
+  const alignmentTarget = TCORE.wordAlignment.alignmentTargetDrop(destinationItem);
+  // const childIndexesArray = await tCore.getChildIndices(TCORE.wordAlignment.alignmentGridChildren);
+  // for (let i of childIndexesArray) {
+  //   await getElementCenter(TCORE.wordAlignment.alignmentN(i), "Drop " + i);
+  // }
+  // log("Dragging '" + tCore.elementDescription(sourceCard) + "' to '" + tCore.elementDescription(alignmentTarget) + "'");
+  // const sourceLocation = await getElementCenter(sourceCard, "Drag");
+  // log("Drag Center: " + JSON.stringify(sourceLocation));
+  // const dropLocation = await getElementCenter(alignmentTarget, "Drop");
+  // log("Drop Center: " + JSON.stringify(dropLocation));
+  await app.client.pause(1000);
+
+  // await tCore.clickOnRetry(sourceCard);
+  // await app.client.moveToObject(sourceCard.selector);
+  // await app.client.buttonDown(sourceCard.selector);
+  // await app.client.moveToObject(alignmentTarget.selector);
+  // await app.client.buttonUp(alignmentTarget.selector);
+  // await tCore.clickOnRetry(alignmentTarget);
+  // await app.client.pause(1000);
+  
+  // await app.client.touchDown(sourceLocation.x, sourceLocation.y);
+  // await app.client.touchMove(dropLocation.x, dropLocation.y);
+  // await app.client.touchUp(dropLocation.x, dropLocation.y);
+
+ await app.client.dragAndDrop(sourceCard.selector, alignmentTarget.selector);
 }
 
 async function makeSureExpandedScripturePaneIsClosed() {

@@ -716,6 +716,7 @@ const tCoreSupport = {
   elementDescription,
   findToolCardNumber,
   findProjectCardNumber,
+  getChildIndices,
   getCleanupFileList,
   getLogFilePath,
   getSearchResults,

@@ -391,9 +391,15 @@ const DEFINITIONS = {
       id: "Alignment Grid",
       selector: "#AlignmentGrid"
     },
-    alignment: {
-      id: "Alignment Item",
-      selector: "#AlignmentGrid > div:nth-child(1)"
+    alignmentGridChildren: {
+      id: "Alignment Grid",
+      selector: "#AlignmentGrid > div"
+    },
+    alignmentN: function(position) {
+      return {
+        id: "Alignment Item " + position,
+        selector: "#AlignmentGrid > div:nth-child(" + position + ")"
+      };
     },
     alignmentOL: function(position) {
       return {
@@ -401,7 +407,7 @@ const DEFINITIONS = {
         selector: "#AlignmentGrid > div:nth-child(" + (position*2-1) + ") > div > div > div:nth-child(1) > div > div"
       };
     },
-    alignmentTarget: function(position) {
+    alignmentTargetDrop: function(position) {
       return {
         id: "Alignment Item Target " + position,
         selector: "#AlignmentGrid > div:nth-child(" + (position*2-1) + ") > div > div > div:nth-child(2)"
