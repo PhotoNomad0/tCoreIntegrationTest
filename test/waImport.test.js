@@ -43,7 +43,7 @@ describe('WA Tests', () => {
   for (let testNum = 1; testNum <= testCount; testNum++) {
     const {bookId, importFile} = sources[(testNum-1) % sources.length];
     const {chapters, bookName} = utils.getBibleData(bookId);
-    const newTargetLangId = utils.generateTargetLanguageID();
+    const newTargetLangId = utils.generateTargetLanguageID(testNum-1);
 
     describe('WA ' + bookId, () => {
       it('does USFM import of ' + bookId + ' and opens WA, Test run = ' + testNum, async () => {

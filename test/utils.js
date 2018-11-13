@@ -13,7 +13,7 @@ let app;
 let testName;
 let testStartTime = 0;
 let testEndTime = 0;
-const maxMemory = 2624132;
+const maxMemory = 2624132; // this limit seems to be little different on each run.  Don't know how the limit is determined.
 let initialMemoryUsage = 0;
 
 
@@ -41,7 +41,7 @@ function getBibleData(bookId) {
   return {chapters, bookName};
 }
 
-function generateTargetLanguageID() {
+function generateTargetLanguageID(testCount) {
   let major = 0;
   let minor = testCount;
   if (minor > 25) {
