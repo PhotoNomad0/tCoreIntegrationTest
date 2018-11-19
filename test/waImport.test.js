@@ -79,30 +79,31 @@ describe('WA Tests', () => {
           assert.ok(verseCount);
           log("Chapter " + chapter + ", Number of verses= " + verseCount);
           await tCore.clickOnRetry(TCORE.groupMenu.chapterN(chapter, 'c' + chapter));
-          await tCore.clickOnRetry(TCORE.groupMenu.verseItemN(chapter, 2));
-          const sourceCard = TCORE.wordAlignment.wordListCardN(2);
-          await tCore.clickOnRetry(sourceCard);
-          const cardOL = await tCore.getText(TCORE.wordAlignment.alignmentOL(3));
-          log("cardOL= " + cardOL);
-          // await app.client.dragAndDrop(sourceCard.selector,TCORE.wordAlignment.alignmentTargetDrop(1).selector);
-          // await dragWordsToAlignment([2, 3], 3);
-          // await dragWordsToAlignment([1, 4], 2);
-          // await dragWordsToAlignment([5, 6], 3);
-          // await dragWordsToAlignment([7, 8], 1);
-          // await app.client.pause(20000);
-          await tCore.clickOnRetry(TCORE.wordAlignment.expandScripturePane);
-          await app.client.pause(500);
-          await tCore.navigateRetry(TCORE.expandedScripturePane);
-          const scripturePaneTitle = await tCore.getText(TCORE.expandedScripturePane.title);
-          log("scripturePaneTitle= " + scripturePaneTitle);
-          await tCore.navigateRetry(TCORE.expandedScripturePane.verseRows);
-          await tCore.navigateRetry(TCORE.expandedScripturePane.verseRowN(1, "verseRow 1"));
           let verseStartTime = new Date();
           let chapterStartTime = verseStartTime;
           const times = [];
 
           for (let verse = 1; verse <= verseCount; verse++) {
             log("Editing verse " + verse);
+            await tCore.clickOnRetry(TCORE.groupMenu.verseItemN(chapter, verse));
+            const sourceCard = TCORE.wordAlignment.wordListCardN((verse % 3) + 1);
+            await tCore.clickOnRetry(sourceCard);
+            const cardOL = await tCore.getText(TCORE.wordAlignment.alignmentOL(3));
+            log("cardOL= " + cardOL);
+            // await app.client.dragAndDrop(sourceCard.selector,TCORE.wordAlignment.alignmentTargetDrop(1).selector);
+            // await dragWordsToAlignment([2, 3], 3);
+            // await dragWordsToAlignment([1, 4], 2);
+            // await dragWordsToAlignment([5, 6], 3);
+            // await dragWordsToAlignment([7, 8], 1);
+            // await app.client.pause(20000);
+            await tCore.clickOnRetry(TCORE.wordAlignment.expandScripturePane);
+            await app.client.pause(500);
+            await tCore.navigateRetry(TCORE.expandedScripturePane);
+            const scripturePaneTitle = await tCore.getText(TCORE.expandedScripturePane.title);
+            log("scripturePaneTitle= " + scripturePaneTitle);
+            await tCore.navigateRetry(TCORE.expandedScripturePane.verseRows);
+            await tCore.navigateRetry(TCORE.expandedScripturePane.verseRowN(verse, "verseRow " + verse));
+
             const editReason = [TCORE.verseEditor.reasonSpelling, TCORE.verseEditor.reasonPunctuation,
               TCORE.verseEditor.reasonWordChoice, TCORE.verseEditor.reasonMeaning,
               TCORE.verseEditor.reasonGrammar, TCORE.verseEditor.reasonOther][verse % 6];
@@ -133,18 +134,20 @@ describe('WA Tests', () => {
               await app.client.pause(500);
               await tCore.navigateRetry(TCORE.expandedScripturePane);
             }
+
+            await tCore.clickOnRetry(TCORE.expandedScripturePane.close);
             
             let verseEndTime = new Date();
             const elapsed = (verseEndTime - verseStartTime) / 1000;
             times.push(elapsed);
             log("Verse edit time " + elapsed + " seconds");
             verseStartTime = verseEndTime;
+            await utils.logMemoryUsage();
             if (verseVerified) {
               versesFinished++;
             }
           }
 
-          await tCore.clickOnRetry(TCORE.expandedScripturePane.close);
           let averageVerseEditTime = ((new Date()) - chapterStartTime) / 1000 / verseCount;
           log("Chapter " + chapter + " finished, Number of verses= " + verseCount);
           log("Average verse edit time " + round1(averageVerseEditTime) + " seconds");

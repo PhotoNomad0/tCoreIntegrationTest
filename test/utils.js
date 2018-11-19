@@ -120,6 +120,7 @@ const utils = {
   getBibleData,
   getElapsedTestTime,
   log,
+  logMemoryUsage,
   testFinished
 };
 
