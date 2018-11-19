@@ -89,7 +89,7 @@ describe('WA Tests', () => {
           // await dragWordsToAlignment([1, 4], 2);
           // await dragWordsToAlignment([5, 6], 3);
           // await dragWordsToAlignment([7, 8], 1);
-          await app.client.pause(20000);
+          // await app.client.pause(20000);
           await tCore.clickOnRetry(TCORE.wordAlignment.expandScripturePane);
           await app.client.pause(500);
           await tCore.navigateRetry(TCORE.expandedScripturePane);

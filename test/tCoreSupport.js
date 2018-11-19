@@ -31,13 +31,24 @@ function initializeTest(app_, count, navigationDelay_) {
 async function startTcore() {
   log("starting tCore");
   await app.client.pause(4000);
+  log("Finished initial delay");
   await app.client.waitUntilWindowLoaded()
     .getWindowCount()
     .should.eventually.have.at.least(1);
+  log("Reached Window count");
   await app.client.browserWindow.isVisible().should.eventually.equal(true);
-  await app.client.windowByIndex(1).waitUntilWindowLoaded().getText(TCORE.getStartedButton.selector).then(text => {
-    log('The button text content is "' + text + '"');
-  });
+  log("browserWindow visible");
+  await retryStep(20, async () => {
+    await app.client.windowByIndex(1).waitUntilWindowLoaded();
+  }, "getting text for " + elementDescription(TCORE.getStartedButton),
+  500);
+  
+  let buttonText;
+  await retryStep(10, async () => {
+    buttonText = await getText(TCORE.getStartedButton);
+  }, "getting text for " + elementDescription(TCORE.getStartedButton),
+  500);
+  log("button text shown: " + buttonText);
   version = await getText(TCORE.versionLabel);
   logVersion();
   await clickOn(TCORE.getStartedButton);

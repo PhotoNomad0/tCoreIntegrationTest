@@ -47,6 +47,7 @@ const DEFINITIONS = {
     text: "Get Started!"
   },
   versionLabel: {
+    id: "Version Label",
     selector: "#content > div > div.container-fluid > div:nth-child(2) > div > div > div"
   },
   projectButton: {
