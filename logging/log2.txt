@@ -1,0 +1,1456 @@
+Mon, 19 Nov 2018 23:07:14 GMT: **** App version "Version 1.1.0 (undefined)" ****
+Mon, 19 Nov 2018 23:07:14 GMT: Test 2 Name: "edit chapter 1, Test run = 1"
+Mon, 19 Nov 2018 23:07:14 GMT: Memory Usage: 506608, pressure: 19%, growth: 11%
+Mon, 19 Nov 2018 23:07:14 GMT: Test run 1, importFile '66-JUD.usfm'
+Mon, 19 Nov 2018 23:07:14 GMT: Chapter 1, Number of verses= 25
+Mon, 19 Nov 2018 23:07:14 GMT: clicking on Chapter c1, step= 1
+Mon, 19 Nov 2018 23:07:14 GMT: clicking on "Chapter c1"
+Mon, 19 Nov 2018 23:07:15 GMT: clicking on Chapter c1, finished in step 1
+Mon, 19 Nov 2018 23:07:15 GMT: Editing verse 1
+Mon, 19 Nov 2018 23:07:15 GMT: clicking on Chapter 1, verse 1, step= 1
+Mon, 19 Nov 2018 23:07:15 GMT: clicking on "Chapter 1, verse 1"
+Mon, 19 Nov 2018 23:07:16 GMT: clicking on Chapter 1, verse 1, finished in step 1
+Mon, 19 Nov 2018 23:07:16 GMT: clicking on Word Card 2, step= 1
+Mon, 19 Nov 2018 23:07:16 GMT: clicking on "Word Card 2"
+Mon, 19 Nov 2018 23:07:16 GMT: clicking on Word Card 2, finished in step 1
+Mon, 19 Nov 2018 23:07:16 GMT: reading "Alignment Item OL 3"
+Mon, 19 Nov 2018 23:07:16 GMT: value of "Alignment Item OL 3" is "Χριστοῦ"
+Mon, 19 Nov 2018 23:07:16 GMT: cardOL= Χριστοῦ
+Mon, 19 Nov 2018 23:07:16 GMT: clicking on wordAlignment expand scripture pane, step= 1
+Mon, 19 Nov 2018 23:07:17 GMT: clicking on "wordAlignment expand scripture pane"
+Mon, 19 Nov 2018 23:07:18 GMT: clicking on wordAlignment expand scripture pane, finished in step 1
+Mon, 19 Nov 2018 23:07:18 GMT: Expanded Scripture Pane, step= 1
+Mon, 19 Nov 2018 23:07:18 GMT: Expanded Scripture Pane, finished in step 1
+Mon, 19 Nov 2018 23:07:18 GMT: Navigate dialog: "Expanded Scripture Pane"
+Mon, 19 Nov 2018 23:07:18 GMT: waiting for "Expanded Scripture Pane"
+Mon, 19 Nov 2018 23:07:18 GMT: "Expanded Scripture Pane" is visible
+Mon, 19 Nov 2018 23:07:18 GMT: reading "Expanded Scripture Pane Title"
+Mon, 19 Nov 2018 23:07:19 GMT: value of "Expanded Scripture Pane Title" is "Jude"
+Mon, 19 Nov 2018 23:07:19 GMT: scripturePaneTitle= Jude
+Mon, 19 Nov 2018 23:07:19 GMT: verse rows, step= 1
+Mon, 19 Nov 2018 23:07:19 GMT: verse rows, finished in step 1
+Mon, 19 Nov 2018 23:07:19 GMT: Navigate dialog: "verse rows"
+Mon, 19 Nov 2018 23:07:19 GMT: waiting for "verse rows"
+Mon, 19 Nov 2018 23:07:19 GMT: "verse rows" is visible
+Mon, 19 Nov 2018 23:07:19 GMT: Verse verseRow 1, step= 1
+Mon, 19 Nov 2018 23:07:19 GMT: Verse verseRow 1, finished in step 1
+Mon, 19 Nov 2018 23:07:19 GMT: Navigate dialog: "Verse verseRow 1"
+Mon, 19 Nov 2018 23:07:19 GMT: waiting for "Verse verseRow 1"
+Mon, 19 Nov 2018 23:07:19 GMT: "Verse verseRow 1" is visible
+Mon, 19 Nov 2018 23:07:19 GMT: clicking on Edit Verse verse 1, step= 1
+Mon, 19 Nov 2018 23:07:19 GMT: clicking on "Edit Verse verse 1"
+Mon, 19 Nov 2018 23:07:20 GMT: clicking on Edit Verse verse 1, finished in step 1
+Mon, 19 Nov 2018 23:07:20 GMT: Verse Editor, step= 1
+Mon, 19 Nov 2018 23:07:20 GMT: Verse Editor, finished in step 1
+Mon, 19 Nov 2018 23:07:20 GMT: Navigate dialog: "Verse Editor"
+Mon, 19 Nov 2018 23:07:20 GMT: waiting for "Verse Editor"
+Mon, 19 Nov 2018 23:07:20 GMT: "Verse Editor" is visible
+Mon, 19 Nov 2018 23:07:20 GMT: setting "Verse Editor" to "1:1 - verse text 1"
+Mon, 19 Nov 2018 23:07:21 GMT: clicking on Verse Editor Next, step= 1
+Mon, 19 Nov 2018 23:07:22 GMT: clicking on "Verse Editor Next"
+Mon, 19 Nov 2018 23:07:22 GMT: clicking on Verse Editor Next, finished in step 1
+Mon, 19 Nov 2018 23:07:22 GMT: clicking on Reason Punctuation, step= 1
+Mon, 19 Nov 2018 23:07:22 GMT: clicking on "Reason Punctuation"
+Mon, 19 Nov 2018 23:07:22 GMT: clicking on Reason Punctuation, finished in step 1
+Mon, 19 Nov 2018 23:07:22 GMT: clicking on Verse Editor Save, step= 1
+Mon, 19 Nov 2018 23:07:23 GMT: clicking on "Verse Editor Save"
+Mon, 19 Nov 2018 23:07:24 GMT: clicking on Verse Editor Save, finished in step 1
+Mon, 19 Nov 2018 23:07:24 GMT: Done editing verse 1
+Mon, 19 Nov 2018 23:07:24 GMT: reading "Verse Text 1, column1"
+Mon, 19 Nov 2018 23:07:24 GMT: value of "Verse Text 1, column1" is "1:1 - verse text 1"
+Mon, 19 Nov 2018 23:07:24 GMT: clicking on Close, step= 1
+Mon, 19 Nov 2018 23:07:25 GMT: clicking on "Close"
+Mon, 19 Nov 2018 23:07:25 GMT: clicking on Close, finished in step 1
+Mon, 19 Nov 2018 23:07:25 GMT: Verse edit time 10.298 seconds
+Mon, 19 Nov 2018 23:07:25 GMT: Memory Usage: 498652, pressure: 19%, growth: 9%
+Mon, 19 Nov 2018 23:07:25 GMT: Editing verse 2
+Mon, 19 Nov 2018 23:07:25 GMT: clicking on Chapter 1, verse 2, step= 1
+Mon, 19 Nov 2018 23:07:26 GMT: clicking on "Chapter 1, verse 2"
+Mon, 19 Nov 2018 23:07:26 GMT: clicking on Chapter 1, verse 2, finished in step 1
+Mon, 19 Nov 2018 23:07:26 GMT: clicking on Word Card 3, step= 1
+Mon, 19 Nov 2018 23:07:27 GMT: clicking on "Word Card 3"
+Mon, 19 Nov 2018 23:07:27 GMT: clicking on Word Card 3, finished in step 1
+Mon, 19 Nov 2018 23:07:27 GMT: reading "Alignment Item OL 3"
+Mon, 19 Nov 2018 23:07:27 GMT: value of "Alignment Item OL 3" is "καὶ"
+Mon, 19 Nov 2018 23:07:27 GMT: cardOL= καὶ
+Mon, 19 Nov 2018 23:07:27 GMT: clicking on wordAlignment expand scripture pane, step= 1
+Mon, 19 Nov 2018 23:07:27 GMT: clicking on "wordAlignment expand scripture pane"
+Mon, 19 Nov 2018 23:07:28 GMT: clicking on wordAlignment expand scripture pane, finished in step 1
+Mon, 19 Nov 2018 23:07:29 GMT: Expanded Scripture Pane, step= 1
+Mon, 19 Nov 2018 23:07:29 GMT: Expanded Scripture Pane, finished in step 1
+Mon, 19 Nov 2018 23:07:29 GMT: Navigate dialog: "Expanded Scripture Pane"
+Mon, 19 Nov 2018 23:07:29 GMT: waiting for "Expanded Scripture Pane"
+Mon, 19 Nov 2018 23:07:29 GMT: "Expanded Scripture Pane" is visible
+Mon, 19 Nov 2018 23:07:29 GMT: reading "Expanded Scripture Pane Title"
+Mon, 19 Nov 2018 23:07:29 GMT: value of "Expanded Scripture Pane Title" is "Jude"
+Mon, 19 Nov 2018 23:07:29 GMT: scripturePaneTitle= Jude
+Mon, 19 Nov 2018 23:07:29 GMT: verse rows, step= 1
+Mon, 19 Nov 2018 23:07:29 GMT: verse rows, finished in step 1
+Mon, 19 Nov 2018 23:07:29 GMT: Navigate dialog: "verse rows"
+Mon, 19 Nov 2018 23:07:29 GMT: waiting for "verse rows"
+Mon, 19 Nov 2018 23:07:29 GMT: "verse rows" is visible
+Mon, 19 Nov 2018 23:07:29 GMT: Verse verseRow 2, step= 1
+Mon, 19 Nov 2018 23:07:29 GMT: Verse verseRow 2, finished in step 1
+Mon, 19 Nov 2018 23:07:29 GMT: Navigate dialog: "Verse verseRow 2"
+Mon, 19 Nov 2018 23:07:29 GMT: waiting for "Verse verseRow 2"
+Mon, 19 Nov 2018 23:07:29 GMT: "Verse verseRow 2" is visible
+Mon, 19 Nov 2018 23:07:29 GMT: clicking on Edit Verse verse 2, step= 1
+Mon, 19 Nov 2018 23:07:29 GMT: clicking on "Edit Verse verse 2"
+Mon, 19 Nov 2018 23:07:30 GMT: clicking on Edit Verse verse 2, finished in step 1
+Mon, 19 Nov 2018 23:07:30 GMT: Verse Editor, step= 1
+Mon, 19 Nov 2018 23:07:30 GMT: Verse Editor, not visible step 1
+Mon, 19 Nov 2018 23:07:30 GMT: Verse Editor, step= 2
+Mon, 19 Nov 2018 23:07:30 GMT: Verse Editor, finished in step 2
+Mon, 19 Nov 2018 23:07:30 GMT: Navigate dialog: "Verse Editor"
+Mon, 19 Nov 2018 23:07:30 GMT: waiting for "Verse Editor"
+Mon, 19 Nov 2018 23:07:30 GMT: "Verse Editor" is visible
+Mon, 19 Nov 2018 23:07:30 GMT: setting "Verse Editor" to "1:2 - verse text 2"
+Mon, 19 Nov 2018 23:07:31 GMT: clicking on Verse Editor Next, step= 1
+Mon, 19 Nov 2018 23:07:32 GMT: clicking on "Verse Editor Next"
+Mon, 19 Nov 2018 23:07:32 GMT: clicking on Verse Editor Next, finished in step 1
+Mon, 19 Nov 2018 23:07:32 GMT: clicking on Reason Word Choice, step= 1
+Mon, 19 Nov 2018 23:07:32 GMT: clicking on "Reason Word Choice"
+Mon, 19 Nov 2018 23:07:33 GMT: clicking on Reason Word Choice, finished in step 1
+Mon, 19 Nov 2018 23:07:33 GMT: clicking on Verse Editor Save, step= 1
+Mon, 19 Nov 2018 23:07:33 GMT: clicking on "Verse Editor Save"
+Mon, 19 Nov 2018 23:07:34 GMT: clicking on Verse Editor Save, finished in step 1
+Mon, 19 Nov 2018 23:07:34 GMT: Done editing verse 2
+Mon, 19 Nov 2018 23:07:34 GMT: reading "Verse Text 2, column1"
+Mon, 19 Nov 2018 23:07:34 GMT: value of "Verse Text 2, column1" is "1:2 - verse text 2"
+Mon, 19 Nov 2018 23:07:34 GMT: clicking on Close, step= 1
+Mon, 19 Nov 2018 23:07:35 GMT: clicking on "Close"
+Mon, 19 Nov 2018 23:07:35 GMT: clicking on Close, finished in step 1
+Mon, 19 Nov 2018 23:07:35 GMT: Verse edit time 9.844 seconds
+Mon, 19 Nov 2018 23:07:35 GMT: Memory Usage: 511600, pressure: 19%, growth: 12%
+Mon, 19 Nov 2018 23:07:35 GMT: Editing verse 3
+Mon, 19 Nov 2018 23:07:35 GMT: clicking on Chapter 1, verse 3, step= 1
+Mon, 19 Nov 2018 23:07:35 GMT: clicking on "Chapter 1, verse 3"
+Mon, 19 Nov 2018 23:07:36 GMT: clicking on Chapter 1, verse 3, finished in step 1
+Mon, 19 Nov 2018 23:07:36 GMT: clicking on Word Card 1, step= 1
+Mon, 19 Nov 2018 23:07:36 GMT: clicking on "Word Card 1"
+Mon, 19 Nov 2018 23:07:37 GMT: clicking on Word Card 1, finished in step 1
+Mon, 19 Nov 2018 23:07:37 GMT: reading "Alignment Item OL 3"
+Mon, 19 Nov 2018 23:07:37 GMT: value of "Alignment Item OL 3" is "σπουδὴν"
+Mon, 19 Nov 2018 23:07:37 GMT: cardOL= σπουδὴν
+Mon, 19 Nov 2018 23:07:37 GMT: clicking on wordAlignment expand scripture pane, step= 1
+Mon, 19 Nov 2018 23:07:37 GMT: clicking on "wordAlignment expand scripture pane"
+Mon, 19 Nov 2018 23:07:38 GMT: clicking on wordAlignment expand scripture pane, finished in step 1
+Mon, 19 Nov 2018 23:07:39 GMT: Expanded Scripture Pane, step= 1
+Mon, 19 Nov 2018 23:07:39 GMT: Expanded Scripture Pane, finished in step 1
+Mon, 19 Nov 2018 23:07:39 GMT: Navigate dialog: "Expanded Scripture Pane"
+Mon, 19 Nov 2018 23:07:39 GMT: waiting for "Expanded Scripture Pane"
+Mon, 19 Nov 2018 23:07:39 GMT: "Expanded Scripture Pane" is visible
+Mon, 19 Nov 2018 23:07:39 GMT: reading "Expanded Scripture Pane Title"
+Mon, 19 Nov 2018 23:07:39 GMT: value of "Expanded Scripture Pane Title" is "Jude"
+Mon, 19 Nov 2018 23:07:39 GMT: scripturePaneTitle= Jude
+Mon, 19 Nov 2018 23:07:39 GMT: verse rows, step= 1
+Mon, 19 Nov 2018 23:07:39 GMT: verse rows, finished in step 1
+Mon, 19 Nov 2018 23:07:39 GMT: Navigate dialog: "verse rows"
+Mon, 19 Nov 2018 23:07:39 GMT: waiting for "verse rows"
+Mon, 19 Nov 2018 23:07:39 GMT: "verse rows" is visible
+Mon, 19 Nov 2018 23:07:39 GMT: Verse verseRow 3, step= 1
+Mon, 19 Nov 2018 23:07:39 GMT: Verse verseRow 3, finished in step 1
+Mon, 19 Nov 2018 23:07:39 GMT: Navigate dialog: "Verse verseRow 3"
+Mon, 19 Nov 2018 23:07:39 GMT: waiting for "Verse verseRow 3"
+Mon, 19 Nov 2018 23:07:39 GMT: "Verse verseRow 3" is visible
+Mon, 19 Nov 2018 23:07:39 GMT: clicking on Edit Verse verse 3, step= 1
+Mon, 19 Nov 2018 23:07:39 GMT: clicking on "Edit Verse verse 3"
+Mon, 19 Nov 2018 23:07:40 GMT: clicking on Edit Verse verse 3, finished in step 1
+Mon, 19 Nov 2018 23:07:40 GMT: Verse Editor, step= 1
+Mon, 19 Nov 2018 23:07:40 GMT: Verse Editor, finished in step 1
+Mon, 19 Nov 2018 23:07:40 GMT: Navigate dialog: "Verse Editor"
+Mon, 19 Nov 2018 23:07:40 GMT: waiting for "Verse Editor"
+Mon, 19 Nov 2018 23:07:40 GMT: "Verse Editor" is visible
+Mon, 19 Nov 2018 23:07:40 GMT: setting "Verse Editor" to "1:3 - verse text 3"
+Mon, 19 Nov 2018 23:07:41 GMT: clicking on Verse Editor Next, step= 1
+Mon, 19 Nov 2018 23:07:42 GMT: clicking on "Verse Editor Next"
+Mon, 19 Nov 2018 23:07:42 GMT: clicking on Verse Editor Next, finished in step 1
+Mon, 19 Nov 2018 23:07:42 GMT: clicking on Reason Meaning, step= 1
+Mon, 19 Nov 2018 23:07:42 GMT: clicking on "Reason Meaning"
+Mon, 19 Nov 2018 23:07:43 GMT: clicking on Reason Meaning, finished in step 1
+Mon, 19 Nov 2018 23:07:43 GMT: clicking on Verse Editor Save, step= 1
+Mon, 19 Nov 2018 23:07:43 GMT: clicking on "Verse Editor Save"
+Mon, 19 Nov 2018 23:07:44 GMT: clicking on Verse Editor Save, finished in step 1
+Mon, 19 Nov 2018 23:07:44 GMT: Done editing verse 3
+Mon, 19 Nov 2018 23:07:44 GMT: reading "Verse Text 3, column1"
+Mon, 19 Nov 2018 23:07:44 GMT: value of "Verse Text 3, column1" is "1:3 - verse text 3"
+Mon, 19 Nov 2018 23:07:44 GMT: clicking on Close, step= 1
+Mon, 19 Nov 2018 23:07:45 GMT: clicking on "Close"
+Mon, 19 Nov 2018 23:07:45 GMT: clicking on Close, finished in step 1
+Mon, 19 Nov 2018 23:07:45 GMT: Verse edit time 10.078 seconds
+Mon, 19 Nov 2018 23:07:45 GMT: Memory Usage: 525296, pressure: 20%, growth: 15%
+Mon, 19 Nov 2018 23:07:45 GMT: Editing verse 4
+Mon, 19 Nov 2018 23:07:45 GMT: clicking on Chapter 1, verse 4, step= 1
+Mon, 19 Nov 2018 23:07:45 GMT: clicking on "Chapter 1, verse 4"
+Mon, 19 Nov 2018 23:07:46 GMT: clicking on Chapter 1, verse 4, finished in step 1
+Mon, 19 Nov 2018 23:07:46 GMT: clicking on Word Card 2, step= 1
+Mon, 19 Nov 2018 23:07:47 GMT: clicking on "Word Card 2"
+Mon, 19 Nov 2018 23:07:47 GMT: clicking on Word Card 2, finished in step 1
+Mon, 19 Nov 2018 23:07:47 GMT: reading "Alignment Item OL 3"
+Mon, 19 Nov 2018 23:07:47 GMT: value of "Alignment Item OL 3" is "τινες"
+Mon, 19 Nov 2018 23:07:47 GMT: cardOL= τινες
+Mon, 19 Nov 2018 23:07:47 GMT: clicking on wordAlignment expand scripture pane, step= 1
+Mon, 19 Nov 2018 23:07:47 GMT: clicking on "wordAlignment expand scripture pane"
+Mon, 19 Nov 2018 23:07:48 GMT: clicking on wordAlignment expand scripture pane, finished in step 1
+Mon, 19 Nov 2018 23:07:49 GMT: Expanded Scripture Pane, step= 1
+Mon, 19 Nov 2018 23:07:49 GMT: Expanded Scripture Pane, finished in step 1
+Mon, 19 Nov 2018 23:07:49 GMT: Navigate dialog: "Expanded Scripture Pane"
+Mon, 19 Nov 2018 23:07:49 GMT: waiting for "Expanded Scripture Pane"
+Mon, 19 Nov 2018 23:07:49 GMT: "Expanded Scripture Pane" is visible
+Mon, 19 Nov 2018 23:07:49 GMT: reading "Expanded Scripture Pane Title"
+Mon, 19 Nov 2018 23:07:49 GMT: value of "Expanded Scripture Pane Title" is "Jude"
+Mon, 19 Nov 2018 23:07:49 GMT: scripturePaneTitle= Jude
+Mon, 19 Nov 2018 23:07:49 GMT: verse rows, step= 1
+Mon, 19 Nov 2018 23:07:49 GMT: verse rows, finished in step 1
+Mon, 19 Nov 2018 23:07:49 GMT: Navigate dialog: "verse rows"
+Mon, 19 Nov 2018 23:07:49 GMT: waiting for "verse rows"
+Mon, 19 Nov 2018 23:07:49 GMT: "verse rows" is visible
+Mon, 19 Nov 2018 23:07:49 GMT: Verse verseRow 4, step= 1
+Mon, 19 Nov 2018 23:07:49 GMT: Verse verseRow 4, finished in step 1
+Mon, 19 Nov 2018 23:07:49 GMT: Navigate dialog: "Verse verseRow 4"
+Mon, 19 Nov 2018 23:07:49 GMT: waiting for "Verse verseRow 4"
+Mon, 19 Nov 2018 23:07:49 GMT: "Verse verseRow 4" is visible
+Mon, 19 Nov 2018 23:07:49 GMT: clicking on Edit Verse verse 4, step= 1
+Mon, 19 Nov 2018 23:07:50 GMT: clicking on "Edit Verse verse 4"
+Mon, 19 Nov 2018 23:07:50 GMT: clicking on Edit Verse verse 4, finished in step 1
+Mon, 19 Nov 2018 23:07:50 GMT: Verse Editor, step= 1
+Mon, 19 Nov 2018 23:07:50 GMT: Verse Editor, finished in step 1
+Mon, 19 Nov 2018 23:07:50 GMT: Navigate dialog: "Verse Editor"
+Mon, 19 Nov 2018 23:07:50 GMT: waiting for "Verse Editor"
+Mon, 19 Nov 2018 23:07:50 GMT: "Verse Editor" is visible
+Mon, 19 Nov 2018 23:07:51 GMT: setting "Verse Editor" to "1:4 - verse text 4"
+Mon, 19 Nov 2018 23:07:51 GMT: clicking on Verse Editor Next, step= 1
+Mon, 19 Nov 2018 23:07:52 GMT: clicking on "Verse Editor Next"
+Mon, 19 Nov 2018 23:07:52 GMT: clicking on Verse Editor Next, finished in step 1
+Mon, 19 Nov 2018 23:07:52 GMT: clicking on Reason Grammar, step= 1
+Mon, 19 Nov 2018 23:07:53 GMT: clicking on "Reason Grammar"
+Mon, 19 Nov 2018 23:07:53 GMT: clicking on Reason Grammar, finished in step 1
+Mon, 19 Nov 2018 23:07:53 GMT: clicking on Verse Editor Save, step= 1
+Mon, 19 Nov 2018 23:07:53 GMT: clicking on "Verse Editor Save"
+Mon, 19 Nov 2018 23:07:54 GMT: clicking on Verse Editor Save, finished in step 1
+Mon, 19 Nov 2018 23:07:54 GMT: Done editing verse 4
+Mon, 19 Nov 2018 23:07:54 GMT: reading "Verse Text 4, column1"
+Mon, 19 Nov 2018 23:07:54 GMT: value of "Verse Text 4, column1" is "1:4 - verse text 4"
+Mon, 19 Nov 2018 23:07:54 GMT: clicking on Close, step= 1
+Mon, 19 Nov 2018 23:07:55 GMT: clicking on "Close"
+Mon, 19 Nov 2018 23:07:55 GMT: clicking on Close, finished in step 1
+Mon, 19 Nov 2018 23:07:55 GMT: Verse edit time 10.154 seconds
+Mon, 19 Nov 2018 23:07:55 GMT: Memory Usage: 540332, pressure: 21%, growth: 18%
+Mon, 19 Nov 2018 23:07:55 GMT: Editing verse 5
+Mon, 19 Nov 2018 23:07:55 GMT: clicking on Chapter 1, verse 5, step= 1
+Mon, 19 Nov 2018 23:07:56 GMT: clicking on "Chapter 1, verse 5"
+Mon, 19 Nov 2018 23:07:56 GMT: clicking on Chapter 1, verse 5, finished in step 1
+Mon, 19 Nov 2018 23:07:56 GMT: clicking on Word Card 3, step= 1
+Mon, 19 Nov 2018 23:07:57 GMT: clicking on "Word Card 3"
+Mon, 19 Nov 2018 23:07:57 GMT: clicking on Word Card 3, finished in step 1
+Mon, 19 Nov 2018 23:07:57 GMT: reading "Alignment Item OL 3"
+Mon, 19 Nov 2018 23:07:57 GMT: value of "Alignment Item OL 3" is "ὑμᾶς"
+Mon, 19 Nov 2018 23:07:57 GMT: cardOL= ὑμᾶς
+Mon, 19 Nov 2018 23:07:57 GMT: clicking on wordAlignment expand scripture pane, step= 1
+Mon, 19 Nov 2018 23:07:57 GMT: clicking on "wordAlignment expand scripture pane"
+Mon, 19 Nov 2018 23:07:58 GMT: clicking on wordAlignment expand scripture pane, finished in step 1
+Mon, 19 Nov 2018 23:07:59 GMT: Expanded Scripture Pane, step= 1
+Mon, 19 Nov 2018 23:07:59 GMT: Expanded Scripture Pane, finished in step 1
+Mon, 19 Nov 2018 23:07:59 GMT: Navigate dialog: "Expanded Scripture Pane"
+Mon, 19 Nov 2018 23:07:59 GMT: waiting for "Expanded Scripture Pane"
+Mon, 19 Nov 2018 23:07:59 GMT: "Expanded Scripture Pane" is visible
+Mon, 19 Nov 2018 23:07:59 GMT: reading "Expanded Scripture Pane Title"
+Mon, 19 Nov 2018 23:07:59 GMT: value of "Expanded Scripture Pane Title" is "Jude"
+Mon, 19 Nov 2018 23:07:59 GMT: scripturePaneTitle= Jude
+Mon, 19 Nov 2018 23:07:59 GMT: verse rows, step= 1
+Mon, 19 Nov 2018 23:07:59 GMT: verse rows, finished in step 1
+Mon, 19 Nov 2018 23:07:59 GMT: Navigate dialog: "verse rows"
+Mon, 19 Nov 2018 23:07:59 GMT: waiting for "verse rows"
+Mon, 19 Nov 2018 23:07:59 GMT: "verse rows" is visible
+Mon, 19 Nov 2018 23:07:59 GMT: Verse verseRow 5, step= 1
+Mon, 19 Nov 2018 23:07:59 GMT: Verse verseRow 5, finished in step 1
+Mon, 19 Nov 2018 23:07:59 GMT: Navigate dialog: "Verse verseRow 5"
+Mon, 19 Nov 2018 23:07:59 GMT: waiting for "Verse verseRow 5"
+Mon, 19 Nov 2018 23:07:59 GMT: "Verse verseRow 5" is visible
+Mon, 19 Nov 2018 23:07:59 GMT: clicking on Edit Verse verse 5, step= 1
+Mon, 19 Nov 2018 23:08:00 GMT: clicking on "Edit Verse verse 5"
+Mon, 19 Nov 2018 23:08:00 GMT: clicking on Edit Verse verse 5, finished in step 1
+Mon, 19 Nov 2018 23:08:00 GMT: Verse Editor, step= 1
+Mon, 19 Nov 2018 23:08:00 GMT: Verse Editor, not visible step 1
+Mon, 19 Nov 2018 23:08:00 GMT: Verse Editor, step= 2
+Mon, 19 Nov 2018 23:08:00 GMT: Verse Editor, finished in step 2
+Mon, 19 Nov 2018 23:08:00 GMT: Navigate dialog: "Verse Editor"
+Mon, 19 Nov 2018 23:08:00 GMT: waiting for "Verse Editor"
+Mon, 19 Nov 2018 23:08:00 GMT: "Verse Editor" is visible
+Mon, 19 Nov 2018 23:08:01 GMT: setting "Verse Editor" to "1:5 - verse text 5"
+Mon, 19 Nov 2018 23:08:01 GMT: clicking on Verse Editor Next, step= 1
+Mon, 19 Nov 2018 23:08:02 GMT: clicking on "Verse Editor Next"
+Mon, 19 Nov 2018 23:08:02 GMT: clicking on Verse Editor Next, finished in step 1
+Mon, 19 Nov 2018 23:08:02 GMT: clicking on Reason Other, step= 1
+Mon, 19 Nov 2018 23:08:03 GMT: clicking on "Reason Other"
+Mon, 19 Nov 2018 23:08:03 GMT: clicking on Reason Other, finished in step 1
+Mon, 19 Nov 2018 23:08:03 GMT: clicking on Verse Editor Save, step= 1
+Mon, 19 Nov 2018 23:08:03 GMT: clicking on "Verse Editor Save"
+Mon, 19 Nov 2018 23:08:04 GMT: clicking on Verse Editor Save, finished in step 1
+Mon, 19 Nov 2018 23:08:04 GMT: Done editing verse 5
+Mon, 19 Nov 2018 23:08:04 GMT: reading "Verse Text 5, column1"
+Mon, 19 Nov 2018 23:08:04 GMT: value of "Verse Text 5, column1" is "1:5 - verse text 5"
+Mon, 19 Nov 2018 23:08:04 GMT: clicking on Close, step= 1
+Mon, 19 Nov 2018 23:08:05 GMT: clicking on "Close"
+Mon, 19 Nov 2018 23:08:05 GMT: clicking on Close, finished in step 1
+Mon, 19 Nov 2018 23:08:05 GMT: Verse edit time 9.951 seconds
+Mon, 19 Nov 2018 23:08:05 GMT: Memory Usage: 558688, pressure: 21%, growth: 22%
+Mon, 19 Nov 2018 23:08:05 GMT: Editing verse 6
+Mon, 19 Nov 2018 23:08:05 GMT: clicking on Chapter 1, verse 6, step= 1
+Mon, 19 Nov 2018 23:08:06 GMT: clicking on "Chapter 1, verse 6"
+Mon, 19 Nov 2018 23:08:06 GMT: clicking on Chapter 1, verse 6, finished in step 1
+Mon, 19 Nov 2018 23:08:06 GMT: clicking on Word Card 1, step= 1
+Mon, 19 Nov 2018 23:08:07 GMT: clicking on "Word Card 1"
+Mon, 19 Nov 2018 23:08:07 GMT: clicking on Word Card 1, finished in step 1
+Mon, 19 Nov 2018 23:08:07 GMT: reading "Alignment Item OL 3"
+Mon, 19 Nov 2018 23:08:07 GMT: value of "Alignment Item OL 3" is "τοὺς"
+Mon, 19 Nov 2018 23:08:07 GMT: cardOL= τοὺς
+Mon, 19 Nov 2018 23:08:07 GMT: clicking on wordAlignment expand scripture pane, step= 1
+Mon, 19 Nov 2018 23:08:07 GMT: clicking on "wordAlignment expand scripture pane"
+Mon, 19 Nov 2018 23:08:08 GMT: clicking on wordAlignment expand scripture pane, finished in step 1
+Mon, 19 Nov 2018 23:08:09 GMT: Expanded Scripture Pane, step= 1
+Mon, 19 Nov 2018 23:08:09 GMT: Expanded Scripture Pane, finished in step 1
+Mon, 19 Nov 2018 23:08:09 GMT: Navigate dialog: "Expanded Scripture Pane"
+Mon, 19 Nov 2018 23:08:09 GMT: waiting for "Expanded Scripture Pane"
+Mon, 19 Nov 2018 23:08:09 GMT: "Expanded Scripture Pane" is visible
+Mon, 19 Nov 2018 23:08:09 GMT: reading "Expanded Scripture Pane Title"
+Mon, 19 Nov 2018 23:08:09 GMT: value of "Expanded Scripture Pane Title" is "Jude"
+Mon, 19 Nov 2018 23:08:09 GMT: scripturePaneTitle= Jude
+Mon, 19 Nov 2018 23:08:09 GMT: verse rows, step= 1
+Mon, 19 Nov 2018 23:08:09 GMT: verse rows, finished in step 1
+Mon, 19 Nov 2018 23:08:09 GMT: Navigate dialog: "verse rows"
+Mon, 19 Nov 2018 23:08:09 GMT: waiting for "verse rows"
+Mon, 19 Nov 2018 23:08:09 GMT: "verse rows" is visible
+Mon, 19 Nov 2018 23:08:09 GMT: Verse verseRow 6, step= 1
+Mon, 19 Nov 2018 23:08:09 GMT: Verse verseRow 6, finished in step 1
+Mon, 19 Nov 2018 23:08:09 GMT: Navigate dialog: "Verse verseRow 6"
+Mon, 19 Nov 2018 23:08:09 GMT: waiting for "Verse verseRow 6"
+Mon, 19 Nov 2018 23:08:09 GMT: "Verse verseRow 6" is visible
+Mon, 19 Nov 2018 23:08:09 GMT: clicking on Edit Verse verse 6, step= 1
+Mon, 19 Nov 2018 23:08:10 GMT: clicking on "Edit Verse verse 6"
+Mon, 19 Nov 2018 23:08:10 GMT: clicking on Edit Verse verse 6, finished in step 1
+Mon, 19 Nov 2018 23:08:10 GMT: Verse Editor, step= 1
+Mon, 19 Nov 2018 23:08:10 GMT: Verse Editor, finished in step 1
+Mon, 19 Nov 2018 23:08:10 GMT: Navigate dialog: "Verse Editor"
+Mon, 19 Nov 2018 23:08:10 GMT: waiting for "Verse Editor"
+Mon, 19 Nov 2018 23:08:10 GMT: "Verse Editor" is visible
+Mon, 19 Nov 2018 23:08:11 GMT: setting "Verse Editor" to "1:6 - verse text 6"
+Mon, 19 Nov 2018 23:08:11 GMT: clicking on Verse Editor Next, step= 1
+Mon, 19 Nov 2018 23:08:12 GMT: clicking on "Verse Editor Next"
+Mon, 19 Nov 2018 23:08:12 GMT: clicking on Verse Editor Next, finished in step 1
+Mon, 19 Nov 2018 23:08:12 GMT: clicking on Reason Spelling, step= 1
+Mon, 19 Nov 2018 23:08:13 GMT: clicking on "Reason Spelling"
+Mon, 19 Nov 2018 23:08:13 GMT: clicking on Reason Spelling, finished in step 1
+Mon, 19 Nov 2018 23:08:13 GMT: clicking on Verse Editor Save, step= 1
+Mon, 19 Nov 2018 23:08:13 GMT: clicking on "Verse Editor Save"
+Mon, 19 Nov 2018 23:08:14 GMT: clicking on Verse Editor Save, finished in step 1
+Mon, 19 Nov 2018 23:08:14 GMT: Done editing verse 6
+Mon, 19 Nov 2018 23:08:14 GMT: reading "Verse Text 6, column1"
+Mon, 19 Nov 2018 23:08:14 GMT: value of "Verse Text 6, column1" is "1:6 - verse text 6"
+Mon, 19 Nov 2018 23:08:14 GMT: clicking on Close, step= 1
+Mon, 19 Nov 2018 23:08:15 GMT: clicking on "Close"
+Mon, 19 Nov 2018 23:08:15 GMT: clicking on Close, finished in step 1
+Mon, 19 Nov 2018 23:08:15 GMT: Verse edit time 10.026 seconds
+Mon, 19 Nov 2018 23:08:15 GMT: Memory Usage: 570288, pressure: 22%, growth: 25%
+Mon, 19 Nov 2018 23:08:15 GMT: Editing verse 7
+Mon, 19 Nov 2018 23:08:15 GMT: clicking on Chapter 1, verse 7, step= 1
+Mon, 19 Nov 2018 23:08:16 GMT: clicking on "Chapter 1, verse 7"
+Mon, 19 Nov 2018 23:08:16 GMT: clicking on Chapter 1, verse 7, finished in step 1
+Mon, 19 Nov 2018 23:08:16 GMT: clicking on Word Card 2, step= 1
+Mon, 19 Nov 2018 23:08:17 GMT: clicking on "Word Card 2"
+Mon, 19 Nov 2018 23:08:17 GMT: clicking on Word Card 2, finished in step 1
+Mon, 19 Nov 2018 23:08:17 GMT: reading "Alignment Item OL 3"
+Mon, 19 Nov 2018 23:08:17 GMT: value of "Alignment Item OL 3" is "καὶ"
+Mon, 19 Nov 2018 23:08:17 GMT: cardOL= καὶ
+Mon, 19 Nov 2018 23:08:17 GMT: clicking on wordAlignment expand scripture pane, step= 1
+Mon, 19 Nov 2018 23:08:17 GMT: clicking on "wordAlignment expand scripture pane"
+Mon, 19 Nov 2018 23:08:18 GMT: clicking on wordAlignment expand scripture pane, finished in step 1
+Mon, 19 Nov 2018 23:08:19 GMT: Expanded Scripture Pane, step= 1
+Mon, 19 Nov 2018 23:08:19 GMT: Expanded Scripture Pane, finished in step 1
+Mon, 19 Nov 2018 23:08:19 GMT: Navigate dialog: "Expanded Scripture Pane"
+Mon, 19 Nov 2018 23:08:19 GMT: waiting for "Expanded Scripture Pane"
+Mon, 19 Nov 2018 23:08:19 GMT: "Expanded Scripture Pane" is visible
+Mon, 19 Nov 2018 23:08:19 GMT: reading "Expanded Scripture Pane Title"
+Mon, 19 Nov 2018 23:08:19 GMT: value of "Expanded Scripture Pane Title" is "Jude"
+Mon, 19 Nov 2018 23:08:19 GMT: scripturePaneTitle= Jude
+Mon, 19 Nov 2018 23:08:19 GMT: verse rows, step= 1
+Mon, 19 Nov 2018 23:08:19 GMT: verse rows, finished in step 1
+Mon, 19 Nov 2018 23:08:19 GMT: Navigate dialog: "verse rows"
+Mon, 19 Nov 2018 23:08:19 GMT: waiting for "verse rows"
+Mon, 19 Nov 2018 23:08:19 GMT: "verse rows" is visible
+Mon, 19 Nov 2018 23:08:19 GMT: Verse verseRow 7, step= 1
+Mon, 19 Nov 2018 23:08:19 GMT: Verse verseRow 7, finished in step 1
+Mon, 19 Nov 2018 23:08:19 GMT: Navigate dialog: "Verse verseRow 7"
+Mon, 19 Nov 2018 23:08:19 GMT: waiting for "Verse verseRow 7"
+Mon, 19 Nov 2018 23:08:19 GMT: "Verse verseRow 7" is visible
+Mon, 19 Nov 2018 23:08:19 GMT: clicking on Edit Verse verse 7, step= 1
+Mon, 19 Nov 2018 23:08:19 GMT: clicking on "Edit Verse verse 7"
+Mon, 19 Nov 2018 23:08:20 GMT: clicking on Edit Verse verse 7, finished in step 1
+Mon, 19 Nov 2018 23:08:20 GMT: Verse Editor, step= 1
+Mon, 19 Nov 2018 23:08:20 GMT: Verse Editor, finished in step 1
+Mon, 19 Nov 2018 23:08:20 GMT: Navigate dialog: "Verse Editor"
+Mon, 19 Nov 2018 23:08:20 GMT: waiting for "Verse Editor"
+Mon, 19 Nov 2018 23:08:20 GMT: "Verse Editor" is visible
+Mon, 19 Nov 2018 23:08:20 GMT: setting "Verse Editor" to "1:7 - verse text 7"
+Mon, 19 Nov 2018 23:08:21 GMT: clicking on Verse Editor Next, step= 1
+Mon, 19 Nov 2018 23:08:22 GMT: clicking on "Verse Editor Next"
+Mon, 19 Nov 2018 23:08:22 GMT: clicking on Verse Editor Next, finished in step 1
+Mon, 19 Nov 2018 23:08:22 GMT: clicking on Reason Punctuation, step= 1
+Mon, 19 Nov 2018 23:08:22 GMT: clicking on "Reason Punctuation"
+Mon, 19 Nov 2018 23:08:23 GMT: clicking on Reason Punctuation, finished in step 1
+Mon, 19 Nov 2018 23:08:23 GMT: clicking on Verse Editor Save, step= 1
+Mon, 19 Nov 2018 23:08:23 GMT: clicking on "Verse Editor Save"
+Mon, 19 Nov 2018 23:08:24 GMT: clicking on Verse Editor Save, finished in step 1
+Mon, 19 Nov 2018 23:08:24 GMT: Done editing verse 7
+Mon, 19 Nov 2018 23:08:24 GMT: reading "Verse Text 7, column1"
+Mon, 19 Nov 2018 23:08:24 GMT: value of "Verse Text 7, column1" is "1:7 - verse text 7"
+Mon, 19 Nov 2018 23:08:24 GMT: clicking on Close, step= 1
+Mon, 19 Nov 2018 23:08:25 GMT: clicking on "Close"
+Mon, 19 Nov 2018 23:08:25 GMT: clicking on Close, finished in step 1
+Mon, 19 Nov 2018 23:08:25 GMT: Verse edit time 9.903 seconds
+Mon, 19 Nov 2018 23:08:25 GMT: Memory Usage: 588124, pressure: 22%, growth: 29%
+Mon, 19 Nov 2018 23:08:25 GMT: Editing verse 8
+Mon, 19 Nov 2018 23:08:25 GMT: clicking on Chapter 1, verse 8, step= 1
+Mon, 19 Nov 2018 23:08:26 GMT: clicking on "Chapter 1, verse 8"
+Mon, 19 Nov 2018 23:08:26 GMT: clicking on Chapter 1, verse 8, finished in step 1
+Mon, 19 Nov 2018 23:08:26 GMT: clicking on Word Card 3, step= 1
+Mon, 19 Nov 2018 23:08:26 GMT: clicking on "Word Card 3"
+Mon, 19 Nov 2018 23:08:27 GMT: clicking on Word Card 3, finished in step 1
+Mon, 19 Nov 2018 23:08:27 GMT: reading "Alignment Item OL 3"
+Mon, 19 Nov 2018 23:08:27 GMT: value of "Alignment Item OL 3" is "καὶ"
+Mon, 19 Nov 2018 23:08:27 GMT: cardOL= καὶ
+Mon, 19 Nov 2018 23:08:27 GMT: clicking on wordAlignment expand scripture pane, step= 1
+Mon, 19 Nov 2018 23:08:27 GMT: clicking on "wordAlignment expand scripture pane"
+Mon, 19 Nov 2018 23:08:28 GMT: clicking on wordAlignment expand scripture pane, finished in step 1
+Mon, 19 Nov 2018 23:08:28 GMT: Expanded Scripture Pane, step= 1
+Mon, 19 Nov 2018 23:08:29 GMT: Expanded Scripture Pane, finished in step 1
+Mon, 19 Nov 2018 23:08:29 GMT: Navigate dialog: "Expanded Scripture Pane"
+Mon, 19 Nov 2018 23:08:29 GMT: waiting for "Expanded Scripture Pane"
+Mon, 19 Nov 2018 23:08:29 GMT: "Expanded Scripture Pane" is visible
+Mon, 19 Nov 2018 23:08:29 GMT: reading "Expanded Scripture Pane Title"
+Mon, 19 Nov 2018 23:08:29 GMT: value of "Expanded Scripture Pane Title" is "Jude"
+Mon, 19 Nov 2018 23:08:29 GMT: scripturePaneTitle= Jude
+Mon, 19 Nov 2018 23:08:29 GMT: verse rows, step= 1
+Mon, 19 Nov 2018 23:08:29 GMT: verse rows, finished in step 1
+Mon, 19 Nov 2018 23:08:29 GMT: Navigate dialog: "verse rows"
+Mon, 19 Nov 2018 23:08:29 GMT: waiting for "verse rows"
+Mon, 19 Nov 2018 23:08:29 GMT: "verse rows" is visible
+Mon, 19 Nov 2018 23:08:29 GMT: Verse verseRow 8, step= 1
+Mon, 19 Nov 2018 23:08:29 GMT: Verse verseRow 8, finished in step 1
+Mon, 19 Nov 2018 23:08:29 GMT: Navigate dialog: "Verse verseRow 8"
+Mon, 19 Nov 2018 23:08:29 GMT: waiting for "Verse verseRow 8"
+Mon, 19 Nov 2018 23:08:29 GMT: "Verse verseRow 8" is visible
+Mon, 19 Nov 2018 23:08:29 GMT: clicking on Edit Verse verse 8, step= 1
+Mon, 19 Nov 2018 23:08:29 GMT: clicking on "Edit Verse verse 8"
+Mon, 19 Nov 2018 23:08:30 GMT: clicking on Edit Verse verse 8, finished in step 1
+Mon, 19 Nov 2018 23:08:30 GMT: Verse Editor, step= 1
+Mon, 19 Nov 2018 23:08:30 GMT: Verse Editor, finished in step 1
+Mon, 19 Nov 2018 23:08:30 GMT: Navigate dialog: "Verse Editor"
+Mon, 19 Nov 2018 23:08:30 GMT: waiting for "Verse Editor"
+Mon, 19 Nov 2018 23:08:30 GMT: "Verse Editor" is visible
+Mon, 19 Nov 2018 23:08:30 GMT: setting "Verse Editor" to "1:8 - verse text 8"
+Mon, 19 Nov 2018 23:08:31 GMT: clicking on Verse Editor Next, step= 1
+Mon, 19 Nov 2018 23:08:32 GMT: clicking on "Verse Editor Next"
+Mon, 19 Nov 2018 23:08:32 GMT: clicking on Verse Editor Next, finished in step 1
+Mon, 19 Nov 2018 23:08:32 GMT: clicking on Reason Word Choice, step= 1
+Mon, 19 Nov 2018 23:08:32 GMT: clicking on "Reason Word Choice"
+Mon, 19 Nov 2018 23:08:32 GMT: clicking on Reason Word Choice, finished in step 1
+Mon, 19 Nov 2018 23:08:32 GMT: clicking on Verse Editor Save, step= 1
+Mon, 19 Nov 2018 23:08:33 GMT: clicking on "Verse Editor Save"
+Mon, 19 Nov 2018 23:08:33 GMT: clicking on Verse Editor Save, finished in step 1
+Mon, 19 Nov 2018 23:08:33 GMT: Done editing verse 8
+Mon, 19 Nov 2018 23:08:33 GMT: reading "Verse Text 8, column1"
+Mon, 19 Nov 2018 23:08:34 GMT: value of "Verse Text 8, column1" is "1:8 - verse text 8"
+Mon, 19 Nov 2018 23:08:34 GMT: clicking on Close, step= 1
+Mon, 19 Nov 2018 23:08:34 GMT: clicking on "Close"
+Mon, 19 Nov 2018 23:08:35 GMT: clicking on Close, finished in step 1
+Mon, 19 Nov 2018 23:08:35 GMT: Verse edit time 9.707 seconds
+Mon, 19 Nov 2018 23:08:35 GMT: Memory Usage: 603392, pressure: 23%, growth: 32%
+Mon, 19 Nov 2018 23:08:35 GMT: Editing verse 9
+Mon, 19 Nov 2018 23:08:35 GMT: clicking on Chapter 1, verse 9, step= 1
+Mon, 19 Nov 2018 23:08:35 GMT: clicking on "Chapter 1, verse 9"
+Mon, 19 Nov 2018 23:08:36 GMT: clicking on Chapter 1, verse 9, finished in step 1
+Mon, 19 Nov 2018 23:08:36 GMT: clicking on Word Card 1, step= 1
+Mon, 19 Nov 2018 23:08:36 GMT: clicking on "Word Card 1"
+Mon, 19 Nov 2018 23:08:36 GMT: clicking on Word Card 1, finished in step 1
+Mon, 19 Nov 2018 23:08:36 GMT: reading "Alignment Item OL 3"
+Mon, 19 Nov 2018 23:08:36 GMT: value of "Alignment Item OL 3" is "Μιχαὴλ"
+Mon, 19 Nov 2018 23:08:36 GMT: cardOL= Μιχαὴλ
+Mon, 19 Nov 2018 23:08:36 GMT: clicking on wordAlignment expand scripture pane, step= 1
+Mon, 19 Nov 2018 23:08:37 GMT: clicking on "wordAlignment expand scripture pane"
+Mon, 19 Nov 2018 23:08:38 GMT: clicking on wordAlignment expand scripture pane, finished in step 1
+Mon, 19 Nov 2018 23:08:38 GMT: Expanded Scripture Pane, step= 1
+Mon, 19 Nov 2018 23:08:39 GMT: Expanded Scripture Pane, finished in step 1
+Mon, 19 Nov 2018 23:08:39 GMT: Navigate dialog: "Expanded Scripture Pane"
+Mon, 19 Nov 2018 23:08:39 GMT: waiting for "Expanded Scripture Pane"
+Mon, 19 Nov 2018 23:08:39 GMT: "Expanded Scripture Pane" is visible
+Mon, 19 Nov 2018 23:08:39 GMT: reading "Expanded Scripture Pane Title"
+Mon, 19 Nov 2018 23:08:39 GMT: value of "Expanded Scripture Pane Title" is "Jude"
+Mon, 19 Nov 2018 23:08:39 GMT: scripturePaneTitle= Jude
+Mon, 19 Nov 2018 23:08:39 GMT: verse rows, step= 1
+Mon, 19 Nov 2018 23:08:39 GMT: verse rows, finished in step 1
+Mon, 19 Nov 2018 23:08:39 GMT: Navigate dialog: "verse rows"
+Mon, 19 Nov 2018 23:08:39 GMT: waiting for "verse rows"
+Mon, 19 Nov 2018 23:08:39 GMT: "verse rows" is visible
+Mon, 19 Nov 2018 23:08:39 GMT: Verse verseRow 9, step= 1
+Mon, 19 Nov 2018 23:08:39 GMT: Verse verseRow 9, finished in step 1
+Mon, 19 Nov 2018 23:08:39 GMT: Navigate dialog: "Verse verseRow 9"
+Mon, 19 Nov 2018 23:08:39 GMT: waiting for "Verse verseRow 9"
+Mon, 19 Nov 2018 23:08:39 GMT: "Verse verseRow 9" is visible
+Mon, 19 Nov 2018 23:08:39 GMT: clicking on Edit Verse verse 9, step= 1
+Mon, 19 Nov 2018 23:08:39 GMT: clicking on "Edit Verse verse 9"
+Mon, 19 Nov 2018 23:08:40 GMT: clicking on Edit Verse verse 9, finished in step 1
+Mon, 19 Nov 2018 23:08:40 GMT: Verse Editor, step= 1
+Mon, 19 Nov 2018 23:08:40 GMT: Verse Editor, not visible step 1
+Mon, 19 Nov 2018 23:08:40 GMT: Verse Editor, step= 2
+Mon, 19 Nov 2018 23:08:40 GMT: Verse Editor, finished in step 2
+Mon, 19 Nov 2018 23:08:40 GMT: Navigate dialog: "Verse Editor"
+Mon, 19 Nov 2018 23:08:40 GMT: waiting for "Verse Editor"
+Mon, 19 Nov 2018 23:08:40 GMT: "Verse Editor" is visible
+Mon, 19 Nov 2018 23:08:40 GMT: setting "Verse Editor" to "1:9 - verse text 9"
+Mon, 19 Nov 2018 23:08:41 GMT: clicking on Verse Editor Next, step= 1
+Mon, 19 Nov 2018 23:08:42 GMT: clicking on "Verse Editor Next"
+Mon, 19 Nov 2018 23:08:42 GMT: clicking on Verse Editor Next, finished in step 1
+Mon, 19 Nov 2018 23:08:42 GMT: clicking on Reason Meaning, step= 1
+Mon, 19 Nov 2018 23:08:42 GMT: clicking on "Reason Meaning"
+Mon, 19 Nov 2018 23:08:43 GMT: clicking on Reason Meaning, finished in step 1
+Mon, 19 Nov 2018 23:08:43 GMT: clicking on Verse Editor Save, step= 1
+Mon, 19 Nov 2018 23:08:43 GMT: clicking on "Verse Editor Save"
+Mon, 19 Nov 2018 23:08:44 GMT: clicking on Verse Editor Save, finished in step 1
+Mon, 19 Nov 2018 23:08:44 GMT: Done editing verse 9
+Mon, 19 Nov 2018 23:08:44 GMT: reading "Verse Text 9, column1"
+Mon, 19 Nov 2018 23:08:44 GMT: value of "Verse Text 9, column1" is "1:9 - verse text 9"
+Mon, 19 Nov 2018 23:08:44 GMT: clicking on Close, step= 1
+Mon, 19 Nov 2018 23:08:45 GMT: clicking on "Close"
+Mon, 19 Nov 2018 23:08:45 GMT: clicking on Close, finished in step 1
+Mon, 19 Nov 2018 23:08:45 GMT: Verse edit time 10.282 seconds
+Mon, 19 Nov 2018 23:08:45 GMT: Memory Usage: 612588, pressure: 23%, growth: 34%
+Mon, 19 Nov 2018 23:08:45 GMT: Editing verse 10
+Mon, 19 Nov 2018 23:08:45 GMT: clicking on Chapter 1, verse 10, step= 1
+Mon, 19 Nov 2018 23:08:46 GMT: clicking on "Chapter 1, verse 10"
+Mon, 19 Nov 2018 23:08:46 GMT: clicking on Chapter 1, verse 10, finished in step 1
+Mon, 19 Nov 2018 23:08:46 GMT: clicking on Word Card 2, step= 1
+Mon, 19 Nov 2018 23:08:46 GMT: clicking on "Word Card 2"
+Mon, 19 Nov 2018 23:08:47 GMT: clicking on Word Card 2, finished in step 1
+Mon, 19 Nov 2018 23:08:47 GMT: reading "Alignment Item OL 3"
+Mon, 19 Nov 2018 23:08:47 GMT: value of "Alignment Item OL 3" is "ὅσα"
+Mon, 19 Nov 2018 23:08:47 GMT: cardOL= ὅσα
+Mon, 19 Nov 2018 23:08:47 GMT: clicking on wordAlignment expand scripture pane, step= 1
+Mon, 19 Nov 2018 23:08:47 GMT: clicking on "wordAlignment expand scripture pane"
+Mon, 19 Nov 2018 23:08:48 GMT: clicking on wordAlignment expand scripture pane, finished in step 1
+Mon, 19 Nov 2018 23:08:48 GMT: Expanded Scripture Pane, step= 1
+Mon, 19 Nov 2018 23:08:48 GMT: Expanded Scripture Pane, finished in step 1
+Mon, 19 Nov 2018 23:08:48 GMT: Navigate dialog: "Expanded Scripture Pane"
+Mon, 19 Nov 2018 23:08:48 GMT: waiting for "Expanded Scripture Pane"
+Mon, 19 Nov 2018 23:08:49 GMT: "Expanded Scripture Pane" is visible
+Mon, 19 Nov 2018 23:08:49 GMT: reading "Expanded Scripture Pane Title"
+Mon, 19 Nov 2018 23:08:49 GMT: value of "Expanded Scripture Pane Title" is "Jude"
+Mon, 19 Nov 2018 23:08:49 GMT: scripturePaneTitle= Jude
+Mon, 19 Nov 2018 23:08:49 GMT: verse rows, step= 1
+Mon, 19 Nov 2018 23:08:49 GMT: verse rows, finished in step 1
+Mon, 19 Nov 2018 23:08:49 GMT: Navigate dialog: "verse rows"
+Mon, 19 Nov 2018 23:08:49 GMT: waiting for "verse rows"
+Mon, 19 Nov 2018 23:08:49 GMT: "verse rows" is visible
+Mon, 19 Nov 2018 23:08:49 GMT: Verse verseRow 10, step= 1
+Mon, 19 Nov 2018 23:08:49 GMT: Verse verseRow 10, finished in step 1
+Mon, 19 Nov 2018 23:08:49 GMT: Navigate dialog: "Verse verseRow 10"
+Mon, 19 Nov 2018 23:08:49 GMT: waiting for "Verse verseRow 10"
+Mon, 19 Nov 2018 23:08:49 GMT: "Verse verseRow 10" is visible
+Mon, 19 Nov 2018 23:08:49 GMT: clicking on Edit Verse verse 10, step= 1
+Mon, 19 Nov 2018 23:08:49 GMT: clicking on "Edit Verse verse 10"
+Mon, 19 Nov 2018 23:08:50 GMT: clicking on Edit Verse verse 10, finished in step 1
+Mon, 19 Nov 2018 23:08:50 GMT: Verse Editor, step= 1
+Mon, 19 Nov 2018 23:08:50 GMT: Verse Editor, finished in step 1
+Mon, 19 Nov 2018 23:08:50 GMT: Navigate dialog: "Verse Editor"
+Mon, 19 Nov 2018 23:08:50 GMT: waiting for "Verse Editor"
+Mon, 19 Nov 2018 23:08:50 GMT: "Verse Editor" is visible
+Mon, 19 Nov 2018 23:08:50 GMT: setting "Verse Editor" to "1:10 - verse text 10"
+Mon, 19 Nov 2018 23:08:51 GMT: clicking on Verse Editor Next, step= 1
+Mon, 19 Nov 2018 23:08:52 GMT: clicking on "Verse Editor Next"
+Mon, 19 Nov 2018 23:08:52 GMT: clicking on Verse Editor Next, finished in step 1
+Mon, 19 Nov 2018 23:08:52 GMT: clicking on Reason Grammar, step= 1
+Mon, 19 Nov 2018 23:08:52 GMT: clicking on "Reason Grammar"
+Mon, 19 Nov 2018 23:08:52 GMT: clicking on Reason Grammar, finished in step 1
+Mon, 19 Nov 2018 23:08:52 GMT: clicking on Verse Editor Save, step= 1
+Mon, 19 Nov 2018 23:08:53 GMT: clicking on "Verse Editor Save"
+Mon, 19 Nov 2018 23:08:53 GMT: clicking on Verse Editor Save, finished in step 1
+Mon, 19 Nov 2018 23:08:53 GMT: Done editing verse 10
+Mon, 19 Nov 2018 23:08:53 GMT: reading "Verse Text 10, column1"
+Mon, 19 Nov 2018 23:08:54 GMT: value of "Verse Text 10, column1" is "1:10 - verse text 10"
+Mon, 19 Nov 2018 23:08:54 GMT: clicking on Close, step= 1
+Mon, 19 Nov 2018 23:08:54 GMT: clicking on "Close"
+Mon, 19 Nov 2018 23:08:55 GMT: clicking on Close, finished in step 1
+Mon, 19 Nov 2018 23:08:55 GMT: Verse edit time 9.741 seconds
+Mon, 19 Nov 2018 23:08:55 GMT: Memory Usage: 627576, pressure: 24%, growth: 37%
+Mon, 19 Nov 2018 23:08:55 GMT: Editing verse 11
+Mon, 19 Nov 2018 23:08:55 GMT: clicking on Chapter 1, verse 11, step= 1
+Mon, 19 Nov 2018 23:08:55 GMT: clicking on "Chapter 1, verse 11"
+Mon, 19 Nov 2018 23:08:56 GMT: clicking on Chapter 1, verse 11, finished in step 1
+Mon, 19 Nov 2018 23:08:56 GMT: clicking on Word Card 3, step= 1
+Mon, 19 Nov 2018 23:08:56 GMT: clicking on "Word Card 3"
+Mon, 19 Nov 2018 23:08:56 GMT: clicking on Word Card 3, finished in step 1
+Mon, 19 Nov 2018 23:08:56 GMT: reading "Alignment Item OL 3"
+Mon, 19 Nov 2018 23:08:56 GMT: value of "Alignment Item OL 3" is "ὅτι"
+Mon, 19 Nov 2018 23:08:56 GMT: cardOL= ὅτι
+Mon, 19 Nov 2018 23:08:56 GMT: clicking on wordAlignment expand scripture pane, step= 1
+Mon, 19 Nov 2018 23:08:57 GMT: clicking on "wordAlignment expand scripture pane"
+Mon, 19 Nov 2018 23:08:58 GMT: clicking on wordAlignment expand scripture pane, finished in step 1
+Mon, 19 Nov 2018 23:08:58 GMT: Expanded Scripture Pane, step= 1
+Mon, 19 Nov 2018 23:08:58 GMT: Expanded Scripture Pane, finished in step 1
+Mon, 19 Nov 2018 23:08:58 GMT: Navigate dialog: "Expanded Scripture Pane"
+Mon, 19 Nov 2018 23:08:58 GMT: waiting for "Expanded Scripture Pane"
+Mon, 19 Nov 2018 23:08:58 GMT: "Expanded Scripture Pane" is visible
+Mon, 19 Nov 2018 23:08:58 GMT: reading "Expanded Scripture Pane Title"
+Mon, 19 Nov 2018 23:08:58 GMT: value of "Expanded Scripture Pane Title" is "Jude"
+Mon, 19 Nov 2018 23:08:58 GMT: scripturePaneTitle= Jude
+Mon, 19 Nov 2018 23:08:58 GMT: verse rows, step= 1
+Mon, 19 Nov 2018 23:08:58 GMT: verse rows, finished in step 1
+Mon, 19 Nov 2018 23:08:58 GMT: Navigate dialog: "verse rows"
+Mon, 19 Nov 2018 23:08:58 GMT: waiting for "verse rows"
+Mon, 19 Nov 2018 23:08:58 GMT: "verse rows" is visible
+Mon, 19 Nov 2018 23:08:58 GMT: Verse verseRow 11, step= 1
+Mon, 19 Nov 2018 23:08:58 GMT: Verse verseRow 11, finished in step 1
+Mon, 19 Nov 2018 23:08:58 GMT: Navigate dialog: "Verse verseRow 11"
+Mon, 19 Nov 2018 23:08:58 GMT: waiting for "Verse verseRow 11"
+Mon, 19 Nov 2018 23:08:58 GMT: "Verse verseRow 11" is visible
+Mon, 19 Nov 2018 23:08:58 GMT: clicking on Edit Verse verse 11, step= 1
+Mon, 19 Nov 2018 23:08:59 GMT: clicking on "Edit Verse verse 11"
+Mon, 19 Nov 2018 23:08:59 GMT: clicking on Edit Verse verse 11, finished in step 1
+Mon, 19 Nov 2018 23:08:59 GMT: Verse Editor, step= 1
+Mon, 19 Nov 2018 23:08:59 GMT: Verse Editor, finished in step 1
+Mon, 19 Nov 2018 23:08:59 GMT: Navigate dialog: "Verse Editor"
+Mon, 19 Nov 2018 23:08:59 GMT: waiting for "Verse Editor"
+Mon, 19 Nov 2018 23:08:59 GMT: "Verse Editor" is visible
+Mon, 19 Nov 2018 23:09:00 GMT: setting "Verse Editor" to "1:11 - verse text 11"
+Mon, 19 Nov 2018 23:09:01 GMT: clicking on Verse Editor Next, step= 1
+Mon, 19 Nov 2018 23:09:01 GMT: clicking on "Verse Editor Next"
+Mon, 19 Nov 2018 23:09:01 GMT: clicking on Verse Editor Next, finished in step 1
+Mon, 19 Nov 2018 23:09:01 GMT: clicking on Reason Other, step= 1
+Mon, 19 Nov 2018 23:09:02 GMT: clicking on "Reason Other"
+Mon, 19 Nov 2018 23:09:02 GMT: clicking on Reason Other, finished in step 1
+Mon, 19 Nov 2018 23:09:02 GMT: clicking on Verse Editor Save, step= 1
+Mon, 19 Nov 2018 23:09:03 GMT: clicking on "Verse Editor Save"
+Mon, 19 Nov 2018 23:09:03 GMT: clicking on Verse Editor Save, finished in step 1
+Mon, 19 Nov 2018 23:09:03 GMT: Done editing verse 11
+Mon, 19 Nov 2018 23:09:03 GMT: reading "Verse Text 11, column1"
+Mon, 19 Nov 2018 23:09:04 GMT: value of "Verse Text 11, column1" is "1:11 - verse text 11"
+Mon, 19 Nov 2018 23:09:04 GMT: clicking on Close, step= 1
+Mon, 19 Nov 2018 23:09:04 GMT: clicking on "Close"
+Mon, 19 Nov 2018 23:09:04 GMT: clicking on Close, finished in step 1
+Mon, 19 Nov 2018 23:09:04 GMT: Verse edit time 9.768 seconds
+Mon, 19 Nov 2018 23:09:05 GMT: Memory Usage: 662808, pressure: 25%, growth: 45%
+Mon, 19 Nov 2018 23:09:05 GMT: Editing verse 12
+Mon, 19 Nov 2018 23:09:05 GMT: clicking on Chapter 1, verse 12, step= 1
+Mon, 19 Nov 2018 23:09:05 GMT: clicking on "Chapter 1, verse 12"
+Mon, 19 Nov 2018 23:09:06 GMT: clicking on Chapter 1, verse 12, finished in step 1
+Mon, 19 Nov 2018 23:09:06 GMT: clicking on Word Card 1, step= 1
+Mon, 19 Nov 2018 23:09:06 GMT: clicking on "Word Card 1"
+Mon, 19 Nov 2018 23:09:06 GMT: clicking on Word Card 1, finished in step 1
+Mon, 19 Nov 2018 23:09:06 GMT: reading "Alignment Item OL 3"
+Mon, 19 Nov 2018 23:09:06 GMT: value of "Alignment Item OL 3" is "οἱ"
+Mon, 19 Nov 2018 23:09:06 GMT: cardOL= οἱ
+Mon, 19 Nov 2018 23:09:06 GMT: clicking on wordAlignment expand scripture pane, step= 1
+Mon, 19 Nov 2018 23:09:07 GMT: clicking on "wordAlignment expand scripture pane"
+Mon, 19 Nov 2018 23:09:07 GMT: clicking on wordAlignment expand scripture pane, finished in step 1
+Mon, 19 Nov 2018 23:09:08 GMT: Expanded Scripture Pane, step= 1
+Mon, 19 Nov 2018 23:09:08 GMT: Expanded Scripture Pane, finished in step 1
+Mon, 19 Nov 2018 23:09:08 GMT: Navigate dialog: "Expanded Scripture Pane"
+Mon, 19 Nov 2018 23:09:08 GMT: waiting for "Expanded Scripture Pane"
+Mon, 19 Nov 2018 23:09:08 GMT: "Expanded Scripture Pane" is visible
+Mon, 19 Nov 2018 23:09:08 GMT: reading "Expanded Scripture Pane Title"
+Mon, 19 Nov 2018 23:09:09 GMT: value of "Expanded Scripture Pane Title" is "Jude"
+Mon, 19 Nov 2018 23:09:09 GMT: scripturePaneTitle= Jude
+Mon, 19 Nov 2018 23:09:09 GMT: verse rows, step= 1
+Mon, 19 Nov 2018 23:09:09 GMT: verse rows, finished in step 1
+Mon, 19 Nov 2018 23:09:09 GMT: Navigate dialog: "verse rows"
+Mon, 19 Nov 2018 23:09:09 GMT: waiting for "verse rows"
+Mon, 19 Nov 2018 23:09:09 GMT: "verse rows" is visible
+Mon, 19 Nov 2018 23:09:09 GMT: Verse verseRow 12, step= 1
+Mon, 19 Nov 2018 23:09:09 GMT: Verse verseRow 12, finished in step 1
+Mon, 19 Nov 2018 23:09:09 GMT: Navigate dialog: "Verse verseRow 12"
+Mon, 19 Nov 2018 23:09:09 GMT: waiting for "Verse verseRow 12"
+Mon, 19 Nov 2018 23:09:09 GMT: "Verse verseRow 12" is visible
+Mon, 19 Nov 2018 23:09:09 GMT: clicking on Edit Verse verse 12, step= 1
+Mon, 19 Nov 2018 23:09:09 GMT: clicking on "Edit Verse verse 12"
+Mon, 19 Nov 2018 23:09:10 GMT: clicking on Edit Verse verse 12, finished in step 1
+Mon, 19 Nov 2018 23:09:10 GMT: Verse Editor, step= 1
+Mon, 19 Nov 2018 23:09:10 GMT: Verse Editor, finished in step 1
+Mon, 19 Nov 2018 23:09:10 GMT: Navigate dialog: "Verse Editor"
+Mon, 19 Nov 2018 23:09:10 GMT: waiting for "Verse Editor"
+Mon, 19 Nov 2018 23:09:10 GMT: "Verse Editor" is visible
+Mon, 19 Nov 2018 23:09:10 GMT: setting "Verse Editor" to "1:12 - verse text 12"
+Mon, 19 Nov 2018 23:09:11 GMT: clicking on Verse Editor Next, step= 1
+Mon, 19 Nov 2018 23:09:12 GMT: clicking on "Verse Editor Next"
+Mon, 19 Nov 2018 23:09:12 GMT: clicking on Verse Editor Next, finished in step 1
+Mon, 19 Nov 2018 23:09:12 GMT: clicking on Reason Spelling, step= 1
+Mon, 19 Nov 2018 23:09:12 GMT: clicking on "Reason Spelling"
+Mon, 19 Nov 2018 23:09:12 GMT: clicking on Reason Spelling, finished in step 1
+Mon, 19 Nov 2018 23:09:12 GMT: clicking on Verse Editor Save, step= 1
+Mon, 19 Nov 2018 23:09:13 GMT: clicking on "Verse Editor Save"
+Mon, 19 Nov 2018 23:09:13 GMT: clicking on Verse Editor Save, finished in step 1
+Mon, 19 Nov 2018 23:09:13 GMT: Done editing verse 12
+Mon, 19 Nov 2018 23:09:13 GMT: reading "Verse Text 12, column1"
+Mon, 19 Nov 2018 23:09:14 GMT: value of "Verse Text 12, column1" is "1:12 - verse text 12"
+Mon, 19 Nov 2018 23:09:14 GMT: clicking on Close, step= 1
+Mon, 19 Nov 2018 23:09:14 GMT: clicking on "Close"
+Mon, 19 Nov 2018 23:09:15 GMT: clicking on Close, finished in step 1
+Mon, 19 Nov 2018 23:09:15 GMT: Verse edit time 10.287 seconds
+Mon, 19 Nov 2018 23:09:15 GMT: Memory Usage: 685108, pressure: 26%, growth: 50%
+Mon, 19 Nov 2018 23:09:15 GMT: Editing verse 13
+Mon, 19 Nov 2018 23:09:15 GMT: clicking on Chapter 1, verse 13, step= 1
+Mon, 19 Nov 2018 23:09:15 GMT: clicking on "Chapter 1, verse 13"
+Mon, 19 Nov 2018 23:09:16 GMT: clicking on Chapter 1, verse 13, finished in step 1
+Mon, 19 Nov 2018 23:09:16 GMT: clicking on Word Card 2, step= 1
+Mon, 19 Nov 2018 23:09:16 GMT: clicking on "Word Card 2"
+Mon, 19 Nov 2018 23:09:16 GMT: clicking on Word Card 2, finished in step 1
+Mon, 19 Nov 2018 23:09:16 GMT: reading "Alignment Item OL 3"
+Mon, 19 Nov 2018 23:09:16 GMT: value of "Alignment Item OL 3" is "θαλάσσης"
+Mon, 19 Nov 2018 23:09:16 GMT: cardOL= θαλάσσης
+Mon, 19 Nov 2018 23:09:16 GMT: clicking on wordAlignment expand scripture pane, step= 1
+Mon, 19 Nov 2018 23:09:17 GMT: clicking on "wordAlignment expand scripture pane"
+Mon, 19 Nov 2018 23:09:18 GMT: clicking on wordAlignment expand scripture pane, finished in step 1
+Mon, 19 Nov 2018 23:09:18 GMT: Expanded Scripture Pane, step= 1
+Mon, 19 Nov 2018 23:09:18 GMT: Expanded Scripture Pane, finished in step 1
+Mon, 19 Nov 2018 23:09:18 GMT: Navigate dialog: "Expanded Scripture Pane"
+Mon, 19 Nov 2018 23:09:18 GMT: waiting for "Expanded Scripture Pane"
+Mon, 19 Nov 2018 23:09:18 GMT: "Expanded Scripture Pane" is visible
+Mon, 19 Nov 2018 23:09:18 GMT: reading "Expanded Scripture Pane Title"
+Mon, 19 Nov 2018 23:09:18 GMT: value of "Expanded Scripture Pane Title" is "Jude"
+Mon, 19 Nov 2018 23:09:18 GMT: scripturePaneTitle= Jude
+Mon, 19 Nov 2018 23:09:18 GMT: verse rows, step= 1
+Mon, 19 Nov 2018 23:09:18 GMT: verse rows, finished in step 1
+Mon, 19 Nov 2018 23:09:18 GMT: Navigate dialog: "verse rows"
+Mon, 19 Nov 2018 23:09:18 GMT: waiting for "verse rows"
+Mon, 19 Nov 2018 23:09:18 GMT: "verse rows" is visible
+Mon, 19 Nov 2018 23:09:18 GMT: Verse verseRow 13, step= 1
+Mon, 19 Nov 2018 23:09:18 GMT: Verse verseRow 13, finished in step 1
+Mon, 19 Nov 2018 23:09:18 GMT: Navigate dialog: "Verse verseRow 13"
+Mon, 19 Nov 2018 23:09:18 GMT: waiting for "Verse verseRow 13"
+Mon, 19 Nov 2018 23:09:19 GMT: "Verse verseRow 13" is visible
+Mon, 19 Nov 2018 23:09:19 GMT: clicking on Edit Verse verse 13, step= 1
+Mon, 19 Nov 2018 23:09:19 GMT: clicking on "Edit Verse verse 13"
+Mon, 19 Nov 2018 23:09:19 GMT: clicking on Edit Verse verse 13, finished in step 1
+Mon, 19 Nov 2018 23:09:19 GMT: Verse Editor, step= 1
+Mon, 19 Nov 2018 23:09:19 GMT: Verse Editor, not visible step 1
+Mon, 19 Nov 2018 23:09:20 GMT: Verse Editor, step= 2
+Mon, 19 Nov 2018 23:09:20 GMT: Verse Editor, finished in step 2
+Mon, 19 Nov 2018 23:09:20 GMT: Navigate dialog: "Verse Editor"
+Mon, 19 Nov 2018 23:09:20 GMT: waiting for "Verse Editor"
+Mon, 19 Nov 2018 23:09:20 GMT: "Verse Editor" is visible
+Mon, 19 Nov 2018 23:09:20 GMT: setting "Verse Editor" to "1:13 - verse text 13"
+Mon, 19 Nov 2018 23:09:21 GMT: clicking on Verse Editor Next, step= 1
+Mon, 19 Nov 2018 23:09:21 GMT: clicking on "Verse Editor Next"
+Mon, 19 Nov 2018 23:09:22 GMT: clicking on Verse Editor Next, finished in step 1
+Mon, 19 Nov 2018 23:09:22 GMT: clicking on Reason Punctuation, step= 1
+Mon, 19 Nov 2018 23:09:22 GMT: clicking on "Reason Punctuation"
+Mon, 19 Nov 2018 23:09:22 GMT: clicking on Reason Punctuation, finished in step 1
+Mon, 19 Nov 2018 23:09:22 GMT: clicking on Verse Editor Save, step= 1
+Mon, 19 Nov 2018 23:09:23 GMT: clicking on "Verse Editor Save"
+Mon, 19 Nov 2018 23:09:23 GMT: clicking on Verse Editor Save, finished in step 1
+Mon, 19 Nov 2018 23:09:23 GMT: Done editing verse 13
+Mon, 19 Nov 2018 23:09:23 GMT: reading "Verse Text 13, column1"
+Mon, 19 Nov 2018 23:09:24 GMT: value of "Verse Text 13, column1" is "1:13 - verse text 13"
+Mon, 19 Nov 2018 23:09:24 GMT: clicking on Close, step= 1
+Mon, 19 Nov 2018 23:09:24 GMT: clicking on "Close"
+Mon, 19 Nov 2018 23:09:24 GMT: clicking on Close, finished in step 1
+Mon, 19 Nov 2018 23:09:24 GMT: Verse edit time 9.737 seconds
+Mon, 19 Nov 2018 23:09:25 GMT: Memory Usage: 687804, pressure: 26%, growth: 51%
+Mon, 19 Nov 2018 23:09:25 GMT: Editing verse 14
+Mon, 19 Nov 2018 23:09:25 GMT: clicking on Chapter 1, verse 14, step= 1
+Mon, 19 Nov 2018 23:09:25 GMT: clicking on "Chapter 1, verse 14"
+Mon, 19 Nov 2018 23:09:25 GMT: clicking on Chapter 1, verse 14, finished in step 1
+Mon, 19 Nov 2018 23:09:25 GMT: clicking on Word Card 3, step= 1
+Mon, 19 Nov 2018 23:09:26 GMT: clicking on "Word Card 3"
+Mon, 19 Nov 2018 23:09:26 GMT: clicking on Word Card 3, finished in step 1
+Mon, 19 Nov 2018 23:09:26 GMT: reading "Alignment Item OL 3"
+Mon, 19 Nov 2018 23:09:26 GMT: value of "Alignment Item OL 3" is "καὶ"
+Mon, 19 Nov 2018 23:09:26 GMT: cardOL= καὶ
+Mon, 19 Nov 2018 23:09:26 GMT: clicking on wordAlignment expand scripture pane, step= 1
+Mon, 19 Nov 2018 23:09:27 GMT: clicking on "wordAlignment expand scripture pane"
+Mon, 19 Nov 2018 23:09:27 GMT: clicking on wordAlignment expand scripture pane, finished in step 1
+Mon, 19 Nov 2018 23:09:28 GMT: Expanded Scripture Pane, step= 1
+Mon, 19 Nov 2018 23:09:28 GMT: Expanded Scripture Pane, finished in step 1
+Mon, 19 Nov 2018 23:09:28 GMT: Navigate dialog: "Expanded Scripture Pane"
+Mon, 19 Nov 2018 23:09:28 GMT: waiting for "Expanded Scripture Pane"
+Mon, 19 Nov 2018 23:09:28 GMT: "Expanded Scripture Pane" is visible
+Mon, 19 Nov 2018 23:09:28 GMT: reading "Expanded Scripture Pane Title"
+Mon, 19 Nov 2018 23:09:28 GMT: value of "Expanded Scripture Pane Title" is "Jude"
+Mon, 19 Nov 2018 23:09:28 GMT: scripturePaneTitle= Jude
+Mon, 19 Nov 2018 23:09:28 GMT: verse rows, step= 1
+Mon, 19 Nov 2018 23:09:28 GMT: verse rows, finished in step 1
+Mon, 19 Nov 2018 23:09:28 GMT: Navigate dialog: "verse rows"
+Mon, 19 Nov 2018 23:09:28 GMT: waiting for "verse rows"
+Mon, 19 Nov 2018 23:09:28 GMT: "verse rows" is visible
+Mon, 19 Nov 2018 23:09:28 GMT: Verse verseRow 14, step= 1
+Mon, 19 Nov 2018 23:09:28 GMT: Verse verseRow 14, finished in step 1
+Mon, 19 Nov 2018 23:09:28 GMT: Navigate dialog: "Verse verseRow 14"
+Mon, 19 Nov 2018 23:09:28 GMT: waiting for "Verse verseRow 14"
+Mon, 19 Nov 2018 23:09:28 GMT: "Verse verseRow 14" is visible
+Mon, 19 Nov 2018 23:09:28 GMT: clicking on Edit Verse verse 14, step= 1
+Mon, 19 Nov 2018 23:09:29 GMT: clicking on "Edit Verse verse 14"
+Mon, 19 Nov 2018 23:09:29 GMT: clicking on Edit Verse verse 14, finished in step 1
+Mon, 19 Nov 2018 23:09:29 GMT: Verse Editor, step= 1
+Mon, 19 Nov 2018 23:09:29 GMT: Verse Editor, finished in step 1
+Mon, 19 Nov 2018 23:09:29 GMT: Navigate dialog: "Verse Editor"
+Mon, 19 Nov 2018 23:09:29 GMT: waiting for "Verse Editor"
+Mon, 19 Nov 2018 23:09:29 GMT: "Verse Editor" is visible
+Mon, 19 Nov 2018 23:09:30 GMT: setting "Verse Editor" to "1:14 - verse text 14"
+Mon, 19 Nov 2018 23:09:31 GMT: clicking on Verse Editor Next, step= 1
+Mon, 19 Nov 2018 23:09:31 GMT: clicking on "Verse Editor Next"
+Mon, 19 Nov 2018 23:09:31 GMT: clicking on Verse Editor Next, finished in step 1
+Mon, 19 Nov 2018 23:09:31 GMT: clicking on Reason Word Choice, step= 1
+Mon, 19 Nov 2018 23:09:32 GMT: clicking on "Reason Word Choice"
+Mon, 19 Nov 2018 23:09:32 GMT: clicking on Reason Word Choice, finished in step 1
+Mon, 19 Nov 2018 23:09:32 GMT: clicking on Verse Editor Save, step= 1
+Mon, 19 Nov 2018 23:09:32 GMT: clicking on "Verse Editor Save"
+Mon, 19 Nov 2018 23:09:33 GMT: clicking on Verse Editor Save, finished in step 1
+Mon, 19 Nov 2018 23:09:33 GMT: Done editing verse 14
+Mon, 19 Nov 2018 23:09:33 GMT: reading "Verse Text 14, column1"
+Mon, 19 Nov 2018 23:09:33 GMT: value of "Verse Text 14, column1" is "1:14 - verse text 14"
+Mon, 19 Nov 2018 23:09:33 GMT: clicking on Close, step= 1
+Mon, 19 Nov 2018 23:09:34 GMT: clicking on "Close"
+Mon, 19 Nov 2018 23:09:34 GMT: clicking on Close, finished in step 1
+Mon, 19 Nov 2018 23:09:34 GMT: Verse edit time 9.741 seconds
+Mon, 19 Nov 2018 23:09:34 GMT: Memory Usage: 711560, pressure: 27%, growth: 56%
+Mon, 19 Nov 2018 23:09:34 GMT: Editing verse 15
+Mon, 19 Nov 2018 23:09:34 GMT: clicking on Chapter 1, verse 15, step= 1
+Mon, 19 Nov 2018 23:09:35 GMT: clicking on "Chapter 1, verse 15"
+Mon, 19 Nov 2018 23:09:35 GMT: clicking on Chapter 1, verse 15, finished in step 1
+Mon, 19 Nov 2018 23:09:35 GMT: clicking on Word Card 1, step= 1
+Mon, 19 Nov 2018 23:09:36 GMT: clicking on "Word Card 1"
+Mon, 19 Nov 2018 23:09:36 GMT: clicking on Word Card 1, finished in step 1
+Mon, 19 Nov 2018 23:09:36 GMT: reading "Alignment Item OL 3"
+Mon, 19 Nov 2018 23:09:36 GMT: value of "Alignment Item OL 3" is "κατὰ"
+Mon, 19 Nov 2018 23:09:36 GMT: cardOL= κατὰ
+Mon, 19 Nov 2018 23:09:36 GMT: clicking on wordAlignment expand scripture pane, step= 1
+Mon, 19 Nov 2018 23:09:36 GMT: clicking on "wordAlignment expand scripture pane"
+Mon, 19 Nov 2018 23:09:37 GMT: clicking on wordAlignment expand scripture pane, finished in step 1
+Mon, 19 Nov 2018 23:09:38 GMT: Expanded Scripture Pane, step= 1
+Mon, 19 Nov 2018 23:09:38 GMT: Expanded Scripture Pane, finished in step 1
+Mon, 19 Nov 2018 23:09:38 GMT: Navigate dialog: "Expanded Scripture Pane"
+Mon, 19 Nov 2018 23:09:38 GMT: waiting for "Expanded Scripture Pane"
+Mon, 19 Nov 2018 23:09:38 GMT: "Expanded Scripture Pane" is visible
+Mon, 19 Nov 2018 23:09:38 GMT: reading "Expanded Scripture Pane Title"
+Mon, 19 Nov 2018 23:09:38 GMT: value of "Expanded Scripture Pane Title" is "Jude"
+Mon, 19 Nov 2018 23:09:38 GMT: scripturePaneTitle= Jude
+Mon, 19 Nov 2018 23:09:38 GMT: verse rows, step= 1
+Mon, 19 Nov 2018 23:09:38 GMT: verse rows, finished in step 1
+Mon, 19 Nov 2018 23:09:38 GMT: Navigate dialog: "verse rows"
+Mon, 19 Nov 2018 23:09:38 GMT: waiting for "verse rows"
+Mon, 19 Nov 2018 23:09:39 GMT: "verse rows" is visible
+Mon, 19 Nov 2018 23:09:39 GMT: Verse verseRow 15, step= 1
+Mon, 19 Nov 2018 23:09:39 GMT: Verse verseRow 15, finished in step 1
+Mon, 19 Nov 2018 23:09:39 GMT: Navigate dialog: "Verse verseRow 15"
+Mon, 19 Nov 2018 23:09:39 GMT: waiting for "Verse verseRow 15"
+Mon, 19 Nov 2018 23:09:39 GMT: "Verse verseRow 15" is visible
+Mon, 19 Nov 2018 23:09:39 GMT: clicking on Edit Verse verse 15, step= 1
+Mon, 19 Nov 2018 23:09:39 GMT: clicking on "Edit Verse verse 15"
+Mon, 19 Nov 2018 23:09:40 GMT: clicking on Edit Verse verse 15, finished in step 1
+Mon, 19 Nov 2018 23:09:40 GMT: Verse Editor, step= 1
+Mon, 19 Nov 2018 23:09:40 GMT: Verse Editor, finished in step 1
+Mon, 19 Nov 2018 23:09:40 GMT: Navigate dialog: "Verse Editor"
+Mon, 19 Nov 2018 23:09:40 GMT: waiting for "Verse Editor"
+Mon, 19 Nov 2018 23:09:40 GMT: "Verse Editor" is visible
+Mon, 19 Nov 2018 23:09:40 GMT: setting "Verse Editor" to "1:15 - verse text 15"
+Mon, 19 Nov 2018 23:09:41 GMT: clicking on Verse Editor Next, step= 1
+Mon, 19 Nov 2018 23:09:41 GMT: clicking on "Verse Editor Next"
+Mon, 19 Nov 2018 23:09:42 GMT: clicking on Verse Editor Next, finished in step 1
+Mon, 19 Nov 2018 23:09:42 GMT: clicking on Reason Meaning, step= 1
+Mon, 19 Nov 2018 23:09:42 GMT: clicking on "Reason Meaning"
+Mon, 19 Nov 2018 23:09:42 GMT: clicking on Reason Meaning, finished in step 1
+Mon, 19 Nov 2018 23:09:42 GMT: clicking on Verse Editor Save, step= 1
+Mon, 19 Nov 2018 23:09:43 GMT: clicking on "Verse Editor Save"
+Mon, 19 Nov 2018 23:09:43 GMT: clicking on Verse Editor Save, finished in step 1
+Mon, 19 Nov 2018 23:09:43 GMT: Done editing verse 15
+Mon, 19 Nov 2018 23:09:43 GMT: reading "Verse Text 15, column1"
+Mon, 19 Nov 2018 23:09:44 GMT: value of "Verse Text 15, column1" is "1:15 - verse text 15"
+Mon, 19 Nov 2018 23:09:44 GMT: clicking on Close, step= 1
+Mon, 19 Nov 2018 23:09:44 GMT: clicking on "Close"
+Mon, 19 Nov 2018 23:09:45 GMT: clicking on Close, finished in step 1
+Mon, 19 Nov 2018 23:09:45 GMT: Verse edit time 10.434 seconds
+Mon, 19 Nov 2018 23:09:45 GMT: Memory Usage: 733052, pressure: 28%, growth: 61%
+Mon, 19 Nov 2018 23:09:45 GMT: Editing verse 16
+Mon, 19 Nov 2018 23:09:45 GMT: clicking on Chapter 1, verse 16, step= 1
+Mon, 19 Nov 2018 23:09:45 GMT: clicking on "Chapter 1, verse 16"
+Mon, 19 Nov 2018 23:09:46 GMT: clicking on Chapter 1, verse 16, finished in step 1
+Mon, 19 Nov 2018 23:09:46 GMT: clicking on Word Card 2, step= 1
+Mon, 19 Nov 2018 23:09:46 GMT: clicking on "Word Card 2"
+Mon, 19 Nov 2018 23:09:46 GMT: clicking on Word Card 2, finished in step 1
+Mon, 19 Nov 2018 23:09:46 GMT: reading "Alignment Item OL 3"
+Mon, 19 Nov 2018 23:09:46 GMT: value of "Alignment Item OL 3" is "γογγυσταί"
+Mon, 19 Nov 2018 23:09:46 GMT: cardOL= γογγυσταί
+Mon, 19 Nov 2018 23:09:46 GMT: clicking on wordAlignment expand scripture pane, step= 1
+Mon, 19 Nov 2018 23:09:47 GMT: clicking on "wordAlignment expand scripture pane"
+Mon, 19 Nov 2018 23:09:48 GMT: clicking on wordAlignment expand scripture pane, finished in step 1
+Mon, 19 Nov 2018 23:09:48 GMT: Expanded Scripture Pane, step= 1
+Mon, 19 Nov 2018 23:09:48 GMT: Expanded Scripture Pane, finished in step 1
+Mon, 19 Nov 2018 23:09:48 GMT: Navigate dialog: "Expanded Scripture Pane"
+Mon, 19 Nov 2018 23:09:48 GMT: waiting for "Expanded Scripture Pane"
+Mon, 19 Nov 2018 23:09:48 GMT: "Expanded Scripture Pane" is visible
+Mon, 19 Nov 2018 23:09:48 GMT: reading "Expanded Scripture Pane Title"
+Mon, 19 Nov 2018 23:09:48 GMT: value of "Expanded Scripture Pane Title" is "Jude"
+Mon, 19 Nov 2018 23:09:48 GMT: scripturePaneTitle= Jude
+Mon, 19 Nov 2018 23:09:48 GMT: verse rows, step= 1
+Mon, 19 Nov 2018 23:09:48 GMT: verse rows, finished in step 1
+Mon, 19 Nov 2018 23:09:48 GMT: Navigate dialog: "verse rows"
+Mon, 19 Nov 2018 23:09:48 GMT: waiting for "verse rows"
+Mon, 19 Nov 2018 23:09:48 GMT: "verse rows" is visible
+Mon, 19 Nov 2018 23:09:48 GMT: Verse verseRow 16, step= 1
+Mon, 19 Nov 2018 23:09:48 GMT: Verse verseRow 16, finished in step 1
+Mon, 19 Nov 2018 23:09:48 GMT: Navigate dialog: "Verse verseRow 16"
+Mon, 19 Nov 2018 23:09:48 GMT: waiting for "Verse verseRow 16"
+Mon, 19 Nov 2018 23:09:49 GMT: "Verse verseRow 16" is visible
+Mon, 19 Nov 2018 23:09:49 GMT: clicking on Edit Verse verse 16, step= 1
+Mon, 19 Nov 2018 23:09:49 GMT: clicking on "Edit Verse verse 16"
+Mon, 19 Nov 2018 23:09:49 GMT: clicking on Edit Verse verse 16, finished in step 1
+Mon, 19 Nov 2018 23:09:49 GMT: Verse Editor, step= 1
+Mon, 19 Nov 2018 23:09:49 GMT: Verse Editor, not visible step 1
+Mon, 19 Nov 2018 23:09:49 GMT: Verse Editor, step= 2
+Mon, 19 Nov 2018 23:09:49 GMT: Verse Editor, finished in step 2
+Mon, 19 Nov 2018 23:09:49 GMT: Navigate dialog: "Verse Editor"
+Mon, 19 Nov 2018 23:09:49 GMT: waiting for "Verse Editor"
+Mon, 19 Nov 2018 23:09:50 GMT: "Verse Editor" is visible
+Mon, 19 Nov 2018 23:09:50 GMT: setting "Verse Editor" to "1:16 - verse text 16"
+Mon, 19 Nov 2018 23:09:51 GMT: clicking on Verse Editor Next, step= 1
+Mon, 19 Nov 2018 23:09:51 GMT: clicking on "Verse Editor Next"
+Mon, 19 Nov 2018 23:09:51 GMT: clicking on Verse Editor Next, finished in step 1
+Mon, 19 Nov 2018 23:09:51 GMT: clicking on Reason Grammar, step= 1
+Mon, 19 Nov 2018 23:09:52 GMT: clicking on "Reason Grammar"
+Mon, 19 Nov 2018 23:09:52 GMT: clicking on Reason Grammar, finished in step 1
+Mon, 19 Nov 2018 23:09:52 GMT: clicking on Verse Editor Save, step= 1
+Mon, 19 Nov 2018 23:09:53 GMT: clicking on "Verse Editor Save"
+Mon, 19 Nov 2018 23:09:53 GMT: clicking on Verse Editor Save, finished in step 1
+Mon, 19 Nov 2018 23:09:53 GMT: Done editing verse 16
+Mon, 19 Nov 2018 23:09:53 GMT: reading "Verse Text 16, column1"
+Mon, 19 Nov 2018 23:09:54 GMT: value of "Verse Text 16, column1" is "1:16 - verse text 16"
+Mon, 19 Nov 2018 23:09:54 GMT: clicking on Close, step= 1
+Mon, 19 Nov 2018 23:09:54 GMT: clicking on "Close"
+Mon, 19 Nov 2018 23:09:55 GMT: clicking on Close, finished in step 1
+Mon, 19 Nov 2018 23:09:55 GMT: Verse edit time 9.857 seconds
+Mon, 19 Nov 2018 23:09:55 GMT: Memory Usage: 743900, pressure: 28%, growth: 63%
+Mon, 19 Nov 2018 23:09:55 GMT: Editing verse 17
+Mon, 19 Nov 2018 23:09:55 GMT: clicking on Chapter 1, verse 17, step= 1
+Mon, 19 Nov 2018 23:09:55 GMT: clicking on "Chapter 1, verse 17"
+Mon, 19 Nov 2018 23:09:56 GMT: clicking on Chapter 1, verse 17, finished in step 1
+Mon, 19 Nov 2018 23:09:56 GMT: clicking on Word Card 3, step= 1
+Mon, 19 Nov 2018 23:09:56 GMT: clicking on "Word Card 3"
+Mon, 19 Nov 2018 23:09:56 GMT: clicking on Word Card 3, finished in step 1
+Mon, 19 Nov 2018 23:09:56 GMT: reading "Alignment Item OL 3"
+Mon, 19 Nov 2018 23:09:56 GMT: value of "Alignment Item OL 3" is "ἀγαπητοί"
+Mon, 19 Nov 2018 23:09:56 GMT: cardOL= ἀγαπητοί
+Mon, 19 Nov 2018 23:09:56 GMT: clicking on wordAlignment expand scripture pane, step= 1
+Mon, 19 Nov 2018 23:09:57 GMT: clicking on "wordAlignment expand scripture pane"
+Mon, 19 Nov 2018 23:09:57 GMT: clicking on wordAlignment expand scripture pane, finished in step 1
+Mon, 19 Nov 2018 23:09:58 GMT: Expanded Scripture Pane, step= 1
+Mon, 19 Nov 2018 23:09:58 GMT: Expanded Scripture Pane, finished in step 1
+Mon, 19 Nov 2018 23:09:58 GMT: Navigate dialog: "Expanded Scripture Pane"
+Mon, 19 Nov 2018 23:09:58 GMT: waiting for "Expanded Scripture Pane"
+Mon, 19 Nov 2018 23:09:58 GMT: "Expanded Scripture Pane" is visible
+Mon, 19 Nov 2018 23:09:58 GMT: reading "Expanded Scripture Pane Title"
+Mon, 19 Nov 2018 23:09:58 GMT: value of "Expanded Scripture Pane Title" is "Jude"
+Mon, 19 Nov 2018 23:09:58 GMT: scripturePaneTitle= Jude
+Mon, 19 Nov 2018 23:09:58 GMT: verse rows, step= 1
+Mon, 19 Nov 2018 23:09:58 GMT: verse rows, finished in step 1
+Mon, 19 Nov 2018 23:09:58 GMT: Navigate dialog: "verse rows"
+Mon, 19 Nov 2018 23:09:58 GMT: waiting for "verse rows"
+Mon, 19 Nov 2018 23:09:58 GMT: "verse rows" is visible
+Mon, 19 Nov 2018 23:09:58 GMT: Verse verseRow 17, step= 1
+Mon, 19 Nov 2018 23:09:58 GMT: Verse verseRow 17, finished in step 1
+Mon, 19 Nov 2018 23:09:58 GMT: Navigate dialog: "Verse verseRow 17"
+Mon, 19 Nov 2018 23:09:58 GMT: waiting for "Verse verseRow 17"
+Mon, 19 Nov 2018 23:09:58 GMT: "Verse verseRow 17" is visible
+Mon, 19 Nov 2018 23:09:58 GMT: clicking on Edit Verse verse 17, step= 1
+Mon, 19 Nov 2018 23:09:59 GMT: clicking on "Edit Verse verse 17"
+Mon, 19 Nov 2018 23:09:59 GMT: clicking on Edit Verse verse 17, finished in step 1
+Mon, 19 Nov 2018 23:09:59 GMT: Verse Editor, step= 1
+Mon, 19 Nov 2018 23:09:59 GMT: Verse Editor, finished in step 1
+Mon, 19 Nov 2018 23:09:59 GMT: Navigate dialog: "Verse Editor"
+Mon, 19 Nov 2018 23:09:59 GMT: waiting for "Verse Editor"
+Mon, 19 Nov 2018 23:09:59 GMT: "Verse Editor" is visible
+Mon, 19 Nov 2018 23:10:00 GMT: setting "Verse Editor" to "1:17 - verse text 17"
+Mon, 19 Nov 2018 23:10:01 GMT: clicking on Verse Editor Next, step= 1
+Mon, 19 Nov 2018 23:10:01 GMT: clicking on "Verse Editor Next"
+Mon, 19 Nov 2018 23:10:01 GMT: clicking on Verse Editor Next, finished in step 1
+Mon, 19 Nov 2018 23:10:01 GMT: clicking on Reason Other, step= 1
+Mon, 19 Nov 2018 23:10:02 GMT: clicking on "Reason Other"
+Mon, 19 Nov 2018 23:10:02 GMT: clicking on Reason Other, finished in step 1
+Mon, 19 Nov 2018 23:10:02 GMT: clicking on Verse Editor Save, step= 1
+Mon, 19 Nov 2018 23:10:02 GMT: clicking on "Verse Editor Save"
+Mon, 19 Nov 2018 23:10:03 GMT: clicking on Verse Editor Save, finished in step 1
+Mon, 19 Nov 2018 23:10:03 GMT: Done editing verse 17
+Mon, 19 Nov 2018 23:10:03 GMT: reading "Verse Text 17, column1"
+Mon, 19 Nov 2018 23:10:03 GMT: value of "Verse Text 17, column1" is "1:17 - verse text 17"
+Mon, 19 Nov 2018 23:10:03 GMT: clicking on Close, step= 1
+Mon, 19 Nov 2018 23:10:04 GMT: clicking on "Close"
+Mon, 19 Nov 2018 23:10:04 GMT: clicking on Close, finished in step 1
+Mon, 19 Nov 2018 23:10:04 GMT: Verse edit time 9.715 seconds
+Mon, 19 Nov 2018 23:10:04 GMT: Memory Usage: 766980, pressure: 29%, growth: 68%
+Mon, 19 Nov 2018 23:10:04 GMT: Editing verse 18
+Mon, 19 Nov 2018 23:10:04 GMT: clicking on Chapter 1, verse 18, step= 1
+Mon, 19 Nov 2018 23:10:05 GMT: clicking on "Chapter 1, verse 18"
+Mon, 19 Nov 2018 23:10:05 GMT: clicking on Chapter 1, verse 18, finished in step 1
+Mon, 19 Nov 2018 23:10:05 GMT: clicking on Word Card 1, step= 1
+Mon, 19 Nov 2018 23:10:06 GMT: clicking on "Word Card 1"
+Mon, 19 Nov 2018 23:10:06 GMT: clicking on Word Card 1, finished in step 1
+Mon, 19 Nov 2018 23:10:06 GMT: reading "Alignment Item OL 3"
+Mon, 19 Nov 2018 23:10:06 GMT: value of "Alignment Item OL 3" is "ὑμῖν"
+Mon, 19 Nov 2018 23:10:06 GMT: cardOL= ὑμῖν
+Mon, 19 Nov 2018 23:10:06 GMT: clicking on wordAlignment expand scripture pane, step= 1
+Mon, 19 Nov 2018 23:10:06 GMT: clicking on "wordAlignment expand scripture pane"
+Mon, 19 Nov 2018 23:10:07 GMT: clicking on wordAlignment expand scripture pane, finished in step 1
+Mon, 19 Nov 2018 23:10:08 GMT: Expanded Scripture Pane, step= 1
+Mon, 19 Nov 2018 23:10:08 GMT: Expanded Scripture Pane, finished in step 1
+Mon, 19 Nov 2018 23:10:08 GMT: Navigate dialog: "Expanded Scripture Pane"
+Mon, 19 Nov 2018 23:10:08 GMT: waiting for "Expanded Scripture Pane"
+Mon, 19 Nov 2018 23:10:08 GMT: "Expanded Scripture Pane" is visible
+Mon, 19 Nov 2018 23:10:08 GMT: reading "Expanded Scripture Pane Title"
+Mon, 19 Nov 2018 23:10:08 GMT: value of "Expanded Scripture Pane Title" is "Jude"
+Mon, 19 Nov 2018 23:10:08 GMT: scripturePaneTitle= Jude
+Mon, 19 Nov 2018 23:10:08 GMT: verse rows, step= 1
+Mon, 19 Nov 2018 23:10:08 GMT: verse rows, finished in step 1
+Mon, 19 Nov 2018 23:10:08 GMT: Navigate dialog: "verse rows"
+Mon, 19 Nov 2018 23:10:08 GMT: waiting for "verse rows"
+Mon, 19 Nov 2018 23:10:08 GMT: "verse rows" is visible
+Mon, 19 Nov 2018 23:10:08 GMT: Verse verseRow 18, step= 1
+Mon, 19 Nov 2018 23:10:08 GMT: Verse verseRow 18, finished in step 1
+Mon, 19 Nov 2018 23:10:08 GMT: Navigate dialog: "Verse verseRow 18"
+Mon, 19 Nov 2018 23:10:08 GMT: waiting for "Verse verseRow 18"
+Mon, 19 Nov 2018 23:10:08 GMT: "Verse verseRow 18" is visible
+Mon, 19 Nov 2018 23:10:08 GMT: clicking on Edit Verse verse 18, step= 1
+Mon, 19 Nov 2018 23:10:09 GMT: clicking on "Edit Verse verse 18"
+Mon, 19 Nov 2018 23:10:09 GMT: clicking on Edit Verse verse 18, finished in step 1
+Mon, 19 Nov 2018 23:10:09 GMT: Verse Editor, step= 1
+Mon, 19 Nov 2018 23:10:09 GMT: Verse Editor, finished in step 1
+Mon, 19 Nov 2018 23:10:09 GMT: Navigate dialog: "Verse Editor"
+Mon, 19 Nov 2018 23:10:09 GMT: waiting for "Verse Editor"
+Mon, 19 Nov 2018 23:10:09 GMT: "Verse Editor" is visible
+Mon, 19 Nov 2018 23:10:10 GMT: setting "Verse Editor" to "1:18 - verse text 18"
+Mon, 19 Nov 2018 23:10:10 GMT: clicking on Verse Editor Next, step= 1
+Mon, 19 Nov 2018 23:10:11 GMT: clicking on "Verse Editor Next"
+Mon, 19 Nov 2018 23:10:11 GMT: clicking on Verse Editor Next, finished in step 1
+Mon, 19 Nov 2018 23:10:11 GMT: clicking on Reason Spelling, step= 1
+Mon, 19 Nov 2018 23:10:12 GMT: clicking on "Reason Spelling"
+Mon, 19 Nov 2018 23:10:12 GMT: clicking on Reason Spelling, finished in step 1
+Mon, 19 Nov 2018 23:10:12 GMT: clicking on Verse Editor Save, step= 1
+Mon, 19 Nov 2018 23:10:12 GMT: clicking on "Verse Editor Save"
+Mon, 19 Nov 2018 23:10:13 GMT: clicking on Verse Editor Save, finished in step 1
+Mon, 19 Nov 2018 23:10:13 GMT: Done editing verse 18
+Mon, 19 Nov 2018 23:10:13 GMT: reading "Verse Text 18, column1"
+Mon, 19 Nov 2018 23:10:13 GMT: value of "Verse Text 18, column1" is "1:18 - verse text 18"
+Mon, 19 Nov 2018 23:10:13 GMT: clicking on Close, step= 1
+Mon, 19 Nov 2018 23:10:14 GMT: clicking on "Close"
+Mon, 19 Nov 2018 23:10:14 GMT: clicking on Close, finished in step 1
+Mon, 19 Nov 2018 23:10:14 GMT: Verse edit time 9.82 seconds
+Mon, 19 Nov 2018 23:10:14 GMT: Memory Usage: 811884, pressure: 31%, growth: 78%
+Mon, 19 Nov 2018 23:10:14 GMT: Editing verse 19
+Mon, 19 Nov 2018 23:10:14 GMT: clicking on Chapter 1, verse 19, step= 1
+Mon, 19 Nov 2018 23:10:15 GMT: clicking on "Chapter 1, verse 19"
+Mon, 19 Nov 2018 23:10:16 GMT: clicking on Chapter 1, verse 19, finished in step 1
+Mon, 19 Nov 2018 23:10:16 GMT: clicking on Word Card 2, step= 1
+Mon, 19 Nov 2018 23:10:16 GMT: clicking on "Word Card 2"
+Mon, 19 Nov 2018 23:10:16 GMT: clicking on Word Card 2, finished in step 1
+Mon, 19 Nov 2018 23:10:16 GMT: reading "Alignment Item OL 3"
+Mon, 19 Nov 2018 23:10:16 GMT: value of "Alignment Item OL 3" is "οἱ"
+Mon, 19 Nov 2018 23:10:16 GMT: cardOL= οἱ
+Mon, 19 Nov 2018 23:10:16 GMT: clicking on wordAlignment expand scripture pane, step= 1
+Mon, 19 Nov 2018 23:10:17 GMT: clicking on "wordAlignment expand scripture pane"
+Mon, 19 Nov 2018 23:10:18 GMT: clicking on wordAlignment expand scripture pane, finished in step 1
+Mon, 19 Nov 2018 23:10:18 GMT: Expanded Scripture Pane, step= 1
+Mon, 19 Nov 2018 23:10:18 GMT: Expanded Scripture Pane, finished in step 1
+Mon, 19 Nov 2018 23:10:18 GMT: Navigate dialog: "Expanded Scripture Pane"
+Mon, 19 Nov 2018 23:10:18 GMT: waiting for "Expanded Scripture Pane"
+Mon, 19 Nov 2018 23:10:18 GMT: "Expanded Scripture Pane" is visible
+Mon, 19 Nov 2018 23:10:18 GMT: reading "Expanded Scripture Pane Title"
+Mon, 19 Nov 2018 23:10:18 GMT: value of "Expanded Scripture Pane Title" is "Jude"
+Mon, 19 Nov 2018 23:10:18 GMT: scripturePaneTitle= Jude
+Mon, 19 Nov 2018 23:10:18 GMT: verse rows, step= 1
+Mon, 19 Nov 2018 23:10:18 GMT: verse rows, finished in step 1
+Mon, 19 Nov 2018 23:10:18 GMT: Navigate dialog: "verse rows"
+Mon, 19 Nov 2018 23:10:18 GMT: waiting for "verse rows"
+Mon, 19 Nov 2018 23:10:18 GMT: "verse rows" is visible
+Mon, 19 Nov 2018 23:10:18 GMT: Verse verseRow 19, step= 1
+Mon, 19 Nov 2018 23:10:18 GMT: Verse verseRow 19, finished in step 1
+Mon, 19 Nov 2018 23:10:18 GMT: Navigate dialog: "Verse verseRow 19"
+Mon, 19 Nov 2018 23:10:18 GMT: waiting for "Verse verseRow 19"
+Mon, 19 Nov 2018 23:10:18 GMT: "Verse verseRow 19" is visible
+Mon, 19 Nov 2018 23:10:18 GMT: clicking on Edit Verse verse 19, step= 1
+Mon, 19 Nov 2018 23:10:19 GMT: clicking on "Edit Verse verse 19"
+Mon, 19 Nov 2018 23:10:19 GMT: clicking on Edit Verse verse 19, finished in step 1
+Mon, 19 Nov 2018 23:10:19 GMT: Verse Editor, step= 1
+Mon, 19 Nov 2018 23:10:19 GMT: Verse Editor, finished in step 1
+Mon, 19 Nov 2018 23:10:19 GMT: Navigate dialog: "Verse Editor"
+Mon, 19 Nov 2018 23:10:19 GMT: waiting for "Verse Editor"
+Mon, 19 Nov 2018 23:10:19 GMT: "Verse Editor" is visible
+Mon, 19 Nov 2018 23:10:20 GMT: setting "Verse Editor" to "1:19 - verse text 19"
+Mon, 19 Nov 2018 23:10:21 GMT: clicking on Verse Editor Next, step= 1
+Mon, 19 Nov 2018 23:10:21 GMT: clicking on "Verse Editor Next"
+Mon, 19 Nov 2018 23:10:21 GMT: clicking on Verse Editor Next, finished in step 1
+Mon, 19 Nov 2018 23:10:21 GMT: clicking on Reason Punctuation, step= 1
+Mon, 19 Nov 2018 23:10:22 GMT: clicking on "Reason Punctuation"
+Mon, 19 Nov 2018 23:10:22 GMT: clicking on Reason Punctuation, finished in step 1
+Mon, 19 Nov 2018 23:10:22 GMT: clicking on Verse Editor Save, step= 1
+Mon, 19 Nov 2018 23:10:23 GMT: clicking on "Verse Editor Save"
+Mon, 19 Nov 2018 23:10:23 GMT: clicking on Verse Editor Save, finished in step 1
+Mon, 19 Nov 2018 23:10:23 GMT: Done editing verse 19
+Mon, 19 Nov 2018 23:10:23 GMT: reading "Verse Text 19, column1"
+Mon, 19 Nov 2018 23:10:24 GMT: value of "Verse Text 19, column1" is "1:19 - verse text 19"
+Mon, 19 Nov 2018 23:10:24 GMT: clicking on Close, step= 1
+Mon, 19 Nov 2018 23:10:24 GMT: clicking on "Close"
+Mon, 19 Nov 2018 23:10:24 GMT: clicking on Close, finished in step 1
+Mon, 19 Nov 2018 23:10:24 GMT: Verse edit time 10.347 seconds
+Mon, 19 Nov 2018 23:10:24 GMT: Memory Usage: 810720, pressure: 31%, growth: 78%
+Mon, 19 Nov 2018 23:10:24 GMT: Editing verse 20
+Mon, 19 Nov 2018 23:10:24 GMT: clicking on Chapter 1, verse 20, step= 1
+Mon, 19 Nov 2018 23:10:25 GMT: clicking on "Chapter 1, verse 20"
+Mon, 19 Nov 2018 23:10:25 GMT: clicking on Chapter 1, verse 20, finished in step 1
+Mon, 19 Nov 2018 23:10:25 GMT: clicking on Word Card 3, step= 1
+Mon, 19 Nov 2018 23:10:26 GMT: clicking on "Word Card 3"
+Mon, 19 Nov 2018 23:10:26 GMT: clicking on Word Card 3, finished in step 1
+Mon, 19 Nov 2018 23:10:26 GMT: reading "Alignment Item OL 3"
+Mon, 19 Nov 2018 23:10:26 GMT: value of "Alignment Item OL 3" is "ἀγαπητοί"
+Mon, 19 Nov 2018 23:10:26 GMT: cardOL= ἀγαπητοί
+Mon, 19 Nov 2018 23:10:26 GMT: clicking on wordAlignment expand scripture pane, step= 1
+Mon, 19 Nov 2018 23:10:27 GMT: clicking on "wordAlignment expand scripture pane"
+Mon, 19 Nov 2018 23:10:27 GMT: clicking on wordAlignment expand scripture pane, finished in step 1
+Mon, 19 Nov 2018 23:10:28 GMT: Expanded Scripture Pane, step= 1
+Mon, 19 Nov 2018 23:10:29 GMT: Expanded Scripture Pane, finished in step 1
+Mon, 19 Nov 2018 23:10:29 GMT: Navigate dialog: "Expanded Scripture Pane"
+Mon, 19 Nov 2018 23:10:29 GMT: waiting for "Expanded Scripture Pane"
+Mon, 19 Nov 2018 23:10:29 GMT: "Expanded Scripture Pane" is visible
+Mon, 19 Nov 2018 23:10:29 GMT: reading "Expanded Scripture Pane Title"
+Mon, 19 Nov 2018 23:10:29 GMT: value of "Expanded Scripture Pane Title" is "Jude"
+Mon, 19 Nov 2018 23:10:29 GMT: scripturePaneTitle= Jude
+Mon, 19 Nov 2018 23:10:29 GMT: verse rows, step= 1
+Mon, 19 Nov 2018 23:10:29 GMT: verse rows, finished in step 1
+Mon, 19 Nov 2018 23:10:29 GMT: Navigate dialog: "verse rows"
+Mon, 19 Nov 2018 23:10:29 GMT: waiting for "verse rows"
+Mon, 19 Nov 2018 23:10:29 GMT: "verse rows" is visible
+Mon, 19 Nov 2018 23:10:29 GMT: Verse verseRow 20, step= 1
+Mon, 19 Nov 2018 23:10:29 GMT: Verse verseRow 20, finished in step 1
+Mon, 19 Nov 2018 23:10:29 GMT: Navigate dialog: "Verse verseRow 20"
+Mon, 19 Nov 2018 23:10:29 GMT: waiting for "Verse verseRow 20"
+Mon, 19 Nov 2018 23:10:29 GMT: "Verse verseRow 20" is visible
+Mon, 19 Nov 2018 23:10:29 GMT: clicking on Edit Verse verse 20, step= 1
+Mon, 19 Nov 2018 23:10:29 GMT: clicking on "Edit Verse verse 20"
+Mon, 19 Nov 2018 23:10:30 GMT: clicking on Edit Verse verse 20, finished in step 1
+Mon, 19 Nov 2018 23:10:30 GMT: Verse Editor, step= 1
+Mon, 19 Nov 2018 23:10:30 GMT: Verse Editor, not visible step 1
+Mon, 19 Nov 2018 23:10:30 GMT: Verse Editor, step= 2
+Mon, 19 Nov 2018 23:10:30 GMT: Verse Editor, finished in step 2
+Mon, 19 Nov 2018 23:10:30 GMT: Navigate dialog: "Verse Editor"
+Mon, 19 Nov 2018 23:10:30 GMT: waiting for "Verse Editor"
+Mon, 19 Nov 2018 23:10:30 GMT: "Verse Editor" is visible
+Mon, 19 Nov 2018 23:10:30 GMT: setting "Verse Editor" to "1:20 - verse text 20"
+Mon, 19 Nov 2018 23:10:31 GMT: clicking on Verse Editor Next, step= 1
+Mon, 19 Nov 2018 23:10:32 GMT: clicking on "Verse Editor Next"
+Mon, 19 Nov 2018 23:10:32 GMT: clicking on Verse Editor Next, finished in step 1
+Mon, 19 Nov 2018 23:10:32 GMT: clicking on Reason Word Choice, step= 1
+Mon, 19 Nov 2018 23:10:32 GMT: clicking on "Reason Word Choice"
+Mon, 19 Nov 2018 23:10:33 GMT: clicking on Reason Word Choice, finished in step 1
+Mon, 19 Nov 2018 23:10:33 GMT: clicking on Verse Editor Save, step= 1
+Mon, 19 Nov 2018 23:10:33 GMT: clicking on "Verse Editor Save"
+Mon, 19 Nov 2018 23:10:34 GMT: clicking on Verse Editor Save, finished in step 1
+Mon, 19 Nov 2018 23:10:34 GMT: Done editing verse 20
+Mon, 19 Nov 2018 23:10:34 GMT: reading "Verse Text 20, column1"
+Mon, 19 Nov 2018 23:10:34 GMT: value of "Verse Text 20, column1" is "1:20 - verse text 20"
+Mon, 19 Nov 2018 23:10:34 GMT: clicking on Close, step= 1
+Mon, 19 Nov 2018 23:10:35 GMT: clicking on "Close"
+Mon, 19 Nov 2018 23:10:35 GMT: clicking on Close, finished in step 1
+Mon, 19 Nov 2018 23:10:35 GMT: Verse edit time 10.405 seconds
+Mon, 19 Nov 2018 23:10:35 GMT: Memory Usage: 807580, pressure: 31%, growth: 77%
+Mon, 19 Nov 2018 23:10:35 GMT: Editing verse 21
+Mon, 19 Nov 2018 23:10:35 GMT: clicking on Chapter 1, verse 21, step= 1
+Mon, 19 Nov 2018 23:10:35 GMT: clicking on "Chapter 1, verse 21"
+Mon, 19 Nov 2018 23:10:36 GMT: clicking on Chapter 1, verse 21, finished in step 1
+Mon, 19 Nov 2018 23:10:36 GMT: clicking on Word Card 1, step= 1
+Mon, 19 Nov 2018 23:10:36 GMT: clicking on "Word Card 1"
+Mon, 19 Nov 2018 23:10:36 GMT: clicking on Word Card 1, finished in step 1
+Mon, 19 Nov 2018 23:10:36 GMT: reading "Alignment Item OL 3"
+Mon, 19 Nov 2018 23:10:36 GMT: value of "Alignment Item OL 3" is "ἀγάπῃ"
+Mon, 19 Nov 2018 23:10:36 GMT: cardOL= ἀγάπῃ
+Mon, 19 Nov 2018 23:10:36 GMT: clicking on wordAlignment expand scripture pane, step= 1
+Mon, 19 Nov 2018 23:10:37 GMT: clicking on "wordAlignment expand scripture pane"
+Mon, 19 Nov 2018 23:10:38 GMT: clicking on wordAlignment expand scripture pane, finished in step 1
+Mon, 19 Nov 2018 23:10:38 GMT: Expanded Scripture Pane, step= 1
+Mon, 19 Nov 2018 23:10:38 GMT: Expanded Scripture Pane, finished in step 1
+Mon, 19 Nov 2018 23:10:38 GMT: Navigate dialog: "Expanded Scripture Pane"
+Mon, 19 Nov 2018 23:10:38 GMT: waiting for "Expanded Scripture Pane"
+Mon, 19 Nov 2018 23:10:38 GMT: "Expanded Scripture Pane" is visible
+Mon, 19 Nov 2018 23:10:38 GMT: reading "Expanded Scripture Pane Title"
+Mon, 19 Nov 2018 23:10:38 GMT: value of "Expanded Scripture Pane Title" is "Jude"
+Mon, 19 Nov 2018 23:10:38 GMT: scripturePaneTitle= Jude
+Mon, 19 Nov 2018 23:10:38 GMT: verse rows, step= 1
+Mon, 19 Nov 2018 23:10:38 GMT: verse rows, finished in step 1
+Mon, 19 Nov 2018 23:10:38 GMT: Navigate dialog: "verse rows"
+Mon, 19 Nov 2018 23:10:39 GMT: waiting for "verse rows"
+Mon, 19 Nov 2018 23:10:39 GMT: "verse rows" is visible
+Mon, 19 Nov 2018 23:10:39 GMT: Verse verseRow 21, step= 1
+Mon, 19 Nov 2018 23:10:39 GMT: Verse verseRow 21, finished in step 1
+Mon, 19 Nov 2018 23:10:39 GMT: Navigate dialog: "Verse verseRow 21"
+Mon, 19 Nov 2018 23:10:39 GMT: waiting for "Verse verseRow 21"
+Mon, 19 Nov 2018 23:10:39 GMT: "Verse verseRow 21" is visible
+Mon, 19 Nov 2018 23:10:39 GMT: clicking on Edit Verse verse 21, step= 1
+Mon, 19 Nov 2018 23:10:39 GMT: clicking on "Edit Verse verse 21"
+Mon, 19 Nov 2018 23:10:40 GMT: clicking on Edit Verse verse 21, finished in step 1
+Mon, 19 Nov 2018 23:10:40 GMT: Verse Editor, step= 1
+Mon, 19 Nov 2018 23:10:40 GMT: Verse Editor, finished in step 1
+Mon, 19 Nov 2018 23:10:40 GMT: Navigate dialog: "Verse Editor"
+Mon, 19 Nov 2018 23:10:40 GMT: waiting for "Verse Editor"
+Mon, 19 Nov 2018 23:10:40 GMT: "Verse Editor" is visible
+Mon, 19 Nov 2018 23:10:40 GMT: setting "Verse Editor" to "1:21 - verse text 21"
+Mon, 19 Nov 2018 23:10:41 GMT: clicking on Verse Editor Next, step= 1
+Mon, 19 Nov 2018 23:10:41 GMT: clicking on "Verse Editor Next"
+Mon, 19 Nov 2018 23:10:42 GMT: clicking on Verse Editor Next, finished in step 1
+Mon, 19 Nov 2018 23:10:42 GMT: clicking on Reason Meaning, step= 1
+Mon, 19 Nov 2018 23:10:42 GMT: clicking on "Reason Meaning"
+Mon, 19 Nov 2018 23:10:42 GMT: clicking on Reason Meaning, finished in step 1
+Mon, 19 Nov 2018 23:10:42 GMT: clicking on Verse Editor Save, step= 1
+Mon, 19 Nov 2018 23:10:43 GMT: clicking on "Verse Editor Save"
+Mon, 19 Nov 2018 23:10:43 GMT: clicking on Verse Editor Save, finished in step 1
+Mon, 19 Nov 2018 23:10:43 GMT: Done editing verse 21
+Mon, 19 Nov 2018 23:10:43 GMT: reading "Verse Text 21, column1"
+Mon, 19 Nov 2018 23:10:44 GMT: value of "Verse Text 21, column1" is "1:21 - verse text 21"
+Mon, 19 Nov 2018 23:10:44 GMT: clicking on Close, step= 1
+Mon, 19 Nov 2018 23:10:44 GMT: clicking on "Close"
+Mon, 19 Nov 2018 23:10:45 GMT: clicking on Close, finished in step 1
+Mon, 19 Nov 2018 23:10:45 GMT: Verse edit time 9.775 seconds
+Mon, 19 Nov 2018 23:10:45 GMT: Memory Usage: 817584, pressure: 31%, growth: 79%
+Mon, 19 Nov 2018 23:10:45 GMT: Editing verse 22
+Mon, 19 Nov 2018 23:10:45 GMT: clicking on Chapter 1, verse 22, step= 1
+Mon, 19 Nov 2018 23:10:45 GMT: clicking on "Chapter 1, verse 22"
+Mon, 19 Nov 2018 23:10:46 GMT: clicking on Chapter 1, verse 22, finished in step 1
+Mon, 19 Nov 2018 23:10:46 GMT: clicking on Word Card 2, step= 1
+Mon, 19 Nov 2018 23:10:46 GMT: clicking on "Word Card 2"
+Mon, 19 Nov 2018 23:10:46 GMT: clicking on Word Card 2, finished in step 1
+Mon, 19 Nov 2018 23:10:46 GMT: reading "Alignment Item OL 3"
+Mon, 19 Nov 2018 23:10:46 GMT: value of "Alignment Item OL 3" is "μὲν"
+Mon, 19 Nov 2018 23:10:46 GMT: cardOL= μὲν
+Mon, 19 Nov 2018 23:10:46 GMT: clicking on wordAlignment expand scripture pane, step= 1
+Mon, 19 Nov 2018 23:10:47 GMT: clicking on "wordAlignment expand scripture pane"
+Mon, 19 Nov 2018 23:10:48 GMT: clicking on wordAlignment expand scripture pane, finished in step 1
+Mon, 19 Nov 2018 23:10:48 GMT: Expanded Scripture Pane, step= 1
+Mon, 19 Nov 2018 23:10:48 GMT: Expanded Scripture Pane, finished in step 1
+Mon, 19 Nov 2018 23:10:48 GMT: Navigate dialog: "Expanded Scripture Pane"
+Mon, 19 Nov 2018 23:10:48 GMT: waiting for "Expanded Scripture Pane"
+Mon, 19 Nov 2018 23:10:48 GMT: "Expanded Scripture Pane" is visible
+Mon, 19 Nov 2018 23:10:48 GMT: reading "Expanded Scripture Pane Title"
+Mon, 19 Nov 2018 23:10:48 GMT: value of "Expanded Scripture Pane Title" is "Jude"
+Mon, 19 Nov 2018 23:10:48 GMT: scripturePaneTitle= Jude
+Mon, 19 Nov 2018 23:10:48 GMT: verse rows, step= 1
+Mon, 19 Nov 2018 23:10:48 GMT: verse rows, finished in step 1
+Mon, 19 Nov 2018 23:10:48 GMT: Navigate dialog: "verse rows"
+Mon, 19 Nov 2018 23:10:48 GMT: waiting for "verse rows"
+Mon, 19 Nov 2018 23:10:48 GMT: "verse rows" is visible
+Mon, 19 Nov 2018 23:10:48 GMT: Verse verseRow 22, step= 1
+Mon, 19 Nov 2018 23:10:48 GMT: Verse verseRow 22, finished in step 1
+Mon, 19 Nov 2018 23:10:48 GMT: Navigate dialog: "Verse verseRow 22"
+Mon, 19 Nov 2018 23:10:48 GMT: waiting for "Verse verseRow 22"
+Mon, 19 Nov 2018 23:10:48 GMT: "Verse verseRow 22" is visible
+Mon, 19 Nov 2018 23:10:48 GMT: clicking on Edit Verse verse 22, step= 1
+Mon, 19 Nov 2018 23:10:49 GMT: clicking on "Edit Verse verse 22"
+Mon, 19 Nov 2018 23:10:49 GMT: clicking on Edit Verse verse 22, finished in step 1
+Mon, 19 Nov 2018 23:10:49 GMT: Verse Editor, step= 1
+Mon, 19 Nov 2018 23:10:49 GMT: Verse Editor, not visible step 1
+Mon, 19 Nov 2018 23:10:49 GMT: Verse Editor, step= 2
+Mon, 19 Nov 2018 23:10:49 GMT: Verse Editor, finished in step 2
+Mon, 19 Nov 2018 23:10:49 GMT: Navigate dialog: "Verse Editor"
+Mon, 19 Nov 2018 23:10:49 GMT: waiting for "Verse Editor"
+Mon, 19 Nov 2018 23:10:49 GMT: "Verse Editor" is visible
+Mon, 19 Nov 2018 23:10:50 GMT: setting "Verse Editor" to "1:22 - verse text 22"
+Mon, 19 Nov 2018 23:10:51 GMT: clicking on Verse Editor Next, step= 1
+Mon, 19 Nov 2018 23:10:51 GMT: clicking on "Verse Editor Next"
+Mon, 19 Nov 2018 23:10:51 GMT: clicking on Verse Editor Next, finished in step 1
+Mon, 19 Nov 2018 23:10:51 GMT: clicking on Reason Grammar, step= 1
+Mon, 19 Nov 2018 23:10:52 GMT: clicking on "Reason Grammar"
+Mon, 19 Nov 2018 23:10:52 GMT: clicking on Reason Grammar, finished in step 1
+Mon, 19 Nov 2018 23:10:52 GMT: clicking on Verse Editor Save, step= 1
+Mon, 19 Nov 2018 23:10:53 GMT: clicking on "Verse Editor Save"
+Mon, 19 Nov 2018 23:10:53 GMT: clicking on Verse Editor Save, finished in step 1
+Mon, 19 Nov 2018 23:10:53 GMT: Done editing verse 22
+Mon, 19 Nov 2018 23:10:53 GMT: reading "Verse Text 22, column1"
+Mon, 19 Nov 2018 23:10:54 GMT: value of "Verse Text 22, column1" is "1:22 - verse text 22"
+Mon, 19 Nov 2018 23:10:54 GMT: clicking on Close, step= 1
+Mon, 19 Nov 2018 23:10:55 GMT: clicking on "Close"
+Mon, 19 Nov 2018 23:10:55 GMT: clicking on Close, finished in step 1
+Mon, 19 Nov 2018 23:10:55 GMT: Verse edit time 10.324 seconds
+Mon, 19 Nov 2018 23:10:55 GMT: Memory Usage: 828784, pressure: 32%, growth: 82%
+Mon, 19 Nov 2018 23:10:55 GMT: Editing verse 23
+Mon, 19 Nov 2018 23:10:55 GMT: clicking on Chapter 1, verse 23, step= 1
+Mon, 19 Nov 2018 23:10:55 GMT: clicking on "Chapter 1, verse 23"
+Mon, 19 Nov 2018 23:10:56 GMT: clicking on Chapter 1, verse 23, finished in step 1
+Mon, 19 Nov 2018 23:10:56 GMT: clicking on Word Card 3, step= 1
+Mon, 19 Nov 2018 23:10:56 GMT: clicking on "Word Card 3"
+Mon, 19 Nov 2018 23:10:57 GMT: clicking on Word Card 3, finished in step 1
+Mon, 19 Nov 2018 23:10:57 GMT: reading "Alignment Item OL 3"
+Mon, 19 Nov 2018 23:10:57 GMT: value of "Alignment Item OL 3" is "σῴζετε"
+Mon, 19 Nov 2018 23:10:57 GMT: cardOL= σῴζετε
+Mon, 19 Nov 2018 23:10:57 GMT: clicking on wordAlignment expand scripture pane, step= 1
+Mon, 19 Nov 2018 23:10:57 GMT: clicking on "wordAlignment expand scripture pane"
+Mon, 19 Nov 2018 23:10:58 GMT: clicking on wordAlignment expand scripture pane, finished in step 1
+Mon, 19 Nov 2018 23:10:58 GMT: Expanded Scripture Pane, step= 1
+Mon, 19 Nov 2018 23:10:58 GMT: Expanded Scripture Pane, finished in step 1
+Mon, 19 Nov 2018 23:10:58 GMT: Navigate dialog: "Expanded Scripture Pane"
+Mon, 19 Nov 2018 23:10:58 GMT: waiting for "Expanded Scripture Pane"
+Mon, 19 Nov 2018 23:10:59 GMT: "Expanded Scripture Pane" is visible
+Mon, 19 Nov 2018 23:10:59 GMT: reading "Expanded Scripture Pane Title"
+Mon, 19 Nov 2018 23:10:59 GMT: value of "Expanded Scripture Pane Title" is "Jude"
+Mon, 19 Nov 2018 23:10:59 GMT: scripturePaneTitle= Jude
+Mon, 19 Nov 2018 23:10:59 GMT: verse rows, step= 1
+Mon, 19 Nov 2018 23:10:59 GMT: verse rows, finished in step 1
+Mon, 19 Nov 2018 23:10:59 GMT: Navigate dialog: "verse rows"
+Mon, 19 Nov 2018 23:10:59 GMT: waiting for "verse rows"
+Mon, 19 Nov 2018 23:10:59 GMT: "verse rows" is visible
+Mon, 19 Nov 2018 23:10:59 GMT: Verse verseRow 23, step= 1
+Mon, 19 Nov 2018 23:10:59 GMT: Verse verseRow 23, finished in step 1
+Mon, 19 Nov 2018 23:10:59 GMT: Navigate dialog: "Verse verseRow 23"
+Mon, 19 Nov 2018 23:10:59 GMT: waiting for "Verse verseRow 23"
+Mon, 19 Nov 2018 23:10:59 GMT: "Verse verseRow 23" is visible
+Mon, 19 Nov 2018 23:10:59 GMT: clicking on Edit Verse verse 23, step= 1
+Mon, 19 Nov 2018 23:10:59 GMT: clicking on "Edit Verse verse 23"
+Mon, 19 Nov 2018 23:11:00 GMT: clicking on Edit Verse verse 23, finished in step 1
+Mon, 19 Nov 2018 23:11:00 GMT: Verse Editor, step= 1
+Mon, 19 Nov 2018 23:11:00 GMT: Verse Editor, finished in step 1
+Mon, 19 Nov 2018 23:11:00 GMT: Navigate dialog: "Verse Editor"
+Mon, 19 Nov 2018 23:11:00 GMT: waiting for "Verse Editor"
+Mon, 19 Nov 2018 23:11:00 GMT: "Verse Editor" is visible
+Mon, 19 Nov 2018 23:11:00 GMT: setting "Verse Editor" to "1:23 - verse text 23"
+Mon, 19 Nov 2018 23:11:01 GMT: clicking on Verse Editor Next, step= 1
+Mon, 19 Nov 2018 23:11:02 GMT: clicking on "Verse Editor Next"
+Mon, 19 Nov 2018 23:11:02 GMT: clicking on Verse Editor Next, finished in step 1
+Mon, 19 Nov 2018 23:11:02 GMT: clicking on Reason Other, step= 1
+Mon, 19 Nov 2018 23:11:02 GMT: clicking on "Reason Other"
+Mon, 19 Nov 2018 23:11:02 GMT: clicking on Reason Other, finished in step 1
+Mon, 19 Nov 2018 23:11:02 GMT: clicking on Verse Editor Save, step= 1
+Mon, 19 Nov 2018 23:11:03 GMT: clicking on "Verse Editor Save"
+Mon, 19 Nov 2018 23:11:03 GMT: clicking on Verse Editor Save, finished in step 1
+Mon, 19 Nov 2018 23:11:03 GMT: Done editing verse 23
+Mon, 19 Nov 2018 23:11:03 GMT: reading "Verse Text 23, column1"
+Mon, 19 Nov 2018 23:11:04 GMT: value of "Verse Text 23, column1" is "1:23 - verse text 23"
+Mon, 19 Nov 2018 23:11:04 GMT: clicking on Close, step= 1
+Mon, 19 Nov 2018 23:11:04 GMT: clicking on "Close"
+Mon, 19 Nov 2018 23:11:05 GMT: clicking on Close, finished in step 1
+Mon, 19 Nov 2018 23:11:05 GMT: Verse edit time 9.81 seconds
+Mon, 19 Nov 2018 23:11:05 GMT: Memory Usage: 837512, pressure: 32%, growth: 83%
+Mon, 19 Nov 2018 23:11:05 GMT: Editing verse 24
+Mon, 19 Nov 2018 23:11:05 GMT: clicking on Chapter 1, verse 24, step= 1
+Mon, 19 Nov 2018 23:11:05 GMT: clicking on "Chapter 1, verse 24"
+Mon, 19 Nov 2018 23:11:06 GMT: clicking on Chapter 1, verse 24, finished in step 1
+Mon, 19 Nov 2018 23:11:06 GMT: clicking on Word Card 1, step= 1
+Mon, 19 Nov 2018 23:11:06 GMT: clicking on "Word Card 1"
+Mon, 19 Nov 2018 23:11:06 GMT: clicking on Word Card 1, finished in step 1
+Mon, 19 Nov 2018 23:11:06 GMT: reading "Alignment Item OL 3"
+Mon, 19 Nov 2018 23:11:06 GMT: value of "Alignment Item OL 3" is "δυναμένῳ"
+Mon, 19 Nov 2018 23:11:06 GMT: cardOL= δυναμένῳ
+Mon, 19 Nov 2018 23:11:06 GMT: clicking on wordAlignment expand scripture pane, step= 1
+Mon, 19 Nov 2018 23:11:07 GMT: clicking on "wordAlignment expand scripture pane"
+Mon, 19 Nov 2018 23:11:08 GMT: clicking on wordAlignment expand scripture pane, finished in step 1
+Mon, 19 Nov 2018 23:11:08 GMT: Expanded Scripture Pane, step= 1
+Mon, 19 Nov 2018 23:11:08 GMT: Expanded Scripture Pane, finished in step 1
+Mon, 19 Nov 2018 23:11:08 GMT: Navigate dialog: "Expanded Scripture Pane"
+Mon, 19 Nov 2018 23:11:08 GMT: waiting for "Expanded Scripture Pane"
+Mon, 19 Nov 2018 23:11:08 GMT: "Expanded Scripture Pane" is visible
+Mon, 19 Nov 2018 23:11:08 GMT: reading "Expanded Scripture Pane Title"
+Mon, 19 Nov 2018 23:11:08 GMT: value of "Expanded Scripture Pane Title" is "Jude"
+Mon, 19 Nov 2018 23:11:08 GMT: scripturePaneTitle= Jude
+Mon, 19 Nov 2018 23:11:08 GMT: verse rows, step= 1
+Mon, 19 Nov 2018 23:11:08 GMT: verse rows, finished in step 1
+Mon, 19 Nov 2018 23:11:08 GMT: Navigate dialog: "verse rows"
+Mon, 19 Nov 2018 23:11:08 GMT: waiting for "verse rows"
+Mon, 19 Nov 2018 23:11:08 GMT: "verse rows" is visible
+Mon, 19 Nov 2018 23:11:08 GMT: Verse verseRow 24, step= 1
+Mon, 19 Nov 2018 23:11:09 GMT: Verse verseRow 24, finished in step 1
+Mon, 19 Nov 2018 23:11:09 GMT: Navigate dialog: "Verse verseRow 24"
+Mon, 19 Nov 2018 23:11:09 GMT: waiting for "Verse verseRow 24"
+Mon, 19 Nov 2018 23:11:09 GMT: "Verse verseRow 24" is visible
+Mon, 19 Nov 2018 23:11:09 GMT: clicking on Edit Verse verse 24, step= 1
+Mon, 19 Nov 2018 23:11:09 GMT: clicking on "Edit Verse verse 24"
+Mon, 19 Nov 2018 23:11:09 GMT: clicking on Edit Verse verse 24, finished in step 1
+Mon, 19 Nov 2018 23:11:09 GMT: Verse Editor, step= 1
+Mon, 19 Nov 2018 23:11:10 GMT: Verse Editor, finished in step 1
+Mon, 19 Nov 2018 23:11:10 GMT: Navigate dialog: "Verse Editor"
+Mon, 19 Nov 2018 23:11:10 GMT: waiting for "Verse Editor"
+Mon, 19 Nov 2018 23:11:10 GMT: "Verse Editor" is visible
+Mon, 19 Nov 2018 23:11:10 GMT: setting "Verse Editor" to "1:24 - verse text 24"
+Mon, 19 Nov 2018 23:11:11 GMT: clicking on Verse Editor Next, step= 1
+Mon, 19 Nov 2018 23:11:11 GMT: clicking on "Verse Editor Next"
+Mon, 19 Nov 2018 23:11:11 GMT: clicking on Verse Editor Next, finished in step 1
+Mon, 19 Nov 2018 23:11:12 GMT: clicking on Reason Spelling, step= 1
+Mon, 19 Nov 2018 23:11:12 GMT: clicking on "Reason Spelling"
+Mon, 19 Nov 2018 23:11:12 GMT: clicking on Reason Spelling, finished in step 1
+Mon, 19 Nov 2018 23:11:12 GMT: clicking on Verse Editor Save, step= 1
+Mon, 19 Nov 2018 23:11:13 GMT: clicking on "Verse Editor Save"
+Mon, 19 Nov 2018 23:11:13 GMT: clicking on Verse Editor Save, finished in step 1
+Mon, 19 Nov 2018 23:11:13 GMT: Done editing verse 24
+Mon, 19 Nov 2018 23:11:13 GMT: reading "Verse Text 24, column1"
+Mon, 19 Nov 2018 23:11:14 GMT: value of "Verse Text 24, column1" is "1:24 - verse text 24"
+Mon, 19 Nov 2018 23:11:14 GMT: clicking on Close, step= 1
+Mon, 19 Nov 2018 23:11:15 GMT: clicking on "Close"
+Mon, 19 Nov 2018 23:11:15 GMT: clicking on Close, finished in step 1
+Mon, 19 Nov 2018 23:11:15 GMT: Verse edit time 10.406 seconds
+Mon, 19 Nov 2018 23:11:15 GMT: Memory Usage: 849500, pressure: 32%, growth: 86%
+Mon, 19 Nov 2018 23:11:15 GMT: Editing verse 25
+Mon, 19 Nov 2018 23:11:15 GMT: clicking on Chapter 1, verse 25, step= 1
+Mon, 19 Nov 2018 23:11:16 GMT: clicking on "Chapter 1, verse 25"
+Mon, 19 Nov 2018 23:11:16 GMT: clicking on Chapter 1, verse 25, finished in step 1
+Mon, 19 Nov 2018 23:11:16 GMT: clicking on Word Card 2, step= 1
+Mon, 19 Nov 2018 23:11:17 GMT: clicking on "Word Card 2"
+Mon, 19 Nov 2018 23:11:17 GMT: clicking on Word Card 2, finished in step 1
+Mon, 19 Nov 2018 23:11:17 GMT: reading "Alignment Item OL 3"
+Mon, 19 Nov 2018 23:11:17 GMT: value of "Alignment Item OL 3" is "Σωτῆρι"
+Mon, 19 Nov 2018 23:11:17 GMT: cardOL= Σωτῆρι
+Mon, 19 Nov 2018 23:11:17 GMT: clicking on wordAlignment expand scripture pane, step= 1
+Mon, 19 Nov 2018 23:11:17 GMT: clicking on "wordAlignment expand scripture pane"
+Mon, 19 Nov 2018 23:11:18 GMT: clicking on wordAlignment expand scripture pane, finished in step 1
+Mon, 19 Nov 2018 23:11:19 GMT: Expanded Scripture Pane, step= 1
+Mon, 19 Nov 2018 23:11:19 GMT: Expanded Scripture Pane, finished in step 1
+Mon, 19 Nov 2018 23:11:19 GMT: Navigate dialog: "Expanded Scripture Pane"
+Mon, 19 Nov 2018 23:11:19 GMT: waiting for "Expanded Scripture Pane"
+Mon, 19 Nov 2018 23:11:19 GMT: "Expanded Scripture Pane" is visible
+Mon, 19 Nov 2018 23:11:19 GMT: reading "Expanded Scripture Pane Title"
+Mon, 19 Nov 2018 23:11:19 GMT: value of "Expanded Scripture Pane Title" is "Jude"
+Mon, 19 Nov 2018 23:11:19 GMT: scripturePaneTitle= Jude
+Mon, 19 Nov 2018 23:11:19 GMT: verse rows, step= 1
+Mon, 19 Nov 2018 23:11:19 GMT: verse rows, finished in step 1
+Mon, 19 Nov 2018 23:11:19 GMT: Navigate dialog: "verse rows"
+Mon, 19 Nov 2018 23:11:19 GMT: waiting for "verse rows"
+Mon, 19 Nov 2018 23:11:19 GMT: "verse rows" is visible
+Mon, 19 Nov 2018 23:11:19 GMT: Verse verseRow 25, step= 1
+Mon, 19 Nov 2018 23:11:19 GMT: Verse verseRow 25, finished in step 1
+Mon, 19 Nov 2018 23:11:19 GMT: Navigate dialog: "Verse verseRow 25"
+Mon, 19 Nov 2018 23:11:19 GMT: waiting for "Verse verseRow 25"
+Mon, 19 Nov 2018 23:11:19 GMT: "Verse verseRow 25" is visible
+Mon, 19 Nov 2018 23:11:19 GMT: clicking on Edit Verse verse 25, step= 1
+Mon, 19 Nov 2018 23:11:20 GMT: clicking on "Edit Verse verse 25"
+Mon, 19 Nov 2018 23:11:20 GMT: clicking on Edit Verse verse 25, finished in step 1
+Mon, 19 Nov 2018 23:11:20 GMT: Verse Editor, step= 1
+Mon, 19 Nov 2018 23:11:20 GMT: Verse Editor, finished in step 1
+Mon, 19 Nov 2018 23:11:20 GMT: Navigate dialog: "Verse Editor"
+Mon, 19 Nov 2018 23:11:20 GMT: waiting for "Verse Editor"
+Mon, 19 Nov 2018 23:11:20 GMT: "Verse Editor" is visible
+Mon, 19 Nov 2018 23:11:21 GMT: setting "Verse Editor" to "1:25 - verse text 25"
+Mon, 19 Nov 2018 23:11:21 GMT: clicking on Verse Editor Next, step= 1
+Mon, 19 Nov 2018 23:11:22 GMT: clicking on "Verse Editor Next"
+Mon, 19 Nov 2018 23:11:22 GMT: clicking on Verse Editor Next, finished in step 1
+Mon, 19 Nov 2018 23:11:22 GMT: clicking on Reason Punctuation, step= 1
+Mon, 19 Nov 2018 23:11:23 GMT: clicking on "Reason Punctuation"
+Mon, 19 Nov 2018 23:11:23 GMT: clicking on Reason Punctuation, finished in step 1
+Mon, 19 Nov 2018 23:11:23 GMT: clicking on Verse Editor Save, step= 1
+Mon, 19 Nov 2018 23:11:23 GMT: clicking on "Verse Editor Save"
+Mon, 19 Nov 2018 23:11:24 GMT: clicking on Verse Editor Save, finished in step 1
+Mon, 19 Nov 2018 23:11:24 GMT: Done editing verse 25
+Mon, 19 Nov 2018 23:11:24 GMT: reading "Verse Text 25, column1"
+Mon, 19 Nov 2018 23:11:24 GMT: value of "Verse Text 25, column1" is "1:25 - verse text 25"
+Mon, 19 Nov 2018 23:11:24 GMT: clicking on Close, step= 1
+Mon, 19 Nov 2018 23:11:25 GMT: clicking on "Close"
+Mon, 19 Nov 2018 23:11:25 GMT: clicking on Close, finished in step 1
+Mon, 19 Nov 2018 23:11:25 GMT: Verse edit time 9.936 seconds
+Mon, 19 Nov 2018 23:11:25 GMT: Memory Usage: 855500, pressure: 33%, growth: 87%
+Mon, 19 Nov 2018 23:11:25 GMT: Chapter 1 finished, Number of verses= 25
+Mon, 19 Nov 2018 23:11:25 GMT: Average verse edit time 10 seconds
+Mon, 19 Nov 2018 23:11:25 GMT: min/max verse edit times 9.7/10.4 seconds
+Mon, 19 Nov 2018 23:11:25 GMT: Completed 1 of 1 total chapters
+Mon, 19 Nov 2018 23:11:25 GMT: Completed 25 of 25 attempted verses
+Mon, 19 Nov 2018 23:11:25 GMT: test finished
+Mon, 19 Nov 2018 23:11:25 GMT: Memory Usage: 855496, pressure: 33%, growth: 87%
+Mon, 19 Nov 2018 23:11:25 GMT: Test 2 Ended Successfully
+Mon, 19 Nov 2018 23:11:25 GMT: Test run time 252 seconds

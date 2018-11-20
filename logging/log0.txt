@@ -1,5 +1,19 @@
-Thu, 08 Nov 2018 18:31:15 GMT: starting tCore
-Thu, 08 Nov 2018 18:31:23 GMT: The button text content is "Get Started!"
-Thu, 08 Nov 2018 18:31:23 GMT: **** App version "Version 1.0.2 (4bd6856)" ****
-Thu, 08 Nov 2018 18:31:23 GMT: checking "Get Started!" equals "Get Started!"
-Thu, 08 Nov 2018 18:31:23 GMT: clicking on "Get Started!"
+Mon, 19 Nov 2018 23:06:21 GMT: Starting tCore
+Mon, 19 Nov 2018 23:06:21 GMT: starting tCore
+Mon, 19 Nov 2018 23:06:25 GMT: Finished initial delay
+Mon, 19 Nov 2018 23:06:26 GMT: Reached Window count
+Mon, 19 Nov 2018 23:06:26 GMT: browserWindow visible
+Mon, 19 Nov 2018 23:06:26 GMT: getting text for Get Started!, step= 1
+Mon, 19 Nov 2018 23:06:34 GMT: getting text for Get Started!, finished in step 1
+Mon, 19 Nov 2018 23:06:34 GMT: getting text for Get Started!, step= 1
+Mon, 19 Nov 2018 23:06:34 GMT: reading "Get Started!"
+Mon, 19 Nov 2018 23:06:34 GMT: value of "Get Started!" is "Get Started!"
+Mon, 19 Nov 2018 23:06:34 GMT: getting text for Get Started!, finished in step 1
+Mon, 19 Nov 2018 23:06:34 GMT: button text shown: Get Started!
+Mon, 19 Nov 2018 23:06:34 GMT: reading "Version Label"
+Mon, 19 Nov 2018 23:06:34 GMT: value of "Version Label" is "Version 1.1.0 (undefined)"
+Mon, 19 Nov 2018 23:06:34 GMT: **** App version "Version 1.1.0 (undefined)" ****
+Mon, 19 Nov 2018 23:06:35 GMT: checking "Get Started!" equals "Get Started!"
+Mon, 19 Nov 2018 23:06:35 GMT: clicking on "Get Started!"
+Mon, 19 Nov 2018 23:06:35 GMT: tCore started
+Mon, 19 Nov 2018 23:06:36 GMT: Memory Usage: 456484, pressure: 17%, growth: 0%
