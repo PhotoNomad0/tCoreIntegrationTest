@@ -1,5 +1,3 @@
-Thu, 08 Nov 2018 18:31:15 GMT: starting tCore
-Thu, 08 Nov 2018 18:31:23 GMT: The button text content is "Get Started!"
-Thu, 08 Nov 2018 18:31:23 GMT: **** App version "Version 1.0.2 (4bd6856)" ****
-Thu, 08 Nov 2018 18:31:23 GMT: checking "Get Started!" equals "Get Started!"
-Thu, 08 Nov 2018 18:31:23 GMT: clicking on "Get Started!"
+Thu, 13 Dec 2018 21:07:27 GMT: Starting tCore
+Thu, 13 Dec 2018 21:07:27 GMT: starting tCore
+Thu, 13 Dec 2018 21:07:31 GMT: Finished initial delay

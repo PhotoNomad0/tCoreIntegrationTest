@@ -14,7 +14,7 @@ let app;
  * does USFM import of project and then exports as USFM.
  */
 
-describe.skip('USFM Tests', () => {
+describe('USFM Tests', () => {
   before(async () => {
     app = await utils.beforeAll();
   });
