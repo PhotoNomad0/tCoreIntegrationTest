@@ -157,7 +157,7 @@ const DEFINITIONS = {
     },
     prompt: {
       ...TEMPLATES.generalAlertDialog.prompt,
-      text: "Searching, please wait..."
+      text: "General Alert Dialog Text"
     },
     ok: {
       selector: TEMPLATES.generalAlertDialog.single.selector,
@@ -291,7 +291,7 @@ const DEFINITIONS = {
     selector: "#project-information-card",
     id: "Project Info Checker Dialog",
     targetLangId: {
-      selector: "#project-information-card > div > table > tbody > tr:nth-child(1) > td:nth-child(2) > div > div:nth-child(2) > input[type=\"text\"]",
+      selector: "#resource_id",
       id: "Target Language Identifier"
     },
     languageName: {

@@ -36,8 +36,14 @@ async function startTcore() {
     .getWindowCount()
     .should.eventually.have.at.least(1);
   log("Reached Window count");
-  await app.client.browserWindow.isVisible().should.eventually.equal(true);
-  log("browserWindow visible");
+  try {
+    await app.client.browserWindow.isVisible().should.eventually.equal(true);
+    log("browserWindow visible");
+  } catch(e) {
+    log("Could not found browserWindow, trying to continue");
+    await app.client.pause(500);
+  }
+  log("looking for getting started button");
   await retryStep(20, async () => {
     await app.client.windowByIndex(1).waitUntilWindowLoaded();
   }, "getting text for " + elementDescription(TCORE.getStartedButton),
@@ -403,7 +409,7 @@ function projectRemoval(projectName) {
 }
 
 async function navigateImportResults(continueOnProjectInfo, projectInfoSettings, projectName) {
-  if (continueOnProjectInfo || !projectInfoSettings.noProjectInfoDialog) {
+  if (continueOnProjectInfo || projectInfoSettings.noProjectInfoDialog) {
     if (projectInfoSettings.errorMessage) {
       await waitForDialog(TCORE.importErrorDialog, 2000);
       await verifyContainsText(TCORE.importErrorDialog.prompt, projectInfoSettings.errorMessage);
