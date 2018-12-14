@@ -48,7 +48,7 @@ function generateTargetLanguageID(testCount) {
     major = minor / 26;
     minor = minor % 26;
   }
-  const newTargetLangId = ("zz" + String.fromCharCode(65 + major) + String.fromCharCode(65 + minor)).toLowerCase();
+  const newTargetLangId = ("zt" + String.fromCharCode(97 + major) + String.fromCharCode(97 + minor)).toLowerCase();
   return newTargetLangId;
 }
 
