@@ -7,7 +7,7 @@ const utils = require('./utils');
 
 let app;
 
-describe.skip('tCore Test', () => {
+describe('tCore Test', () => {
 
   before(async () => {
     app = await utils.beforeAll();
@@ -25,7 +25,7 @@ describe.skip('tCore Test', () => {
     await utils.afterAll();
   });
   
-  describe.skip('Misc. Tests', () => {
+  describe('Misc. Tests', () => {
     it('do online import access cancel', async () => {
       await tCore.setToProjectPage();
       await tCore.openImportDialog(TCORE.importTypeOptions.online);
