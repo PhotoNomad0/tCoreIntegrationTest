@@ -76,7 +76,12 @@ async function beforeAll() {
 }
 
 async function afterAll() {
-  await tCoreConnect.stopApp(app);
+  try {
+    await tCoreConnect.stopApp(app);
+  } catch(e) {
+    console.error("App shutdown failed: ", e);
+    log("App shutdown failed: " + getSafeErrorMessage(e));
+  }
   const cleanupFiles = tCore.getCleanupFileList();
   for (let file of cleanupFiles) {
     console.log("Cleaning out: " + file);
@@ -111,6 +116,18 @@ async function afterEachTest() {
   log("Test run time " + Math.round(getElapsedTestTime()) + " seconds");
 }
 
+function getSafeErrorMessage(error, defaultErrorMessage = "### Error message is empty ###") {
+  let errorMessage = error || defaultErrorMessage;
+  if (error && (error.type !== 'div')) {
+    if (error.stack) {
+      errorMessage = error.stack;
+    } else {
+      console.warn(error.toString()); // make message printable
+    }
+  }
+  return errorMessage;
+}
+
 const utils = {
   beforeAll,
   beforeEachTest,
@@ -119,6 +136,7 @@ const utils = {
   generateTargetLanguageID,
   getBibleData,
   getElapsedTestTime,
+  getSafeErrorMessage,
   log,
   logMemoryUsage,
   testFinished

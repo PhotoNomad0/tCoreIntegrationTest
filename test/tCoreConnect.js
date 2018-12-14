@@ -31,7 +31,7 @@ module.exports = {
         args: [appPath]
       });
     }
-    // else {
+    // else { // this does not seem to be supported?
     //   // launch app directly
     //   app = new Application({
     //     path: appPath

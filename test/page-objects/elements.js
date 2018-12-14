@@ -303,7 +303,7 @@ const DEFINITIONS = {
       id: "Language ID"
     },
     resourceId: {
-      selector: "#project-information-card > div > table > tbody > tr:nth-child(2) > td:nth-child(2) > div > div:nth-child(2) > input[type=\"text\"]",
+      selector: "#nickname",
       id: "Resource ID"
     },
     languageDirection: {
