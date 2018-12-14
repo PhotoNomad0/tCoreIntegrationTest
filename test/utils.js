@@ -30,6 +30,10 @@ function testFinished() {
   finished = true;
 }
 
+function getTestCount() {
+  return testCount;
+}
+
 /**
  * look up size of book and name of book
  * @param bookId
@@ -41,9 +45,14 @@ function getBibleData(bookId) {
   return {chapters, bookName};
 }
 
-function generateTargetLanguageID(testCount) {
+/**
+ * 
+ * @param testCount_
+ * @return {string}
+ */
+function generateTargetLanguageID(testCount_ = -1) {
   let major = 0;
-  let minor = testCount;
+  let minor = (testCount_ >= 0) ? testCount_ : testCount; // if text count not given, use internal test count
   if (minor > 25) {
     major = minor / 26;
     minor = minor % 26;
@@ -137,6 +146,7 @@ const utils = {
   getBibleData,
   getElapsedTestTime,
   getSafeErrorMessage,
+  getTestCount,
   log,
   logMemoryUsage,
   testFinished

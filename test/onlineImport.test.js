@@ -1,14 +1,11 @@
 /* eslint-disable quotes,no-console */
 const TCORE = require('./page-objects/elements');
-const _ = require('lodash');
 const assert = require('assert');
 const tCore = require('./tCoreSupport');
 const utils = require('./utils');
 
-let app;
-
 describe('tCore Test', () => {
-  const testCount = 10; // number of time to repeat import tests
+  const testCount = 3; // number of time to repeat import tests
 
   before(async () => {
     app = await utils.beforeAll();
@@ -74,7 +71,7 @@ describe('tCore Test', () => {
     });
 
     it('do online import with cancel on Project Info', async () => {
-      const newTargetLangId = "zzzz";
+      const newTargetLangId = generateTargetLangId();
       const sourceProject = 'https://git.door43.org/tCore-test-data/AlignedUlt_en';
       const languageId = "en";
       const bookId = "tit";
@@ -99,7 +96,7 @@ describe('tCore Test', () => {
 
     describe('Import Tests, pass ' + testNum, () => {
       it('online import tCore should succeed - https://git.door43.org/tCore-test-data/AlignedUlt_en', async () => {
-        const newTargetLangId = "zzzz";
+        const newTargetLangId = generateTargetLangId();
         const sourceProject = 'https://git.door43.org/tCore-test-data/AlignedUlt_en';
         const languageId = "en";
         const bookId = "tit";
@@ -119,7 +116,7 @@ describe('tCore Test', () => {
       });
 
       it('online import USFM should error - https://git.door43.org/tCore-test-data/AlignedUlb_hi', async () => {
-        const newTargetLangId = "zzzy";
+        const newTargetLangId = generateTargetLangId();
         const sourceProject = "https://git.door43.org/tCore-test-data/AlignedUlb_hi";
         const languageId = "hi";
         const bookId = "tit";
@@ -136,7 +133,7 @@ describe('tCore Test', () => {
       });
 
       it('online import ts-desktop should succeed - https://git.door43.org/tCore-test-data/es-419_eph_text_ulb', async () => {
-        const newTargetLangId = "zzzx";
+        const newTargetLangId = generateTargetLangId();
         const sourceProject = "https://git.door43.org/tCore-test-data/es-419_eph_text_ulb";
         const languageId = "es-419";
         const bookId = "eph";
@@ -156,7 +153,7 @@ describe('tCore Test', () => {
       });
 
       it('online import tc-desktop 0.7.0 with checking should error - https://git.door43.org/tCore-test-data/sw_tit_text_ulb_L3', async () => {
-        const newTargetLangId = "zzzw";
+        const newTargetLangId = generateTargetLangId();
         const sourceProject = "https://git.door43.org/tCore-test-data/sw_tit_text_ulb_L3";
         const languageId = "sw";
         const bookId = "tit";
@@ -170,7 +167,7 @@ describe('tCore Test', () => {
       });
 
       it('online import tc-desktop pre-0.7.0 with checking should error - https://git.door43.org/tCore-test-data/ceb_jas_text_ulb_L-', async () => {
-        const newTargetLangId = "zzzv";
+        const newTargetLangId = generateTargetLangId();
         const sourceProject = "https://git.door43.org/tCore-test-data/ceb_jas_text_ulb_L-";
         const languageId = "ceb";
         const bookId = "jas";
@@ -184,7 +181,7 @@ describe('tCore Test', () => {
       });
 
       it('online import tc-desktop 0.7.0 no checking should succeed - https://git.door43.org/tCore-test-data/ar_mat_text_ulb', async () => {
-        const newTargetLangId = "zzzu";
+        const newTargetLangId = generateTargetLangId();
         const sourceProject = "https://git.door43.org/tCore-test-data/ar_mat_text_ulb";
         const languageId = "ar";
         const bookId = "mat";
@@ -204,7 +201,7 @@ describe('tCore Test', () => {
       });
 
       it('online import tc-desktop 0.8.0 no checking should succeed - https://git.door43.org/tCore-test-data/es-419_luk', async () => {
-        const newTargetLangId = "zzzt";
+        const newTargetLangId = generateTargetLangId();
         const sourceProject = "https://git.door43.org/tCore-test-data/es-419_luk";
         const languageId = "es-419";
         const bookId = "luk";
@@ -225,7 +222,7 @@ describe('tCore Test', () => {
       });
 
       it('online import tc-desktop 0.8.0 with checking should succeed - https://git.door43.org/tCore-test-data/es-419_tit_ulb', async () => {
-        const newTargetLangId = "zzzs";
+        const newTargetLangId = generateTargetLangId();
         const sourceProject = "https://git.door43.org/tCore-test-data/es-419_tit_ulb";
         const languageId = "es-419";
         const bookId = "tit";
@@ -246,7 +243,7 @@ describe('tCore Test', () => {
       });
 
       it('online import tc-desktop 0.8.1 with alignment, no checking should succeed - https://git.door43.org/tCore-test-data/English_tit', async () => {
-        const newTargetLangId = "zzzs";
+        const newTargetLangId = generateTargetLangId();
         const sourceProject = "https://git.door43.org/tCore-test-data/English_tit";
         const languageId = "en";
         const bookId = "tit";
@@ -264,7 +261,7 @@ describe('tCore Test', () => {
       });
 
       it('online import tc-desktop 0.9.0 no checking should succeed - https://git.door43.org/tCore-test-data/am_1co_ulb', async () => {
-        const newTargetLangId = "zzzr";
+        const newTargetLangId = generateTargetLangId();
         const sourceProject = "https://git.door43.org/tCore-test-data/am_1co_ulb";
         const languageId = "am";
         const bookId = "1co";
@@ -284,7 +281,7 @@ describe('tCore Test', () => {
       });
 
       it('online import tc-desktop 0.9.0 with checking should succeed - https://git.door43.org/tCore-test-data/el_tit', async () => {
-        const newTargetLangId = "zzzq";
+        const newTargetLangId = generateTargetLangId();
         const sourceProject = "https://git.door43.org/tCore-test-data/el_tit";
         const languageId = "el";
         const bookId = "tit";
@@ -302,7 +299,7 @@ describe('tCore Test', () => {
       });
 
       it('online import tc-desktop should succeed - https://git.door43.org/tCore-test-data/fr_test_tit_book', async () => {
-        const newTargetLangId = "zzzp";
+        const newTargetLangId = generateTargetLangId();
         const sourceProject = "https://git.door43.org/tCore-test-data/fr_test_tit_book";
         const languageId = "fr";
         const bookId = "tit";
@@ -322,7 +319,26 @@ describe('tCore Test', () => {
       });
 
       it('online import tc-desktop should succeed - https://git.door43.org/tCore-test-data/AlignedUlt_en', async () => {
-        const newTargetLangId = "zzzo";
+        const newTargetLangId = generateTargetLangId();
+        const sourceProject = "https://git.door43.org/tCore-test-data/AlignedUlt_en";
+        const languageId = "en";
+        const bookId = "tit";
+        const projectInfoSettings = {
+          languageName: "English",
+          languageId,
+          targetLangId: "algn",
+          languageDirectionLtr: true,
+          bookName: "Titus (tit)",
+          newTargetLangId
+        };
+        const continueOnProjectInfo = true;
+        const projectName = `${languageId}_${newTargetLangId}_${bookId}_book`;
+        await tCore.doOnlineProjectImport(projectName, sourceProject, continueOnProjectInfo, projectInfoSettings);
+        utils.testFinished();
+      });
+
+      it('second online import tc-desktop should succeed - https://git.door43.org/tCore-test-data/AlignedUlt_en', async () => {
+        const newTargetLangId = generateTargetLangId();
         const sourceProject = "https://git.door43.org/tCore-test-data/AlignedUlt_en";
         const languageId = "en";
         const bookId = "tit";
@@ -368,4 +384,9 @@ describe('tCore Test', () => {
 
 function log(text) {
   utils.log(text);
+}
+
+function generateTargetLangId() {
+  const testCount = utils.getTestCount();
+  return utils.generateTargetLanguageID(testCount % 2);
 }
