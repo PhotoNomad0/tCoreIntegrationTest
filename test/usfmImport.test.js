@@ -15,7 +15,7 @@ const testCount = 2; // number of time to repeat import tests
  * does USFM import of project and then exports as USFM.
  */
 
-describe.skip('USFM Tests', () => {
+describe('USFM Tests', () => {
   let alignmentState = false;
   
   before(async () => {

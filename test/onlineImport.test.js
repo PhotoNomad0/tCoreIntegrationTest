@@ -8,7 +8,7 @@ const UNSUPPORTED_PROJECT_MESSAGE = "This project contains data from an old vers
 let app;
 const testCount = 1; // number of time to repeat import tests
 
-describe('tCore Test', () => {
+describe.skip('tCore Test', () => {
 
   before(async () => {
     app = await utils.beforeAll();
