@@ -236,10 +236,10 @@ async function clickOn(elementObj, exact = true) {
 }
 
 async function waitForDialog(elementObj, extraDelay) {
-  log('waiting for "' + (elementObj.id) + '"');
+  log('waiting for "' +  elementDescription(elementObj) + '"');
   await app.client.pause(navigationDelay + extraDelay)
     .isVisible(elementObj.selector).should.eventually.equal(true);
-  log('"' + (elementObj.id) + '" is visible');
+  log('"' +  elementDescription(elementObj) + '" is visible');
 }
 
 /**
@@ -250,7 +250,7 @@ async function waitForDialog(elementObj, extraDelay) {
  * @return {Promise<void>}
  */
 async function navigateDialog(elementObj, clickOn_ = null, exact = true) {
-  log('Navigate dialog: "' + (elementObj.id) + '"');
+  log('Navigate dialog: "' +  elementDescription(elementObj) + '"');
   await waitForDialog(elementObj);
   if (clickOn_) {
     await clickOn(elementObj[clickOn_], exact);
@@ -389,10 +389,12 @@ async function navigateCopyrightDialog(settings) {
 async function navigateGeneralDialog(dialogConfig, buttonClick) {
   await waitForDialog(dialogConfig, 1000);
   if (dialogConfig.title.text) {
+    log("verify dialog title equals: " + dialogConfig.title.text);
     await verifyText(dialogConfig.title, dialogConfig.title.text);
   }
   if (dialogConfig.prompt.text) {
-    await verifyText(dialogConfig.prompt, dialogConfig.prompt.text);
+    log("verify dialog prompt contains: " + dialogConfig.prompt.text);
+    await verifyContainsText(dialogConfig.prompt, dialogConfig.prompt.text);
   }
   if (buttonClick) {
     await navigateDialog(dialogConfig, buttonClick);
@@ -490,7 +492,7 @@ async function doOnlineProjectImport(projectName, sourceProject, continueOnProje
     const importErrorDialog = _.cloneDeep(TCORE.importErrorDialog);
     importErrorDialog.prompt.text = projectInfoSettings.preProjectInfoErrorMessage;
     await waitForDialog(TCORE.importErrorDialog);
-    await navigateGeneralDialog(TCORE.importErrorDialog, 'ok');
+    await navigateGeneralDialog(importErrorDialog, 'ok');
     await verifyOnSpecificPage(TCORE.projectsPage);
     return;
   }

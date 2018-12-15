@@ -3,11 +3,12 @@ const TCORE = require('./page-objects/elements');
 const assert = require('assert');
 const tCore = require('./tCoreSupport');
 const utils = require('./utils');
+const UNSUPPORTED_PROJECT_MESSAGE = "This project contains data from an old version of translationCore which is not supported in this release. For help opening this project or to restart checking, please contact help@door43.org.";
 
 let app;
-const testCount = 3; // number of time to repeat import tests
+const testCount = 1; // number of time to repeat import tests
 
-describe.skip('tCore Test', () => {
+describe('tCore Test', () => {
 
   before(async () => {
     app = await utils.beforeAll();
@@ -91,12 +92,134 @@ describe.skip('tCore Test', () => {
       await tCore.doOnlineProjectImport(projectName, sourceProject, continueOnProjectInfo, projectInfoSettings);
       utils.testFinished();
     });
+  });
 
+  describe('Invalid Paths', () => {
+    it('should not import import invalid project https://git.door43.org/richmahn/en_tit_ulb.git', async () => {
+      const newTargetLangId = generateTargetLangId();
+      const sourceProject = 'https://git.door43.org/richmahn/en_tit_ulb.git';
+      const languageId = "en";
+      const bookId = "tit";
+      const projectInfoSettings = {
+        targetLangId: "algn",
+        languageName: "English",
+        languageId,
+        resourceId: "",
+        languageDirectionLtr: true,
+        bookName: "Titus (tit)",
+        preProjectInfoErrorMessage: getPreProjectInfoErrorMessage(sourceProject)
+      };
+      const continueOnProjectInfo = false;
+      const projectName = `${languageId}_${newTargetLangId}_${bookId}_book`;
+      await tCore.doOnlineProjectImport(projectName, sourceProject, continueOnProjectInfo, projectInfoSettings);
+      utils.testFinished();
+    });
+
+    it('should not import import invalid project https://git.door43.org/richmahn/en_tit_ulb', async () => {
+      const newTargetLangId = generateTargetLangId();
+      const sourceProject = 'https://git.door43.org/richmahn/en_tit_ulb';
+      const languageId = "en";
+      const bookId = "tit";
+      const projectInfoSettings = {
+        targetLangId: "algn",
+        languageName: "English",
+        languageId,
+        resourceId: "",
+        languageDirectionLtr: true,
+        bookName: "Titus (tit)",
+        preProjectInfoErrorMessage: getPreProjectInfoErrorMessage(sourceProject)
+      };
+      const continueOnProjectInfo = false;
+      const projectName = `${languageId}_${newTargetLangId}_${bookId}_book`;
+      await tCore.doOnlineProjectImport(projectName, sourceProject, continueOnProjectInfo, projectInfoSettings);
+      utils.testFinished();
+    });
+
+    it('should not import import invalid project https://git.door43.org/richmahn/en_tit_ulb/stuff', async () => {
+      const newTargetLangId = generateTargetLangId();
+      const sourceProject = 'https://git.door43.org/richmahn/en_tit_ulb/stuff';
+      const languageId = "en";
+      const bookId = "tit";
+      const projectInfoSettings = {
+        targetLangId: "algn",
+        languageName: "English",
+        languageId,
+        resourceId: "",
+        languageDirectionLtr: true,
+        bookName: "Titus (tit)",
+        preProjectInfoErrorMessage: getPreProjectInfoErrorMessage(sourceProject)
+      };
+      const continueOnProjectInfo = false;
+      const projectName = `${languageId}_${newTargetLangId}_${bookId}_book`;
+      await tCore.doOnlineProjectImport(projectName, sourceProject, continueOnProjectInfo, projectInfoSettings);
+      utils.testFinished();
+    });
+
+    it('should not import import invalid project https://git.door43.org/Door43-Catalog/en_ulb/src/branch/master/43-LUK.usfm', async () => {
+      const newTargetLangId = generateTargetLangId();
+      const sourceProject = 'https://git.door43.org/Door43-Catalog/en_ulb/src/branch/master/43-LUK.usfm';
+      const languageId = "en";
+      const bookId = "tit";
+      const projectInfoSettings = {
+        targetLangId: "algn",
+        languageName: "English",
+        languageId,
+        resourceId: "",
+        languageDirectionLtr: true,
+        bookName: "Titus (tit)",
+        preProjectInfoErrorMessage: getPreProjectInfoErrorMessage(sourceProject)
+      };
+      const continueOnProjectInfo = false;
+      const projectName = `${languageId}_${newTargetLangId}_${bookId}_book`;
+      await tCore.doOnlineProjectImport(projectName, sourceProject, continueOnProjectInfo, projectInfoSettings);
+      utils.testFinished();
+    });
+
+    it('should not import import invalid project https://git.door43.org/Door43-Catalog/en_ulb/raw/branch/master/43-LUK.usfm', async () => {
+      const newTargetLangId = generateTargetLangId();
+      const sourceProject = 'https://git.door43.org/Door43-Catalog/en_ulb/raw/branch/master/43-LUK.usfm';
+      const languageId = "en";
+      const bookId = "tit";
+      const projectInfoSettings = {
+        targetLangId: "algn",
+        languageName: "English",
+        languageId,
+        resourceId: "",
+        languageDirectionLtr: true,
+        bookName: "Titus (tit)",
+        preProjectInfoErrorMessage: getPreProjectInfoErrorMessage(sourceProject)
+      };
+      const continueOnProjectInfo = false;
+      const projectName = `${languageId}_${newTargetLangId}_${bookId}_book`;
+      await tCore.doOnlineProjectImport(projectName, sourceProject, continueOnProjectInfo, projectInfoSettings);
+      utils.testFinished();
+    });
   });
 
   for (let testNum = 1; testNum <= testCount; testNum++) {
 
     describe('Import Tests, pass ' + testNum, () => {
+      it('online import tCore should succeed - https://git.door43.org/tCore-test-data/ceb_psa_text_udb_L3', async () => {
+        const newTargetLangId = generateTargetLangId();
+        const sourceProject = 'https://git.door43.org/tCore-test-data/ceb_psa_text_udb_L3';
+        const languageId = "ceb";
+        const bookId = "psa";
+        const projectInfoSettings = {
+          targetLangId: "ulb",
+          languageName: "Cebuano",
+          languageId,
+          resourceId: "",
+          languageDirectionLtr: true,
+          bookName: "Psalms (psa)",
+          newTargetLangId,
+          missingVerses: true
+        };
+        const continueOnProjectInfo = true;
+        const projectName = `${languageId}_${newTargetLangId}_${bookId}_book`;
+        await tCore.doOnlineProjectImport(projectName, sourceProject, continueOnProjectInfo, projectInfoSettings);
+        utils.testFinished();
+      });
+
       it('online import tCore should succeed - https://git.door43.org/tCore-test-data/AlignedUlt_en', async () => {
         const newTargetLangId = generateTargetLangId();
         const sourceProject = 'https://git.door43.org/tCore-test-data/AlignedUlt_en';
@@ -126,7 +249,7 @@ describe.skip('tCore Test', () => {
           newLanguageId: languageId,
           newBookName: "57-TIT",
           newTargetLangId,
-          preProjectInfoErrorMessage: "Error occurred while importing your project.\nCould not download the project from https://git.door43.org/tCore-test-data/AlignedUlb_hi to "
+          preProjectInfoErrorMessage: getPreProjectInfoErrorMessage(sourceProject)
         };
         const continueOnProjectInfo = true;
         const projectName = `${languageId}_${newTargetLangId}_${bookId}_book`;
@@ -160,7 +283,7 @@ describe.skip('tCore Test', () => {
         const languageId = "sw";
         const bookId = "tit";
         const projectInfoSettings = {
-          preProjectInfoErrorMessage: "This project contains data from an old version of translationCore which is not supported in this release. For help opening this project or to restart checking, please contact help@door43.org."
+          preProjectInfoErrorMessage: UNSUPPORTED_PROJECT_MESSAGE
         };
         const continueOnProjectInfo = true;
         const projectName = `${languageId}_${newTargetLangId}_${bookId}_book`;
@@ -174,7 +297,7 @@ describe.skip('tCore Test', () => {
         const languageId = "ceb";
         const bookId = "jas";
         const projectInfoSettings = {
-          preProjectInfoErrorMessage: "This project contains data from an old version of translationCore which is not supported in this release. For help opening this project or to restart checking, please contact help@door43.org."
+          preProjectInfoErrorMessage: UNSUPPORTED_PROJECT_MESSAGE
         };
         const continueOnProjectInfo = true;
         const projectName = `${languageId}_${newTargetLangId}_${bookId}_book`;
@@ -391,4 +514,8 @@ function log(text) {
 function generateTargetLangId() {
   const testCount = utils.getTestCount();
   return utils.generateTargetLanguageID(testCount % 2);
+}
+
+function getPreProjectInfoErrorMessage(sourceProject) {
+  return "Error occurred while importing your project.\nCould not download the project from " + sourceProject + " to";
 }
