@@ -1,11 +1,13 @@
-/* eslint-disable quotes,no-console */
+/* eslint-disable quotes,no-console, no-unused-vars */
 const TCORE = require('./page-objects/elements');
 const assert = require('assert');
 const tCore = require('./tCoreSupport');
 const utils = require('./utils');
 
-describe('tCore Test', () => {
-  const testCount = 3; // number of time to repeat import tests
+let app;
+const testCount = 3; // number of time to repeat import tests
+
+describe.skip('tCore Test', () => {
 
   before(async () => {
     app = await utils.beforeAll();

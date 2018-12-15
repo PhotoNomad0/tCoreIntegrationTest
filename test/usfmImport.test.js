@@ -1,4 +1,4 @@
-/* eslint-disable quotes,no-console */
+/* eslint-disable quotes,no-console, no-unused-vars */
 const assert = require('assert');
 const path = require('path');
 const fs = require('fs-extra');
@@ -9,12 +9,15 @@ const TCORE = require('./page-objects/elements');
 
 const TEST_PATH = path.join(ospath.home(), 'translationCore', 'testing');
 let app;
+const testCount = 2; // number of time to repeat import tests
 
 /**
  * does USFM import of project and then exports as USFM.
  */
 
-describe.skip('USFM Tests', () => {
+describe('USFM Tests', () => {
+  let alignmentState = false;
+  
   before(async () => {
     app = await utils.beforeAll();
   });
@@ -30,52 +33,54 @@ describe.skip('USFM Tests', () => {
   after(async() => {
     await utils.afterAll();
   });
-  
-  describe('Import/Export Tests', () => {
-    it('do USFM import and export', async () => {
-      const newTargetLangId = utils.generateTargetLanguageID();
-      const usfmSelect = TCORE.usfmExport.selectUsfm3;
-      const languageId = "hi";
-      const bookId = "tit";
-      const {bookName} = utils.getBibleData(bookId);
-      const continueOnProjectInfo = true;
-      const project_id = languageId + "_" + newTargetLangId + "_" + bookId + "_book";
-      const testFile = '57-TIT-AlignedHI.usfm';
-      const importPath = './test/fixtures/' + testFile;
-      const projectSettings = {
-        importPath,
-        license: 'ccShareAlike',
-        languageName: "Hindi",
-        languageId,
-        languageDirectionLtr: true,
-        bookName,
-        newTargetLangId,
-      };
-      await doUsfmImportExportTest(languageId, newTargetLangId, bookId, projectSettings, continueOnProjectInfo, project_id, usfmSelect, testFile, importPath);
-    });
 
-    it('do USFM import and export', async () => {
-      const newTargetLangId = utils.generateTargetLanguageID();
-      const usfmSelect = 0;
-      const newLanguageId = "en";
-      const bookId = "act";
-      const {bookName} = utils.getBibleData(bookId);
-      const continueOnProjectInfo = true;
-      const project_id = newLanguageId + "_" + newTargetLangId + "_" + bookId + "_book";
-      const testFile = '45-ACT.usfm';
-      const importPath = './test/fixtures/' + testFile;
-      const projectSettings = {
-        importPath,
-        license: 'ccShareAlike',
-        languageDirectionLtr: true,
-        bookName,
-        newTargetLangId,
-        newLanguageId
-      };
-      await doUsfmImportExportTest(newLanguageId, newTargetLangId, bookId, projectSettings, continueOnProjectInfo, project_id, usfmSelect, testFile, importPath);
-    });
-  });
+  for (let testNum = 1; testNum <= testCount; testNum++) {
+    describe('Import/Export, pass ' + testNum, () => {
+      it('do USFM import and export', async () => {
+        const newTargetLangId = generateTargetLangId();
+        alignmentState = !alignmentState;
+        const exportAlignments = alignmentState;
+        const languageId = "hi";
+        const bookId = "tit";
+        const {bookName} = utils.getBibleData(bookId);
+        const continueOnProjectInfo = true;
+        const project_id = languageId + "_" + newTargetLangId + "_" + bookId + "_book";
+        const testFile = '57-TIT-AlignedHI.usfm';
+        const importPath = './test/fixtures/' + testFile;
+        const projectSettings = {
+          importPath,
+          license: 'ccShareAlike',
+          languageName: "Hindi",
+          languageId,
+          languageDirectionLtr: true,
+          bookName,
+          newTargetLangId,
+        };
+        await doUsfmImportExportTest(languageId, newTargetLangId, bookId, projectSettings, continueOnProjectInfo, project_id, true, exportAlignments, testFile, importPath);
+      });
 
+      it('do USFM import and export', async () => {
+        const newTargetLangId = generateTargetLangId();
+        const exportAlignments = false;
+        const newLanguageId = "en";
+        const bookId = "act";
+        const {bookName} = utils.getBibleData(bookId);
+        const continueOnProjectInfo = true;
+        const project_id = newLanguageId + "_" + newTargetLangId + "_" + bookId + "_book";
+        const testFile = '45-ACT.usfm';
+        const importPath = './test/fixtures/' + testFile;
+        const projectSettings = {
+          importPath,
+          license: 'ccShareAlike',
+          languageDirectionLtr: true,
+          bookName,
+          newTargetLangId,
+          newLanguageId
+        };
+        await doUsfmImportExportTest(newLanguageId, newTargetLangId, bookId, projectSettings, continueOnProjectInfo, project_id, false, exportAlignments, testFile, importPath);
+      });
+    });
+  }
 });
 
 //
@@ -90,14 +95,18 @@ describe.skip('USFM Tests', () => {
  * @param projectSettings
  * @param continueOnProjectInfo
  * @param project_id
- * @param usfmSelection
+ * @param {Boolean} hasAlignments
+ * @param {Boolean} exportAlignments
  * @param testFile
  * @param importPath
  * @return {Promise<void>}
  */
-async function doUsfmImportExportTest(languageId, newTargetLangId, bookId, projectSettings, continueOnProjectInfo, project_id, usfmSelection, testFile, importPath) {
+async function doUsfmImportExportTest(languageId, newTargetLangId, bookId, projectSettings, continueOnProjectInfo,
+                                        project_id, hasAlignments, exportAlignments, testFile, importPath) {
   const projectName = `${languageId}_${newTargetLangId}_${bookId}_book`;
   await tCore.doLocalProjectImport(projectSettings, continueOnProjectInfo, projectName);
+  
+  // now do USFM export
   await tCore.setToProjectPage();
   const cardNumber = await tCore.findProjectCardNumber(project_id);
   assert.ok(cardNumber >= 0);
@@ -108,9 +117,15 @@ async function doUsfmImportExportTest(languageId, newTargetLangId, bookId, proje
   fs.ensureDirSync(TEST_PATH);
   fs.removeSync(outputFile);
   await tCore.mockDialogPath(outputFile, true);
-  if (usfmSelection) {
+  if (hasAlignments) {
     await tCore.waitForDialog(TCORE.usfmExport);
-    await tCore.clickOnRetry(usfmSelection);
+    const currentValue = await tCore.getCheckBoxRetry(TCORE.usfmExport.includeAlignmentsInputValue);
+    if (currentValue !== exportAlignments) {
+      await tCore.setCheckBoxRetry(TCORE.usfmExport.includeAlignmentsInputValue, exportAlignments);
+    }
+    const newValue = await tCore.getSelection(TCORE.usfmExport.includeAlignmentsInputValue);
+    assert.equal(exportAlignments, newValue);
+    await app.client.pause(1000);
     await tCore.clickOnRetry(TCORE.usfmExport.export);
   }
   await app.client.pause(1000);
@@ -121,11 +136,27 @@ async function doUsfmImportExportTest(languageId, newTargetLangId, bookId, proje
   const expectedText = path.parse(testFile).name + " has been successfully exported to " + outputFileName + ".";
   await tCore.verifyText(TCORE.exportResultsDialog.prompt, expectedText);
   await tCore.clickOnRetry(TCORE.exportResultsDialog.ok);
+  log("Reading input USFM");
   let sourceUsfm = trimIdTag(fs.readFileSync(importPath).toString());
+  log("input USFM length=" + sourceUsfm.length);
+  log("Reading output USFM");
   const outputUsfm = trimIdTag(fs.readFileSync(outputFile).toString());
-  assert.equal(sourceUsfm.length, outputUsfm.length);
-  assert.ok(sourceUsfm === outputUsfm);
-  assert.equal(sourceUsfm, outputUsfm);
+  log("output USFM length=" + outputUsfm.length);
+  log("Checking output USFM");
+  log("hasAlignments=" + hasAlignments);
+  if (!hasAlignments) {
+    if (sourceUsfm !== outputUsfm) {
+      log("output: " + outputUsfm.substr(0, 100));
+      log("does not equal\n input: " + sourceUsfm.substr(0, 100));
+      assert.equal(sourceUsfm, outputUsfm, "output does not equal source");
+    }
+  } else if (exportAlignments) {
+    const short = outputUsfm.length < sourceUsfm.length * 0.9;
+    if (short) {
+      log("output seems short");
+      assert.ok(!short, "output seems short");
+    }
+  }
   utils.testFinished();
 }
 
@@ -150,3 +181,7 @@ function log(text) {
   utils.log(text);
 }
 
+function generateTargetLangId() {
+  const testCount = utils.getTestCount();
+  return utils.generateTargetLanguageID(testCount % 2);
+}

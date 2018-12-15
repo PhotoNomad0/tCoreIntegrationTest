@@ -6,7 +6,7 @@
   "scripts": {
     "test": "mocha ./test/**/*test.js",
     "lint": "node ./node_modules/.bin/eslint .",
-    "debug-test": "mocha --inspect-brk ./test/onlineImport.test.js",
+    "debug-test": "mocha --inspect-brk ./test/usfmImport.test.js",
     "npm-clean-up": "rm -rf node_modules/ && rm package-lock.json && npm i"
   },
   "repository": {

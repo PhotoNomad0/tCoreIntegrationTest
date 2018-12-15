@@ -104,13 +104,9 @@ const DEFINITIONS = {
       text: "Alert",
       id: "Title"
     },
-    selectUsfm2: {
-      id: "USFM 2",
-      selector: TEMPLATES.generalAlertDialog.prompt.selector + " > div > div:nth-child(2) > div:nth-child(1)"
-    },
-    selectUsfm3: {
-      id: "USFM 3",
-      selector: TEMPLATES.generalAlertDialog.prompt.selector + " > div > div:nth-child(2) > div:nth-child(2)"
+    includeAlignmentsInputValue: {
+      selector: TEMPLATES.generalAlertDialog.prompt.selector + " > div > div:nth-child(2) > div > div > input[type=\"checkbox\"]",
+      id: "Include Alignment Data Checkbox"
     },
     export: {
       selector: TEMPLATES.generalAlertDialog.prime.selector,

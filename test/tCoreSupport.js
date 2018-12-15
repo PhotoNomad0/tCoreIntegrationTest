@@ -94,7 +94,7 @@ async function verifyProjectInfoDialog(expectedProjectSettings) {
  */
 async function setValue(elementObj, text) {
   await app.client.pause(navigationDelay);
-  log('setting "' + elementObj.id + '" to "' + text + '"');
+  log('setting "' + elementDescription(elementObj) + '" to "' + text + '"');
   //TODO: seems to fail with empty string
   await app.client.element(elementObj.selector).setValue(text);
   await app.client.pause(200);
@@ -139,7 +139,8 @@ function verifyTextIsMatched(text, matchText) {
 
 /**
  * read current text in element
- * @param {Object} elementObj - item to verify
+ * @param {Object} elementObj - item to read
+ * @param {Number} delay - optional time to wait before reading
  * @return {Promise<*>}
  */
 async function getText(elementObj, delay = 0) {
@@ -151,6 +152,40 @@ async function getText(elementObj, delay = 0) {
     log('value of "' + id + '" is "' + text + '"');
   });
   return text;
+}
+
+/**
+ * read current value in element
+ * @param {Object} elementObj - item to read
+ * @param {Number} delay - optional time to wait before reading
+ * @return {Promise<*>}
+ */
+async function getValue(elementObj, delay = 0) {
+  const id = elementDescription(elementObj);
+  log('reading "' + id + '"');
+  let value;
+  await app.client.pause(delay).getValue(elementObj.selector).then(value_ => {
+    value = value_;
+    log('value of "' + id + '" is "' + value + '"');
+  });
+  return value;
+}
+
+/**
+ * get selection state of checkbox
+ * @param {Object} elementObj - item to read
+ * @param {Number} delay - optional time to wait before reading
+ * @return {Promise<Boolean>}
+ */
+async function getSelection(elementObj, delay = 0) {
+  const id = elementDescription(elementObj);
+  log('reading Selection state of "' + id + '"');
+  if (delay) {
+    await app.client.pause(delay);
+  }
+  const value = await app.client.element(elementObj.selector).isSelected();
+  log('value of "' + id + '" is "' + value + '"');
+  return value;
 }
 
 /**
@@ -681,6 +716,50 @@ async function retryStep(count, operation, name, delay = 500) {
   }
 }
 
+/**
+ * set checkbox to newState and verify
+ * @param {Object} elementObj - item to click on
+ * @param {Boolean} newState
+ * @param {Number} count - maximum number of retries
+ * @return {Promise<Boolean>} - new state
+ */
+async function setCheckBoxRetry(elementObj, newState, count = 20) {
+  let state;
+  for (let i = 0; i < count; i++) {
+    try {
+      await app.client.click(elementObj.selector);
+    } catch (e) {
+      log("Failed to click " + elementDescription(elementObj) + " on try " + (i+1));
+    }
+    await app.client.pause(500);
+    state = await getSelection(elementObj);
+    if (state === newState) {
+      break;
+    }
+  }
+  return state;
+}
+
+/**
+ * get the checkbox selection state with retries
+ * @param {Object} elementObj - item to get state of
+ * @param {Number} count - maximum number of retries
+ * @return {Promise<Number>}
+ */
+async function getCheckBoxRetry(elementObj, count = 20) {
+  let state = false;
+  for (let i = 0; i < count; i++) {
+    try {
+      state = await getSelection(elementObj);
+      break;
+    } catch (e) {
+      log("Failed to get " + elementDescription(elementObj) + " on try " + (i+1));
+      await app.client.pause(500);
+    }
+  }
+  return state;
+}
+
 async function findToolCardNumber(name) {
   let cardText;
   const childIndexesArray = await getChildIndices(TCORE.toolsList);
@@ -733,11 +812,14 @@ const tCoreSupport = {
   elementDescription,
   findToolCardNumber,
   findProjectCardNumber,
+  getCheckBoxRetry,
   getChildIndices,
   getCleanupFileList,
   getLogFilePath,
   getSearchResults,
+  getSelection,
   getText,
+  getValue,
   indexInSearchResults,
   initializeTest,
   launchTool,
@@ -757,6 +839,7 @@ const tCoreSupport = {
   projectRemoval,
   retryStep,
   selectSearchItem,
+  setCheckBoxRetry,
   setToProjectPage,
   setValue,
   startTcore,
