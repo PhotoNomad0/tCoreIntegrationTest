@@ -1,6 +1,6 @@
 /* eslint-disable quotes,no-console */
-const tCore = require('./tCoreSupport');
-const utils = require('./utils');
+const tCore = require('../src/helpers/tCoreSupport');
+const utils = require('../src/helpers/utils');
 const TCORE = require('./page-objects/elements');
 const assert = require('assert');
 
@@ -18,7 +18,7 @@ describe.skip('WA Tests', () => {
     { bookId: "act", importFile: '45-ACT.usfm' }
   ];
 
-  const alignEachVerse = false; // alignment is still glitchy
+  const alignEachVerse = true; // alignment is still glitchy
   const testCount = 3;
   let chapterCount = 0;
   let chapterFinished = 0;
@@ -211,6 +211,9 @@ async function dragWordsToAlignment(sourceItems, destinationItem) {
   const cardOlText = await tCore.getText(TCORE.wordAlignment.alignmentOL(destinationItem));
   log("Destination Alignment Text= " + cardOlText);
   const alignmentTarget = TCORE.wordAlignment.alignmentTargetDrop(destinationItem);
+  // log("Dragging '" + tCore.elementDescription(sourceCard) + "' to '" + tCore.elementDescription(alignmentTarget) + "'");
+  // await app.client.dragAndDrop(sourceCard.selector, alignmentTarget.selector);
+
   // const childIndexesArray = await tCore.getChildIndices(TCORE.wordAlignment.alignmentGridChildren);
   // for (let i of childIndexesArray) {
   //   await getElementCenter(TCORE.wordAlignment.alignmentN(i), "Drop " + i);
@@ -234,7 +237,7 @@ async function dragWordsToAlignment(sourceItems, destinationItem) {
   // await app.client.touchMove(dropLocation.x, dropLocation.y);
   // await app.client.touchUp(dropLocation.x, dropLocation.y);
 
- await app.client.dragAndDrop(sourceCard.selector, alignmentTarget.selector);
+  await app.client.dragAndDrop(sourceCard.selector, alignmentTarget.selector);
 }
 
 async function makeSureExpandedScripturePaneIsClosed() {

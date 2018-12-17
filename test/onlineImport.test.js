@@ -1,8 +1,8 @@
 /* eslint-disable quotes,no-console, no-unused-vars */
 const TCORE = require('./page-objects/elements');
 const assert = require('assert');
-const tCore = require('./tCoreSupport');
-const utils = require('./utils');
+const tCore = require('../src/helpers/tCoreSupport');
+const utils = require('../src/helpers/utils');
 const UNSUPPORTED_PROJECT_MESSAGE = "This project contains data from an old version of translationCore which is not supported in this release. For help opening this project or to restart checking, please contact help@door43.org.";
 
 let app;

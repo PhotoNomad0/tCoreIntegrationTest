@@ -9,7 +9,7 @@ Do `node -v` to check node version.  I'm using version v8.9.3 on one PC and v8.1
 npm i
 ```
 
-Also in `./test/tCoreConnect.js` change `appPath` to either 
+Also in `./src/helpers/tCoreConnect.js` change `appPath` to either 
 * point to where the source is found (`'../../translationCore/src/main.js'`) or
 
 ~~to the app (`/Applications/translationCore.app/Contents/MacOS/translationCore`) - this doesn't work yet~~

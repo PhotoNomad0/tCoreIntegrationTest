@@ -6,8 +6,8 @@ const electron = require('electron');
 const path = require('path');
 const dialogAddon = require('spectron-dialog-addon').default;
 
-// const appPath = path.join(__dirname, '../../testDir/translationCoreTest/src/es6-init.js'); // launch from source
-const appPath = path.join(__dirname, '../../translationCore/src/es6-init.js'); // launch from source
+// const appPath = path.join(__dirname, '../../../testDir/translationCoreTest/src/es6-init.js'); // launch from source
+const appPath = path.join(__dirname, '../../../translationCore/src/es6-init.js'); // launch from source
 
 /*
   When running compiled app as below, spectron launches the app and can click the get started button that shows the app, but hangs trying to click on "Project Navigation" at top of app screen.  Not sure why that would be.

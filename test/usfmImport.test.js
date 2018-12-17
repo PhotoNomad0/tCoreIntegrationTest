@@ -3,8 +3,8 @@ const assert = require('assert');
 const path = require('path');
 const fs = require('fs-extra');
 const ospath = require('ospath');
-const tCore = require('./tCoreSupport');
-const utils = require('./utils');
+const tCore = require('../src/helpers/tCoreSupport');
+const utils = require('../src/helpers/utils');
 const TCORE = require('./page-objects/elements');
 
 const TEST_PATH = path.join(ospath.home(), 'translationCore', 'testing');
@@ -17,9 +17,11 @@ const testCount = 2; // number of time to repeat import tests
 
 describe('USFM Tests', () => {
   let alignmentState = false;
+  let TEST_FILE_PATH;
   
   before(async () => {
     app = await utils.beforeAll();
+    TEST_FILE_PATH = await utils.getTestFiles();
   });
 
   beforeEach(async function() {
@@ -34,9 +36,9 @@ describe('USFM Tests', () => {
     await utils.afterAll();
   });
 
-  for (let testNum = 1; testNum <= testCount; testNum++) {
-    describe('Import/Export, pass ' + testNum, () => {
-      it('do USFM import and export', async () => {
+  describe('Import/Export', () => {
+    for (let testNum = 1; testNum <= testCount; testNum++) {
+      it('do USFM import and export 57-TIT-AlignedHI.usfm', async () => {
         const newTargetLangId = generateTargetLangId();
         alignmentState = !alignmentState;
         const exportAlignments = alignmentState;
@@ -46,7 +48,7 @@ describe('USFM Tests', () => {
         const continueOnProjectInfo = true;
         const project_id = languageId + "_" + newTargetLangId + "_" + bookId + "_book";
         const testFile = '57-TIT-AlignedHI.usfm';
-        const importPath = './test/fixtures/' + testFile;
+        const importPath = path.join(TEST_FILE_PATH, testFile);
         const projectSettings = {
           importPath,
           license: 'ccShareAlike',
@@ -59,7 +61,7 @@ describe('USFM Tests', () => {
         await doUsfmImportExportTest(languageId, newTargetLangId, bookId, projectSettings, continueOnProjectInfo, project_id, true, exportAlignments, testFile, importPath);
       });
 
-      it('do USFM import and export', async () => {
+      it('do USFM import and export 45-ACT.usfm', async () => {
         const newTargetLangId = generateTargetLangId();
         const exportAlignments = false;
         const newLanguageId = "en";
@@ -68,7 +70,7 @@ describe('USFM Tests', () => {
         const continueOnProjectInfo = true;
         const project_id = newLanguageId + "_" + newTargetLangId + "_" + bookId + "_book";
         const testFile = '45-ACT.usfm';
-        const importPath = './test/fixtures/' + testFile;
+        const importPath = path.join(TEST_FILE_PATH, testFile);
         const projectSettings = {
           importPath,
           license: 'ccShareAlike',
@@ -79,8 +81,8 @@ describe('USFM Tests', () => {
         };
         await doUsfmImportExportTest(newLanguageId, newTargetLangId, bookId, projectSettings, continueOnProjectInfo, project_id, false, exportAlignments, testFile, importPath);
       });
-    });
-  }
+    }
+  });
 });
 
 //

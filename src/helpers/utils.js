@@ -1,10 +1,17 @@
 /* eslint-disable quotes,no-console */
 const fs = require('fs-extra');
 const _ = require('lodash');
+const ospath = require('ospath');
+const path = require('path');
 const tCore = require('./tCoreSupport');
 const tCoreConnect = require('./tCoreConnect');
-const BIBLE_SIZES = require('./fixtures/index.json');
+const BIBLE_SIZES = require('../../test/fixtures/index.json');
 const BooksOfTheBible = require('./BooksOfTheBible');
+const downloadHelpers = require('./downloadHelpers');
+const zipFileHelpers = require('./zipFileHelpers');
+
+const TEST_PROJECTS_URL = "https://git.door43.org/tCore-test-data/Test_Projects/archive/master.zip";
+const TEST_PATH = path.join(ospath.home(), 'translationCore', 'testing');
 
 let testCount = 0;
 const navigationDelay = 500; // TODO: for slowing down for demo
@@ -137,6 +144,30 @@ function getSafeErrorMessage(error, defaultErrorMessage = "### Error message is 
   return errorMessage;
 }
 
+/**
+ * downloads test files if not present
+ * @return {Promise<String>} - returns path to test files
+ */
+async function getTestFiles() {
+  const  ZIP_DESTINATION = path.join(TEST_PATH, 'master.zip');
+  if (!fs.existsSync(ZIP_DESTINATION)) {
+    fs.ensureDirSync(TEST_PATH);
+    await downloadHelpers.download(TEST_PROJECTS_URL, ZIP_DESTINATION);
+  }
+  if (fs.existsSync(ZIP_DESTINATION)) {
+    const  UNZIP_DESTINATION = path.join(TEST_PATH, 'master');
+    const  TEST_PROJECTS_FILES = path.join(UNZIP_DESTINATION, 'test_projects');
+    if (!fs.existsSync(TEST_PROJECTS_FILES)) {
+      fs.ensureDirSync(UNZIP_DESTINATION);
+      await zipFileHelpers.extractZipFile(ZIP_DESTINATION, UNZIP_DESTINATION);
+    }
+    if (fs.existsSync(TEST_PROJECTS_FILES)) {
+      return TEST_PROJECTS_FILES;
+    }
+  }
+  return null;
+}
+
 const utils = {
   beforeAll,
   beforeEachTest,
@@ -147,6 +178,7 @@ const utils = {
   getElapsedTestTime,
   getSafeErrorMessage,
   getTestCount,
+  getTestFiles,
   log,
   logMemoryUsage,
   testFinished

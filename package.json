@@ -6,7 +6,7 @@
   "scripts": {
     "test": "mocha ./test/**/*test.js",
     "lint": "node ./node_modules/.bin/eslint .",
-    "debug-test": "mocha --inspect-brk ./test/onlineImport.test.js",
+    "debug-test": "mocha --inspect-brk ./test/usfmImport.test.js",
     "npm-clean-up": "rm -rf node_modules/ && rm package-lock.json && npm i"
   },
   "repository": {
@@ -26,6 +26,8 @@
   },
   "homepage": "https://github.com/StephenDavidson/electron-spectron-example#readme",
   "devDependencies": {
+    "adm-zip": "^0.4.11",
+    "agentkeepalive": "3.3.0",
     "chai": "^4.1.2",
     "chai-as-promised": "^7.1.1",
     "deep-equal": "1.0.1",
@@ -37,11 +39,13 @@
     "electron-packager": "9.1.0",
     "electron-react-devtools": "0.5.3",
     "eslint": "^5.5.0",
+    "follow-redirects": "^1.5.5",
     "fs-extra": "4.0.3",
     "lodash": "4.17.4",
     "mocha": "^5.2.0",
     "ospath": "1.2.2",
     "path-extra": "^4.2.1",
+    "rimraf": "^2.6.2",
     "spectron": "5.0.0",
     "spectron-dialog-addon": "0.1.1"
   },
