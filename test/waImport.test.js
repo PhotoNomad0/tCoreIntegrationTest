@@ -3,6 +3,7 @@ const tCore = require('../src/helpers/tCoreSupport');
 const utils = require('../src/helpers/utils');
 const TCORE = require('./page-objects/elements');
 const assert = require('assert');
+const path = require('path');
 
 let app;
 
@@ -11,7 +12,7 @@ let app;
  * on memory usage it looks like privateBytes follows the size of the Electron Helper
  */
 
-describe.skip('WA Tests', () => {
+describe('WA Tests', () => {
   const sources = [
     { bookId: "jud", importFile: '66-JUD.usfm' },
     { bookId: "tit", importFile: 'hi_test_tit.usfm' },
@@ -24,9 +25,11 @@ describe.skip('WA Tests', () => {
   let chapterFinished = 0;
   let verseAttemptedCount = 0;
   let versesFinished = 0;
+  let TEST_FILE_PATH;
   
   before(async () => {
     app = await utils.beforeAll();
+    TEST_FILE_PATH = await utils.getTestFiles();
   });
 
   beforeEach(async function() {
@@ -52,7 +55,7 @@ describe.skip('WA Tests', () => {
         const languageId = "en";
         const continueOnProjectInfo = true;
         const projectSettings = {
-          importPath: './test/fixtures/' + importFile,
+          importPath: path.join(TEST_FILE_PATH, importFile),
           license: 'ccShareAlike',
           bookName: bookName,
           newTargetLangId,
