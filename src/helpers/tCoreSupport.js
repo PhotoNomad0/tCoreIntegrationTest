@@ -364,6 +364,31 @@ async function navigateMissingVersesDialog(settings) {
   }
 }
 
+async function navigateMergeConflictDialog(settings) {
+  log("Navigating Merge Conflicts Checker");
+  await waitForDialog(TCORE.mergeConflictCheckerDialog, 1000);
+  let text = await getText(TCORE.mergeConflictCheckerDialog.mergeConflictLabel);
+  const includesLabel = text.includes( TCORE.mergeConflictCheckerDialog.mergeConflictLabel.text);
+  if (!includesLabel) {
+    assert.ok(includesLabel, "Missing text '" + TCORE.mergeConflictCheckerDialog.mergeConflictLabel.text + "' in '" + text);
+  }
+  text = await getText(TCORE.mergeConflictCheckerDialog.instructions);
+  await verifyText(TCORE.mergeConflictCheckerDialog.instructions, TCORE.mergeConflictCheckerDialog.instructions.text);
+  const childIndexesArray = await getChildIndices(TCORE.mergeConflictCheckerDialog.mergeConflicts);
+  for (let i of childIndexesArray) {
+    log("Resolving Merge Conflict " + i);
+    const mergeConflictElement = TCORE.mergeConflictCheckerDialog.mergeConflictN(i);
+    const resolveButtonElement = mergeConflictElement.resolveButton;
+    await app.client.click(resolveButtonElement.selector);
+    await clickOn(mergeConflictElement.resolveOption((i % 2) + 1));
+  }
+  if (settings.continue) {
+    await navigateDialog(TCORE.mergeConflictCheckerDialog, 'continue');
+  } else {
+    await navigateDialog(TCORE.mergeConflictCheckerDialog, 'cancel');
+  }
+}
+
 async function navigateCopyrightDialog(settings) {
   log("Navigating Copyright");
   await waitForDialog(TCORE.copyrightDialog, 1000);
@@ -508,9 +533,14 @@ async function doOnlineProjectImport(projectName, sourceProject, continueOnProje
     await navigateProjectInfoDialog(projectInfoConfig);
   }
 
+  if (projectInfoSettings.mergeConflicts) {
+    await navigateMergeConflictDialog({continue: true});
+  }
+
   if (projectInfoSettings.missingVerses) {
     await navigateMissingVersesDialog({ continue: true});
   }
+
   await navigateImportResults(continueOnProjectInfo, projectInfoSettings, projectName);
   // fs.removeSync(projectPath); // TODO: cannot remove until deselected
 }
@@ -644,6 +674,10 @@ async function doLocalProjectImport(projectSettings, continueOnProjectInfo, proj
 
     if (!projectSettings.noProjectInfoDialog) {
       await navigateProjectInfoDialog({...projectSettings, continue: continueOnProjectInfo});
+    }
+
+    if (projectSettings.mergeConflicts) {
+      await navigateMergeConflictDialog({continue: true});
     }
 
     if (projectSettings.missingVerses) {

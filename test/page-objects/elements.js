@@ -24,6 +24,7 @@ const TEMPLATES = {
     }
   },
   projectStepperDialog: {
+    selector: "body > div:nth-child(3) > div > div:nth-child(1) > div > div > div:nth-child(1)",
     continue: {
       selector: "body > div:nth-child(3) > div > div:nth-child(1) > div > div > div:nth-child(2) > div > button.btn-prime",
       text: "Continue"
@@ -238,7 +239,6 @@ const DEFINITIONS = {
   },
   copyrightDialog: {
     ...TEMPLATES.projectStepperDialog,
-    selector: "body > div:nth-child(3) > div > div:nth-child(1) > div > div > div:nth-child(1)",
     id: "Copyright Dialog",
     licensesLabel: {
       selector: "body > div:nth-child(3) > div > div:nth-child(1) > div > div > div:nth-child(1) > div > div:nth-child(2) > div:nth-child(2) > div",
@@ -269,7 +269,6 @@ const DEFINITIONS = {
   },
   missingVersesCheckerDialog: {
     ...TEMPLATES.projectStepperDialog,
-    selector: "body > div:nth-child(3) > div > div:nth-child(1) > div > div > div:nth-child(1)",
     id: "Missing Verses Checker Dialog",
     missingVersesLabel: {
       selector: "body > div:nth-child(3) > div > div:nth-child(1) > div > div > div:nth-child(1) > div > div:nth-child(2) > div:nth-child(2) > div > div:nth-child(1)",
@@ -280,6 +279,40 @@ const DEFINITIONS = {
       selector: "body > div:nth-child(3) > div > div:nth-child(1) > div > div > div:nth-child(1) > div > div:nth-child(2) > div:nth-child(1) > div > div",
       id: "Instructions",
       text: "Some verses are missing from your project."
+    }
+  },
+  mergeConflictCheckerDialog: {
+    ...TEMPLATES.projectStepperDialog,
+    id: "Merge Conflict Checker Dialog",
+    mergeConflictLabel: {
+      selector: "body > div:nth-child(3) > div > div:nth-child(1) > div > div > div:nth-child(1) > div > div:nth-child(2) > div:nth-child(2) > div",
+      id: "Merge Conflict Label",
+      text: "Merge Conflicts"
+    },
+    instructions: {
+      selector: "body > div:nth-child(3) > div > div:nth-child(1) > div > div > div:nth-child(1) > div > div:nth-child(2) > div:nth-child(1) > div > div",
+      id: "Instructions",
+      text: "Some merge conflicts were found inside of your project. Please review and resolve these conflicts before continuing."
+    },
+    mergeConflicts: {
+      selector: "body > div:nth-child(3) > div > div:nth-child(1) > div > div > div:nth-child(1) > div > div:nth-child(2) > div:nth-child(2) > div > div > div > div",
+      id: "Merge Conflicts List"
+    },
+    mergeConflictN: function(position) {
+      return {
+        selector: "body > div:nth-child(3) > div > div:nth-child(1) > div > div > div:nth-child(1) > div > div:nth-child(2) > div:nth-child(2) > div > div > div > div:nth-child(" + position + ")",
+        id: "Merge Conflict " + position,
+        resolveButton: {
+          selector: "body > div:nth-child(3) > div > div:nth-child(1) > div > div > div:nth-child(1) > div > div:nth-child(2) > div:nth-child(2) > div > div > div > div:nth-child(" + position + ") > div > div:nth-child(2)",
+          id: "Resolve Button " + position
+        },
+        resolveOption: function(choice) {
+          return {
+            selector: "body > div:nth-child(3) > div > div:nth-child(1) > div > div > div:nth-child(1) > div > div:nth-child(2) > div:nth-child(2) > div > div > div > div:nth-child(" + position + ") > div:nth-child(" + (choice+1) + ") > div > div:nth-child(1) > input[type=\"radio\"]",
+            id: "Resolve option " + choice + " for conflict " + position
+          };
+        }
+      };
     }
   },
   projectInfoCheckerDialog: {

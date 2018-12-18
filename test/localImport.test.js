@@ -35,8 +35,31 @@ describe('Local Tests', () => {
     await utils.afterAll();
   });
 
-  describe('Project Import Tests', () => {
+  describe('Local Import Tests', () => {
     for (let testNum = 1; testNum <= testCount; testNum++) {
+      it('merge conflicts should succeed local import en-x-demo1_php_text_ulb_mc2.tstudio', async () => {
+        const newTargetLangId = generateTargetLangId();
+        const languageId = "en-x-demo1";
+        const bookId = "php";
+        const {bookName} = utils.getBibleData(bookId);
+        const continueOnProjectInfo = true;
+        const testFile = 'en-x-demo1_php_text_ulb_mc2.tstudio';
+        const importPath = path.join(TEST_FILE_PATH, testFile);
+        const projectSettings = {
+          importPath,
+          targetLangId: "ulb",
+          license: 'ccShareAlike',
+          languageId,
+          languageDirectionLtr: true,
+          bookName,
+          newTargetLangId,
+          mergeConflicts: true
+        };
+        const projectName = `${languageId}_${newTargetLangId}_${bookId}_book`;
+        await tCore.doLocalProjectImport(projectSettings, continueOnProjectInfo, projectName);
+        utils.testFinished();
+      });
+      
       it('should succeed local import fr_tit_text_ulb.tstudio', async () => {
         const newTargetLangId = generateTargetLangId();
         const languageId = "fr";
@@ -60,31 +83,7 @@ describe('Local Tests', () => {
         await tCore.doLocalProjectImport(projectSettings, continueOnProjectInfo, projectName);
         utils.testFinished();
       });
-  
-      // do not yet support merge conflicts
-      // it('should succeed local import en-x-demo1_php_text_ulb_mc2.tstudio', async () => {
-      //   const newTargetLangId = generateTargetLangId();
-      //   const languageId = "en-x-demo1";
-      //   const bookId = "php";
-      //   const {bookName} = utils.getBibleData(bookId);
-      //   const continueOnProjectInfo = true;
-      //   const testFile = 'en-x-demo1_php_text_ulb_mc2.tstudio';
-      //   const importPath = path.join(TEST_FILE_PATH, testFile);
-      //   const projectSettings = {
-      //     importPath,
-      //     targetLangId: "ulb",
-      //     license: 'ccShareAlike',
-      //     languageId,
-      //     languageDirectionLtr: true,
-      //     bookName,
-      //     newTargetLangId,
-      //     missingVerses: true
-      //   };
-      //   const projectName = `${languageId}_${newTargetLangId}_${bookId}_book`;
-      //   await tCore.doLocalProjectImport(projectSettings, continueOnProjectInfo, projectName);
-      //   utils.testFinished();
-      // });
-  
+      
       it('should succeed local import es-419_tit_text_reg.tstudio', async () => {
         const newTargetLangId = generateTargetLangId();
         const languageId = "es-419";
