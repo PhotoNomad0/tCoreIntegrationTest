@@ -16,7 +16,7 @@ let TEST_FILE_PATH;
  * does USFM import of project and then exports as USFM.
  */
 
-describe('Local Tests', () => {
+describe.skip('Local Tests', () => {
 
   before(async () => {
     app = await utils.beforeAll();
@@ -229,8 +229,8 @@ async function doUsfmImportExportTest(languageId, newTargetLangId, bookId, proje
   // now do USFM export
   await tCore.setToProjectPage();
   const cardNumber = await tCore.findProjectCardNumber(project_id);
-  assert.ok(cardNumber >= 0);
-  await tCore.clickOnRetry(TCORE.projectsList.projectCardMenuN(cardNumber));
+  assert.ok(cardNumber > 0);
+  await tCore.clickOnRetry(TCORE.projectsList.projectCardN(cardNumber).menu);
   await tCore.clickOnRetry(TCORE.projectsList.projectCardMenuExportUSB);
   const outputFileName = testFile;
   const outputFile = path.join(TEST_PATH, outputFileName);

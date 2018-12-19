@@ -55,6 +55,10 @@ const DEFINITIONS = {
     selector: "#content > div > div.container-fluid > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(2) > div > div > div:nth-child(2) > div > div > div > div > button",
     text: "Project"
   },
+  userNavigation: {
+    selector: "#content > div > div.container-fluid > div:nth-child(2) > div > div > div:nth-child(1) > div > div > div:nth-child(1) > div:nth-child(3) > span",
+    id: "User Navigation"
+  },
   projectNavigation: {
     selector: "#content > div > div.container-fluid > div:nth-child(2) > div > div > div:nth-child(1) > div > div > div:nth-child(1) > div:nth-child(5) > span",
     id: "Project Navigation"
@@ -365,10 +369,17 @@ const DEFINITIONS = {
   projectsList: {
     id: "Project Cards",
     selector: "#content > div > div.container-fluid > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(2) > div > div > div:nth-child(1) > div > div",
-    projectCardMenuN: function(position) {
+    projectCardN: function(position) {
       return {
-        id: "Project Card Menu " + position,
-        selector: TEMPLATES.projectCardN(position) + "> div > div > div > div > div:nth-child(2) > div:nth-child(1) > div:nth-child(1)",
+        menu: {
+          id: "Project Card Menu " + position,
+          selector: TEMPLATES.projectCardN(position) + "> div > div > div > div > div:nth-child(2) > div:nth-child(1) > div:nth-child(1)",
+        },
+        selectButton: {
+          selector: TEMPLATES.projectCardN(position) + "> div > div > div > div > div:nth-child(2) > div:nth-child(2) > button",
+          id: "Project Select Button " + position,
+          text: "Select"
+        }
       };
     },
     projectCardMenuExportUSB: {

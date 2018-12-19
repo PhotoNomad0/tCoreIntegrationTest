@@ -866,6 +866,7 @@ const tCoreSupport = {
   navigateDialog,
   navigateGeneralDialog,
   navigateImportResults,
+  navigateMergeConflictDialog,
   navigateMissingVersesDialog,
   navigateOnlineImportDialog,
   navigateProjectInfoDialog,

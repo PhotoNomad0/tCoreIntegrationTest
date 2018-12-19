@@ -100,7 +100,7 @@ async function afterAll() {
   }
   const cleanupFiles = tCore.getCleanupFileList();
   for (let file of cleanupFiles) {
-    console.log("Cleaning out: " + file);
+    log("Cleaning out project: " + file);
     fs.removeSync(file);
   }
 }
