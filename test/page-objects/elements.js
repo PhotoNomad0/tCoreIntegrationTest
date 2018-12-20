@@ -124,6 +124,30 @@ const DEFINITIONS = {
       text: "OK"
     }
   },
+  overwriteProjectDialog: {
+    ...TEMPLATES.generalAlertDialog,
+    id: "Overwrite Project Warning Dialog",
+    title: {
+      selector: TEMPLATES.generalAlertDialog.title.selector,
+      text: "Alert",
+      id: "Title"
+    },
+    prompt: {
+      selector: TEMPLATES.generalAlertDialog.prompt.selector,
+      id: "Prompt",
+      matchingText: function(projectName) {
+        return  `The project you selected (${projectName}) already exists.\nSelect "Overwrite Project" if you would like to overwrite the text of your existing project with this import. All check data will be retained, except where the text has been changed. In this case, the check will be invalidated and have to be redone.`;
+      }
+    },
+    cancel: {
+      selector: TEMPLATES.generalAlertDialog.prime.selector,
+      text: "Cancel Import"
+    },
+    overwrite: {
+      selector: TEMPLATES.generalAlertDialog.secondary.selector,
+      text: "Overwrite Project"
+    }
+  },
   renamedDialog: {
     ...TEMPLATES.generalAlertDialog,
     id: "Renamed Dialog",
@@ -359,6 +383,10 @@ const DEFINITIONS = {
     ...TEMPLATES.projectStepperDialog,
     selector: "#project-information-card",
     id: "Project Info Checker Dialog",
+    overwrite: {
+      selector: TEMPLATES.projectStepperDialog.continue.selector,
+      text: "Overwrite"
+    },
     targetLangId: {
       selector: "#resource_id",
       id: "Target Language Identifier"

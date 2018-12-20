@@ -344,7 +344,9 @@ async function navigateProjectInfoDialog(settings) {
   if (settings.newTargetLangId) {
     await setValue(TCORE.projectInfoCheckerDialog.targetLangId, settings.newTargetLangId);
   }
-  if (settings.continue) {
+  if (settings.overwrite) {
+    await navigateDialog(TCORE.projectInfoCheckerDialog, 'overwrite');
+  } else if (settings.continue) {
     await navigateDialog(TCORE.projectInfoCheckerDialog, 'continue');
   } else {
     await navigateDialog(TCORE.projectInfoCheckerDialog, 'cancel');
@@ -440,7 +442,7 @@ function loadingTextShown(text) {
 }
 
 async function delayWhileWaitDialogShown() {
-  log("checking for Alert Dialog shown");
+  log("Delay while wait Dialog shown");
   let loadingDialogFound = false;
   await app.client.waitForExist(TCORE.searchingWaitDialog.title.selector, 5000);
   let text = await getText(TCORE.searchingWaitDialog.prompt);
@@ -459,14 +461,16 @@ async function delayWhileWaitDialogShown() {
   return loadingDialogFound;
 }
 
-function projectRemoval(projectName) {
+function projectRemoval(projectName, noRemoval = false) {
   const PROJECTS_PATH = path.join(ospath.home(), 'translationCore', 'projects');
   if (projectName.includes("undefined")) {
     assert.fail("Invalid Project Name: " + projectName);
   }
   const projectPath = path.join(PROJECTS_PATH, projectName);
-  log("making sure test project removed: " + projectPath);
-  fs.removeSync(projectPath);
+  if (!noRemoval) {
+    log("making sure test project removed: " + projectPath);
+    fs.removeSync(projectPath);
+  }
   cleanupFileList.push(projectPath); // record for final cleanup
 }
 
@@ -498,8 +502,8 @@ async function navigateImportResults(continueOnProjectInfo, projectInfoSettings,
   }
 }
 
-async function doOnlineProjectImport(projectName, sourceProject, continueOnProjectInfo, projectInfoSettings) {
-  projectRemoval(projectName);
+async function doOnlineProjectImport(projectName, sourceProject, continueOnProjectInfo, projectSettings) {
+  projectRemoval(projectName, projectSettings.noProjectRemoval);
   await setToProjectPage();
   await openImportDialog(TCORE.importTypeOptions.online);
   await navigateDialog(TCORE.onlineDialog, 'access_internet');
@@ -513,9 +517,9 @@ async function doOnlineProjectImport(projectName, sourceProject, continueOnProje
   };
   await navigateOnlineImportDialog(importConfig);
   
-  if (projectInfoSettings.preProjectInfoErrorMessage) {
+  if (projectSettings.preProjectInfoErrorMessage) {
     const importErrorDialog = _.cloneDeep(TCORE.importErrorDialog);
-    importErrorDialog.prompt.text = projectInfoSettings.preProjectInfoErrorMessage;
+    importErrorDialog.prompt.text = projectSettings.preProjectInfoErrorMessage;
     await waitForDialog(TCORE.importErrorDialog);
     await navigateGeneralDialog(importErrorDialog, 'ok');
     await verifyOnSpecificPage(TCORE.projectsPage);
@@ -524,24 +528,24 @@ async function doOnlineProjectImport(projectName, sourceProject, continueOnProje
 
   // navigate project information dialog
   const projectInfoConfig = {
-    ...projectInfoSettings,
+    ...projectSettings,
     continue: continueOnProjectInfo
   };
   
-  if (!projectInfoSettings.noProjectInfoDialog) {
+  if (!projectSettings.noProjectInfoDialog) {
     await delayWhileWaitDialogShown();
     await navigateProjectInfoDialog(projectInfoConfig);
   }
 
-  if (projectInfoSettings.mergeConflicts) {
+  if (projectSettings.mergeConflicts) {
     await navigateMergeConflictDialog({continue: true});
   }
 
-  if (projectInfoSettings.missingVerses) {
+  if (projectSettings.missingVerses) {
     await navigateMissingVersesDialog({ continue: true});
   }
 
-  await navigateImportResults(continueOnProjectInfo, projectInfoSettings, projectName);
+  await navigateImportResults(continueOnProjectInfo, projectSettings, projectName);
   // fs.removeSync(projectPath); // TODO: cannot remove until deselected
 }
 
@@ -655,7 +659,7 @@ function mockDialogPath(file, isSaveDialog = false) {
 }
 
 async function doLocalProjectImport(projectSettings, continueOnProjectInfo, projectName) {
-  projectRemoval(projectName);
+  projectRemoval(projectName, projectSettings.noProjectRemoval);
   mockDialogPath(projectSettings.importPath);
   await setToProjectPage();
   await openImportDialog(TCORE.importTypeOptions.local);
@@ -684,6 +688,13 @@ async function doLocalProjectImport(projectSettings, continueOnProjectInfo, proj
       await navigateMissingVersesDialog({continue: true});
     }
 
+    if (projectSettings.overwrite) {
+      const overwriteDialogConfig = _.cloneDeep(TCORE.overwriteProjectDialog);
+      overwriteDialogConfig.prompt.text = TCORE.overwriteProjectDialog.prompt.matchingText(projectName);
+      await navigateGeneralDialog(overwriteDialogConfig, projectSettings.overwriteCancel ? 'cancel' : 'overwrite');
+      await app.client.pause(500);
+    }
+    
     await navigateImportResults(continueOnProjectInfo, projectSettings, projectName);
   }
 }

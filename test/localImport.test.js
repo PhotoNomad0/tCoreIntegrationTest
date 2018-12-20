@@ -11,12 +11,13 @@ const TEST_PATH = path.join(ospath.home(), 'translationCore', 'testing');
 let app;
 const testCount = 1; // number of time to repeat import tests
 let TEST_FILE_PATH;
+let savedTargetId = null;
 
 /**
  * does USFM import of project and then exports as USFM.
  */
 
-describe.skip('Local Tests', () => {
+describe('Local Tests', () => {
 
   before(async () => {
     app = await utils.beforeAll();
@@ -37,6 +38,52 @@ describe.skip('Local Tests', () => {
 
   describe('Local Import Tests', () => {
     for (let testNum = 1; testNum <= testCount; testNum++) {
+      it('should succeed local import 57-TIT-missing-verse.usfm', async () => {
+        const newTargetLangId = generateTargetLangId();
+        savedTargetId = newTargetLangId;
+        const newLanguageId = "en";
+        const bookId = "tit";
+        const {bookName} = utils.getBibleData(bookId);
+        const continueOnProjectInfo = true;
+        const testFile = '57-TIT-missing-verse.usfm';
+        const importPath = path.join(TEST_FILE_PATH, testFile);
+        const projectSettings = {
+          importPath,
+          license: 'ccShareAlike',
+          newLanguageId,
+          bookName,
+          newTargetLangId,
+          missingVerses: true
+        };
+        const projectName = `${newLanguageId}_${newTargetLangId}_${bookId}_book`;
+        await tCore.doLocalProjectImport(projectSettings, continueOnProjectInfo, projectName);
+        utils.testFinished();
+      });
+
+      it('should succeed local import 57-TIT-missing-verse.usfm overwrite', async () => {
+        const newTargetLangId = savedTargetId;
+        const newLanguageId = "en";
+        const bookId = "tit";
+        const {bookName} = utils.getBibleData(bookId);
+        const continueOnProjectInfo = true;
+        const testFile = '57-TIT-missing-verse.usfm';
+        const importPath = path.join(TEST_FILE_PATH, testFile);
+        const projectSettings = {
+          importPath,
+          license: 'ccShareAlike',
+          newLanguageId,
+          bookName,
+          newTargetLangId,
+          missingVerses: true,
+          noProjectRemoval: true,
+          overwrite: true,
+          noRename: true
+        };
+        const projectName = `${newLanguageId}_${newTargetLangId}_${bookId}_book`;
+        await tCore.doLocalProjectImport(projectSettings, continueOnProjectInfo, projectName);
+        utils.testFinished();
+      });
+
       it('merge conflicts should succeed local import en-x-demo1_php_text_ulb_mc2.tstudio', async () => {
         const newTargetLangId = generateTargetLangId();
         const languageId = "en-x-demo1";
@@ -107,27 +154,6 @@ describe.skip('Local Tests', () => {
         utils.testFinished();
       });
   
-      it('should succeed local import 57-TIT-missing-verse.usfm', async () => {
-        const newTargetLangId = generateTargetLangId();
-        const newLanguageId = "en";
-        const bookId = "tit";
-        const {bookName} = utils.getBibleData(bookId);
-        const continueOnProjectInfo = true;
-        const testFile = '57-TIT-missing-verse.usfm';
-        const importPath = path.join(TEST_FILE_PATH, testFile);
-        const projectSettings = {
-          importPath,
-          license: 'ccShareAlike',
-          newLanguageId,
-          bookName,
-          newTargetLangId,
-          missingVerses: true
-        };
-        const projectName = `${newLanguageId}_${newTargetLangId}_${bookId}_book`;
-        await tCore.doLocalProjectImport(projectSettings, continueOnProjectInfo, projectName);
-        utils.testFinished();
-      });
-  
       it('should succeed local import 59_JAS_hi_grk_aligned_with_number.usfm', async () => {
         const newTargetLangId = generateTargetLangId();
         const newLanguageId = "hi";
@@ -150,56 +176,53 @@ describe.skip('Local Tests', () => {
     }
   });
   
-  describe('USFM Import Tests', () => {
+  describe('Import/Export Tests', () => {
     let alignmentState = false;
-  
-    describe('Import/Export', () => {
-      for (let testNum = 1; testNum <= testCount; testNum++) {
-        it('do USFM import and export 57-TIT-AlignedHI.usfm', async () => {
-          const newTargetLangId = generateTargetLangId();
-          alignmentState = !alignmentState;
-          const exportAlignments = alignmentState;
-          const languageId = "hi";
-          const bookId = "tit";
-          const {bookName} = utils.getBibleData(bookId);
-          const continueOnProjectInfo = true;
-          const project_id = languageId + "_" + newTargetLangId + "_" + bookId + "_book";
-          const testFile = '57-TIT-AlignedHI.usfm';
-          const importPath = path.join(TEST_FILE_PATH, testFile);
-          const projectSettings = {
-            importPath,
-            license: 'ccShareAlike',
-            languageName: "Hindi",
-            languageId,
-            languageDirectionLtr: true,
-            bookName,
-            newTargetLangId,
-          };
-          await doUsfmImportExportTest(languageId, newTargetLangId, bookId, projectSettings, continueOnProjectInfo, project_id, true, exportAlignments, testFile, importPath);
-        });
-  
-        it('do USFM import and export 45-ACT.usfm', async () => {
-          const newTargetLangId = generateTargetLangId();
-          const exportAlignments = false;
-          const newLanguageId = "en";
-          const bookId = "act";
-          const {bookName} = utils.getBibleData(bookId);
-          const continueOnProjectInfo = true;
-          const project_id = newLanguageId + "_" + newTargetLangId + "_" + bookId + "_book";
-          const testFile = '45-ACT.usfm';
-          const importPath = path.join(TEST_FILE_PATH, testFile);
-          const projectSettings = {
-            importPath,
-            license: 'ccShareAlike',
-            languageDirectionLtr: true,
-            bookName,
-            newTargetLangId,
-            newLanguageId
-          };
-          await doUsfmImportExportTest(newLanguageId, newTargetLangId, bookId, projectSettings, continueOnProjectInfo, project_id, false, exportAlignments, testFile, importPath);
-        });
-      }
-    });
+    for (let testNum = 1; testNum <= testCount; testNum++) {
+      it('do USFM import and export 57-TIT-AlignedHI.usfm', async () => {
+        const newTargetLangId = generateTargetLangId();
+        alignmentState = !alignmentState;
+        const exportAlignments = alignmentState;
+        const languageId = "hi";
+        const bookId = "tit";
+        const {bookName} = utils.getBibleData(bookId);
+        const continueOnProjectInfo = true;
+        const project_id = languageId + "_" + newTargetLangId + "_" + bookId + "_book";
+        const testFile = '57-TIT-AlignedHI.usfm';
+        const importPath = path.join(TEST_FILE_PATH, testFile);
+        const projectSettings = {
+          importPath,
+          license: 'ccShareAlike',
+          languageName: "Hindi",
+          languageId,
+          languageDirectionLtr: true,
+          bookName,
+          newTargetLangId,
+        };
+        await doUsfmImportExportTest(languageId, newTargetLangId, bookId, projectSettings, continueOnProjectInfo, project_id, true, exportAlignments, testFile, importPath);
+      });
+
+      it('do USFM import and export 45-ACT.usfm', async () => {
+        const newTargetLangId = generateTargetLangId();
+        const exportAlignments = false;
+        const newLanguageId = "en";
+        const bookId = "act";
+        const {bookName} = utils.getBibleData(bookId);
+        const continueOnProjectInfo = true;
+        const project_id = newLanguageId + "_" + newTargetLangId + "_" + bookId + "_book";
+        const testFile = '45-ACT.usfm';
+        const importPath = path.join(TEST_FILE_PATH, testFile);
+        const projectSettings = {
+          importPath,
+          license: 'ccShareAlike',
+          languageDirectionLtr: true,
+          bookName,
+          newTargetLangId,
+          newLanguageId
+        };
+        await doUsfmImportExportTest(newLanguageId, newTargetLangId, bookId, projectSettings, continueOnProjectInfo, project_id, false, exportAlignments, testFile, importPath);
+      });
+    }
   });
 });
 

@@ -18,7 +18,7 @@ let TEST_FILE_PATH;
  * does USFM import of project and then exports as USFM.
  */
 
-describe('Project Open Tests', () => {
+describe.skip('Project Open Tests', () => {
 
   before(async () => {
     app = await utils.beforeAll();
@@ -39,13 +39,36 @@ describe('Project Open Tests', () => {
 
   describe('Local Import Tests', () => {
     for (let testNum = 1; testNum <= testCount; testNum++) {
+      it('should succeed open es-419_tit_no_git.zip with missing verses, no rename', async () => {
+        const languageId = "es-419";
+        const bookId = "tit";
+        const {bookName} = utils.getBibleData(bookId);
+        const continueOnProjectInfo = true;
+        const projectName = 'es-419_reg_tit_book'; // rename copied project to
+        const projectSource = path.join(TEST_FILE_PATH, "es-419_tit_no_git.zip");
+        const projectSettings = {
+          projectSource,
+          projectName,
+          targetLangId: "reg",
+          languageId,
+          languageDirectionLtr: true,
+          bookName,
+          missingVerses: true,
+          noProjectInfoDialog: true,
+          noRename: true
+        };
+        const newProjectName = `${languageId}_${projectSettings.targetLangId}_${bookId}_book`;
+        await openProject(projectSettings, continueOnProjectInfo, newProjectName,);
+        utils.testFinished();
+      });
+
       it('should succeed open en_ult_php_text.zip and shows broken alignments, rename', async () => {
         const newTargetLangId = 'zult';
         const languageId = "en";
         const bookId = "php";
         const {bookName} = utils.getBibleData(bookId);
         const continueOnProjectInfo = true;
-        const projectName = 'en_zult_php_book';
+        const projectName = 'en_zult_php_book'; // rename copied project to
         const projectSource = path.join(TEST_FILE_PATH, 'en_ult_php_text.zip');
         const projectSettings = {
           projectSource,
@@ -160,6 +183,7 @@ async function openProject(projectSettings, continueOnProjectInfo, newProjectNam
   }
 
   if (projectSettings.brokenAlignments) {
+    log("Navigating Broken Alignments");
     await tCore.waitForDialog(TCORE.alignmentsResetDialog);
     const prompt = await tCore.getText(TCORE.alignmentsResetDialog.prompt);
     await tCore.verifyText(TCORE.alignmentsResetDialog.prompt, TCORE.alignmentsResetDialog.prompt.text);
