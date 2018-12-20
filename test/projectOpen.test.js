@@ -39,31 +39,30 @@ describe('Project Open Tests', () => {
 
   describe('Local Import Tests', () => {
     for (let testNum = 1; testNum <= testCount; testNum++) {
-      // shows broken alignments
-      // it('should succeed open en_ult_php_text.zip', async () => {
-      //   const newTargetLangId = 'zult';
-      //   const languageId = "en";
-      //   const bookId = "php";
-      //   const {bookName} = utils.getBibleData(bookId);
-      //   const continueOnProjectInfo = true;
-      //   const projectName = 'en_zult_php_book';
-      //   const projectSource = path.join(TEST_FILE_PATH, 'en_ult_php_text.zip');
-      //   const projectSettings = {
-      //     projectSource,
-      //     projectName,
-      //     newTargetLangId,
-      //     languageId,
-      //     languageDirectionLtr: true,
-      //     bookName,
-      //     missingVerses: true,
-      //     noRename: true
-      //   };
-      //   const newProjectName = `${languageId}_${newTargetLangId}_${bookId}_book`;
-      //   await openProject(projectSettings, continueOnProjectInfo, newProjectName,);
-      //   utils.testFinished();
-      // });
-      
-      it('should succeed open es-419_tit_no_git.zip', async () => {
+      it('should succeed open en_ult_php_text.zip and shows broken alignments, rename', async () => {
+        const newTargetLangId = 'zult';
+        const languageId = "en";
+        const bookId = "php";
+        const {bookName} = utils.getBibleData(bookId);
+        const continueOnProjectInfo = true;
+        const projectName = 'en_zult_php_book';
+        const projectSource = path.join(TEST_FILE_PATH, 'en_ult_php_text.zip');
+        const projectSettings = {
+          projectSource,
+          projectName,
+          newTargetLangId,
+          languageId,
+          languageDirectionLtr: true,
+          bookName,
+          noRename: true,
+          brokenAlignments: true
+        };
+        const newProjectName = `${languageId}_${newTargetLangId}_${bookId}_book`;
+        await openProject(projectSettings, continueOnProjectInfo, newProjectName,);
+        utils.testFinished();
+      });
+
+      it('should succeed open es-419_tit_no_git.zip with missing verses, rename', async () => {
         const languageId = "es-419";
         const bookId = "tit";
         const {bookName} = utils.getBibleData(bookId);
@@ -84,7 +83,7 @@ describe('Project Open Tests', () => {
         utils.testFinished();
       });
 
-      it('should succeed open https://git.door43.org/tCore-test-data/Test_Projects/raw/branch/master/fr_eph_no_git.zip', async () => {
+      it('should succeed open fr_eph_no_git.zip with missing verses, rename', async () => {
         const languageId = "fr";
         const bookId = "eph";
         const {bookName} = utils.getBibleData(bookId);
@@ -160,9 +159,14 @@ async function openProject(projectSettings, continueOnProjectInfo, newProjectNam
     await tCore.navigateMissingVersesDialog({continue: true});
   }
 
+  if (projectSettings.brokenAlignments) {
+    await tCore.waitForDialog(TCORE.alignmentsResetDialog);
+    const prompt = await tCore.getText(TCORE.alignmentsResetDialog.prompt);
+    await tCore.verifyText(TCORE.alignmentsResetDialog.prompt, TCORE.alignmentsResetDialog.prompt.text);
+    await tCore.navigateDialog(TCORE.alignmentsResetDialog, 'ok');
+  }
+  
   await tCore.navigateImportResults(continueOnProjectInfo, projectSettings, projectSettings.projectName);
-
-
   utils.testFinished();
 }
 

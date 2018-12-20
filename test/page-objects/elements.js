@@ -23,6 +23,24 @@ const TEMPLATES = {
       selector: "body > div:nth-child(4) > div > div:nth-child(1) > div > div > div:nth-child(2) > button.btn-second"
     }
   },
+  generalAlertDialog2: {
+    selector: "body > div:nth-child(11) > div > div:nth-child(1) > div > div",
+    id: "General Alert Dialog 2",
+    prompt: {
+      selector: "body > div:nth-child(11) > div > div:nth-child(1) > div > div > div:nth-child(2) > div > div",
+      id: "Prompt"
+    },
+    title: {
+      selector: "body > div:nth-child(11) > div > div:nth-child(1) > div > div > h3",
+      id: "Title"
+    },
+    prime: {
+      selector: "body > div:nth-child(11) > div > div:nth-child(1) > div > div > div:nth-child(3) > button.btn-prime",
+    },
+    secondary: {
+      selector: "body > div:nth-child(11) > div > div:nth-child(1) > div > div > div:nth-child(3) > button.btn-second"
+    }
+  },
   projectStepperDialog: {
     selector: "body > div:nth-child(3) > div > div:nth-child(1) > div > div > div:nth-child(1)",
     continue: {
@@ -87,6 +105,24 @@ const DEFINITIONS = {
     local: 'localImportButton',
     online: 'onlineImportButton',
     close: 'close'
+  },
+  alignmentsResetDialog: {
+    ...TEMPLATES.generalAlertDialog2,
+    id: "Alignments Reset Dialog",
+    title: {
+      selector: TEMPLATES.generalAlertDialog2.title.selector,
+      text: "Alert",
+      id: "Title"
+    },
+    prompt: {
+      selector: TEMPLATES.generalAlertDialog2.prompt.selector,
+      id: "Prompt",
+      text: "Changes have been detected in your project which have invalidated some of your alignments. These verses display an icon of a broken chain next to the reference in the side menu.\nDo not show this warning again."
+    },
+    ok: {
+      selector: TEMPLATES.generalAlertDialog2.prime.selector,
+      text: "OK"
+    }
   },
   renamedDialog: {
     ...TEMPLATES.generalAlertDialog,
