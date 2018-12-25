@@ -5,6 +5,7 @@ const ospath = require('ospath');
 const TCORE = require('../../test/page-objects/elements');
 const dialogAddon = require('spectron-dialog-addon').default;
 const _ = require('lodash');
+const tCoreConnect = require('./tCoreConnect');
 const assert = require('assert');
 // import { expect } from 'chai';
 
@@ -13,6 +14,50 @@ let version;
 let testCount = 0;
 let navigationDelay = 0;
 const cleanupFileList = [];
+let tcAppVersion = -1;
+const PROJECT_PATH = path.join(ospath.home(), 'translationCore/projects');
+
+function getPackageJson() {
+  const packagePath = path.join(tCoreConnect.appFolderPath, 'package.json');
+  const data = fs.readJsonSync(packagePath);
+  return data;
+}
+
+function getPackageTcVersion() {
+  if (tcAppVersion < 0) {
+    const data = getPackageJson();
+    tcAppVersion = data && data.manifestVersion && parseInt(data.manifestVersion);
+    log("tCore current manifest Version: " + tcAppVersion);
+  }
+  return tcAppVersion;
+}
+
+/**
+ * get the tCore Version from manifest
+ * @param {String} projectPath - path to project
+ * @return {number} - version number in manifest
+ */
+function getManifestTcVersion(projectPath) {
+  const data = fs.readJsonSync(path.join(projectPath, 'manifest.json'));
+  const manifestVersion = data && data.tc_version && parseInt(data.tc_version);
+  return manifestVersion;
+}
+
+/**
+ *  verify that project was migrated to correct version
+ * @param projectPath
+ * @return {Boolean} success flag
+ */
+function validateManifestVersion(projectPath) {
+  const tcAppVersion = getPackageTcVersion();
+  const manifestVersion = getManifestTcVersion(projectPath);
+  const success = manifestVersion === tcAppVersion;
+  if (!success) {
+    log("#### Manifest final tCore Version was: '" + manifestVersion + "' but should be '" + tcAppVersion + "'");
+    assert.equal(manifestVersion, tcAppVersion);
+  }
+  return success;
+}
 
 function getCleanupFileList() {
   return cleanupFileList;
@@ -505,6 +550,8 @@ async function navigateImportResults(continueOnProjectInfo, projectInfoSettings,
     await navigateGeneralDialog(TCORE.importCancelDialog, 'cancelImport');
     await verifyOnSpecificPage(TCORE.projectsPage);
   }
+  const projectPath = path.join(PROJECT_PATH, projectName);
+  validateManifestVersion(projectPath);
 }
 
 async function doOnlineProjectImport(projectName, sourceProject, continueOnProjectInfo, projectSettings) {
@@ -856,6 +903,7 @@ async function findProjectCardNumber(name) {
 }
 
 const tCoreSupport = {
+  PROJECT_PATH,
   clickOn,
   clickOnRetry,
   delayWhileWaitDialogShown,
@@ -868,6 +916,8 @@ const tCoreSupport = {
   getChildIndices,
   getCleanupFileList,
   getLogFilePath,
+  getManifestTcVersion,
+  getPackageJson,
   getSearchResults,
   getSelection,
   getText,
@@ -896,6 +946,7 @@ const tCoreSupport = {
   setToProjectPage,
   setValue,
   startTcore,
+  validateManifestVersion,
   verifyOnSpecificPage,
   verifyProjectInfoDialog,
   verifyText,

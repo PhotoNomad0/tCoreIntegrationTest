@@ -9,7 +9,6 @@ const TCORE = require('./page-objects/elements');
 const zipFileHelpers = require('../src/helpers/zipFileHelpers');
 
 const TEST_PATH = path.join(ospath.home(), 'translationCore/testing');
-const PROJECT_PATH = path.join(ospath.home(), 'translationCore/projects');
 let app;
 const testCount = 1; // number of time to repeat import tests
 let TEST_FILE_PATH;
@@ -156,11 +155,11 @@ async function openProject(projectSettings, continueOnProjectInfo, newProjectNam
     if (fs.existsSync(path.join(unzippedProject, sourceProjectName))) { // see if nested
       unzippedProject = path.join(unzippedProject, sourceProjectName);
     }
-    fs.copySync(unzippedProject, path.join(PROJECT_PATH, projectSettings.projectName));
-    assert.ok(fs.existsSync(path.join(PROJECT_PATH, projectSettings.projectName)));
+    fs.copySync(unzippedProject, path.join(tCore.PROJECT_PATH, projectSettings.projectName));
+    assert.ok(fs.existsSync(path.join(tCore.PROJECT_PATH, projectSettings.projectName)));
   }
-  const projectPath = path.join(PROJECT_PATH, projectSettings.projectName);
-  const initialManifestVersion = utils.getManifestTcVersion(projectPath);
+  const projectPath = path.join(tCore.PROJECT_PATH, projectSettings.projectName);
+  const initialManifestVersion = tCore.getManifestTcVersion(projectPath);
   log("Project Initial tCore Manifest Version: " + initialManifestVersion);
   await tCore.clickOn(TCORE.userNavigation);
   await tCore.setToProjectPage();
@@ -194,10 +193,9 @@ async function openProject(projectSettings, continueOnProjectInfo, newProjectNam
   }
   
   await tCore.navigateImportResults(continueOnProjectInfo, projectSettings, projectSettings.projectName);
-  const finalManifestVersion = utils.getManifestTcVersion(path.join(PROJECT_PATH, projectSettings.projectName));
+  const finalManifestVersion = tCore.getManifestTcVersion(path.join(tCore.PROJECT_PATH, projectSettings.projectName));
   log("Project Initial tCore Manifest Migrated from: '" + initialManifestVersion + "' to '" + finalManifestVersion + "'");
 
-  utils.validateManifestVersion(projectPath);
   utils.testFinished();
 }
 
