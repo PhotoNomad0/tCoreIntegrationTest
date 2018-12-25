@@ -9,6 +9,7 @@ const BIBLE_SIZES = require('../../test/fixtures/index.json');
 const BooksOfTheBible = require('./BooksOfTheBible');
 const downloadHelpers = require('./downloadHelpers');
 const zipFileHelpers = require('./zipFileHelpers');
+const assert = require('assert');
 
 const TEST_PROJECTS_URL = "https://git.door43.org/tCore-test-data/Test_Projects/archive/master.zip";
 const TEST_PATH = path.join(ospath.home(), 'translationCore', 'testing');
@@ -22,11 +23,49 @@ let testStartTime = 0;
 let testEndTime = 0;
 const maxMemory = 2624132; // this limit seems to be little different on each run.  Don't know how the limit is determined.
 let initialMemoryUsage = 0;
+let tcAppVersion = -1;
 
+function getPackageJson() {
+  const packagePath = path.join(tCoreConnect.appFolderPath, 'package.json');
+  const data = fs.readJsonSync(packagePath);
+  return data;
+}
 
-//
-// helpers
-//
+function getPackageTcVersion() {
+  if (tcAppVersion < 0) {
+    const data = getPackageJson();
+    tcAppVersion = data && data.manifestVersion && parseInt(data.manifestVersion);
+    log("App manifest Version: " + tcAppVersion);
+  }
+  return tcAppVersion;
+}
+
+/**
+ * get the tCore Version from manifest
+ * @param {String} projectPath - path to project
+ * @return {number} - version number in manifest
+ */
+function getManifestTcVersion(projectPath) {
+  const data = fs.readJsonSync(path.join(projectPath, 'manifest.json'));
+  const manifestVersion = data && data.tc_version && parseInt(data.tc_version);
+  return manifestVersion;
+}
+
+/**
+ *  verify that project was migrated to correct version
+ * @param projectPath
+ * @return {Boolean} success flag
+ */
+function validateManifestVersion(projectPath) {
+  const tcAppVersion = getPackageTcVersion();
+  const manifestVersion = getManifestTcVersion(projectPath);
+  const success = manifestVersion === tcAppVersion;
+  if (!success) {
+    log("#### Manifest final tCore Version was: '" + manifestVersion + "' but should be '" + tcAppVersion + "'");
+    assert.equal(manifestVersion, tcAppVersion);
+  }
+  return success;
+}
 
 function log(text) {
   tCore.log(text);
@@ -176,12 +215,15 @@ const utils = {
   generateTargetLanguageID,
   getBibleData,
   getElapsedTestTime,
+  getManifestTcVersion,
+  getPackageJson,
   getSafeErrorMessage,
   getTestCount,
   getTestFiles,
   log,
   logMemoryUsage,
-  testFinished
+  testFinished,
+  validateManifestVersion
 };
 
 module.exports = utils;

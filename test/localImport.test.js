@@ -17,7 +17,7 @@ let savedTargetId = null;
  * does USFM import of project and then exports as USFM.
  */
 
-describe('Local Tests', () => {
+describe.skip('Local Tests', () => {
 
   before(async () => {
     app = await utils.beforeAll();

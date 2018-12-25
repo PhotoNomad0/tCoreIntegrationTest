@@ -9,10 +9,10 @@ Do `node -v` to check node version.  I'm using version v8.9.3 on one PC and v8.1
 npm i
 ```
 
-Also in `./src/helpers/tCoreConnect.js` change `appPath` to either 
-* point to where the source is found (`'../../translationCore/src/main.js'`) or
+Also 
+- in `./src/helpers/tCoreConnect.js` change `appFolder` to point to where project is found (e.g. `../../translationCore`) and `appStartupFile` to point to the file that starts the app (e.g. `src/es6-init.js`). 
 
-~~to the app (`/Applications/translationCore.app/Contents/MacOS/translationCore`) - this doesn't work yet~~
+~~or to the compiled app (`/Applications/translationCore.app/Contents/MacOS/translationCore`) - this doesn't work yet~~
 
 **_Note:_** *When running compiled app, spectron launches the app and can click the get started button that shows the app, but hangs trying to click on "Project Navigation" at top of app screen.  Not sure why that would be.*
 

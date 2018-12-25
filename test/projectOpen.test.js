@@ -18,7 +18,7 @@ let TEST_FILE_PATH;
  * does USFM import of project and then exports as USFM.
  */
 
-describe.skip('Project Open Tests', () => {
+describe('Project Open Tests', () => {
 
   before(async () => {
     app = await utils.beforeAll();
@@ -37,7 +37,7 @@ describe.skip('Project Open Tests', () => {
     await utils.afterAll();
   });
 
-  describe('Local Import Tests', () => {
+  describe('Project Open Tests', () => {
     for (let testNum = 1; testNum <= testCount; testNum++) {
       it('should succeed open es-419_tit_no_git.zip with missing verses, no rename', async () => {
         const languageId = "es-419";
@@ -159,6 +159,9 @@ async function openProject(projectSettings, continueOnProjectInfo, newProjectNam
     fs.copySync(unzippedProject, path.join(PROJECT_PATH, projectSettings.projectName));
     assert.ok(fs.existsSync(path.join(PROJECT_PATH, projectSettings.projectName)));
   }
+  const projectPath = path.join(PROJECT_PATH, projectSettings.projectName);
+  const initialManifestVersion = utils.getManifestTcVersion(projectPath);
+  log("Project Initial tCore Manifest Version: " + initialManifestVersion);
   await tCore.clickOn(TCORE.userNavigation);
   await tCore.setToProjectPage();
   const cardNumber = await tCore.findProjectCardNumber(projectSettings.projectName);
@@ -191,6 +194,10 @@ async function openProject(projectSettings, continueOnProjectInfo, newProjectNam
   }
   
   await tCore.navigateImportResults(continueOnProjectInfo, projectSettings, projectSettings.projectName);
+  const finalManifestVersion = utils.getManifestTcVersion(path.join(PROJECT_PATH, projectSettings.projectName));
+  log("Project Initial tCore Manifest Migrated from: '" + initialManifestVersion + "' to '" + finalManifestVersion + "'");
+
+  utils.validateManifestVersion(projectPath);
   utils.testFinished();
 }
 

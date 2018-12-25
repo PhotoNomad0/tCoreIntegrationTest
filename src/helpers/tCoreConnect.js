@@ -6,15 +6,18 @@ const electron = require('electron');
 const path = require('path');
 const dialogAddon = require('spectron-dialog-addon').default;
 
-// const appPath = path.join(__dirname, '../../../testDir/translationCoreTest/src/es6-init.js'); // launch from source
-const appPath = path.join(__dirname, '../../../translationCore/src/es6-init.js'); // launch from source
+const appFolder = '../../../testDir/translationCoreTest'; 
+// const appFolder = '../../../translationCore';
+const appStartupFile = 'src/es6-init.js';
+const appFolderPath = path.join(__dirname, appFolder);
+const appStartupPath = path.join(appFolderPath, appStartupFile);
 
 /*
   When running compiled app as below, spectron launches the app and can click the get started button that shows the app, but hangs trying to click on "Project Navigation" at top of app screen.  Not sure why that would be.
  */
 // const appPath = '/Applications/translationCore.app/Contents/MacOS/translationCore'; // directly launch app
 
-console.log('appPath', appPath);
+console.log('appStartupPath', appStartupPath);
 
 global.before(() => {
   chai.should();
@@ -23,18 +26,18 @@ global.before(() => {
 
 module.exports = {
   async startApp() {
-    const useElectron = true; // (appPath.indexOf('main.js') >= 0);
+    const useElectron = true; // (appStartupPath.indexOf('main.js') >= 0);
     let app;
     if (useElectron) {
       app = new Application({
         path: electron,
-        args: [appPath]
+        args: [appStartupPath]
       });
     }
     // else { // this does not seem to be supported?
     //   // launch app directly
     //   app = new Application({
-    //     path: appPath
+    //     path: appStartupPath
     //   });
     // }
     dialogAddon.apply(app);
@@ -47,5 +50,8 @@ module.exports = {
     if (app && app.isRunning()) {
       await app.stop();
     }
-  }
+  },
+
+  appStartupPath,
+  appFolderPath
 };

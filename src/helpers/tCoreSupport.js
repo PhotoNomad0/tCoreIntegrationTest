@@ -32,9 +32,14 @@ async function startTcore() {
   log("starting tCore");
   await app.client.pause(4000);
   log("Finished initial delay");
-  await app.client.waitUntilWindowLoaded()
-    .getWindowCount()
-    .should.eventually.have.at.least(1);
+  try {
+    await app.client.waitUntilWindowLoaded()
+      .getWindowCount()
+      .should.eventually.have.at.least(1);
+  } catch(e) {
+    log("Could not get window count, trying to continue");
+    await app.client.pause(500);
+  }
   log("Reached Window count");
   try {
     await app.client.browserWindow.isVisible().should.eventually.equal(true);
