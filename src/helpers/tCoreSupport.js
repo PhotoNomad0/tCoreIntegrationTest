@@ -541,6 +541,7 @@ async function navigateImportResults(continueOnProjectInfo, projectInfoSettings,
         // navigate renamed dialog
         const renamedDialogConfig = _.cloneDeep(TCORE.renamedDialog);
         renamedDialogConfig.prompt.text = `Your local project has been named\n    ${projectName}`;
+        renamedDialogConfig.prompt.id = 'Project Renamed Prompt';
         await navigateGeneralDialog(renamedDialogConfig, 'ok');
       }
     }

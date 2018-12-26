@@ -192,8 +192,8 @@ async function openProject(projectSettings, continueOnProjectInfo, newProjectNam
     await tCore.navigateDialog(TCORE.alignmentsResetDialog, 'ok');
   }
   
-  await tCore.navigateImportResults(continueOnProjectInfo, projectSettings, projectSettings.projectName);
-  const finalManifestVersion = tCore.getManifestTcVersion(path.join(tCore.PROJECT_PATH, projectSettings.projectName));
+  await tCore.navigateImportResults(continueOnProjectInfo, projectSettings, newProjectName);
+  const finalManifestVersion = tCore.getManifestTcVersion(path.join(tCore.PROJECT_PATH, newProjectName));
   log("Project Initial tCore Manifest Migrated from: '" + initialManifestVersion + "' to '" + finalManifestVersion + "'");
 
   utils.testFinished();
