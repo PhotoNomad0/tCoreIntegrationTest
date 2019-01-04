@@ -77,10 +77,10 @@ async function beforeAll() {
   fs.removeSync(tCore.getLogFilePath());
   if (!app) {
     app = await tCoreConnect.startApp();
+    tCore.initializeTest(app, testCount, navigationDelay);
+    log('Starting tCore');
+    await tCore.startTcore();
   }
-  tCore.initializeTest(app, testCount, navigationDelay);
-  log('Starting tCore');
-  await tCore.startTcore();
   log('tCore started');
   await logMemoryUsage();
   return app;

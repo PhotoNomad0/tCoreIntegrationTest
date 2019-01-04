@@ -7,6 +7,7 @@ const dialogAddon = require('spectron-dialog-addon').default;
 const _ = require('lodash');
 const tCoreConnect = require('./tCoreConnect');
 const assert = require('assert');
+const zipFileHelpers = require('./zipFileHelpers');
 // import { expect } from 'chai';
 
 let app;
@@ -99,15 +100,20 @@ async function startTcore() {
   }, "getting text for " + elementDescription(TCORE.getStartedButton),
   500);
   
-  let buttonText;
-  await retryStep(10, async () => {
-    buttonText = await getText(TCORE.getStartedButton);
-  }, "getting text for " + elementDescription(TCORE.getStartedButton),
-  500);
+  let buttonText = await getTextRetry(TCORE.getStartedButton);
   log("button text shown: " + buttonText);
   version = await getText(TCORE.versionLabel);
   logVersion();
   await clickOn(TCORE.getStartedButton);
+}
+
+async function getTextRetry(element, count = 20) {
+  let elementText;
+  await retryStep(count, async () => {
+    elementText = await getText(element);
+  }, "getting text for " + elementDescription(element),
+  500);
+  return elementText;
 }
 
 /**
@@ -184,7 +190,7 @@ async function waitForValue(elementObj, text) {
 }
 
 function verifyTextIsMatched(text, matchText) {
-  assert.equal((text || "").toString().trim(), matchText.trim());
+  assert.equal((text || "").toString().trim(), matchText.trim(), "text '" + text + "' does not match expected '" + matchText + "'");
 }
 
 /**
@@ -482,7 +488,19 @@ async function verifyOnSpecificPage(verifyPage) {
   await navigateDialog(verifyPage, null); // make sure page shown
   log("verify on specific page");
   if (verifyPage.text) {
-    await verifyText(verifyPage, verifyPage.text);
+    let verified = false;
+    for (let i = 0; i < 10; i++) {
+      try {
+        await verifyText(verifyPage, verifyPage.text);
+        verified = true;
+        break;
+      } catch(e) {
+        log("verity failed step " + i);
+      }
+    }
+    if (!verified) { // last try
+      await verifyText(verifyPage, verifyPage.text);
+    }
   }
   log("finished verify on specific page");
 }
@@ -542,7 +560,15 @@ async function navigateImportResults(continueOnProjectInfo, projectInfoSettings,
         const renamedDialogConfig = _.cloneDeep(TCORE.renamedDialog);
         renamedDialogConfig.prompt.text = `Your local project has been named\n    ${projectName}`;
         renamedDialogConfig.prompt.id = 'Project Renamed Prompt';
+        log("Checking for rename prompt: " + renamedDialogConfig.prompt.text);
         await navigateGeneralDialog(renamedDialogConfig, 'ok');
+      }
+      if (projectInfoSettings.brokenAlignments) {
+        log("Navigating Broken Alignments");
+        await waitForDialog(TCORE.alignmentsResetDialog);
+        // const prompt = await getText(TCORE.alignmentsResetDialog.prompt);
+        await verifyText(TCORE.alignmentsResetDialog.prompt, TCORE.alignmentsResetDialog.prompt.text);
+        await navigateDialog(TCORE.alignmentsResetDialog, 'ok');
       }
     }
     await verifyOnSpecificPage(TCORE.toolsPage);
@@ -902,12 +928,131 @@ async function findProjectCardNumber(name) {
   log("Card not found for " + name);
   return -1;
 }
+/**
+ * unzip test project into project folder
+ * @param {Object} projectSettings
+ * @param {String} newProjectName
+ * @return {Promise<void>}
+ */
+async function unzipTestProjectIntoProjects(projectSettings, newProjectName) {
+  if (projectSettings.projectSource) {
+    projectRemoval(projectSettings.projectName);
+    projectRemoval(newProjectName);
+    const unzipFolder = path.dirname(projectSettings.projectSource);
+    const sourceProjectName = path.parse(projectSettings.projectSource).name;
+    fs.removeSync(path.join(unzipFolder, sourceProjectName));
+    fs.removeSync(path.join(unzipFolder, '__MACOSX'));
+    await zipFileHelpers.extractZipFile(projectSettings.projectSource, unzipFolder);
+    let unzippedProject = path.join(unzipFolder, sourceProjectName);
+    if (fs.existsSync(path.join(unzippedProject, sourceProjectName))) { // see if nested
+      unzippedProject = path.join(unzippedProject, sourceProjectName);
+    }
+    fs.copySync(unzippedProject, path.join(PROJECT_PATH, projectSettings.projectName));
+    assert.ok(fs.existsSync(path.join(PROJECT_PATH, projectSettings.projectName)));
+  }
+}
+
+/**
+ * do an USFM import, export and compare test
+ * @param {Object} projectSettings
+ * @param {Boolean} continueOnProjectInfo
+ * @param {String} newProjectName
+ * @return {Promise<void>}
+ */
+async function doOpenProject(projectSettings, continueOnProjectInfo, newProjectName) {
+  await unzipTestProjectIntoProjects(projectSettings, newProjectName);
+  const projectPath = path.join(PROJECT_PATH, projectSettings.projectName);
+  const initialManifestVersion = getManifestTcVersion(projectPath);
+  log("Project Initial tCore Manifest Version: " + initialManifestVersion);
+  await clickOn(TCORE.userNavigation);
+  await setToProjectPage();
+  const cardNumber = await findProjectCardNumber(projectSettings.projectName);
+  assert.ok(cardNumber >= 0, "Could not find project card");
+
+  await clickOnRetry(TCORE.projectsList.projectCardN(cardNumber).selectButton);
+
+  if (projectSettings.license) {
+    await navigateCopyrightDialog({license: projectSettings.license, continue: true});
+  }
+
+  if (!projectSettings.noProjectInfoDialog) {
+    await navigateProjectInfoDialog({...projectSettings, continue: continueOnProjectInfo});
+  }
+
+  if (projectSettings.mergeConflicts) {
+    await navigateMergeConflictDialog({continue: true});
+  }
+
+  if (projectSettings.missingVerses) {
+    await navigateMissingVersesDialog({continue: true});
+  }
+
+  await navigateImportResults(continueOnProjectInfo, projectSettings, newProjectName);
+  const finalManifestVersion = getManifestTcVersion(path.join(PROJECT_PATH, newProjectName));
+  log("Project Initial tCore Manifest Migrated from: '" + initialManifestVersion + "' to '" + finalManifestVersion + "'");
+}
+
+/**
+ * verify text in element
+ * @param {Object} elementObj - item to verify
+ * @param {string} text
+ * @param {number} count - retry count
+ * @return {Promise<void>}
+ */
+async function verifyTextRetry(elementObj, text, count = 20) {
+  log('checking "' + elementDescription(elementObj) + '" equals "' + text + '"');
+  const actualText = await getTextRetry(elementObj, count);
+  verifyTextIsMatched(actualText, text);
+}
+
+/**
+ * do export to USFM
+ * @param {String} projectName - project name to export
+ * @param {String} outputFileName - name for output file
+ * @param {Boolean} hasAlignments - true if project has alignments
+ * @param {Boolean} exportAlignments - true if we are to export alignments
+ * @param {String} outputFolder - path for output folder
+ * @return {Promise<string>}
+ */
+async function doExportToUsfm(projectName, outputFileName, hasAlignments, exportAlignments, outputFolder) {
+// now do USFM export
+  await setToProjectPage();
+  const cardNumber = await findProjectCardNumber(projectName);
+  assert.ok(cardNumber >= 0, "Could not find project card");
+  await clickOnRetry(TCORE.projectsList.projectCardN(cardNumber).menu);
+  await clickOnRetry(TCORE.projectsList.projectCardMenuExportUSB);
+  const outputFile = path.join(outputFolder, outputFileName);
+  fs.ensureDirSync(outputFolder);
+  fs.removeSync(outputFile);
+  await mockDialogPath(outputFile, true);
+  if (hasAlignments) {
+    await waitForDialog(TCORE.usfmExport);
+    const currentValue = await getCheckBoxRetry(TCORE.usfmExport.includeAlignmentsInputValue);
+    if (currentValue !== exportAlignments) {
+      await setCheckBoxRetry(TCORE.usfmExport.includeAlignmentsInputValue, exportAlignments);
+    }
+    const newValue = await getSelection(TCORE.usfmExport.includeAlignmentsInputValue);
+    assert.equal(exportAlignments, newValue);
+    await app.client.pause(1000);
+    await clickOnRetry(TCORE.usfmExport.export);
+  }
+  await app.client.pause(1000);
+  log("File '" + outputFile + "' exists: " + fs.existsSync(outputFile));
+  // const logs = await app.client.getRenderProcessLogs();
+  // log("Logs:\n" + JSON.stringify(logs, null, 2));
+  await waitForDialog(TCORE.exportResultsDialog);
+  const expectedText = path.parse(outputFileName).name + " has been successfully exported to " + outputFileName + ".";
+  await verifyTextRetry(TCORE.exportResultsDialog.prompt, expectedText);
+  await clickOnRetry(TCORE.exportResultsDialog.ok);
+  return outputFile;
+}
 
 const tCoreSupport = {
   PROJECT_PATH,
   clickOn,
   clickOnRetry,
   delayWhileWaitDialogShown,
+  doExportToUsfm,
   doLocalProjectImport,
   doOnlineProjectImport,
   elementDescription,
@@ -922,6 +1067,7 @@ const tCoreSupport = {
   getSearchResults,
   getSelection,
   getText,
+  getTextRetry,
   getValue,
   indexInSearchResults,
   initializeTest,
@@ -939,6 +1085,7 @@ const tCoreSupport = {
   navigateProjectInfoDialog,
   navigateRetry,
   openImportDialog,
+  doOpenProject,
   parseSearchResult,
   projectRemoval,
   retryStep,
@@ -947,6 +1094,7 @@ const tCoreSupport = {
   setToProjectPage,
   setValue,
   startTcore,
+  unzipTestProjectIntoProjects,
   validateManifestVersion,
   verifyOnSpecificPage,
   verifyProjectInfoDialog,

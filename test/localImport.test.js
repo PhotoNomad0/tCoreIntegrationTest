@@ -190,6 +190,7 @@ describe.skip('Local Tests', () => {
         const project_id = languageId + "_" + newTargetLangId + "_" + bookId + "_book";
         const testFile = '57-TIT-AlignedHI.usfm';
         const importPath = path.join(TEST_FILE_PATH, testFile);
+        const brokenAlignments = true;
         const projectSettings = {
           importPath,
           license: 'ccShareAlike',
@@ -198,6 +199,7 @@ describe.skip('Local Tests', () => {
           languageDirectionLtr: true,
           bookName,
           newTargetLangId,
+          brokenAlignments
         };
         await doUsfmImportExportTest(languageId, newTargetLangId, bookId, projectSettings, continueOnProjectInfo, project_id, true, exportAlignments, testFile, importPath);
       });
@@ -232,53 +234,23 @@ describe.skip('Local Tests', () => {
 
 /**
  * do an USFM import, export and compare test
- * @param languageId
- * @param newTargetLangId
- * @param bookId
- * @param projectSettings
- * @param continueOnProjectInfo
- * @param project_id
- * @param {Boolean} hasAlignments
- * @param {Boolean} exportAlignments
- * @param testFile
- * @param importPath
+ * @param {String} languageId
+ * @param {String} targetLangId
+ * @param {String} bookId
+ * @param {Object} projectSettings
+ * @param {Boolean} continueOnProjectInfo - if truce then click continue on project import
+ * @param {String} project_id - project name
+ * @param {Boolean} hasAlignments - true if project has alignments
+ * @param {Boolean} exportAlignments - true if we are to export alignments
+ * @param {String} outputFileName - name for output file
+ * @param {String} importPath - path to original USFM import
  * @return {Promise<void>}
  */
-async function doUsfmImportExportTest(languageId, newTargetLangId, bookId, projectSettings, continueOnProjectInfo,
-                                        project_id, hasAlignments, exportAlignments, testFile, importPath) {
-  const projectName = `${languageId}_${newTargetLangId}_${bookId}_book`;
+async function doUsfmImportExportTest(languageId, targetLangId, bookId, projectSettings, continueOnProjectInfo,
+                                        project_id, hasAlignments, exportAlignments, outputFileName, importPath) {
+  const projectName = `${languageId}_${targetLangId}_${bookId}_book`;
   await tCore.doLocalProjectImport(projectSettings, continueOnProjectInfo, projectName);
-  
-  // now do USFM export
-  await tCore.setToProjectPage();
-  const cardNumber = await tCore.findProjectCardNumber(project_id);
-  assert.ok(cardNumber > 0);
-  await tCore.clickOnRetry(TCORE.projectsList.projectCardN(cardNumber).menu);
-  await tCore.clickOnRetry(TCORE.projectsList.projectCardMenuExportUSB);
-  const outputFileName = testFile;
-  const outputFile = path.join(TEST_PATH, outputFileName);
-  fs.ensureDirSync(TEST_PATH);
-  fs.removeSync(outputFile);
-  await tCore.mockDialogPath(outputFile, true);
-  if (hasAlignments) {
-    await tCore.waitForDialog(TCORE.usfmExport);
-    const currentValue = await tCore.getCheckBoxRetry(TCORE.usfmExport.includeAlignmentsInputValue);
-    if (currentValue !== exportAlignments) {
-      await tCore.setCheckBoxRetry(TCORE.usfmExport.includeAlignmentsInputValue, exportAlignments);
-    }
-    const newValue = await tCore.getSelection(TCORE.usfmExport.includeAlignmentsInputValue);
-    assert.equal(exportAlignments, newValue);
-    await app.client.pause(1000);
-    await tCore.clickOnRetry(TCORE.usfmExport.export);
-  }
-  await app.client.pause(1000);
-  log("File '" + outputFile + "' exists: " + fs.existsSync(outputFile));
-  // const logs = await app.client.getRenderProcessLogs();
-  // log("Logs:\n" + JSON.stringify(logs, null, 2));
-  await tCore.waitForDialog(TCORE.exportResultsDialog);
-  const expectedText = path.parse(testFile).name + " has been successfully exported to " + outputFileName + ".";
-  await tCore.verifyText(TCORE.exportResultsDialog.prompt, expectedText);
-  await tCore.clickOnRetry(TCORE.exportResultsDialog.ok);
+  const outputFile = await tCore.doExportToUsfm(project_id, outputFileName, hasAlignments, exportAlignments, TEST_PATH);
   log("Reading input USFM");
   let sourceUsfm = trimIdTag(fs.readFileSync(importPath).toString());
   log("input USFM length=" + sourceUsfm.length);

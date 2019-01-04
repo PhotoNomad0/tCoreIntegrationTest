@@ -6,7 +6,6 @@ const ospath = require('ospath');
 const tCore = require('../src/helpers/tCoreSupport');
 const utils = require('../src/helpers/utils');
 const TCORE = require('./page-objects/elements');
-const zipFileHelpers = require('../src/helpers/zipFileHelpers');
 
 const TEST_PATH = path.join(ospath.home(), 'translationCore/testing');
 let app;
@@ -17,7 +16,7 @@ let TEST_FILE_PATH;
  * does USFM import of project and then exports as USFM.
  */
 
-describe('Project Open Tests', () => {
+describe.skip('Project Open Tests', () => {
 
   before(async () => {
     app = await utils.beforeAll();
@@ -36,7 +35,7 @@ describe('Project Open Tests', () => {
     await utils.afterAll();
   });
 
-  describe('Project Open Tests', () => {
+  describe.skip('Project Open Tests', () => {
     for (let testNum = 1; testNum <= testCount; testNum++) {
       it('should succeed open es-419_tit_no_git.zip with missing verses, no rename', async () => {
         const languageId = "es-419";
@@ -57,7 +56,7 @@ describe('Project Open Tests', () => {
           noRename: true
         };
         const newProjectName = `${languageId}_${projectSettings.targetLangId}_${bookId}_book`;
-        await openProject(projectSettings, continueOnProjectInfo, newProjectName,);
+        await tCore.openProject(projectSettings, continueOnProjectInfo, newProjectName,);
         utils.testFinished();
       });
 
@@ -80,7 +79,7 @@ describe('Project Open Tests', () => {
           brokenAlignments: true
         };
         const newProjectName = `${languageId}_${newTargetLangId}_${bookId}_book`;
-        await openProject(projectSettings, continueOnProjectInfo, newProjectName,);
+        await tCore.openProject(projectSettings, continueOnProjectInfo, newProjectName,);
         utils.testFinished();
       });
 
@@ -101,7 +100,7 @@ describe('Project Open Tests', () => {
           missingVerses: true
         };
         const newProjectName = `${languageId}_${projectSettings.targetLangId}_${bookId}_book`;
-        await openProject(projectSettings, continueOnProjectInfo, newProjectName,);
+        await tCore.openProject(projectSettings, continueOnProjectInfo, newProjectName,);
         utils.testFinished();
       });
 
@@ -122,7 +121,7 @@ describe('Project Open Tests', () => {
           missingVerses: true
         };
         const newProjectName = `${languageId}_${projectSettings.targetLangId}_${bookId}_book`;
-        await openProject(projectSettings, continueOnProjectInfo, newProjectName,);
+        await tCore.openProject(projectSettings, continueOnProjectInfo, newProjectName,);
         utils.testFinished();
       });
     }
@@ -133,71 +132,6 @@ describe('Project Open Tests', () => {
 //
 // helpers
 //
-
-/**
- * do an USFM import, export and compare test
-
- * @param projectSettings
- * @param continueOnProjectInfo
- * @param newProjectName
- * @return {Promise<void>}
- */
-async function openProject(projectSettings, continueOnProjectInfo, newProjectName) {
-  if (projectSettings.projectSource) {
-    tCore.projectRemoval(projectSettings.projectName);
-    tCore.projectRemoval(newProjectName);
-    const unzipFolder = path.dirname(projectSettings.projectSource);
-    const sourceProjectName = path.parse(projectSettings.projectSource).name;
-    fs.removeSync(path.join(unzipFolder, sourceProjectName));
-    fs.removeSync(path.join(unzipFolder, '__MACOSX'));
-    await zipFileHelpers.extractZipFile(projectSettings.projectSource, unzipFolder);
-    let unzippedProject = path.join(unzipFolder, sourceProjectName);
-    if (fs.existsSync(path.join(unzippedProject, sourceProjectName))) { // see if nested
-      unzippedProject = path.join(unzippedProject, sourceProjectName);
-    }
-    fs.copySync(unzippedProject, path.join(tCore.PROJECT_PATH, projectSettings.projectName));
-    assert.ok(fs.existsSync(path.join(tCore.PROJECT_PATH, projectSettings.projectName)));
-  }
-  const projectPath = path.join(tCore.PROJECT_PATH, projectSettings.projectName);
-  const initialManifestVersion = tCore.getManifestTcVersion(projectPath);
-  log("Project Initial tCore Manifest Version: " + initialManifestVersion);
-  await tCore.clickOn(TCORE.userNavigation);
-  await tCore.setToProjectPage();
-  const cardNumber = await tCore.findProjectCardNumber(projectSettings.projectName);
-  assert.ok(cardNumber > 1);
-
-  await tCore.clickOnRetry(TCORE.projectsList.projectCardN(cardNumber).selectButton);
-
-  if (projectSettings.license) {
-    await tCore.navigateCopyrightDialog({license: projectSettings.license, continue: true});
-  }
-  
-  if (!projectSettings.noProjectInfoDialog) {
-    await tCore.navigateProjectInfoDialog({...projectSettings, continue: continueOnProjectInfo});
-  }
-
-  if (projectSettings.mergeConflicts) {
-    await tCore.navigateMergeConflictDialog({continue: true});
-  }
-
-  if (projectSettings.missingVerses) {
-    await tCore.navigateMissingVersesDialog({continue: true});
-  }
-
-  if (projectSettings.brokenAlignments) {
-    log("Navigating Broken Alignments");
-    await tCore.waitForDialog(TCORE.alignmentsResetDialog);
-    const prompt = await tCore.getText(TCORE.alignmentsResetDialog.prompt);
-    await tCore.verifyText(TCORE.alignmentsResetDialog.prompt, TCORE.alignmentsResetDialog.prompt.text);
-    await tCore.navigateDialog(TCORE.alignmentsResetDialog, 'ok');
-  }
-  
-  await tCore.navigateImportResults(continueOnProjectInfo, projectSettings, newProjectName);
-  const finalManifestVersion = tCore.getManifestTcVersion(path.join(tCore.PROJECT_PATH, newProjectName));
-  log("Project Initial tCore Manifest Migrated from: '" + initialManifestVersion + "' to '" + finalManifestVersion + "'");
-
-  utils.testFinished();
-}
 
 /**
  * trim unique part off of \id tag
