@@ -81,8 +81,16 @@ const DEFINITIONS = {
     selector: "#content > div > div.container-fluid > div:nth-child(2) > div > div > div:nth-child(1) > div > div > div:nth-child(1) > div:nth-child(5) > span",
     id: "Project Navigation"
   },
+  toolNavigation: {
+    selector: "#content > div > div.container-fluid > div:nth-child(2) > div > div > div:nth-child(1) > div > div > div:nth-child(1) > div:nth-child(7) > span",
+    id: "Project Navigation"
+  },
   projectNavigationFromTool: {
     selector: "#content > div > div.container-fluid > div.row > div > div > div:nth-child(1) > button:nth-child(3)",
+    id: "Project Navigation"
+  },
+  toolNavigationFromTool: {
+    selector: "#content > div > div.container-fluid > div.row > div > div > div:nth-child(1) > button:nth-child(4)",
     id: "Project Navigation"
   },
   importMenuButton: {
@@ -450,6 +458,10 @@ const DEFINITIONS = {
       id: "Project Card Menu 'Export to USFM'",
       selector: TEMPLATES.projectCardMenuItemN(1)
     },
+    projectCardMenuExportCSV: {
+      id: "Project Card Menu 'Export to CSV'",
+      selector: TEMPLATES.projectCardMenuItemN(3)
+    },
     projectCards: {
       selector: "#content > div > div.container-fluid > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(2) > div > div > div:nth-child(1) > div > div"
     },
@@ -470,10 +482,12 @@ const DEFINITIONS = {
           id: label + " title",
           selector: "#content > div > div.container-fluid > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(2) > div > div > div > div:nth-child(" + position + ") > div > div:nth-child(2) > div:nth-child(1) > span:nth-child(1)",
         },
-        launchButton: {
-          id: label + " launch button",
-          selector: "#content > div > div.container-fluid > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(2) > div > div > div > div:nth-child(" + position + ") > div > div:nth-child(6) > span > button"
-        },
+        launchButtonAtN: function(span) {
+          return {
+            id: label + " launch button",
+            selector: "#content > div > div.container-fluid > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(2) > div > div > div > div:nth-child(" + position + ") > div > div:nth-child(" + span + ") > span > button",
+          };
+        }
       };
     }
   },

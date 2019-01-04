@@ -318,8 +318,17 @@ async function setToProjectPage(fromTool = false) {
     await clickOn(TCORE.projectNavigationFromTool);
   } else {
     await clickOn(TCORE.projectNavigation);
-  } 
+  }
   await verifyOnSpecificPage(TCORE.projectsPage);
+}
+
+async function setToToolPage(fromTool = false) {
+  if (fromTool) {
+    await clickOn(TCORE.toolNavigationFromTool);
+  } else {
+    await clickOn(TCORE.toolNavigation);
+  }
+  await verifyOnSpecificPage(TCORE.toolsPage);
 }
 
 async function waitForElementToComeAndGo(elementObj) {
@@ -818,6 +827,14 @@ async function navigateRetry(elementObj, count = 20, delay = 500) {
   await navigateDialog(elementObj);
 }
 
+/**
+ * retries an operation with error recovery
+ * @param {Number} count - maximum retry count
+ * @param {Function} operation - operation to perform
+ * @param {String} name - operation name for log
+ * @param {Number} delay - time to delay between retries
+ * @return {Promise<void>}
+ */
 async function retryStep(count, operation, name, delay = 500) {
   let success = false;
   for (let i = 0; i < count; i++) {
@@ -908,7 +925,22 @@ async function findToolCardNumber(name) {
 
 async function launchTool(cardName) {
   const cardNumber = await findToolCardNumber(cardName);
-  await clickOn(TCORE.toolsList.toolN(cardNumber, cardName).launchButton);
+  let launchButtonPos = -1;
+  const toolN = TCORE.toolsList.toolN(cardNumber, cardName);
+  // find launch button
+  for (let pos = 1; pos < 20; pos++) {
+    const possibleButton = toolN.launchButtonAtN(pos);
+    try {
+      const buttonText = await getText(possibleButton);
+      if (buttonText === "Launch") {
+        launchButtonPos = pos;
+        break;
+      }
+    } catch(e) {
+      // skip
+    }
+  }
+  await clickOn(toolN.launchButtonAtN(launchButtonPos));
 }
 
 async function findProjectCardNumber(name) {
@@ -1000,9 +1032,12 @@ async function doOpenProject(projectSettings, continueOnProjectInfo, newProjectN
  * @return {Promise<void>}
  */
 async function verifyTextRetry(elementObj, text, count = 20) {
-  log('checking "' + elementDescription(elementObj) + '" equals "' + text + '"');
-  const actualText = await getTextRetry(elementObj, count);
-  verifyTextIsMatched(actualText, text);
+  await retryStep(count, async () => {
+    const currentText = await getText(elementObj);
+    log(elementDescription(elementObj) + " current Text: " + currentText);
+    await verifyText(elementObj, text);
+  }, "verifying text for " + elementDescription(elementObj),
+  500);
 }
 
 /**
@@ -1015,7 +1050,6 @@ async function verifyTextRetry(elementObj, text, count = 20) {
  * @return {Promise<string>}
  */
 async function doExportToUsfm(projectName, outputFileName, hasAlignments, exportAlignments, outputFolder) {
-// now do USFM export
   await setToProjectPage();
   const cardNumber = await findProjectCardNumber(projectName);
   assert.ok(cardNumber >= 0, "Could not find project card");
@@ -1047,11 +1081,40 @@ async function doExportToUsfm(projectName, outputFileName, hasAlignments, export
   return outputFile;
 }
 
+/**
+ * do export to CSV
+ * @param {String} projectName - project name to export
+ * @param {String} outputFileName - name for output file
+ * @param {String} outputFolder - path for output folder
+ * @return {Promise<string>}
+ */
+async function doExportToCsv(projectName, outputFileName, outputFolder) {
+  await setToProjectPage();
+  const cardNumber = await findProjectCardNumber(projectName);
+  assert.ok(cardNumber >= 0, "Could not find project card");
+  await clickOnRetry(TCORE.projectsList.projectCardN(cardNumber).menu);
+  await clickOnRetry(TCORE.projectsList.projectCardMenuExportCSV);
+  const outputFile = path.join(outputFolder, outputFileName);
+  fs.ensureDirSync(outputFolder);
+  fs.removeSync(outputFile);
+  await mockDialogPath(outputFile, true);
+  await app.client.pause(1000);
+  log("File '" + outputFile + "' exists: " + fs.existsSync(outputFile));
+  // const logs = await app.client.getRenderProcessLogs();
+  // log("Logs:\n" + JSON.stringify(logs, null, 2));
+  await waitForDialog(TCORE.exportResultsDialog);
+  const expectedText = path.parse(outputFileName).name + " has been successfully exported to " + outputFile + ".";
+  await verifyTextRetry(TCORE.exportResultsDialog.prompt, expectedText);
+  await clickOnRetry(TCORE.exportResultsDialog.ok);
+  return outputFile;
+}
+
 const tCoreSupport = {
   PROJECT_PATH,
   clickOn,
   clickOnRetry,
   delayWhileWaitDialogShown,
+  doExportToCsv,
   doExportToUsfm,
   doLocalProjectImport,
   doOnlineProjectImport,
@@ -1092,6 +1155,7 @@ const tCoreSupport = {
   selectSearchItem,
   setCheckBoxRetry,
   setToProjectPage,
+  setToToolPage,
   setValue,
   startTcore,
   unzipTestProjectIntoProjects,

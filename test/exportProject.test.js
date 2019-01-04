@@ -17,6 +17,7 @@ let TEST_FILE_PATH;
  */
 
 describe('Project Open Tests', () => {
+  let usfm2OutputFileName = null;
 
   before(async () => {
     app = await utils.beforeAll();
@@ -35,7 +36,7 @@ describe('Project Open Tests', () => {
     await utils.afterAll();
   });
 
-  describe('Project export to USFM3', () => {
+  describe('Project exports', () => {
     for (let testNum = 1; testNum <= testCount; testNum++) {
       it('should succeed import aligned test project alignedult_en', async () => {
         const languageId = "en";
@@ -59,25 +60,98 @@ describe('Project Open Tests', () => {
         utils.testFinished();
       });
 
-      it('should succeed export test project alignedult_en with alignments', async () => {
+      it('should succeed export to USFM test project alignedult_en with alignments', async () => {
         const projectName = 'en_algn_tit_book';
         const outputFile = await testExportToUsfm(projectName, projectName + ".3.usfm", true, true);
         utils.testFinished();
       });
 
-      it('should succeed export test project alignedult_en without alignments', async () => {
+      it('should succeed export to USFM test project alignedult_en without alignments', async () => {
         const projectName = 'en_algn_tit_book';
-        const outputFile = await testExportToUsfm(projectName, projectName + ".2.usfm", true, false);
+        usfm2OutputFileName = projectName + ".2.usfm";
+        const outputFile = await testExportToUsfm(projectName, usfm2OutputFileName, true, false);
+        utils.testFinished();
+      });
+
+      it('should succeed export to CSV test project alignedult_en', async () => {
+        const projectName = 'en_algn_tit_book';
+        const outputFile = await tCore.doExportToCsv(projectName, projectName + ".zip", TEST_PATH);
+        utils.testFinished();
+      });
+
+      it('should succeed overwrite import alignedult_en with edited verse', async () => {
+        const usfmFilePath = path.join(TEST_PATH, usfm2OutputFileName);
+        modifyTitus(usfmFilePath);
+        const newLanguageId = "en";
+        const bookId = "tit";
+        const {bookName} = utils.getBibleData(bookId);
+        const continueOnProjectInfo = true;
+        const newTargetLangId = "algn";
+        const projectName = 'en_algn_tit_book'; // rename copied project to
+        const projectSource = null; // use existing project
+        const projectSettings = {
+          importPath: usfmFilePath,
+          license: 'ccShareAlike',
+          projectSource,
+          projectName,
+          newTargetLangId,
+          newLanguageId,
+          languageDirectionLtr: true,
+          bookName,
+          noRename: true,
+          overwrite: true
+        };
+        const newProjectName = `${newLanguageId}_${newTargetLangId}_${bookId}_book`;
+        await tCore.doLocalProjectImport(projectSettings, continueOnProjectInfo, projectName);
+        utils.testFinished();
+      });
+      
+      it('should succeed export to CSV test project alignedult_en after overwrite', async () => {
+        const projectName = 'en_algn_tit_book';
+        const outputFile = await tCore.doExportToCsv(projectName, projectName + ".zip", TEST_PATH);
+        utils.testFinished();
+      });
+
+      it('should succeed to open WA after overwrite', async () => {
+        await tCore.setToToolPage(false);
+        await tCore.launchTool("Word Alignment");
+        await app.client.pause(6000);
+        await tCore.navigateDialog(TCORE.groupMenu.header);
+        await tCore.setToProjectPage(true);
+        await app.client.pause(2000);
+        utils.testFinished();
+      });
+
+      it('should succeed to open tW after overwrite', async () => {
+        await tCore.setToToolPage(false);
+        await tCore.launchTool("translationWords (Part 1)");
+        await app.client.pause(6000);
+        await tCore.navigateDialog(TCORE.groupMenu.header);
+        await tCore.setToProjectPage(true);
+        await app.client.pause(2000);
+        utils.testFinished();
+      });
+
+      it('should succeed export to CSV test project alignedult_en after overwrite', async () => {
+        const projectName = 'en_algn_tit_book';
+        const outputFile = await tCore.doExportToCsv(projectName, projectName + ".zip", TEST_PATH);
         utils.testFinished();
       });
     }
   });
-  
 });
 
 //
 // helpers
 //
+
+function modifyTitus(pathToBook) {
+  let usfm = fs.readFileSync(pathToBook).toString();
+  usfm = usfm.replace("\\v 1 Paul, a servant of God","\\v 1 Paul, a servan of God");
+  usfm = usfm.replace("\\v 4 To Titus, a true son","\\v 4 To Tit2us, a true son");
+  fs.writeJSONSync(pathToBook, usfm);
+  return usfm;
+}
 
 async function testExportToUsfm(projectName, outputFileName, hasAlignments, exportAlignments) {
   const outputFile = await tCore.doExportToUsfm(projectName, outputFileName, hasAlignments, exportAlignments, TEST_PATH);
