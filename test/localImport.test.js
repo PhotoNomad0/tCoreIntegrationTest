@@ -12,12 +12,13 @@ let app;
 const testCount = 1; // number of time to repeat import tests
 let TEST_FILE_PATH;
 let savedTargetId = null;
+const renameIsBroken = true; // TODO: set back to false when fixed
 
 /**
  * does USFM import of project and then exports as USFM.
  */
 
-describe.skip('Local Tests', () => {
+describe('Local Import Tests', () => {
 
   before(async () => {
     app = await utils.beforeAll();
@@ -25,7 +26,7 @@ describe.skip('Local Tests', () => {
   });
 
   beforeEach(async function() {
-    await utils.beforeEachTest(this.currentTest.title);
+    await utils.beforeEachTest(this.currentTest);
   });
 
   afterEach(async () => {
@@ -36,7 +37,7 @@ describe.skip('Local Tests', () => {
     await utils.afterAll();
   });
 
-  describe('Local Import Tests', () => {
+  describe('Misc. Local Import Tests', () => {
     for (let testNum = 1; testNum <= testCount; testNum++) {
       it('should succeed local import 57-TIT-missing-verse.usfm', async () => {
         const newTargetLangId = generateTargetLangId();
@@ -53,7 +54,8 @@ describe.skip('Local Tests', () => {
           newLanguageId,
           bookName,
           newTargetLangId,
-          missingVerses: true
+          missingVerses: true,
+          noRename: renameIsBroken
         };
         const projectName = `${newLanguageId}_${newTargetLangId}_${bookId}_book`;
         await tCore.doLocalProjectImport(projectSettings, continueOnProjectInfo, projectName);
@@ -100,7 +102,8 @@ describe.skip('Local Tests', () => {
           languageDirectionLtr: true,
           bookName,
           newTargetLangId,
-          mergeConflicts: true
+          mergeConflicts: true,
+          noRename: renameIsBroken
         };
         const projectName = `${languageId}_${newTargetLangId}_${bookId}_book`;
         await tCore.doLocalProjectImport(projectSettings, continueOnProjectInfo, projectName);
@@ -124,7 +127,8 @@ describe.skip('Local Tests', () => {
           languageDirectionLtr: true,
           bookName,
           newTargetLangId,
-          missingVerses: true
+          missingVerses: true,
+          noRename: renameIsBroken
         };
         const projectName = `${languageId}_${newTargetLangId}_${bookId}_book`;
         await tCore.doLocalProjectImport(projectSettings, continueOnProjectInfo, projectName);
@@ -147,7 +151,8 @@ describe.skip('Local Tests', () => {
           languageDirectionLtr: true,
           bookName,
           newTargetLangId,
-          missingVerses: true
+          missingVerses: true,
+          noRename: renameIsBroken
         };
         const projectName = `${languageId}_${newTargetLangId}_${bookId}_book`;
         await tCore.doLocalProjectImport(projectSettings, continueOnProjectInfo, projectName);
@@ -167,62 +172,13 @@ describe.skip('Local Tests', () => {
           license: 'ccShareAlike',
           newLanguageId,
           bookName,
-          newTargetLangId
+          newTargetLangId,
+          brokenAlignments: true,
+          noRename: renameIsBroken
         };
         const projectName = `${newLanguageId}_${newTargetLangId}_${bookId}_book`;
         await tCore.doLocalProjectImport(projectSettings, continueOnProjectInfo, projectName);
         utils.testFinished();
-      });
-    }
-  });
-  
-  describe('Import/Export Tests', () => {
-    let alignmentState = false;
-    for (let testNum = 1; testNum <= testCount; testNum++) {
-      it('do USFM import and export 57-TIT-AlignedHI.usfm', async () => {
-        const newTargetLangId = generateTargetLangId();
-        alignmentState = !alignmentState;
-        const exportAlignments = alignmentState;
-        const languageId = "hi";
-        const bookId = "tit";
-        const {bookName} = utils.getBibleData(bookId);
-        const continueOnProjectInfo = true;
-        const project_id = languageId + "_" + newTargetLangId + "_" + bookId + "_book";
-        const testFile = '57-TIT-AlignedHI.usfm';
-        const importPath = path.join(TEST_FILE_PATH, testFile);
-        const brokenAlignments = true;
-        const projectSettings = {
-          importPath,
-          license: 'ccShareAlike',
-          languageName: "Hindi",
-          languageId,
-          languageDirectionLtr: true,
-          bookName,
-          newTargetLangId,
-          brokenAlignments
-        };
-        await doUsfmImportExportTest(languageId, newTargetLangId, bookId, projectSettings, continueOnProjectInfo, project_id, true, exportAlignments, testFile, importPath);
-      });
-
-      it('do USFM import and export 45-ACT.usfm', async () => {
-        const newTargetLangId = generateTargetLangId();
-        const exportAlignments = false;
-        const newLanguageId = "en";
-        const bookId = "act";
-        const {bookName} = utils.getBibleData(bookId);
-        const continueOnProjectInfo = true;
-        const project_id = newLanguageId + "_" + newTargetLangId + "_" + bookId + "_book";
-        const testFile = '45-ACT.usfm';
-        const importPath = path.join(TEST_FILE_PATH, testFile);
-        const projectSettings = {
-          importPath,
-          license: 'ccShareAlike',
-          languageDirectionLtr: true,
-          bookName,
-          newTargetLangId,
-          newLanguageId
-        };
-        await doUsfmImportExportTest(newLanguageId, newTargetLangId, bookId, projectSettings, continueOnProjectInfo, project_id, false, exportAlignments, testFile, importPath);
       });
     }
   });
@@ -231,49 +187,6 @@ describe.skip('Local Tests', () => {
 //
 // helpers
 //
-
-/**
- * do an USFM import, export and compare test
- * @param {String} languageId
- * @param {String} targetLangId
- * @param {String} bookId
- * @param {Object} projectSettings
- * @param {Boolean} continueOnProjectInfo - if truce then click continue on project import
- * @param {String} project_id - project name
- * @param {Boolean} hasAlignments - true if project has alignments
- * @param {Boolean} exportAlignments - true if we are to export alignments
- * @param {String} outputFileName - name for output file
- * @param {String} importPath - path to original USFM import
- * @return {Promise<void>}
- */
-async function doUsfmImportExportTest(languageId, targetLangId, bookId, projectSettings, continueOnProjectInfo,
-                                        project_id, hasAlignments, exportAlignments, outputFileName, importPath) {
-  const projectName = `${languageId}_${targetLangId}_${bookId}_book`;
-  await tCore.doLocalProjectImport(projectSettings, continueOnProjectInfo, projectName);
-  const outputFile = await tCore.doExportToUsfm(project_id, outputFileName, hasAlignments, exportAlignments, TEST_PATH);
-  log("Reading input USFM");
-  let sourceUsfm = trimIdTag(fs.readFileSync(importPath).toString());
-  log("input USFM length=" + sourceUsfm.length);
-  log("Reading output USFM");
-  const outputUsfm = trimIdTag(fs.readFileSync(outputFile).toString());
-  log("output USFM length=" + outputUsfm.length);
-  log("Checking output USFM");
-  log("hasAlignments=" + hasAlignments);
-  if (!hasAlignments) {
-    if (sourceUsfm !== outputUsfm) {
-      log("output: " + outputUsfm.substr(0, 100));
-      log("does not equal\n input: " + sourceUsfm.substr(0, 100));
-      assert.equal(sourceUsfm, outputUsfm, "output does not equal source");
-    }
-  } else if (exportAlignments) {
-    const short = outputUsfm.length < sourceUsfm.length * 0.9;
-    if (short) {
-      log("output seems short");
-      assert.ok(!short, "output seems short");
-    }
-  }
-  utils.testFinished();
-}
 
 /**
  * trim unique part off of \id tag

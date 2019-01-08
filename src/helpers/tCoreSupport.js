@@ -291,11 +291,12 @@ async function clickOn(elementObj, exact = true) {
   await app.client.click(elementObj.selector);
 }
 
-async function waitForDialog(elementObj, extraDelay) {
-  log('waiting for "' +  elementDescription(elementObj) + '"');
-  await app.client.pause(navigationDelay + extraDelay)
-    .isVisible(elementObj.selector).should.eventually.equal(true);
-  log('"' +  elementDescription(elementObj) + '" is visible');
+async function waitForDialog(elementObj, extraDelay, expectVisible = true) {
+  const expectedString = (expectVisible ? 'true' : 'false');
+  log('waiting for "' +  elementDescription(elementObj) + '" visible to be ' + expectedString);
+  await app.client.pause(navigationDelay + extraDelay);
+  await app.client.isVisible(elementObj.selector).should.eventually.equal(expectVisible);
+  log('"' +  elementDescription(elementObj) + '" is ' + expectedString);
 }
 
 /**
@@ -497,19 +498,7 @@ async function verifyOnSpecificPage(verifyPage) {
   await navigateDialog(verifyPage, null); // make sure page shown
   log("verify on specific page");
   if (verifyPage.text) {
-    let verified = false;
-    for (let i = 0; i < 10; i++) {
-      try {
-        await verifyText(verifyPage, verifyPage.text);
-        verified = true;
-        break;
-      } catch(e) {
-        log("verity failed step " + i);
-      }
-    }
-    if (!verified) { // last try
-      await verifyText(verifyPage, verifyPage.text);
-    }
+    await verifyTextRetry(verifyPage, verifyPage.text);
   }
   log("finished verify on specific page");
 }
@@ -557,11 +546,11 @@ function projectRemoval(projectName, noRemoval = false) {
  * @param {number} count - retry count
  * @return {Promise<void>}
  */
-async function waitForDialogRetry(elementObj, count = 20) {
+async function waitForDialogRetry(elementObj, count = 20, expectVisible = true) {
   await retryStep(count, async () => {
-    await waitForDialog(elementObj);
+    await waitForDialog(elementObj, 0, expectVisible);
   }, "Waiting for Dialog: " + elementDescription(elementObj),
-  10);
+  500);
 }
 
 async function navigateImportResults(continueOnProjectInfo, projectInfoSettings, projectName) {
@@ -591,6 +580,9 @@ async function navigateImportResults(continueOnProjectInfo, projectInfoSettings,
         // const prompt = await getText(TCORE.alignmentsResetDialog.prompt);
         await verifyText(TCORE.alignmentsResetDialog.prompt, TCORE.alignmentsResetDialog.prompt.text);
         await navigateDialog(TCORE.alignmentsResetDialog, 'ok');
+      } else {
+        log("Making sure broken Alignments NOT shown");
+        await waitForDialogRetry(TCORE.alignmentsResetDialog, 20, false);
       }
     }
     await verifyOnSpecificPage(TCORE.toolsPage);
@@ -801,7 +793,7 @@ async function doLocalProjectImport(projectSettings, continueOnProjectInfo, proj
 }
 
 function elementDescription(elementObj) {
-  return (elementObj.text || elementObj.id || elementObj.selector);
+  return (elementObj.id || elementObj.text || elementObj.selector);
 }
 
 async function clickOnRetry(elementObj, count = 10, delay = 500) {
@@ -1047,9 +1039,11 @@ async function doOpenProject(projectSettings, continueOnProjectInfo, newProjectN
  * @return {Promise<void>}
  */
 async function verifyTextRetry(elementObj, text, count = 20) {
+  const id = elementDescription(elementObj);
+  log("Waiting for '" + id + "' to equal: '" + text + "'");
   await retryStep(count, async () => {
     const currentText = await getText(elementObj);
-    log(elementDescription(elementObj) + " current Text: '" + currentText + "'");
+    log(id + " current Text: '" + currentText + "'");
     await verifyText(elementObj, text);
   }, "verifying text for " + elementDescription(elementObj),
   500);

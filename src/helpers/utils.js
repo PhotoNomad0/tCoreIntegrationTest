@@ -98,9 +98,11 @@ async function afterAll() {
 }
 
 function addToLog(prefix, errors) {
-  for (let j = 0, errorCount = errors.length; j < errorCount; j++) {
-    const err = errors[j];
-    log(prefix + err.timestamp + " " + err.source + ": " + err.message);
+  if (errors) {
+    for (let j = 0, errorCount = errors.length; j < errorCount; j++) {
+      const err = errors[j];
+      log(prefix + err.timestamp + " " + err.source + ": " + err.message);
+    }
   }
 }
 
@@ -160,7 +162,6 @@ function convertLogStringsToObjects(mainLogs) {
 }
 
 async function checkLogs() {
-  tCore.initializeTest(app, testCount, navigationDelay);
   log("After all test suites, do cleanup");
   let error = false;
   const procLogs = await app.client.getRenderProcessLogs();
@@ -168,17 +169,13 @@ async function checkLogs() {
   const mainLogs = await app.client.getMainProcessLogs();
   const logs = convertLogStringsToObjects(mainLogs);
   error = error || findLoggedErrors(logs, error);
-
-  if (error) {
-    log("### ERRORS FOUND ###");
-  } else {
-    utils.testFinished();
-  }
+  return error;
 }
 
 after(async() => { // runs after all tests
   if (app !== "FINISHED") {
-    await checkLogs();
+    tCore.initializeTest(app, ++testCount, navigationDelay);
+    const error = await checkLogs();
     try {
       await tCoreConnect.stopApp(app);
     } catch (e) {
@@ -186,13 +183,27 @@ after(async() => { // runs after all tests
       log("App shutdown failed: " + getSafeErrorMessage(e));
     }
     app = "FINISHED";
+    if (error) {
+      log("############################");
+      log("### CONSOLE ERRORS FOUND ###");
+      log("############################");
+    } else {
+      utils.testFinished();
+    }
   } else {
     console.error("After already ran");
   }
 });
 
-async function beforeEachTest(testName_) {
-  testName = testName_;
+async function beforeEachTest(currentTest) {
+  testName = currentTest.title;
+  let current = currentTest;
+  while (current.parent) {
+    current = current.parent;
+    if (current.title) {
+      testName = current.title + " : " + testName;
+    }
+  }
   testStartTime = new Date();
   // console.log('beforeEach', testName);
   tCore.initializeTest(app, ++testCount, navigationDelay);
@@ -214,6 +225,7 @@ async function afterEachTest() {
   } else {
     log("Test " + testCount + " Ended Successfully");
   }
+  log("Test name: " + testName);
   testEndTime = new Date();
   log("Test run time " + Math.round(getElapsedTestTime()) + " seconds");
 }

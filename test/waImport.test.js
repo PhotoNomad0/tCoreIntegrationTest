@@ -33,7 +33,7 @@ describe.skip('WA Tests', () => {
   });
 
   beforeEach(async function() {
-    await utils.beforeEachTest(this.currentTest.title);
+    await utils.beforeEachTest(this.currentTest);
   });
 
   afterEach(async () => {
