@@ -82,11 +82,11 @@ async function startTcore() {
     await app.client.waitUntilWindowLoaded()
       .getWindowCount()
       .should.eventually.have.at.least(1);
+    log("Reached Window count");
   } catch(e) {
     log("Could not get window count, trying to continue");
     await app.client.pause(500);
   }
-  log("Reached Window count");
   try {
     await app.client.browserWindow.isVisible().should.eventually.equal(true);
     log("browserWindow visible");
@@ -97,7 +97,7 @@ async function startTcore() {
   log("looking for getting started button");
   await retryStep(20, async () => {
     await app.client.windowByIndex(1).waitUntilWindowLoaded();
-  }, "getting text for " + elementDescription(TCORE.getStartedButton),
+  }, "Looking for " + elementDescription(TCORE.getStartedButton),
   500);
   
   let buttonText = await getTextRetry(TCORE.getStartedButton);
@@ -551,6 +551,19 @@ function projectRemoval(projectName, noRemoval = false) {
   cleanupFileList.push(projectPath); // record for final cleanup
 }
 
+/**
+ * wait for dialog with retry
+ * @param {Object} elementObj - item to verify
+ * @param {number} count - retry count
+ * @return {Promise<void>}
+ */
+async function waitForDialogRetry(elementObj, count = 20) {
+  await retryStep(count, async () => {
+    await waitForDialog(elementObj);
+  }, "Waiting for Dialog: " + elementDescription(elementObj),
+  10);
+}
+
 async function navigateImportResults(continueOnProjectInfo, projectInfoSettings, projectName) {
   if (continueOnProjectInfo || projectInfoSettings.noProjectInfoDialog) {
     if (projectInfoSettings.errorMessage) {
@@ -574,7 +587,7 @@ async function navigateImportResults(continueOnProjectInfo, projectInfoSettings,
       }
       if (projectInfoSettings.brokenAlignments) {
         log("Navigating Broken Alignments");
-        await waitForDialog(TCORE.alignmentsResetDialog);
+        await waitForDialogRetry(TCORE.alignmentsResetDialog);
         // const prompt = await getText(TCORE.alignmentsResetDialog.prompt);
         await verifyText(TCORE.alignmentsResetDialog.prompt, TCORE.alignmentsResetDialog.prompt.text);
         await navigateDialog(TCORE.alignmentsResetDialog, 'ok');
@@ -582,7 +595,7 @@ async function navigateImportResults(continueOnProjectInfo, projectInfoSettings,
     }
     await verifyOnSpecificPage(TCORE.toolsPage);
   } else {
-    await waitForDialog(TCORE.importErrorDialog);
+    await waitForDialogRetry(TCORE.importErrorDialog);
     await navigateGeneralDialog(TCORE.importCancelDialog, 'cancelImport');
     await verifyOnSpecificPage(TCORE.projectsPage);
   }
@@ -919,7 +932,7 @@ async function findToolCardNumber(name) {
       log("Skipping Card `" + cardText + "` at position " + i);
     }
   }
-  log("Card not found for: " + name);
+  log("Card not found for: '" + name + "'");
   return -1;
 }
 
@@ -957,7 +970,7 @@ async function findProjectCardNumber(name) {
       return i;
     }
   }
-  log("Card not found for " + name);
+  log("Card not found for '" + name + "'");
   return -1;
 }
 /**
@@ -974,11 +987,13 @@ async function unzipTestProjectIntoProjects(projectSettings, newProjectName) {
     const sourceProjectName = path.parse(projectSettings.projectSource).name;
     fs.removeSync(path.join(unzipFolder, sourceProjectName));
     fs.removeSync(path.join(unzipFolder, '__MACOSX'));
+    log("Unzipping project: " + projectSettings.projectSource);
     await zipFileHelpers.extractZipFile(projectSettings.projectSource, unzipFolder);
     let unzippedProject = path.join(unzipFolder, sourceProjectName);
     if (fs.existsSync(path.join(unzippedProject, sourceProjectName))) { // see if nested
       unzippedProject = path.join(unzippedProject, sourceProjectName);
     }
+    log("copying project: " + unzippedProject);
     fs.copySync(unzippedProject, path.join(PROJECT_PATH, projectSettings.projectName));
     assert.ok(fs.existsSync(path.join(PROJECT_PATH, projectSettings.projectName)));
   }
@@ -1034,7 +1049,7 @@ async function doOpenProject(projectSettings, continueOnProjectInfo, newProjectN
 async function verifyTextRetry(elementObj, text, count = 20) {
   await retryStep(count, async () => {
     const currentText = await getText(elementObj);
-    log(elementDescription(elementObj) + " current Text: " + currentText);
+    log(elementDescription(elementObj) + " current Text: '" + currentText + "'");
     await verifyText(elementObj, text);
   }, "verifying text for " + elementDescription(elementObj),
   500);
@@ -1086,9 +1101,10 @@ async function doExportToUsfm(projectName, outputFileName, hasAlignments, export
  * @param {String} projectName - project name to export
  * @param {String} outputFileName - name for output file
  * @param {String} outputFolder - path for output folder
+ * @param {Boolean} expectToolError - if true than error expected
  * @return {Promise<string>}
  */
-async function doExportToCsv(projectName, outputFileName, outputFolder) {
+async function doExportToCsv(projectName, outputFileName, outputFolder, expectToolError) {
   await setToProjectPage();
   const cardNumber = await findProjectCardNumber(projectName);
   assert.ok(cardNumber >= 0, "Could not find project card");
@@ -1100,10 +1116,13 @@ async function doExportToCsv(projectName, outputFileName, outputFolder) {
   await mockDialogPath(outputFile, true);
   await app.client.pause(1000);
   log("File '" + outputFile + "' exists: " + fs.existsSync(outputFile));
-  // const logs = await app.client.getRenderProcessLogs();
-  // log("Logs:\n" + JSON.stringify(logs, null, 2));
   await waitForDialog(TCORE.exportResultsDialog);
-  const expectedText = path.parse(outputFileName).name + " has been successfully exported to " + outputFile + ".";
+  let expectedText = null;
+  if (expectToolError) {
+    expectedText = "Export failed with error No tools have loaded for this project..";
+  } else {
+    expectedText = path.parse(outputFileName).name + " has been successfully exported to " + outputFile + ".";
+  }
   await verifyTextRetry(TCORE.exportResultsDialog.prompt, expectedText);
   await clickOnRetry(TCORE.exportResultsDialog.ok);
   return outputFile;

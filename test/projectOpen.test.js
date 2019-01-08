@@ -56,7 +56,7 @@ describe.skip('Project Open Tests', () => {
           noRename: true
         };
         const newProjectName = `${languageId}_${projectSettings.targetLangId}_${bookId}_book`;
-        await tCore.openProject(projectSettings, continueOnProjectInfo, newProjectName,);
+        await tCore.doOpenProject(projectSettings, continueOnProjectInfo, newProjectName);
         utils.testFinished();
       });
 
@@ -79,7 +79,7 @@ describe.skip('Project Open Tests', () => {
           brokenAlignments: true
         };
         const newProjectName = `${languageId}_${newTargetLangId}_${bookId}_book`;
-        await tCore.openProject(projectSettings, continueOnProjectInfo, newProjectName,);
+        await tCore.doOpenProject(projectSettings, continueOnProjectInfo, newProjectName);
         utils.testFinished();
       });
 
@@ -100,7 +100,7 @@ describe.skip('Project Open Tests', () => {
           missingVerses: true
         };
         const newProjectName = `${languageId}_${projectSettings.targetLangId}_${bookId}_book`;
-        await tCore.openProject(projectSettings, continueOnProjectInfo, newProjectName,);
+        await tCore.doOpenProject(projectSettings, continueOnProjectInfo, newProjectName);
         utils.testFinished();
       });
 
@@ -121,7 +121,7 @@ describe.skip('Project Open Tests', () => {
           missingVerses: true
         };
         const newProjectName = `${languageId}_${projectSettings.targetLangId}_${bookId}_book`;
-        await tCore.openProject(projectSettings, continueOnProjectInfo, newProjectName,);
+        await tCore.doOpenProject(projectSettings, continueOnProjectInfo, newProjectName);
         utils.testFinished();
       });
     }

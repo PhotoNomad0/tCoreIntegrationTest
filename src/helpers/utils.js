@@ -77,9 +77,12 @@ async function beforeAll() {
   fs.removeSync(tCore.getLogFilePath());
   if (!app) {
     app = await tCoreConnect.startApp();
+    log("Starting from " + (tCoreConnect.useElectron ? 'electron and app source' : 'compiled app') + " at: " + tCoreConnect.appStartupPath);
     tCore.initializeTest(app, testCount, navigationDelay);
     log('Starting tCore');
     await tCore.startTcore();
+    const logs = await app.client.getRenderProcessLogs();
+    log("Logs:\n" + JSON.stringify(logs, null, 2));
   }
   log('tCore started');
   await logMemoryUsage();
@@ -87,18 +90,106 @@ async function beforeAll() {
 }
 
 async function afterAll() {
-  try {
-    await tCoreConnect.stopApp(app);
-  } catch(e) {
-    console.error("App shutdown failed: ", e);
-    log("App shutdown failed: " + getSafeErrorMessage(e));
-  }
   const cleanupFiles = tCore.getCleanupFileList();
   for (let file of cleanupFiles) {
     log("Cleaning out project: " + file);
     fs.removeSync(file);
   }
 }
+
+function addToLog(prefix, errors) {
+  for (let j = 0, errorCount = errors.length; j < errorCount; j++) {
+    const err = errors[j];
+    log(prefix + err.timestamp + " " + err.source + ": " + err.message);
+  }
+}
+
+function findLoggedErrors(logs) {
+  const organized = {};
+  for (let i = 0, len = logs.length; i < len; i++) {
+    const log = logs[i];
+    const level = log.level || "NONE";
+    if (!organized[level]) {
+      organized[level] = [];
+    }
+    organized[level].push(log);
+  }
+  // remove ignored
+  delete organized["INFO"];
+  delete organized["NONE"];
+
+  // show warnings
+  addToLog("WARNING: ", organized["WARNING"]);
+  delete organized["WARNING"];
+
+  // show errors
+  const keys = Object.keys(organized);
+  const keyCount = keys.length;
+  const error = !!keyCount;
+  for (let i = 0; i < keyCount; i++) {
+    const key = keys[i];
+    log("Error type " + key);
+    const errors = organized[key];
+    addToLog("### ", errors);
+  }
+  return error;
+}
+
+function convertLogStringsToObjects(mainLogs) {
+  const logs = [];
+  mainLogs.forEach(log => {
+    let source = "";
+    let timestamp = "";
+    let level = "";
+    let message = log;
+    const pos = log.indexOf(")] ");
+    if (pos > 0) {
+      message = log.substring(pos + 3);
+      const info = log.substring(1, pos + 1);
+      const split = info.split(":");
+      if (split.length !== 4) {
+        source = log.substring(0, pos + 2);
+      } else {
+        timestamp = split[1];
+        level = split[2];
+      }
+    }
+    logs.push({timestamp, level, source, message});
+  });
+  return logs;
+}
+
+async function checkLogs() {
+  tCore.initializeTest(app, testCount, navigationDelay);
+  log("After all test suites, do cleanup");
+  let error = false;
+  const procLogs = await app.client.getRenderProcessLogs();
+  error = findLoggedErrors(procLogs, error);
+  const mainLogs = await app.client.getMainProcessLogs();
+  const logs = convertLogStringsToObjects(mainLogs);
+  error = error || findLoggedErrors(logs, error);
+
+  if (error) {
+    log("### ERRORS FOUND ###");
+  } else {
+    utils.testFinished();
+  }
+}
+
+after(async() => { // runs after all tests
+  if (app !== "FINISHED") {
+    await checkLogs();
+    try {
+      await tCoreConnect.stopApp(app);
+    } catch (e) {
+      console.error("App shutdown failed: ", e);
+      log("App shutdown failed: " + getSafeErrorMessage(e));
+    }
+    app = "FINISHED";
+  } else {
+    console.error("After already ran");
+  }
+});
 
 async function beforeEachTest(testName_) {
   testName = testName_;

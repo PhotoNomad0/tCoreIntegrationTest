@@ -5,17 +5,26 @@ const chaiAsPromised = require('chai-as-promised');
 const electron = require('electron');
 const path = require('path');
 const dialogAddon = require('spectron-dialog-addon').default;
+let appStartupPath = null;
+let appFolderPath = null;
+let useElectron = false;
 
-const appFolder = '../../../testDir/translationCoreTest'; 
-// const appFolder = '../../../translationCore';
+// ****************************
+// launch from app source
+// ****************************
+// const appFolder = '../../../testDir/translationCoreTest'; 
+const appFolder = '../../../translationCore';
 const appStartupFile = 'src/es6-init.js';
-const appFolderPath = path.join(__dirname, appFolder);
-const appStartupPath = path.join(appFolderPath, appStartupFile);
+appFolderPath = path.join(__dirname, appFolder);
+appStartupPath = path.join(appFolderPath, appStartupFile);
 
+// ****************************
+// launch compiled app
 /*
   When running compiled app as below, spectron launches the app and can click the get started button that shows the app, but hangs trying to click on "Project Navigation" at top of app screen.  Not sure why that would be.
  */
-// const appPath = '/Applications/translationCore.app/Contents/MacOS/translationCore'; // directly launch app
+// ****************************
+// appStartupPath = appFolderPath = '/Applications/translationCore.app/Contents/MacOS/translationCore'; // directly launch app
 
 console.log('appStartupPath', appStartupPath);
 
@@ -24,9 +33,10 @@ global.before(() => {
   chai.use(chaiAsPromised);
 });
 
+useElectron = (appStartupPath.indexOf('.js') >= 0);
+
 module.exports = {
   async startApp() {
-    const useElectron = true; // (appStartupPath.indexOf('main.js') >= 0);
     let app;
     if (useElectron) {
       app = new Application({
@@ -34,12 +44,17 @@ module.exports = {
         args: [appStartupPath]
       });
     }
-    // else { // this does not seem to be supported?
-    //   // launch app directly
-    //   app = new Application({
-    //     path: appStartupPath
-    //   });
-    // }
+    else { // this does not seem to be supported?
+      // launch app directly
+      app = new Application({
+        path: appStartupPath,
+        env: {
+          ELECTRON_ENABLE_LOGGING: true,
+          ELECTRON_ENABLE_STACK_DUMPING: true,
+          NODE_ENV: 'development'
+        }
+      });
+    }
     dialogAddon.apply(app);
     await app.start();
     chaiAsPromised.transferPromiseness = app.transferPromiseness;
@@ -53,5 +68,6 @@ module.exports = {
   },
 
   appStartupPath,
-  appFolderPath
+  appFolderPath,
+  useElectron
 };
