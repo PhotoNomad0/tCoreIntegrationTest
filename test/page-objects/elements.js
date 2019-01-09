@@ -209,11 +209,12 @@ const DEFINITIONS = {
     title: {
       selector: TEMPLATES.generalAlertDialog.title.selector,
       text: "Alert",
-      id: "Title"
+      id: "Import Error Title"
     },
     ok: {
       selector: TEMPLATES.generalAlertDialog.single.selector,
-      text: "OK"
+      text: "OK",
+      id: "Import Error OK Button"
     }
   },
   searchingWaitDialog: {
@@ -222,15 +223,17 @@ const DEFINITIONS = {
     title: {
       selector: TEMPLATES.generalAlertDialog.title.selector,
       text: "Alert",
-      id: "Title"
+      id: "Wait Dialog Title"
     },
     prompt: {
       ...TEMPLATES.generalAlertDialog.prompt,
-      text: "General Alert Dialog Text"
+      text: "General Alert Dialog Text",
+      id: "Wait Dialog Prompt"
     },
     ok: {
       selector: TEMPLATES.generalAlertDialog.single.selector,
-      text: "OK"
+      text: "OK",
+      id: "Wait Dialog OK Button"
     }
   },
   importCancelDialog: {
@@ -239,34 +242,40 @@ const DEFINITIONS = {
     title: {
       selector: TEMPLATES.generalAlertDialog.title.selector,
       text: "Alert",
-      id: "Title"
+      id: "Cancel Dialog Title"
     },
     prompt: {
       ...TEMPLATES.generalAlertDialog.prompt,
-      text: "Canceling now will abort the import process and the project will need to be re-imported before it can be used."
+      text: "Canceling now will abort the import process and the project will need to be re-imported before it can be used.",
+      id: "Cancel Dialog Prompt"
     },
     continueImport: {
       selector: TEMPLATES.generalAlertDialog.single.selector,
-      text: "Continue Import"
+      text: "Continue Import",
+      id: "Cancel Dialog Continue Import Button"
     },
     cancelImport: {
       selector: TEMPLATES.generalAlertDialog.secondary.selector,
-      text: "Cancel Import"
+      text: "Cancel Import",
+      id: "Cancel Dialog Cancel Import Button"
     }
   },
   onlineDialog: {
     selector: "body > div:nth-child(4) > div > div:nth-child(1) > div > div",
     id: "Online Dialog",
     noShowClick: {
-      selector: "body > div:nth-child(4) > div > div:nth-child(1) > div > div > div:nth-child(1) > div:nth-child(4) > table > tbody > tr > td:nth-child(2) > div > div > div > div > input[type=\"checkbox\"]"
+      selector: "body > div:nth-child(4) > div > div:nth-child(1) > div > div > div:nth-child(1) > div:nth-child(4) > table > tbody > tr > td:nth-child(2) > div > div > div > div > input[type=\"checkbox\"]",
+      id: "Online Dialog - Don't Show Again",
     },
     access_internet: {
       selector: "body > div:nth-child(4) > div > div:nth-child(1) > div > div > div:nth-child(2) > button.btn-prime",
-      text: "Access Internet"
+      text: "Access Internet",
+      id: "Online Dialog Access Internet Button",
     },
     cancel: {
       selector: "body > div:nth-child(4) > div > div:nth-child(1) > div > div > div:nth-child(2) > button.btn-second",
-      text: "Cancel"
+      text: "Cancel",
+      id: "Online Dialog Cancel Button",
     }
   },
   onlineImportDialog: {
@@ -274,23 +283,30 @@ const DEFINITIONS = {
     id: "DCS Import Dialog",
     import: {
       selector: "body > div:nth-child(11) > div > div:nth-child(1) > div > div > div:nth-child(2) > button.btn-prime",
-      text: "Import"
+      text: "Import",
+      id: "Import Button"
     },
     cancel: {
       selector: "body > div:nth-child(11) > div > div:nth-child(1) > div > div > div:nth-child(2) > button.btn-second",
-      text: "Cancel"
+      text: "Cancel",
+      id: "Cancel Button"
     },
     search: {
       selector: "body > div:nth-child(11) > div > div:nth-child(1) > div > div > div:nth-child(1) > div:nth-child(5) > div > button",
-      text: "Search"
+      text: "Search",
+      id: "Search Button"
     },
-    searchResultN: {
-      selector: "body > div:nth-child(11) > div > div:nth-child(1) > div > div > div:nth-child(1) > table > tbody > tr:nth-child($N)",
-      id: "Search Result N"
+    searchResultN: function(item) {
+      return {
+        selector: "body > div:nth-child(11) > div > div:nth-child(1) > div > div > div:nth-child(1) > table > tbody > tr:nth-child(" + item + ")",
+        id: "Search Result " + item
+      };
     },
-    searchResultCheckBoxN: {
-      selector:     "body > div:nth-child(11) > div > div:nth-child(1) > div > div > div:nth-child(1) > table > tbody > tr:nth-child($N) > td:nth-child(1) > div > input[type=\"checkbox\"]",
-      id: "Search Result CheckBox N"
+    searchResultCheckBoxN: function(item) {
+      return {
+        selector:     "body > div:nth-child(11) > div > div:nth-child(1) > div > div > div:nth-child(1) > table > tbody > tr:nth-child(" + item + ") > td:nth-child(1) > div > input[type=\"checkbox\"]",
+        id: "Search Result CheckBox " + item
+      };
     },
     searchResults: {
       selector: "body > div:nth-child(11) > div > div:nth-child(1) > div > div > div:nth-child(1) > table > tbody > tr",

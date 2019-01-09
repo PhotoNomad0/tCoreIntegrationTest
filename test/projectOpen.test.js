@@ -35,7 +35,7 @@ describe.skip('Project Open Tests', () => {
     await utils.afterAll();
   });
 
-  describe.skip('Project Open Tests', () => {
+  describe('Project Open Tests', () => {
     for (let testNum = 1; testNum <= testCount; testNum++) {
       it('should succeed open es-419_tit_no_git.zip with missing verses, no rename', async () => {
         const languageId = "es-419";

@@ -291,6 +291,13 @@ async function clickOn(elementObj, exact = true) {
   await app.client.click(elementObj.selector);
 }
 
+/**
+ * wait for dialog to be shown or hid
+ * @param {Object} elementObj - dialog element
+ * @param {Number} extraDelay - extra ms to wait before checking
+ * @param {Boolean} expectVisible - if true then expect dialog to be shown, else expect to be hidden
+ * @return {Promise<void>}
+ */
 async function waitForDialog(elementObj, extraDelay, expectVisible = true) {
   const expectedString = (expectVisible ? 'true' : 'false');
   log('waiting for "' +  elementDescription(elementObj) + '" visible to be ' + expectedString);
@@ -504,25 +511,29 @@ async function verifyOnSpecificPage(verifyPage) {
 }
 
 function loadingTextShown(text) {
-  return text.includes("Loading...") || text.includes("Please wait...");
+  return text.includes("Loading your project data") || text.includes("Loading...") || text.includes("Please wait...");
 }
 
 async function delayWhileWaitDialogShown() {
   log("Delay while wait Dialog shown");
   let loadingDialogFound = false;
-  await app.client.waitForExist(TCORE.searchingWaitDialog.title.selector, 5000);
-  let text = await getText(TCORE.searchingWaitDialog.prompt);
-  if (loadingTextShown(text)) {
-    loadingDialogFound = true;
-    log("Loading/Importing Dialog shown, wait for it to go away");
-    while (loadingTextShown(text)) {
-      await app.client.pause(500);
-      try {
-        text = await getText(TCORE.searchingWaitDialog.prompt);
-      } catch (e) {
-        text = "";
+  try {
+    await app.client.waitForExist(TCORE.searchingWaitDialog.title.selector, 5000);
+    let text = await getText(TCORE.searchingWaitDialog.prompt);
+    if (loadingTextShown(text)) {
+      loadingDialogFound = true;
+      log("Loading/Importing Dialog shown, wait for it to go away");
+      while (loadingTextShown(text)) {
+        await app.client.pause(500);
+        try {
+          text = await getText(TCORE.searchingWaitDialog.prompt);
+        } catch (e) {
+          text = "";
+        }
       }
     }
+  } catch (e) {
+    log("Loading/Importing Dialog not shown, moving on");
   }
   return loadingDialogFound;
 }
@@ -544,6 +555,7 @@ function projectRemoval(projectName, noRemoval = false) {
  * wait for dialog with retry
  * @param {Object} elementObj - item to verify
  * @param {number} count - retry count
+ * @param {Boolean} expectVisible - if true then expect dialog to be shown, else expect to be hidden
  * @return {Promise<void>}
  */
 async function waitForDialogRetry(elementObj, count = 20, expectVisible = true) {
@@ -556,6 +568,7 @@ async function waitForDialogRetry(elementObj, count = 20, expectVisible = true) 
 async function navigateImportResults(continueOnProjectInfo, projectInfoSettings, projectName) {
   if (continueOnProjectInfo || projectInfoSettings.noProjectInfoDialog) {
     if (projectInfoSettings.errorMessage) {
+      await app.client.pause(500);
       await waitForDialog(TCORE.importErrorDialog, 2000);
       await verifyContainsText(TCORE.importErrorDialog.prompt, projectInfoSettings.errorMessage);
       await navigateGeneralDialog(TCORE.importErrorDialog, 'ok');
@@ -582,17 +595,18 @@ async function navigateImportResults(continueOnProjectInfo, projectInfoSettings,
         await navigateDialog(TCORE.alignmentsResetDialog, 'ok');
       } else {
         log("Making sure broken Alignments NOT shown");
+        await app.client.pause(1000);
         await waitForDialogRetry(TCORE.alignmentsResetDialog, 20, false);
       }
     }
     await verifyOnSpecificPage(TCORE.toolsPage);
+    const projectPath = path.join(PROJECT_PATH, projectName);
+    validateManifestVersion(projectPath);
   } else {
     await waitForDialogRetry(TCORE.importErrorDialog);
     await navigateGeneralDialog(TCORE.importCancelDialog, 'cancelImport');
     await verifyOnSpecificPage(TCORE.projectsPage);
   }
-  const projectPath = path.join(PROJECT_PATH, projectName);
-  validateManifestVersion(projectPath);
 }
 
 async function doOnlineProjectImport(projectName, sourceProject, continueOnProjectInfo, projectSettings) {
@@ -697,9 +711,8 @@ async function getSearchResults() {
   const searchResults = [];
   for (let item of childIndexesArray) {
     // log("item: " + item);
-    const selector = TCORE.onlineImportDialog.searchResultN.selector.replace('$N', item);
-    // log("selector: " + selector);
-    const text = await getText({selector});
+    const searchResultN = TCORE.onlineImportDialog.searchResultN(item);
+    const text = await getText(searchResultN);
     const params = parseSearchResult(text);
     searchResults.push(params);
   }
@@ -709,11 +722,7 @@ async function getSearchResults() {
 async function selectSearchItem(index, verifyText) {
   index++; // search results start at index 1
   log('selecting search result "' + index + '"');
-  const selector = TCORE.onlineImportDialog.searchResultCheckBoxN.selector.replace('$N', index);
-  const clickOnCheckbox = {
-    ...TCORE.onlineImportDialog.searchResultCheckBoxN,
-    selector
-  };
+  const clickOnCheckbox = TCORE.onlineImportDialog.searchResultCheckBoxN(index);
   await clickOn(clickOnCheckbox);
   if (verifyText) {
     log('verifying selected URL "' + verifyText + '"');
@@ -758,6 +767,7 @@ async function doLocalProjectImport(projectSettings, continueOnProjectInfo, proj
   await openImportDialog(TCORE.importTypeOptions.local);
 
   if (projectSettings.preProjectInfoErrorMessage) {
+    await delayWhileWaitDialogShown();
     const importErrorDialog = _.cloneDeep(TCORE.importErrorDialog);
     importErrorDialog.prompt.text = projectSettings.preProjectInfoErrorMessage;
     await waitForDialog(TCORE.importErrorDialog);

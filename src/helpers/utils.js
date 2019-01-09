@@ -22,6 +22,7 @@ let testStartTime = 0;
 let testEndTime = 0;
 const maxMemory = 2624132; // this limit seems to be little different on each run.  Don't know how the limit is determined.
 let initialMemoryUsage = 0;
+const failedTests = [];
 
 function log(text) {
   tCore.log(text);
@@ -183,6 +184,10 @@ after(async() => { // runs after all tests
       log("App shutdown failed: " + getSafeErrorMessage(e));
     }
     app = "FINISHED";
+    if (failedTests && failedTests.length) {
+      const separator = "\n### FAILED TEST: ";
+      log("Failed tests:" + separator + failedTests.join(separator) + '\n');
+    }
     if (error) {
       log("############################");
       log("### CONSOLE ERRORS FOUND ###");
@@ -222,6 +227,7 @@ async function afterEachTest() {
   await logMemoryUsage();
   if (!finished) {
     log("#### Test " + testCount + " did not finish ####");
+    failedTests.push(testCount + ": " + testName);
   } else {
     log("Test " + testCount + " Ended Successfully");
   }
