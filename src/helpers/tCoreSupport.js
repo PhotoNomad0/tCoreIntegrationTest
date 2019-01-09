@@ -10,6 +10,8 @@ const assert = require('assert');
 const zipFileHelpers = require('./zipFileHelpers');
 // import { expect } from 'chai';
 
+const renameIsBroken = true; // TODO: set back to false when fixed
+
 let app;
 let version;
 let testCount = 0;
@@ -565,6 +567,10 @@ async function waitForDialogRetry(elementObj, count = 20, expectVisible = true) 
   500);
 }
 
+function getNoRename(projectInfoSettings) {
+  return projectInfoSettings.noRename || renameIsBroken; // use global flag when rename is broken so we can test the rest
+}
+
 async function navigateImportResults(continueOnProjectInfo, projectInfoSettings, projectName) {
   if (continueOnProjectInfo || projectInfoSettings.noProjectInfoDialog) {
     if (projectInfoSettings.errorMessage) {
@@ -574,7 +580,7 @@ async function navigateImportResults(continueOnProjectInfo, projectInfoSettings,
       await navigateGeneralDialog(TCORE.importErrorDialog, 'ok');
       await verifyOnSpecificPage(TCORE.projectsPage);
     } else {
-      if (!projectInfoSettings.noRename) {
+      if (!getNoRename(projectInfoSettings)) {
         let loadingDialogFound = await delayWhileWaitDialogShown();
         if (loadingDialogFound) {
           await waitForDialog(TCORE.renamedDialog);

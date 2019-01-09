@@ -4,7 +4,6 @@ const assert = require('assert');
 const tCore = require('../src/helpers/tCoreSupport');
 const utils = require('../src/helpers/utils');
 const UNSUPPORTED_PROJECT_MESSAGE = "This project contains data from an old version of translationCore which is not supported in this release. For help opening this project or to restart checking, please contact help@door43.org.";
-const renameIsBroken = true; // TODO: set back to false when fixed
 
 let app;
 const testCount = 1; // number of time to repeat import tests
@@ -213,8 +212,7 @@ describe('Online Import Tests', () => {
             resourceId: "",
             languageDirectionLtr: true,
             bookName: "Psalms (psa)",
-            newTargetLangId,
-            noRename: renameIsBroken
+            newTargetLangId
           };
           const continueOnProjectInfo = true;
           const projectName = `${languageId}_${newTargetLangId}_${bookId}_book`;
@@ -234,8 +232,7 @@ describe('Online Import Tests', () => {
             resourceId: "",
             languageDirectionLtr: true,
             bookName: "Titus (tit)",
-            newTargetLangId,
-            noRename: renameIsBroken
+            newTargetLangId
           };
           const continueOnProjectInfo = true;
           const projectName = `${languageId}_${newTargetLangId}_${bookId}_book`;
@@ -272,8 +269,7 @@ describe('Online Import Tests', () => {
             resourceId: "Unlocked Literal Bible",
             languageDirectionLtr: true,
             bookName: "Ephesians (eph)",
-            newTargetLangId,
-            noRename: renameIsBroken
+            newTargetLangId
           };
           const continueOnProjectInfo = true;
           const projectName = `${languageId}_${newTargetLangId}_${bookId}_book`;
@@ -321,8 +317,7 @@ describe('Online Import Tests', () => {
             resourceId: "Unlocked Literal Bible",
             languageDirectionLtr: false,
             bookName: "Matthew (mat)",
-            newTargetLangId,
-            noRename: renameIsBroken
+            newTargetLangId
           };
           const continueOnProjectInfo = true;
           const projectName = `${languageId}_${newTargetLangId}_${bookId}_book`;
@@ -343,8 +338,7 @@ describe('Online Import Tests', () => {
             languageDirectionLtr: true,
             bookName: "Luke (luk)",
             newTargetLangId,
-            missingVerses: true,
-            noRename: renameIsBroken
+            missingVerses: true
           };
           const continueOnProjectInfo = true;
           const projectName = `${languageId}_${newTargetLangId}_${bookId}_book`;
@@ -365,8 +359,7 @@ describe('Online Import Tests', () => {
             languageDirectionLtr: true,
             bookName: "Titus (tit)",
             newTargetLangId,
-            missingVerses: true,
-            noRename: renameIsBroken
+            missingVerses: true
           };
           const continueOnProjectInfo = true;
           const projectName = `${languageId}_${newTargetLangId}_${bookId}_book`;
@@ -385,8 +378,7 @@ describe('Online Import Tests', () => {
             languageDirectionLtr: true,
             bookName: "Titus (tit)",
             newTargetLangId,
-            brokenAlignments: true,
-            noRename: renameIsBroken
+            brokenAlignments: true
           };
           const continueOnProjectInfo = true;
           const projectName = `${languageId}_${newTargetLangId}_${bookId}_book`;
@@ -406,8 +398,7 @@ describe('Online Import Tests', () => {
             resourceId: "Unlocked Literal Bible",
             languageDirectionLtr: true,
             bookName: "1 Corinthians (1co)",
-            newTargetLangId,
-            noRename: renameIsBroken
+            newTargetLangId
           };
           const continueOnProjectInfo = true;
           const projectName = `${languageId}_${newTargetLangId}_${bookId}_book`;
@@ -426,8 +417,7 @@ describe('Online Import Tests', () => {
             languageDirectionLtr: true,
             bookName: "Titus (tit)",
             newTargetLangId,
-            brokenAlignments: true,
-            noRename: renameIsBroken
+            brokenAlignments: true
           };
           const continueOnProjectInfo = true;
           const projectName = `${languageId}_${newTargetLangId}_${bookId}_book`;
@@ -447,8 +437,7 @@ describe('Online Import Tests', () => {
             targetLangId: "test",
             languageDirectionLtr: true,
             bookName: "Titus (tit)",
-            newTargetLangId,
-            noRename: renameIsBroken
+            newTargetLangId
           };
           const continueOnProjectInfo = true;
           const projectName = `${languageId}_${newTargetLangId}_${bookId}_book`;
@@ -467,8 +456,7 @@ describe('Online Import Tests', () => {
             targetLangId: "algn",
             languageDirectionLtr: true,
             bookName: "Titus (tit)",
-            newTargetLangId,
-            noRename: renameIsBroken
+            newTargetLangId
           };
           const continueOnProjectInfo = true;
           const projectName = `${languageId}_${newTargetLangId}_${bookId}_book`;
@@ -487,8 +475,7 @@ describe('Online Import Tests', () => {
             targetLangId: "algn",
             languageDirectionLtr: true,
             bookName: "Titus (tit)",
-            newTargetLangId,
-            noRename: renameIsBroken
+            newTargetLangId
           };
           const continueOnProjectInfo = true;
           const projectName = `${languageId}_${newTargetLangId}_${bookId}_book`;

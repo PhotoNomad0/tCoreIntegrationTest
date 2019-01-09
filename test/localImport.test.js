@@ -12,7 +12,6 @@ let app;
 const testCount = 1; // number of time to repeat import tests
 let TEST_FILE_PATH;
 let savedTargetId = null;
-const renameIsBroken = true; // TODO: set back to false when fixed
 
 /**
  * does USFM import of project and then exports as USFM.
@@ -54,8 +53,7 @@ describe('Local Import Tests', () => {
           newLanguageId,
           bookName,
           newTargetLangId,
-          missingVerses: true,
-          noRename: renameIsBroken
+          missingVerses: true
         };
         const projectName = `${newLanguageId}_${newTargetLangId}_${bookId}_book`;
         await tCore.doLocalProjectImport(projectSettings, continueOnProjectInfo, projectName);
@@ -102,8 +100,7 @@ describe('Local Import Tests', () => {
           languageDirectionLtr: true,
           bookName,
           newTargetLangId,
-          mergeConflicts: true,
-          noRename: renameIsBroken
+          mergeConflicts: true
         };
         const projectName = `${languageId}_${newTargetLangId}_${bookId}_book`;
         await tCore.doLocalProjectImport(projectSettings, continueOnProjectInfo, projectName);
@@ -127,8 +124,7 @@ describe('Local Import Tests', () => {
           languageDirectionLtr: true,
           bookName,
           newTargetLangId,
-          missingVerses: true,
-          noRename: renameIsBroken
+          missingVerses: true
         };
         const projectName = `${languageId}_${newTargetLangId}_${bookId}_book`;
         await tCore.doLocalProjectImport(projectSettings, continueOnProjectInfo, projectName);
@@ -151,8 +147,7 @@ describe('Local Import Tests', () => {
           languageDirectionLtr: true,
           bookName,
           newTargetLangId,
-          missingVerses: true,
-          noRename: renameIsBroken
+          missingVerses: true
         };
         const projectName = `${languageId}_${newTargetLangId}_${bookId}_book`;
         await tCore.doLocalProjectImport(projectSettings, continueOnProjectInfo, projectName);
@@ -173,8 +168,7 @@ describe('Local Import Tests', () => {
           newLanguageId,
           bookName,
           newTargetLangId,
-          brokenAlignments: true,
-          noRename: renameIsBroken
+          brokenAlignments: true
         };
         const projectName = `${newLanguageId}_${newTargetLangId}_${bookId}_book`;
         await tCore.doLocalProjectImport(projectSettings, continueOnProjectInfo, projectName);

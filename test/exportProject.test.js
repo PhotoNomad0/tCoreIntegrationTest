@@ -11,7 +11,6 @@ const TEST_PATH = path.join(ospath.home(), 'translationCore/testing');
 let app;
 const testCount = 1; // number of time to repeat import tests
 let TEST_FILE_PATH;
-const renameIsBroken = true; // TODO: set back to false when fixed
 
 /**
  * does USFM import of project and then exports as USFM.
@@ -217,8 +216,7 @@ describe.skip('Project export Tests', () => {
           languageDirectionLtr: true,
           bookName,
           newTargetLangId,
-          newLanguageId,
-          noRename: renameIsBroken
+          newLanguageId
         };
         await doUsfmImportExportTest(newLanguageId, newTargetLangId, bookId, projectSettings, continueOnProjectInfo, project_id, false, exportAlignments, testFile, importPath);
       });
@@ -243,8 +241,7 @@ describe.skip('Project export Tests', () => {
           languageDirectionLtr: true,
           bookName,
           newTargetLangId,
-          brokenAlignments,
-          noRename: renameIsBroken
+          brokenAlignments
         };
         await doUsfmImportExportTest(languageId, newTargetLangId, bookId, projectSettings, continueOnProjectInfo, project_id, true, exportAlignments, testFile, importPath);
       });
@@ -265,8 +262,7 @@ describe.skip('Project export Tests', () => {
           languageDirectionLtr: true,
           bookName,
           newTargetLangId,
-          newLanguageId,
-          noRename: renameIsBroken
+          newLanguageId
         };
         await doUsfmImportExportTest(newLanguageId, newTargetLangId, bookId, projectSettings, continueOnProjectInfo, project_id, false, exportAlignments, testFile, importPath);
       });
@@ -294,7 +290,7 @@ describe.skip('Project export Tests', () => {
  * @return {Promise<void>}
  */
 async function doUsfmImportExportTest(languageId, targetLangId, bookId, projectSettings, continueOnProjectInfo,
-                                      project_id, hasAlignments, exportAlignments, outputFileName, importPath) {
+                                        project_id, hasAlignments, exportAlignments, outputFileName, importPath) {
   const projectName = `${languageId}_${targetLangId}_${bookId}_book`;
   await tCore.doLocalProjectImport(projectSettings, continueOnProjectInfo, projectName);
   const outputFile = await tCore.doExportToUsfm(project_id, outputFileName, hasAlignments, exportAlignments, TEST_PATH);

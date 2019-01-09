@@ -186,7 +186,7 @@ after(async() => { // runs after all tests
     app = "FINISHED";
     if (failedTests && failedTests.length) {
       const separator = "\n### FAILED TEST: ";
-      log("Failed tests:" + separator + failedTests.join(separator) + '\n');
+      log("Failed tests:" + separator + failedTests.join(separator) + "\n\n### " + failedTests.length + " tests failed in total\n");
     }
     if (error) {
       log("############################");
