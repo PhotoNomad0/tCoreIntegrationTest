@@ -23,6 +23,9 @@ let testEndTime = 0;
 const maxMemory = 2624132; // this limit seems to be little different on each run.  Don't know how the limit is determined.
 let initialMemoryUsage = 0;
 const failedTests = [];
+let testsRun = 0;
+let renameIsBroken = false;
+
 
 function log(text) {
   tCore.log(text);
@@ -73,7 +76,14 @@ async function logMemoryUsage() {
   log("Memory Usage: " + memoryUsage + ", pressure: " + Math.round(memoryUsage/maxMemory*100) + "%, growth: " + Math.round((memoryUsage/initialMemoryUsage-1)*100) + "%");
 }
 
-async function beforeAll() {
+/**
+ * initialize test suite
+ * @param {Boolean} renameIsBroken_ - if true, then treat rename prompt as broken
+ * @return {Promise<Application>}
+ */
+async function beforeAll(renameIsBroken_ = false) {
+  tCore.setRenameIsBroken(renameIsBroken_);
+  renameIsBroken = renameIsBroken || renameIsBroken_; // save flag if any suites ran with rename broken
   tCore.initializeTest(app, testCount, navigationDelay);
   fs.removeSync(tCore.getLogFilePath());
   if (!app) {
@@ -181,22 +191,31 @@ after(async() => { // runs after all tests
       await tCoreConnect.stopApp(app);
     } catch (e) {
       console.error("App shutdown failed: ", e);
-      log("App shutdown failed: " + getSafeErrorMessage(e));
+      log("App shutdown failed: " + tCore.getSafeErrorMessage(e));
     }
     app = "FINISHED";
-    if (failedTests && failedTests.length) {
-      const separator = "\n### FAILED TEST: ";
-      log("Failed tests:" + separator + failedTests.join(separator) + "\n\n### " + failedTests.length + " tests failed in total\n");
-    }
+
     if (error) {
+      log("");
       log("############################");
       log("### CONSOLE ERRORS FOUND ###");
-      log("############################");
+      log("############################\n");
     } else {
       utils.testFinished();
     }
+    if (tCore.renameIsBroken) {
+      log("############################");
+      log("### RENAME IS BROKEN     ###");
+      log("############################\n");
+    }
+    if (failedTests && failedTests.length) {
+      const separator = "\n### FAILED TEST: ";
+      log("Failed tests:" + separator + failedTests.join(separator) + "\n\n### " + failedTests.length + " tests failed in " + testsRun + "\n\n");
+    } else {
+      log("\n!!!! All Tests Passed !!!!\n\n");
+    }
   } else {
-    console.error("After already ran");
+    console.error("after() already ran");
   }
 });
 
@@ -224,6 +243,7 @@ function getElapsedTestTime() {
 }
 
 async function afterEachTest() {
+  testsRun++;
   await logMemoryUsage();
   if (!finished) {
     log("#### Test " + testCount + " did not finish ####");
@@ -234,18 +254,6 @@ async function afterEachTest() {
   log("Test name: " + testName);
   testEndTime = new Date();
   log("Test run time " + Math.round(getElapsedTestTime()) + " seconds");
-}
-
-function getSafeErrorMessage(error, defaultErrorMessage = "### Error message is empty ###") {
-  let errorMessage = error || defaultErrorMessage;
-  if (error && (error.type !== 'div')) {
-    if (error.stack) {
-      errorMessage = error.stack;
-    } else {
-      console.warn(error.toString()); // make message printable
-    }
-  }
-  return errorMessage;
 }
 
 /**
@@ -280,7 +288,6 @@ const utils = {
   generateTargetLanguageID,
   getBibleData,
   getElapsedTestTime,
-  getSafeErrorMessage,
   getTestCount,
   getTestFiles,
   log,

@@ -29,6 +29,7 @@ describe.skip('Project export Tests', () => {
   });
 
   afterEach(async () => {
+    await tCore.dismissOldDialogs();
     await utils.afterEachTest();
   });
 
@@ -198,6 +199,10 @@ describe.skip('Project export Tests', () => {
   });
 
   describe('Import/Export Tests', () => {
+    before(async () => {
+      app = await utils.beforeAll(true); // TODO: set back to false when fixed
+    });
+    
     let alignmentState = false;
     for (let testNum = 1; testNum <= testCount; testNum++) {
       it('do USFM import and export usfm-body-testF.usfm', async () => {

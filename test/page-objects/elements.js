@@ -223,12 +223,12 @@ const DEFINITIONS = {
     title: {
       selector: TEMPLATES.generalAlertDialog.title.selector,
       text: "Alert",
-      id: "Wait Dialog Title"
+      id: "Searching Wait Dialog Title"
     },
     prompt: {
       ...TEMPLATES.generalAlertDialog.prompt,
       text: "General Alert Dialog Text",
-      id: "Wait Dialog Prompt"
+      id: "Searching Wait Dialog Prompt"
     },
     ok: {
       selector: TEMPLATES.generalAlertDialog.single.selector,
@@ -260,9 +260,9 @@ const DEFINITIONS = {
       id: "Cancel Dialog Cancel Import Button"
     }
   },
-  onlineDialog: {
+  onlineAccessDialog: {
     selector: "body > div:nth-child(4) > div > div:nth-child(1) > div > div",
-    id: "Online Dialog",
+    id: "Online Access Dialog",
     noShowClick: {
       selector: "body > div:nth-child(4) > div > div:nth-child(1) > div > div > div:nth-child(1) > div:nth-child(4) > table > tbody > tr > td:nth-child(2) > div > div > div > div > input[type=\"checkbox\"]",
       id: "Online Dialog - Don't Show Again",

@@ -16,7 +16,7 @@ let TEST_FILE_PATH;
  * does USFM import of project and then exports as USFM.
  */
 
-describe.skip('Project Open Tests', () => {
+describe('Project Open Tests', () => {
 
   before(async () => {
     app = await utils.beforeAll();
@@ -28,6 +28,7 @@ describe.skip('Project Open Tests', () => {
   });
 
   afterEach(async () => {
+    await tCore.dismissOldDialogs();
     await utils.afterEachTest();
   });
 

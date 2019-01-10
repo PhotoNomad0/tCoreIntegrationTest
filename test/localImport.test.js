@@ -20,7 +20,7 @@ let savedTargetId = null;
 describe('Local Import Tests', () => {
 
   before(async () => {
-    app = await utils.beforeAll();
+    app = await utils.beforeAll(true); // TODO: set back to false when fixed
     TEST_FILE_PATH = await utils.getTestFiles();
   });
 
@@ -29,6 +29,7 @@ describe('Local Import Tests', () => {
   });
 
   afterEach(async () => {
+    await tCore.dismissOldDialogs();
     await utils.afterEachTest();
   });
 

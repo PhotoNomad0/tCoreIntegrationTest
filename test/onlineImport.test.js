@@ -11,7 +11,7 @@ const testCount = 1; // number of time to repeat import tests
 describe('Online Import Tests', () => {
 
   before(async () => {
-    app = await utils.beforeAll();
+    app = await utils.beforeAll(true); // TODO: set back to false when fixed
   });
 
   beforeEach(async function() {
@@ -19,6 +19,7 @@ describe('Online Import Tests', () => {
   });
 
   afterEach(async () => {
+    await tCore.dismissOldDialogs();
     await utils.afterEachTest();
   });
 
@@ -30,7 +31,7 @@ describe('Online Import Tests', () => {
     it('do online import access cancel', async () => {
       await tCore.setToProjectPage();
       await tCore.openImportDialog(TCORE.importTypeOptions.online);
-      await tCore.navigateDialog(TCORE.onlineDialog, 'cancel');
+      await tCore.navigateDialog(TCORE.onlineAccessDialog, 'cancel');
       await tCore.clickOn(TCORE.importMenuButton.close);
       await tCore.verifyOnSpecificPage(TCORE.projectsPage);
       utils.testFinished();
@@ -40,7 +41,7 @@ describe('Online Import Tests', () => {
       let searchResults;
       await tCore.setToProjectPage();
       await tCore.openImportDialog(TCORE.importTypeOptions.online);
-      await tCore.navigateDialog(TCORE.onlineDialog, 'access_internet');
+      await tCore.navigateDialog(TCORE.onlineAccessDialog, 'access_internet');
 
       // get initial results
       const importConfigInitial = {

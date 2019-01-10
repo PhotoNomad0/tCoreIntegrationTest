@@ -10,7 +10,7 @@ const assert = require('assert');
 const zipFileHelpers = require('./zipFileHelpers');
 // import { expect } from 'chai';
 
-const renameIsBroken = true; // TODO: set back to false when fixed
+let renameIsBroken = false; // TODO: set back to false when fixed
 
 let app;
 let version;
@@ -300,7 +300,7 @@ async function clickOn(elementObj, exact = true) {
  * @param {Boolean} expectVisible - if true then expect dialog to be shown, else expect to be hidden
  * @return {Promise<void>}
  */
-async function waitForDialog(elementObj, extraDelay, expectVisible = true) {
+async function waitForDialog(elementObj, extraDelay = 0, expectVisible = true) {
   const expectedString = (expectVisible ? 'true' : 'false');
   log('waiting for "' +  elementDescription(elementObj) + '" visible to be ' + expectedString);
   await app.client.pause(navigationDelay + extraDelay);
@@ -341,20 +341,40 @@ async function setToToolPage(fromTool = false) {
   await verifyOnSpecificPage(TCORE.toolsPage);
 }
 
-async function waitForElementToComeAndGo(elementObj) {
-  log("Waiting for searching dialog");
-  // app.client.pause(500);
-  // await navigateDialog(Elements.searchingWaitDialog); // wait for searching please wait dialog
-  await app.client.waitForExist(elementObj.selector, 5000); // wait for searching please wait dialog
-  log("Waiting for searching dialog to finish");
+async function waitForPopAndGo(elementObj, waitToShow) {
+  await app.client.waitForExist(elementObj.selector, waitToShow); // wait for searching please wait dialog
+  log("Waiting for '" + elementDescription(elementObj) + "' to finish");
   await app.client.waitForExist(elementObj.selector, 5000, true); // wait until searching please wait disappears
+}
+
+/**
+ * wait for element to be visible and then not
+ * @param {Object} elementObj - dialog element
+ * @param {Number} waitToShow - time to wait for dialog to show
+ * @param {Boolean} noFail - if true then if dialog not seen, we do not fail test
+ * @return {Promise<void>}
+ */
+async function waitForElementToComeAndGo(elementObj, waitToShow = 5000, noFail = false) {
+  log("Waiting for '" +  elementDescription(elementObj) + "'");
+  if (noFail) {
+    try {
+      await waitForPopAndGo(elementObj, waitToShow);
+    } catch (e) {
+      log("Didn't see '" +  elementDescription(elementObj) + "'");
+    }
+  } else {
+    await waitForPopAndGo(elementObj, waitToShow);
+  }
+}
+
+async function waitForSearchDialog() {
+  await waitForElementToComeAndGo(TCORE.searchingWaitDialog.prompt, 2000, true);
 }
 
 async function navigateOnlineImportDialog(importConfig) {
   await navigateDialog(TCORE.onlineImportDialog, null); // make sure dialog shown
   if (importConfig.waitForInitialSearchCompletion) {
-    app.client.pause(1000);
-    await waitForElementToComeAndGo(TCORE.searchingWaitDialog.prompt);
+    await waitForSearchDialog();
   }
   // await setValue(Elements.onlineImportDialog.user, ''); // seems to be issue with setting to empty string
   if (importConfig.user) {
@@ -365,14 +385,14 @@ async function navigateOnlineImportDialog(importConfig) {
   }
   if (importConfig.search) {
     await navigateDialog(TCORE.onlineImportDialog, 'search');
-    await waitForElementToComeAndGo(TCORE.searchingWaitDialog.prompt);
+    await waitForSearchDialog();
   }
   if (importConfig.sourceProject) {
     await setValue(TCORE.onlineImportDialog.enterURL, importConfig.sourceProject);
   }
   if (importConfig.import) {
     await navigateDialog(TCORE.onlineImportDialog, 'import', false);
-    await navigateDialog(TCORE.onlineDialog, 'access_internet');
+    await navigateDialog(TCORE.onlineAccessDialog, 'access_internet');
   }
   if (importConfig.cancel) {
     await navigateDialog(TCORE.onlineImportDialog, 'cancel');
@@ -571,6 +591,45 @@ function getNoRename(projectInfoSettings) {
   return projectInfoSettings.noRename || renameIsBroken; // use global flag when rename is broken so we can test the rest
 }
 
+async function dismissDialogIfPresent(elementObj, prompt, acknowledgeButton) {
+  let found = false;
+  const name = elementDescription(elementObj);
+  try {
+    let visible = false;
+    try {
+      visible = await app.client.isVisible(elementObj.selector);
+    } catch (e) {
+      visible = false;
+    }
+    if (visible) {
+      const text = await getText(elementObj);
+      if ((text === prompt) || text.includes(prompt)) {
+        log("Leftover Dialog shown " + name + ", dismissing");
+        found = true;
+        await clickOn(acknowledgeButton);
+      }
+    }
+  } catch (e) {
+    log(name + " error caught: " + getSafeErrorMessage(e));
+  }
+  return found;
+}
+
+/**
+ * check for leftover dialogs
+ * @return {Promise<boolean>}
+ */
+async function dismissOldDialogs() {
+  let leftOversFound = false;
+  leftOversFound = leftOversFound || await dismissDialogIfPresent(TCORE.importErrorDialog, "Error occurred while importing your project", TCORE.importErrorDialog.ok);
+  leftOversFound = leftOversFound || await dismissDialogIfPresent(TCORE.renamedDialog, "Your local project has been named", TCORE.renamedDialog.ok);
+  leftOversFound = leftOversFound || await dismissDialogIfPresent(TCORE.alignmentsResetDialog, TCORE.alignmentsResetDialog.prompt.text, TCORE.alignmentsResetDialog.ok);
+  if (leftOversFound) {
+    log("#### Leftover Dialog found and dismissed ####");
+  }
+  return leftOversFound;
+}
+
 async function navigateImportResults(continueOnProjectInfo, projectInfoSettings, projectName) {
   if (continueOnProjectInfo || projectInfoSettings.noProjectInfoDialog) {
     if (projectInfoSettings.errorMessage) {
@@ -580,12 +639,11 @@ async function navigateImportResults(continueOnProjectInfo, projectInfoSettings,
       await navigateGeneralDialog(TCORE.importErrorDialog, 'ok');
       await verifyOnSpecificPage(TCORE.projectsPage);
     } else {
+      let loadingDialogFound = await delayWhileWaitDialogShown();
       if (!getNoRename(projectInfoSettings)) {
-        let loadingDialogFound = await delayWhileWaitDialogShown();
         if (loadingDialogFound) {
           await waitForDialog(TCORE.renamedDialog);
-        }
-
+        }  
         // navigate renamed dialog
         const renamedDialogConfig = _.cloneDeep(TCORE.renamedDialog);
         renamedDialogConfig.prompt.text = `Your local project has been named\n    ${projectName}`;
@@ -599,10 +657,6 @@ async function navigateImportResults(continueOnProjectInfo, projectInfoSettings,
         // const prompt = await getText(TCORE.alignmentsResetDialog.prompt);
         await verifyText(TCORE.alignmentsResetDialog.prompt, TCORE.alignmentsResetDialog.prompt.text);
         await navigateDialog(TCORE.alignmentsResetDialog, 'ok');
-      } else {
-        log("Making sure broken Alignments NOT shown");
-        await app.client.pause(1000);
-        await waitForDialogRetry(TCORE.alignmentsResetDialog, 20, false);
       }
     }
     await verifyOnSpecificPage(TCORE.toolsPage);
@@ -619,7 +673,7 @@ async function doOnlineProjectImport(projectName, sourceProject, continueOnProje
   projectRemoval(projectName, projectSettings.noProjectRemoval);
   await setToProjectPage();
   await openImportDialog(TCORE.importTypeOptions.online);
-  await navigateDialog(TCORE.onlineDialog, 'access_internet');
+  await navigateDialog(TCORE.onlineAccessDialog, 'access_internet');
 
   // do import
   const importConfig = {
@@ -1138,11 +1192,28 @@ async function doExportToCsv(projectName, outputFileName, outputFolder, expectTo
   return outputFile;
 }
 
+function getSafeErrorMessage(error, defaultErrorMessage = "### Error message is empty ###") {
+  let errorMessage = error || defaultErrorMessage;
+  if (error && (error.type !== 'div')) {
+    if (error.stack) {
+      errorMessage = error.stack;
+    } else {
+      console.warn(error.toString()); // make message printable
+    }
+  }
+  return errorMessage;
+}
+
+function setRenameIsBroken(broken = false) {
+  renameIsBroken = broken;
+}
+
 const tCoreSupport = {
   PROJECT_PATH,
   clickOn,
   clickOnRetry,
   delayWhileWaitDialogShown,
+  dismissOldDialogs,
   doExportToCsv,
   doExportToUsfm,
   doLocalProjectImport,
@@ -1156,6 +1227,7 @@ const tCoreSupport = {
   getLogFilePath,
   getManifestTcVersion,
   getPackageJson,
+  getSafeErrorMessage,
   getSearchResults,
   getSelection,
   getText,
@@ -1183,6 +1255,7 @@ const tCoreSupport = {
   retryStep,
   selectSearchItem,
   setCheckBoxRetry,
+  setRenameIsBroken,
   setToProjectPage,
   setToToolPage,
   setValue,
