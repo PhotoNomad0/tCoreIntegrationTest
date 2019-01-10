@@ -341,12 +341,6 @@ async function setToToolPage(fromTool = false) {
   await verifyOnSpecificPage(TCORE.toolsPage);
 }
 
-async function waitForPopAndGo(elementObj, waitToShow) {
-  await app.client.waitForExist(elementObj.selector, waitToShow); // wait for searching please wait dialog
-  log("Waiting for '" + elementDescription(elementObj) + "' to finish");
-  await app.client.waitForExist(elementObj.selector, 5000, true); // wait until searching please wait disappears
-}
-
 /**
  * wait for element to be visible and then not
  * @param {Object} elementObj - dialog element
@@ -354,21 +348,22 @@ async function waitForPopAndGo(elementObj, waitToShow) {
  * @param {Boolean} noFail - if true then if dialog not seen, we do not fail test
  * @return {Promise<void>}
  */
-async function waitForElementToComeAndGo(elementObj, waitToShow = 5000, noFail = false) {
+async function waitForElementToComeAndGo(elementObj, waitToShow = 5000, waitToHide = 5000, noFail = false) {
   log("Waiting for '" +  elementDescription(elementObj) + "'");
-  if (noFail) {
-    try {
-      await waitForPopAndGo(elementObj, waitToShow);
-    } catch (e) {
-      log("Didn't see '" +  elementDescription(elementObj) + "'");
+  try {
+    await app.client.waitForExist(elementObj.selector, waitToShow); // wait for searching please wait dialog
+    log("Waiting for '" + elementDescription(elementObj) + "' to finish");
+    await app.client.waitForExist(elementObj.selector, waitToHide, true); // wait until searching please wait disappears
+  } catch (e) {
+    log("*** Didn't see '" +  elementDescription(elementObj) + "'");
+    if (!noFail) {
+      throw(e);
     }
-  } else {
-    await waitForPopAndGo(elementObj, waitToShow);
   }
 }
 
 async function waitForSearchDialog() {
-  await waitForElementToComeAndGo(TCORE.searchingWaitDialog.prompt, 2000, true);
+  await waitForElementToComeAndGo(TCORE.searchingWaitDialog.prompt, 2000, 10000, true);
 }
 
 async function navigateOnlineImportDialog(importConfig) {
@@ -619,13 +614,17 @@ async function dismissDialogIfPresent(elementObj, prompt, acknowledgeButton) {
  * check for leftover dialogs
  * @return {Promise<boolean>}
  */
-async function dismissOldDialogs() {
+async function dismissOldDialogs(finished) {
   let leftOversFound = false;
   leftOversFound = leftOversFound || await dismissDialogIfPresent(TCORE.importErrorDialog, "Error occurred while importing your project", TCORE.importErrorDialog.ok);
   leftOversFound = leftOversFound || await dismissDialogIfPresent(TCORE.renamedDialog, "Your local project has been named", TCORE.renamedDialog.ok);
   leftOversFound = leftOversFound || await dismissDialogIfPresent(TCORE.alignmentsResetDialog, TCORE.alignmentsResetDialog.prompt.text, TCORE.alignmentsResetDialog.ok);
   if (leftOversFound) {
-    log("#### Leftover Dialog found and dismissed ####");
+    if (!finished) {
+      log("#### Test failed with leftover Dialogs ####");
+    } else {
+      log("#### Leftover Dialog found and dismissed ####");
+    }
   }
   return leftOversFound;
 }
@@ -685,6 +684,7 @@ async function doOnlineProjectImport(projectName, sourceProject, continueOnProje
   await navigateOnlineImportDialog(importConfig);
   
   if (projectSettings.preProjectInfoErrorMessage) {
+    await delayWhileWaitDialogShown();
     const importErrorDialog = _.cloneDeep(TCORE.importErrorDialog);
     importErrorDialog.prompt.text = projectSettings.preProjectInfoErrorMessage;
     await waitForDialog(TCORE.importErrorDialog);
@@ -795,14 +795,15 @@ async function openImportDialog(importSelection) {
   await clickOn(TCORE.importMenuButton[importSelection]);
 }
 
-function getLogFilePath() {
-  return `./logging/log${testCount}.txt`;
+function getLogFilePath(test = -1) {
+  const testNum = test >= 0 ? test : testCount;
+  return `./logging/log${testNum}.txt`;
 }
 
-function log(text) {
+function log(text, testNum = -1) {
   const output = (new Date().toUTCString()) + ": " + text;
   console.log(output);
-  const logPath = getLogFilePath();
+  const logPath = getLogFilePath(testNum);
   const current = fs.existsSync(logPath) ? fs.readFileSync(logPath) : "";
   fs.writeFileSync(logPath, current + output + "\n");
 }

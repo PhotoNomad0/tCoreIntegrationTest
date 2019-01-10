@@ -16,7 +16,7 @@ let TEST_FILE_PATH;
  * does USFM import of project and then exports as USFM.
  */
 
-describe.skip('Project export Tests', () => {
+describe('Project export Tests', () => {
   let usfm2OutputFileName = null;
 
   before(async () => {
@@ -29,7 +29,7 @@ describe.skip('Project export Tests', () => {
   });
 
   afterEach(async () => {
-    await tCore.dismissOldDialogs();
+    await tCore.dismissOldDialogs(utils.getTestFinished());
     await utils.afterEachTest();
   });
 
@@ -162,7 +162,7 @@ describe.skip('Project export Tests', () => {
 
       it('should succeed to open tW after overwrite', async () => {
         await tCore.setToToolPage(false);
-        await tCore.launchTool("translationWords (Part 1)");
+        await tCore.launchTool("translationWords");
         await app.client.pause(6000);
         await tCore.navigateDialog(TCORE.groupMenu.header);
         await tCore.setToProjectPage(true);
@@ -188,7 +188,7 @@ describe.skip('Project export Tests', () => {
 
       it('should succeed to open tW after overwrite', async () => {
         await tCore.setToToolPage(false);
-        await tCore.launchTool("translationWords (Part 1)");
+        await tCore.launchTool("translationWords");
         await app.client.pause(6000);
         await tCore.navigateDialog(TCORE.groupMenu.header);
         await tCore.setToProjectPage(true);

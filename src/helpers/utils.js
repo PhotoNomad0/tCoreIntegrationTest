@@ -27,8 +27,8 @@ let testsRun = 0;
 let renameIsBroken = false;
 
 
-function log(text) {
-  tCore.log(text);
+function log(text, test = -1) {
+  tCore.log(text, test);
 }
 
 function testFinished() {
@@ -38,6 +38,10 @@ function testFinished() {
 
 function getTestCount() {
   return testCount;
+}
+
+function getTestFinished() {
+  return finished;
 }
 
 /**
@@ -245,12 +249,15 @@ function getElapsedTestTime() {
 async function afterEachTest() {
   testsRun++;
   await logMemoryUsage();
+  let message = "";
   if (!finished) {
-    log("#### Test " + testCount + " did not finish ####");
+    message = "#### Test " + testCount + " did not finish ####";
     failedTests.push(testCount + ": " + testName);
   } else {
-    log("Test " + testCount + " Ended Successfully");
+    message = "Test " + testCount + " Ended Successfully";
   }
+  log(message);
+  log(message, 0);
   log("Test name: " + testName);
   testEndTime = new Date();
   log("Test run time " + Math.round(getElapsedTestTime()) + " seconds");
@@ -289,6 +296,7 @@ const utils = {
   getBibleData,
   getElapsedTestTime,
   getTestCount,
+  getTestFinished,
   getTestFiles,
   log,
   logMemoryUsage,

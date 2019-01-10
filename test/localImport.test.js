@@ -29,7 +29,7 @@ describe('Local Import Tests', () => {
   });
 
   afterEach(async () => {
-    await tCore.dismissOldDialogs();
+    await tCore.dismissOldDialogs(utils.getTestFinished());
     await utils.afterEachTest();
   });
 
