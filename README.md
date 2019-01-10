@@ -23,6 +23,7 @@ npm test
 ```
 
 Uses Mocha test framework so tests are run sequentially and in order.  Tests look quite similar to `jest`.
+Test result are placed in logging: log0.txt has incremental overall status for all tests.  logN.txt is detailed status for test N.
 
 ## Enabling/Disabling Suites/Tests
 

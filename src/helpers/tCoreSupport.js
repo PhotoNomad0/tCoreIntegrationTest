@@ -620,11 +620,14 @@ async function dismissOldDialogs(finished) {
   leftOversFound = leftOversFound || await dismissDialogIfPresent(TCORE.renamedDialog, "Your local project has been named", TCORE.renamedDialog.ok);
   leftOversFound = leftOversFound || await dismissDialogIfPresent(TCORE.alignmentsResetDialog, TCORE.alignmentsResetDialog.prompt.text, TCORE.alignmentsResetDialog.ok);
   if (leftOversFound) {
+    let message = "";
     if (!finished) {
-      log("#### Test failed with leftover Dialogs ####");
+      message = "#### Test failed with leftover Dialogs ####";
     } else {
-      log("#### Leftover Dialog found and dismissed ####");
+      message = "#### Leftover Dialog found and dismissed ####";
     }
+    log(message);
+    log(message, 0);
   }
   return leftOversFound;
 }
@@ -1219,6 +1222,7 @@ const tCoreSupport = {
   doExportToUsfm,
   doLocalProjectImport,
   doOnlineProjectImport,
+  doOpenProject,
   elementDescription,
   findToolCardNumber,
   findProjectCardNumber,
@@ -1250,7 +1254,6 @@ const tCoreSupport = {
   navigateProjectInfoDialog,
   navigateRetry,
   openImportDialog,
-  doOpenProject,
   parseSearchResult,
   projectRemoval,
   retryStep,
