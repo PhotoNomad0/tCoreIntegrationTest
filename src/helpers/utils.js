@@ -246,21 +246,40 @@ function getElapsedTestTime() {
   return (testEndTime - testStartTime) / 1000;
 }
 
-async function afterEachTest() {
+/**
+ * runs after each test to wrap up test log, etc
+ * @param {Boolean} testCleanup_ - if true then we also check for leftover dialog
+ * @return {Promise<void>}
+ */
+async function afterEachTest(testCleanup_ = true) {
   testsRun++;
+  if (testCleanup_) {
+    await testCleanup();
+  }
   await logMemoryUsage();
   let message = "";
   if (!finished) {
-    message = "#### Test " + testCount + " did not finish ####";
+    message = "#### Test " + testCount + " did not finish ####\n- " + testName;
     failedTests.push(testCount + ": " + testName);
   } else {
-    message = "Test " + testCount + " Ended Successfully";
+    message = "Test " + testCount + " Ended Successfully: " + testName;
   }
   log(message);
   log(message, 0);
   log("Test name: " + testName);
   testEndTime = new Date();
   log("Test run time " + Math.round(getElapsedTestTime()) + " seconds");
+}
+
+/**
+ * checks for old dialogs left on screen, if dialogs found then test is errored
+ * @return {Promise<void>}
+ */
+async function testCleanup() {
+  const leftOversFound = await tCore.dismissOldDialogs(getTestFinished());
+  if (leftOversFound) {
+    finished = false;
+  }
 }
 
 /**
@@ -300,6 +319,7 @@ const utils = {
   getTestFiles,
   log,
   logMemoryUsage,
+  testCleanup,
   testFinished
 };
 

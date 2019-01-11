@@ -11,7 +11,7 @@ const testCount = 1; // number of time to repeat import tests
 describe('Online Import Tests', () => {
 
   before(async () => {
-    app = await utils.beforeAll(true); // TODO: set back to false when fixed
+    app = await utils.beforeAll();
   });
 
   beforeEach(async function() {
@@ -19,7 +19,6 @@ describe('Online Import Tests', () => {
   });
 
   afterEach(async () => {
-    await tCore.dismissOldDialogs(utils.getTestFinished());
     await utils.afterEachTest();
   });
 

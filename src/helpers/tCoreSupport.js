@@ -10,7 +10,7 @@ const assert = require('assert');
 const zipFileHelpers = require('./zipFileHelpers');
 // import { expect } from 'chai';
 
-let renameIsBroken = false; // TODO: set back to false when fixed
+let renameIsBroken = false;
 
 let app;
 let version;

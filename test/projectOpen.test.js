@@ -28,7 +28,6 @@ describe('Project Open Tests', () => {
   });
 
   afterEach(async () => {
-    await tCore.dismissOldDialogs(utils.getTestFinished());
     await utils.afterEachTest();
   });
 
@@ -61,7 +60,7 @@ describe('Project Open Tests', () => {
         utils.testFinished();
       });
 
-      it('should succeed open en_ult_php_text.zip and shows broken alignments, rename', async () => {
+      it('should succeed open en_ult_php_text.zip and shows broken alignments, no rename', async () => {
         const newTargetLangId = 'zult';
         const languageId = "en";
         const bookId = "php";
