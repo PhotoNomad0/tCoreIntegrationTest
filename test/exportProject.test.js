@@ -175,7 +175,7 @@ describe('Project export Tests', () => {
         utils.testFinished();
       });
 
-      it('should succeed to open WA after overwrite', async () => {
+      it('should succeed to open WA after CSV export', async () => {
         await tCore.setToToolPage(false);
         await tCore.launchTool("Word Alignment");
         await app.client.pause(6000);
@@ -185,7 +185,7 @@ describe('Project export Tests', () => {
         utils.testFinished();
       });
 
-      it('should succeed to open tW after overwrite', async () => {
+      it('should succeed to open tW after CSV export', async () => {
         await tCore.setToToolPage(false);
         await tCore.launchTool("translationWords");
         await app.client.pause(6000);

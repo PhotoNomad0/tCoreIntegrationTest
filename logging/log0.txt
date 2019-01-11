@@ -1,3 +1,120 @@
-Thu, 13 Dec 2018 21:07:27 GMT: Starting tCore
-Thu, 13 Dec 2018 21:07:27 GMT: starting tCore
-Thu, 13 Dec 2018 21:07:31 GMT: Finished initial delay
+Fri, 11 Jan 2019 11:59:59 GMT: Starting from electron and app source at: /Users/blm/Development/Electron/translationCore/src/es6-init.js
+Fri, 11 Jan 2019 11:59:59 GMT: Starting tCore
+Fri, 11 Jan 2019 11:59:59 GMT: starting tCore
+Fri, 11 Jan 2019 12:00:03 GMT: Finished initial delay
+Fri, 11 Jan 2019 12:00:04 GMT: Reached Window count
+Fri, 11 Jan 2019 12:00:04 GMT: Could not found browserWindow, trying to continue
+Fri, 11 Jan 2019 12:00:04 GMT: looking for getting started button
+Fri, 11 Jan 2019 12:00:04 GMT: Looking for Get Started!, step= 1
+Fri, 11 Jan 2019 12:00:04 GMT: Looking for Get Started!, finished in step 1
+Fri, 11 Jan 2019 12:00:04 GMT: getting text for Get Started!, step= 1
+Fri, 11 Jan 2019 12:00:04 GMT: reading "Get Started!"
+Fri, 11 Jan 2019 12:00:04 GMT: value of "Get Started!" is "Get Started!"
+Fri, 11 Jan 2019 12:00:04 GMT: getting text for Get Started!, finished in step 1
+Fri, 11 Jan 2019 12:00:04 GMT: button text shown: Get Started!
+Fri, 11 Jan 2019 12:00:04 GMT: reading "Version Label"
+Fri, 11 Jan 2019 12:00:05 GMT: value of "Version Label" is "Version 1.1.0 (4bd6856)"
+Fri, 11 Jan 2019 12:00:05 GMT: **** App version "Version 1.1.0 (4bd6856)" ****
+Fri, 11 Jan 2019 12:00:05 GMT: checking "Get Started!" equals "Get Started!"
+Fri, 11 Jan 2019 12:00:05 GMT: clicking on "Get Started!"
+Fri, 11 Jan 2019 12:00:05 GMT: Logs:
+[
+  {
+    "level": "SEVERE",
+    "message": "file:///Users/blm/Development/Electron/translationCore/src/html/node_modules/bootstrap/dist/css/bootstrap.min.css - Failed to load resource: net::ERR_FAILED",
+    "source": "network",
+    "timestamp": 1547207999154
+  },
+  {
+    "level": "SEVERE",
+    "message": "file:///Users/blm/Development/Electron/translationCore/src/html/node_modules/bootstrap/dist/css/bootstrap-theme.min.css - Failed to load resource: net::ERR_FAILED",
+    "source": "network",
+    "timestamp": 1547207999154
+  },
+  {
+    "level": "WARNING",
+    "message": "/Users/blm/Development/Electron/tCoreIntegrationTest/node_modules/electron/dist/Electron.app/Contents/Resources/electron.asar/renderer/security-warnings.js 183:14 \"%cElectron Security Warning (Insecure Content-Security-Policy)\"",
+    "source": "console-api",
+    "timestamp": 1547207999271
+  },
+  {
+    "level": "WARNING",
+    "message": "/Users/blm/Development/Electron/tCoreIntegrationTest/node_modules/electron/dist/Electron.app/Contents/Resources/electron.asar/renderer/security-warnings.js 183:14 \"%cElectron Security Warning (Insecure Content-Security-Policy)\"",
+    "source": "console-api",
+    "timestamp": 1547208004885
+  },
+  {
+    "level": "INFO",
+    "message": "/Users/blm/Development/Electron/translationCore/node_modules/tc-tool/dist/connectTool/index.js 75:12 \"translationWords: Connecting...\"",
+    "source": "console-api",
+    "timestamp": 1547208004885
+  },
+  {
+    "level": "INFO",
+    "message": "/Users/blm/Development/Electron/translationCore/node_modules/tc-tool/dist/connectTool/index.js 88:14 \"translationWords: Exposing API...\"",
+    "source": "console-api",
+    "timestamp": 1547208004885
+  },
+  {
+    "level": "INFO",
+    "message": "/Users/blm/Development/Electron/translationCore/node_modules/tc-tool/dist/connectTool/index.js 75:12 \"wordAlignment: Connecting...\"",
+    "source": "console-api",
+    "timestamp": 1547208004885
+  },
+  {
+    "level": "INFO",
+    "message": "/Users/blm/Development/Electron/translationCore/node_modules/tc-tool/dist/connectTool/index.js 88:14 \"wordAlignment: Exposing API...\"",
+    "source": "console-api",
+    "timestamp": 1547208004885
+  }
+]
+Fri, 11 Jan 2019 12:00:05 GMT: tCore started
+Fri, 11 Jan 2019 12:00:05 GMT: Memory Usage: 149656, pressure: 6%, growth: 0%
+Fri, 11 Jan 2019 12:00:11 GMT: Test 1 Ended Successfully: Project export Tests : Project exports : should succeed import aligned test project en_ult_tit_book
+Fri, 11 Jan 2019 12:00:26 GMT: Test 2 Ended Successfully: Project export Tests : Project exports : should succeed to open WA after import
+Fri, 11 Jan 2019 12:00:33 GMT: Test 3 Ended Successfully: Project export Tests : Project exports : should succeed export to USFM test project  en_ult_tit_book with alignments
+Fri, 11 Jan 2019 12:00:40 GMT: Test 4 Ended Successfully: Project export Tests : Project exports : should succeed export to USFM test project  en_ult_tit_book without alignments
+Fri, 11 Jan 2019 12:00:45 GMT: Test 5 Ended Successfully: Project export Tests : Project exports : should succeed export to CSV test project  en_ult_tit_book
+Fri, 11 Jan 2019 12:01:05 GMT: Test 6 Ended Successfully: Project export Tests : Project exports : should succeed overwrite import en_ult_tit_book with edited verse
+Fri, 11 Jan 2019 12:01:20 GMT: Test 7 Ended Successfully: Project export Tests : Project exports : should succeed to open WA after overwrite
+Fri, 11 Jan 2019 12:01:34 GMT: Test 8 Ended Successfully: Project export Tests : Project exports : should succeed to open tW after overwrite
+Fri, 11 Jan 2019 12:01:39 GMT: Test 9 Ended Successfully: Project export Tests : Project exports : should succeed export to CSV test project  en_ult_tit_book after overwrite
+Fri, 11 Jan 2019 12:01:53 GMT: Test 10 Ended Successfully: Project export Tests : Project exports : should succeed to open WA after overwrite
+Fri, 11 Jan 2019 12:02:08 GMT: Test 11 Ended Successfully: Project export Tests : Project exports : should succeed to open tW after overwrite
+Fri, 11 Jan 2019 12:02:30 GMT: Test 12 Ended Successfully: Project export Tests : Import/Export Tests : do USFM import and export usfm-body-testF.usfm
+Fri, 11 Jan 2019 12:02:57 GMT: Test 13 Ended Successfully: Project export Tests : Import/Export Tests : do USFM import and export 57-TIT-AlignedHI.usfm
+Fri, 11 Jan 2019 12:03:21 GMT: Test 14 Ended Successfully: Project export Tests : Import/Export Tests : do USFM import and export 45-ACT.usfm
+Fri, 11 Jan 2019 12:03:41 GMT: Test 15 Ended Successfully: Local Import Tests : Misc. Local Import Tests : should succeed local import 57-TIT-missing-verse.usfm
+Fri, 11 Jan 2019 12:04:02 GMT: Test 16 Ended Successfully: Local Import Tests : Misc. Local Import Tests : should succeed local import 57-TIT-missing-verse.usfm overwrite
+Fri, 11 Jan 2019 12:04:22 GMT: Test 17 Ended Successfully: Local Import Tests : Misc. Local Import Tests : merge conflicts should succeed local import en-x-demo1_php_text_ulb_mc2.tstudio
+Fri, 11 Jan 2019 12:04:43 GMT: Test 18 Ended Successfully: Local Import Tests : Misc. Local Import Tests : should succeed local import fr_tit_text_ulb.tstudio
+Fri, 11 Jan 2019 12:05:03 GMT: Test 19 Ended Successfully: Local Import Tests : Misc. Local Import Tests : should succeed local import es-419_tit_text_reg.tstudio
+Fri, 11 Jan 2019 12:05:23 GMT: Test 20 Ended Successfully: Local Import Tests : Misc. Local Import Tests : should succeed local import 59_JAS_hi_grk_aligned_with_number.usfm
+Fri, 11 Jan 2019 12:05:28 GMT: Test 21 Ended Successfully: Online Import Tests : Misc. Tests : do online import access cancel
+Fri, 11 Jan 2019 12:05:40 GMT: Test 22 Ended Successfully: Online Import Tests : Misc. Tests : do online search
+Fri, 11 Jan 2019 12:06:01 GMT: Test 23 Ended Successfully: Online Import Tests : Misc. Tests : do online import with cancel on Project Info
+Fri, 11 Jan 2019 12:06:16 GMT: Test 24 Ended Successfully: Online Import Tests : Invalid Paths : should not import import invalid project https://git.door43.org/richmahn/en_tit_ulb.git
+Fri, 11 Jan 2019 12:06:31 GMT: Test 25 Ended Successfully: Online Import Tests : Invalid Paths : should not import import invalid project https://git.door43.org/richmahn/en_tit_ulb
+Fri, 11 Jan 2019 12:06:46 GMT: Test 26 Ended Successfully: Online Import Tests : Invalid Paths : should not import import invalid project https://git.door43.org/richmahn/en_tit_ulb/stuff
+Fri, 11 Jan 2019 12:07:02 GMT: Test 27 Ended Successfully: Online Import Tests : Invalid Paths : should not import import invalid project https://git.door43.org/Door43-Catalog/en_ulb/src/branch/master/43-LUK.usfm
+Fri, 11 Jan 2019 12:07:18 GMT: Test 28 Ended Successfully: Online Import Tests : Invalid Paths : should not import import invalid project https://git.door43.org/Door43-Catalog/en_ulb/raw/branch/master/43-LUK.usfm
+Fri, 11 Jan 2019 12:07:49 GMT: Test 29 Ended Successfully: Online Import Tests : Import Tests : Pass 1 : online import tCore should succeed - https://git.door43.org/tCore-test-data/ceb_psa_text_udb_L3
+Fri, 11 Jan 2019 12:08:11 GMT: Test 30 Ended Successfully: Online Import Tests : Import Tests : Pass 1 : online import tCore should succeed - https://git.door43.org/tCore-test-data/AlignedUlt_en
+Fri, 11 Jan 2019 12:08:27 GMT: Test 31 Ended Successfully: Online Import Tests : Import Tests : Pass 1 : online import USFM should error - https://git.door43.org/tCore-test-data/AlignedUlb_hi
+Fri, 11 Jan 2019 12:08:53 GMT: Test 32 Ended Successfully: Online Import Tests : Import Tests : Pass 1 : online import ts-desktop should succeed - https://git.door43.org/tCore-test-data/es-419_eph_text_ulb
+Fri, 11 Jan 2019 12:09:11 GMT: Test 33 Ended Successfully: Online Import Tests : Import Tests : Pass 1 : online import tc-desktop 0.7.0 with checking should error - https://git.door43.org/tCore-test-data/sw_tit_text_ulb_L3
+Fri, 11 Jan 2019 12:09:29 GMT: Test 34 Ended Successfully: Online Import Tests : Import Tests : Pass 1 : online import tc-desktop pre-0.7.0 with checking should error - https://git.door43.org/tCore-test-data/ceb_jas_text_ulb_L-
+Fri, 11 Jan 2019 12:09:55 GMT: Test 35 Ended Successfully: Online Import Tests : Import Tests : Pass 1 : online import tc-desktop 0.7.0 no checking should succeed - https://git.door43.org/tCore-test-data/ar_mat_text_ulb
+Fri, 11 Jan 2019 12:10:24 GMT: Test 36 Ended Successfully: Online Import Tests : Import Tests : Pass 1 : online import tc-desktop 0.8.0 no checking should succeed - https://git.door43.org/tCore-test-data/es-419_luk
+Fri, 11 Jan 2019 12:10:50 GMT: Test 37 Ended Successfully: Online Import Tests : Import Tests : Pass 1 : online import tc-desktop 0.8.0 with checking should succeed - https://git.door43.org/tCore-test-data/es-419_tit_ulb
+Fri, 11 Jan 2019 12:11:14 GMT: Test 38 Ended Successfully: Online Import Tests : Import Tests : Pass 1 : online import tc-desktop 0.8.1 with alignment, no checking should succeed - https://git.door43.org/tCore-test-data/English_tit
+Fri, 11 Jan 2019 12:11:51 GMT: Test 39 Ended Successfully: Online Import Tests : Import Tests : Pass 1 : online import tc-desktop 0.9.0 no checking should succeed - https://git.door43.org/tCore-test-data/am_1co_ulb
+Fri, 11 Jan 2019 12:12:17 GMT: Test 40 Ended Successfully: Online Import Tests : Import Tests : Pass 1 : online import tc-desktop 0.9.0 with checking should succeed - https://git.door43.org/tCore-test-data/el_tit
+Fri, 11 Jan 2019 12:12:47 GMT: Test 41 Ended Successfully: Online Import Tests : Import Tests : Pass 1 : online import tc-desktop should succeed - https://git.door43.org/tCore-test-data/fr_test_tit_book
+Fri, 11 Jan 2019 12:13:10 GMT: Test 42 Ended Successfully: Online Import Tests : Import Tests : Pass 1 : online import tc-desktop should succeed - https://git.door43.org/tCore-test-data/AlignedUlt_en
+Fri, 11 Jan 2019 12:13:34 GMT: Test 43 Ended Successfully: Online Import Tests : Import Tests : Pass 1 : second online import tc-desktop should succeed - https://git.door43.org/tCore-test-data/AlignedUlt_en
+Fri, 11 Jan 2019 12:13:54 GMT: Test 44 Ended Successfully: Online Import Tests : Import Tests : Pass 1 : online import tc-desktop should succeed, no rename - https://git.door43.org/tCore-test-data/fr_test_tit_book
+Fri, 11 Jan 2019 12:14:07 GMT: Test 45 Ended Successfully: Project Open Tests : Project Open Tests : should succeed open es-419_tit_no_git.zip with missing verses, no rename
+Fri, 11 Jan 2019 12:14:24 GMT: Test 46 Ended Successfully: Project Open Tests : Project Open Tests : should succeed open en_ult_php_text.zip and shows broken alignments, no rename
+Fri, 11 Jan 2019 12:14:37 GMT: Test 47 Ended Successfully: Project Open Tests : Project Open Tests : should succeed open es-419_tit_no_git.zip with missing verses, rename
+Fri, 11 Jan 2019 12:14:51 GMT: Test 48 Ended Successfully: Project Open Tests : Project Open Tests : should succeed open fr_eph_no_git.zip with missing verses, rename
