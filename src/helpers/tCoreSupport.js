@@ -438,6 +438,8 @@ async function navigateProjectInfoDialog(settings) {
     await navigateDialog(TCORE.projectInfoCheckerDialog, 'overwrite');
   } else if (settings.continue) {
     await navigateDialog(TCORE.projectInfoCheckerDialog, 'continue');
+  } else if (settings.saveChanges) {
+    await navigateDialog(TCORE.projectInfoCheckerDialog, 'saveChanges');
   } else {
     await navigateDialog(TCORE.projectInfoCheckerDialog, 'cancel');
   }
@@ -1002,24 +1004,77 @@ async function findToolCardNumber(name) {
   return -1;
 }
 
-async function launchTool(cardName) {
-  const cardNumber = await findToolCardNumber(cardName);
-  let launchButtonPos = -1;
-  const toolN = TCORE.toolsList.toolN(cardNumber, cardName);
-  // find launch button
-  for (let pos = 1; pos < 20; pos++) {
-    const possibleButton = toolN.launchButtonAtN(pos);
+/**
+ * find position of text in elements
+ * @param {Function} elementGetter - method to get element for position
+ * @param {String} matchText
+ * @param {Number} retryCount
+ * @return {Promise<number>}
+ */
+async function findPositionOfText(elementGetter, matchText, retryCount = 20) {
+  let foundPos = -1;
+  for (let pos = 1; pos < retryCount; pos++) {
+    const element = elementGetter(pos);
     try {
-      const buttonText = await getText(possibleButton);
-      if (buttonText === "Launch") {
-        launchButtonPos = pos;
+      const elementText = await getText(element);
+      if (elementText === matchText) {
+        foundPos = pos;
         break;
       }
-    } catch(e) {
+    } catch (e) {
       // skip
     }
   }
+  return foundPos;
+}
+
+/**
+ * clicks launch on tool that matches name on card
+ * @param {String} cardName
+ * @return {Promise<Number>} - returns position found
+ */
+async function launchTool(cardName) {
+  const cardNumber = await findToolCardNumber(cardName);
+  const toolN = TCORE.toolsList.toolN(cardNumber, cardName);
+  // find launch button
+  const launchButtonPos = await findPositionOfText((pos) => toolN.launchButtonAtN(pos), "Launch");
   await clickOn(toolN.launchButtonAtN(launchButtonPos));
+  return launchButtonPos;
+}
+
+/**
+ * set checks in array to desirec states
+ * @param {Number} cardNumber
+ * @param {String} toolName
+ * @param {Array} checksArray
+ * @param {Boolean} selectionState
+ * @return {Promise<void>}
+ */
+async function setChecks(cardNumber, toolName, checksArray, selectionState) {
+  if (checksArray) {
+    const toolN = TCORE.toolsList.toolN(cardNumber, toolName);
+    for (let item of checksArray) {
+      const checkPos = await findPositionOfText((pos) => toolN.typeLabelAtN(pos), item);
+      if (checkPos >= 0) {
+        await setCheckboxToDesired(toolN.typeSelectorAtN(checkPos), selectionState);
+      }
+    }
+  }
+}
+
+/**
+ * launch translationWords with selected checks
+ * @param {Object} settings
+ * @return {Promise<void>}
+ */
+async function launchTranslationWords(settings = {}) {
+  const toolName = "translationWords";
+  const cardNumber = await findToolCardNumber(toolName);
+  await setChecks(cardNumber, toolName, settings.onChecks, true);
+  await setChecks(cardNumber, toolName, settings.offChecks, false);
+  await launchTool(toolName);
+  await app.client.pause(6000);
+  await navigateDialog(TCORE.groupMenu.header);
 }
 
 async function findProjectCardNumber(name) {
@@ -1042,13 +1097,11 @@ async function findProjectCardNumber(name) {
 /**
  * unzip test project into project folder
  * @param {Object} projectSettings
- * @param {String} newProjectName
  * @return {Promise<void>}
  */
-async function unzipTestProjectIntoProjects(projectSettings, newProjectName) {
+async function unzipTestProjectIntoProjects(projectSettings) {
   if (projectSettings.projectSource) {
     projectRemoval(projectSettings.projectName);
-    projectRemoval(newProjectName);
     const unzipFolder = path.dirname(projectSettings.projectSource);
     const sourceProjectName = path.parse(projectSettings.projectSource).name;
     fs.removeSync(path.join(unzipFolder, sourceProjectName));
@@ -1069,11 +1122,12 @@ async function unzipTestProjectIntoProjects(projectSettings, newProjectName) {
  * do an USFM import, export and compare test
  * @param {Object} projectSettings
  * @param {Boolean} continueOnProjectInfo
- * @param {String} newProjectName
+ * @param {String} projectName - name to initially give project in project folders
  * @return {Promise<void>}
  */
-async function doOpenProject(projectSettings, continueOnProjectInfo, newProjectName) {
-  await unzipTestProjectIntoProjects(projectSettings, newProjectName);
+async function doOpenProject(projectSettings, continueOnProjectInfo, projectName) {
+  projectRemoval(projectName);
+  await unzipTestProjectIntoProjects(projectSettings);
   const projectPath = path.join(PROJECT_PATH, projectSettings.projectName);
   const initialManifestVersion = getManifestTcVersion(projectPath);
   log("Project Initial tCore Manifest Version: " + initialManifestVersion);
@@ -1089,7 +1143,7 @@ async function doOpenProject(projectSettings, continueOnProjectInfo, newProjectN
   }
 
   if (!projectSettings.noProjectInfoDialog) {
-    await navigateProjectInfoDialog({...projectSettings, continue: continueOnProjectInfo});
+    await navigateProjectInfoDialog({...projectSettings, saveChanges: continueOnProjectInfo});
   }
 
   if (projectSettings.mergeConflicts) {
@@ -1100,8 +1154,8 @@ async function doOpenProject(projectSettings, continueOnProjectInfo, newProjectN
     await navigateMissingVersesDialog({continue: true});
   }
 
-  await navigateImportResults(continueOnProjectInfo, projectSettings, newProjectName);
-  const finalManifestVersion = getManifestTcVersion(path.join(PROJECT_PATH, newProjectName));
+  await navigateImportResults(continueOnProjectInfo, projectSettings, projectName);
+  const finalManifestVersion = getManifestTcVersion(path.join(PROJECT_PATH, projectName));
   log("Project Initial tCore Manifest Migrated from: '" + initialManifestVersion + "' to '" + finalManifestVersion + "'");
 }
 
@@ -1121,6 +1175,24 @@ async function verifyTextRetry(elementObj, text, count = 20) {
     await verifyText(elementObj, text);
   }, "verifying text for " + elementDescription(elementObj),
   500);
+}
+
+/**
+ * makes sure checkbox is set to desired toggle value
+ * @param elementObj
+ * @param desiredValue
+ * @return {Promise<void>}
+ */
+async function setCheckboxToDesired(elementObj, desiredValue) {
+  const currentValue = await getCheckBoxRetry(elementObj);
+  if (currentValue !== desiredValue) {
+    await setCheckBoxRetry(elementObj, desiredValue);
+  }
+  const newValue = await getSelection(elementObj);
+  if (desiredValue !== newValue) {
+    log ("failed to set '" + elementDescription(elementObj) + "' to " + desiredValue);
+    assert.equal(desiredValue, newValue);
+  }
 }
 
 /**
@@ -1144,12 +1216,7 @@ async function doExportToUsfm(projectName, outputFileName, hasAlignments, export
   await mockDialogPath(outputFile, true);
   if (hasAlignments) {
     await waitForDialog(TCORE.usfmExport);
-    const currentValue = await getCheckBoxRetry(TCORE.usfmExport.includeAlignmentsInputValue);
-    if (currentValue !== exportAlignments) {
-      await setCheckBoxRetry(TCORE.usfmExport.includeAlignmentsInputValue, exportAlignments);
-    }
-    const newValue = await getSelection(TCORE.usfmExport.includeAlignmentsInputValue);
-    assert.equal(exportAlignments, newValue);
+    await setCheckboxToDesired(TCORE.usfmExport.includeAlignmentsInputValue, exportAlignments);
     await app.client.pause(1000);
     await clickOnRetry(TCORE.usfmExport.export);
   }
@@ -1241,6 +1308,7 @@ const tCoreSupport = {
   indexInSearchResults,
   initializeTest,
   launchTool,
+  launchTranslationWords,
   log,
   logVersion,
   mockDialogPath,
@@ -1259,6 +1327,7 @@ const tCoreSupport = {
   retryStep,
   selectSearchItem,
   setCheckBoxRetry,
+  setCheckboxToDesired,
   setRenameIsBroken,
   setToProjectPage,
   setToToolPage,

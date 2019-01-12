@@ -267,9 +267,30 @@ describe('Project export Tests', () => {
         };
         await doUsfmImportExportTest(newLanguageId, newTargetLangId, bookId, projectSettings, continueOnProjectInfo, project_id, false, exportAlignments, testFile, importPath);
       });
+
+      it('do USFM import and export en_ult_gal_book.zip, aligned project with numbers should not reset alignments', async () => {
+        const newTargetLangId = generateTargetLangId();
+        const languageId = "en";
+        const bookId = "gal";
+        const {bookName} = utils.getBibleData(bookId);
+        const continueOnProjectInfo = true;
+        const projectName = `${languageId}_${newTargetLangId}_${bookId}_book`; // rename copied project to
+        const projectSource = path.join(TEST_FILE_PATH, "en_ult_gal_book.zip");
+        const testFile = 'en_ult_gal_book.usfm';
+        const importPath = path.join(TEST_FILE_PATH, testFile);
+        const projectSettings = {
+          projectSource,
+          projectName,
+          newTargetLangId,
+          languageId,
+          languageDirectionLtr: true,
+          bookName,
+          noRename: true
+        };
+        await doProjectOpenAndExportTest(languageId, newTargetLangId, bookId, projectSettings, continueOnProjectInfo, true, true, testFile, importPath);
+      });
     }
   });
-
 });
 
 //
@@ -283,18 +304,28 @@ describe('Project export Tests', () => {
  * @param {String} bookId
  * @param {Object} projectSettings
  * @param {Boolean} continueOnProjectInfo - if truce then click continue on project import
- * @param {String} project_id - project name
  * @param {Boolean} hasAlignments - true if project has alignments
  * @param {Boolean} exportAlignments - true if we are to export alignments
  * @param {String} outputFileName - name for output file
  * @param {String} importPath - path to original USFM import
  * @return {Promise<void>}
  */
-async function doUsfmImportExportTest(languageId, targetLangId, bookId, projectSettings, continueOnProjectInfo,
-                                        project_id, hasAlignments, exportAlignments, outputFileName, importPath) {
+async function doProjectOpenAndExportTest(languageId, targetLangId, bookId, projectSettings, continueOnProjectInfo,
+                                            hasAlignments, exportAlignments, outputFileName, importPath) {
   const projectName = `${languageId}_${targetLangId}_${bookId}_book`;
-  await tCore.doLocalProjectImport(projectSettings, continueOnProjectInfo, projectName);
-  const outputFile = await tCore.doExportToUsfm(project_id, outputFileName, hasAlignments, exportAlignments, TEST_PATH);
+  await tCore.doOpenProject(projectSettings, continueOnProjectInfo, projectName);
+  const outputFile = await tCore.doExportToUsfm(projectName, outputFileName, hasAlignments, exportAlignments, TEST_PATH);
+  utils.testFinished();
+}
+
+/**
+ * compare USFM import and export
+ * @param importPath
+ * @param outputFile
+ * @param hasAlignments
+ * @param exportAlignments
+ */
+function verifyUsfm(importPath, outputFile, hasAlignments, exportAlignments) {
   log("Reading input USFM");
   let sourceUsfm = trimIdTag(fs.readFileSync(importPath).toString());
   log("input USFM length=" + sourceUsfm.length);
@@ -316,6 +347,28 @@ async function doUsfmImportExportTest(languageId, targetLangId, bookId, projectS
       assert.ok(!short, "output seems short");
     }
   }
+}
+
+/**
+ * do an USFM import, export and compare test
+ * @param {String} languageId
+ * @param {String} targetLangId
+ * @param {String} bookId
+ * @param {Object} projectSettings
+ * @param {Boolean} continueOnProjectInfo - if truce then click continue on project import
+ * @param {String} project_id - project name
+ * @param {Boolean} hasAlignments - true if project has alignments
+ * @param {Boolean} exportAlignments - true if we are to export alignments
+ * @param {String} outputFileName - name for output file
+ * @param {String} importPath - path to original USFM import
+ * @return {Promise<void>}
+ */
+async function doUsfmImportExportTest(languageId, targetLangId, bookId, projectSettings, continueOnProjectInfo,
+                                        project_id, hasAlignments, exportAlignments, outputFileName, importPath) {
+  const projectName = `${languageId}_${targetLangId}_${bookId}_book`;
+  await tCore.doLocalProjectImport(projectSettings, continueOnProjectInfo, projectName);
+  const outputFile = await tCore.doExportToUsfm(project_id, outputFileName, hasAlignments, exportAlignments, TEST_PATH);
+  verifyUsfm(importPath, outputFile, hasAlignments, exportAlignments);
   utils.testFinished();
 }
 

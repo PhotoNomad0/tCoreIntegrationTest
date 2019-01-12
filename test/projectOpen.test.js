@@ -124,6 +124,46 @@ describe('Project Open Tests', () => {
         await tCore.doOpenProject(projectSettings, continueOnProjectInfo, newProjectName);
         utils.testFinished();
       });
+
+      describe.only('should succeed open en_ultx_mat_book.zip, should not lose tw god', () => {
+        it('open project', async () => {
+          const languageId = "en";
+          const bookId = "mat";
+          const {bookName} = utils.getBibleData(bookId);
+          const continueOnProjectInfo = true;
+          const projectName = 'en_ultx_mat_book';
+          const projectSource = path.join(TEST_FILE_PATH, "en_ultx_mat_book.zip");
+          const projectSettings = {
+            projectSource,
+            projectName,
+            targetLangId: "ultx",
+            languageId,
+            languageDirectionLtr: true,
+            bookName,
+            noProjectInfoDialog: true,
+            noRename: true
+          };
+          const newProjectName = `${languageId}_${projectSettings.targetLangId}_${bookId}_book`;
+          await tCore.doOpenProject(projectSettings, continueOnProjectInfo, newProjectName);
+          utils.testFinished();
+        });
+
+        it('should succeed to open tW after overwrite', async () => {
+          await tCore.setToToolPage(false);
+          const settings = {
+            onChecks: ["Key Terms"],
+            offChecks: ["Other Terms", "Names"]
+          };
+          await tCore.launchTranslationWords(settings);
+          await tCore.clickOnRetry(TCORE.groupMenu.checkSectionN(10, '10'));
+          await tCore.clickOnRetry(TCORE.groupMenu.checkVerseN(10, 2));
+          await tCore.setToProjectPage(true);
+          await app.client.pause(2000);
+          utils.testFinished();
+        });
+
+
+      });
     }
   });
   

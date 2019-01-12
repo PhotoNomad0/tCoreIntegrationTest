@@ -407,9 +407,19 @@ const DEFINITIONS = {
     ...TEMPLATES.projectStepperDialog,
     selector: "#project-information-card",
     id: "Project Info Checker Dialog",
+    continue: {
+      ...TEMPLATES.projectStepperDialog.continue,
+      id: "Project Info Continue Button"
+    },
     overwrite: {
       selector: TEMPLATES.projectStepperDialog.continue.selector,
-      text: "Overwrite"
+      text: "Overwrite",
+      id: "Project Info Overwrite Button"
+    },
+    saveChanges: {
+      selector: TEMPLATES.projectStepperDialog.continue.selector,
+      text: "Save Changes",
+      id: "Project Info Save Changes Button"
     },
     targetLangId: {
       selector: "#resource_id",
@@ -501,7 +511,19 @@ const DEFINITIONS = {
         launchButtonAtN: function(span) {
           return {
             id: label + " launch button",
-            selector: "#content > div > div.container-fluid > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(2) > div > div > div > div:nth-child(" + position + ") > div > div:nth-child(" + span + ") > span > button",
+            selector: "#content > div > div.container-fluid > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(2) > div > div > div > div:nth-child(" + position + ") > div > div:nth-child(" + span + ") > span > button"
+          };
+        },
+        typeSelectorAtN: function(span) {
+          return {
+            id: label + " type selector",
+            selector: "#content > div > div.container-fluid > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(2) > div > div > div > div:nth-child(" + position + ") > div > div:nth-child(5) > div:nth-child(" + span + ") > div:nth-child(1) > input[type=\"checkbox\"]"
+          };
+        },
+        typeLabelAtN: function(span) {
+          return {
+            id: label + " type label",
+            selector: "#content > div > div.container-fluid > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(2) > div > div > div > div:nth-child(" + position + ") > div > div:nth-child(5) > div:nth-child(" + span + ") > div:nth-child(2)"
           };
         }
       };
@@ -554,6 +576,18 @@ const DEFINITIONS = {
     header: {
       id: "Group Menu Header",
       selector: "#groups-menu-header"
+    },
+    checkSectionN: function(position, chapter) {
+      return {
+        id: "Check Section" + chapter,
+        selector: "#groups-menu-container > div.groups > div:nth-child(" + position + ") > div"
+      };
+    },
+    checkVerseN: function(groupItem, verseItem) {
+      return {
+        id: "Check Section " + groupItem + ", verse " + verseItem,
+        selector: "#groups-menu-container > div.groups > div:nth-child(" + groupItem + ") > div:nth-child(" + (verseItem+1) + ")"
+      };
     },
     chapterN: function(position, chapter) {
       return {
