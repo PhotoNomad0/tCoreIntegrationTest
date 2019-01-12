@@ -577,15 +577,15 @@ const DEFINITIONS = {
       id: "Group Menu Header",
       selector: "#groups-menu-header"
     },
-    checkSectionN: function(position, chapter) {
+    checkSectionN: function(position, section) {
       return {
-        id: "Check Section" + chapter,
-        selector: "#groups-menu-container > div.groups > div:nth-child(" + position + ") > div"
+        id: "Check Section " + section,
+        selector: "#groups-menu-container > div.groups > div:nth-child(" + position + ") > div > div"
       };
     },
-    checkVerseN: function(groupItem, verseItem) {
+    checkVerseN: function(groupItem, verseItem, label="") {
       return {
-        id: "Check Section " + groupItem + ", verse " + verseItem,
+        id: "Check Section " + groupItem + ", verse " + (label || verseItem),
         selector: "#groups-menu-container > div.groups > div:nth-child(" + groupItem + ") > div:nth-child(" + (verseItem+1) + ")"
       };
     },

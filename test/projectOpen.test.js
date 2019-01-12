@@ -155,8 +155,7 @@ describe('Project Open Tests', () => {
             offChecks: ["Other Terms", "Names"]
           };
           await tCore.launchTranslationWords(settings);
-          await tCore.clickOnRetry(TCORE.groupMenu.checkSectionN(10, '10'));
-          await tCore.clickOnRetry(TCORE.groupMenu.checkVerseN(10, 2));
+          await tCore.selectGroupMenuItem('God', 15, 6);
           await tCore.setToProjectPage(true);
           await app.client.pause(2000);
           utils.testFinished();

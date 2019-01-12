@@ -1008,16 +1008,18 @@ async function findToolCardNumber(name) {
  * find position of text in elements
  * @param {Function} elementGetter - method to get element for position
  * @param {String} matchText
- * @param {Number} retryCount
+ * @param {Function} match - method for comparison, default is equals
+ * @param {Number} maxCount - maximum number of elements to iterate through
  * @return {Promise<number>}
  */
-async function findPositionOfText(elementGetter, matchText, retryCount = 20) {
+async function findPositionOfText(elementGetter, matchText, match = (item, match) => (item === match), maxCount = 200) {
   let foundPos = -1;
-  for (let pos = 1; pos < retryCount; pos++) {
+  for (let pos = 1; pos < maxCount; pos++) {
     const element = elementGetter(pos);
     try {
       const elementText = await getText(element);
-      if (elementText === matchText) {
+      const matches = match(elementText, matchText);
+      if (matches) {
         foundPos = pos;
         break;
       }
@@ -1063,6 +1065,45 @@ async function setChecks(cardNumber, toolName, checksArray, selectionState) {
 }
 
 /**
+ * this matches two different types of group sections: the unselected will be a string.  The current selection will be an array.
+ * @param {String} elementText - text on element
+ * @param {String} match - text to match
+ * @return {boolean} return true if a match
+ */
+function matchGroupSection(elementText, match) {
+  if (Array.isArray(elementText)) {
+    return elementText[0] === match;
+  }
+  return elementText === match;
+}
+
+/**
+ * select specific item - will expand section if necessary and then select item by chapter and verse
+ * @param {String} checkType - text of check section
+ * @param {Number} chapter - chapter number of section entry
+ * @param {Number} verse - verse number of section entry
+ * @return {Promise<void>}
+ */
+async function selectGroupMenuItem(checkType, chapter, verse) {
+  const groupItemPos = await findPositionOfText((pos) => TCORE.groupMenu.checkSectionN(pos, pos), checkType, (item, match) => matchGroupSection(item, match));
+  if (groupItemPos >= 0) {
+    const elementText = await getText(TCORE.groupMenu.checkSectionN(groupItemPos, checkType));
+    const isCurrentSelection = Array.isArray(elementText);
+    if (!isCurrentSelection) {
+      await clickOnRetry(TCORE.groupMenu.checkSectionN(groupItemPos, checkType));
+    }
+    const verseString = chapter + ':' + verse;
+    const verseItemPos = await findPositionOfText((pos) => TCORE.groupMenu.checkVerseN(groupItemPos, pos), verseString, (item, match) => item.includes(match));
+    if (verseItemPos >= 0) {
+      await clickOnRetry(TCORE.groupMenu.checkVerseN(groupItemPos, verseItemPos, verseString));
+      return;
+    }
+  }
+  log("Group Item not found: " + checkType + ", " + chapter + ':' + verse);
+  assert.ok(false);
+}
+
+/**
  * launch translationWords with selected checks
  * @param {Object} settings
  * @return {Promise<void>}
@@ -1073,11 +1114,16 @@ async function launchTranslationWords(settings = {}) {
   await setChecks(cardNumber, toolName, settings.onChecks, true);
   await setChecks(cardNumber, toolName, settings.offChecks, false);
   await launchTool(toolName);
-  await app.client.pause(6000);
-  await navigateDialog(TCORE.groupMenu.header);
+  await app.client.pause(2000);
+  await waitForDialogRetry(TCORE.groupMenu.header, 40);
 }
 
-async function findProjectCardNumber(name) {
+/**
+ * search through project cards to find card number that has project name
+ * @param {String} projectName
+ * @return {Promise<number>}
+ */
+async function findProjectCardNumber(projectName) {
   let cardText;
   const childIndexesArray = await getChildIndices(TCORE.projectsList);
   for (let i of childIndexesArray) {
@@ -1086,12 +1132,12 @@ async function findProjectCardNumber(name) {
     } catch (e) {
       break;
     }
-    if (cardText === name) {
-      log("Card " + name + " found at position " + i);
+    if (cardText === projectName) {
+      log("Card " + projectName + " found at position " + i);
       return i;
     }
   }
-  log("Card not found for '" + name + "'");
+  log("Card not found for '" + projectName + "'");
   return -1;
 }
 /**
@@ -1325,6 +1371,7 @@ const tCoreSupport = {
   parseSearchResult,
   projectRemoval,
   retryStep,
+  selectGroupMenuItem,
   selectSearchItem,
   setCheckBoxRetry,
   setCheckboxToDesired,
