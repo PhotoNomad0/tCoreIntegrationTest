@@ -156,16 +156,14 @@ describe('Project Open Tests', () => {
           };
           await tCore.launchTranslationWords(settings);
           await tCore.selectGroupMenuItem('God', 15, 6);
+          const { selected, selectionPhrase, translatedAs } = await tCore.getTwSelectionForCurrent();
           await tCore.setToProjectPage(true);
           await app.client.pause(2000);
           utils.testFinished();
         });
-
-
       });
     }
   });
-  
 });
 
 //

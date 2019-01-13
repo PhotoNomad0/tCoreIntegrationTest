@@ -1104,6 +1104,78 @@ async function selectGroupMenuItem(checkType, chapter, verse) {
 }
 
 /**
+ * removes quotes from string
+ * @param {String} text
+ * @return {*}
+ */
+function trimQuote(text) {
+  let pos = text.indexOf('"');
+  if (pos >= 0) {
+    text = text.substr(pos + 1);
+    pos = text.indexOf('"');
+    if (pos >= 0) {
+      text = text.substring(0, pos);
+    }
+  }
+  return text;
+}
+
+/**
+ * find the before and after text around the string to find
+ * @param {String} text
+ * @param {String} findString
+ * @return {{found: boolean, before: string, after: string}}
+ */
+function getParts(text, findString) {
+  let before = "";
+  let after = "";
+  let found = false;
+  let pos = text.indexOf(findString);
+  if (pos >= 0) {
+    before = trimQuote(text.substr(0, pos));
+    after = trimQuote(text.substr(pos + findString.length));
+    found = true;
+  }
+  return {
+    after,
+    before,
+    found
+  };
+}
+
+/**
+ * get translationWords selection for current check
+ * @return {Promise<{translatedAs: string, selected: boolean, selectionPhrase: string}>}
+ */
+async function getTwSelectionForCurrent() {
+  let selectionPhrase = "";
+  let translatedAs = "";
+  let selected = false;
+  const instructions = await getText(TCORE.translationWords.instructions);
+  const makeSelection = "Please select the translation for:";
+  const {after, found} = getParts(instructions, makeSelection);
+  if (found) {
+    selectionPhrase = after;
+    log("No selection for '" + selectionPhrase + '"');
+  } else {
+    const selectionMade = "has been translated as:";
+    const {after, before, found} = getParts(instructions, selectionMade);
+    if (found) {
+      selectionPhrase = before;
+      log("Selection made for '" + selectionPhrase + '"');
+      translatedAs = after;
+      log("Translated as '" + translatedAs + '"');
+      selected = true;
+    }
+  }
+  return {
+    selected,
+    selectionPhrase,
+    translatedAs
+  };
+}
+
+/**
  * launch translationWords with selected checks
  * @param {Object} settings
  * @return {Promise<void>}
@@ -1347,6 +1419,7 @@ const tCoreSupport = {
   getPackageJson,
   getSafeErrorMessage,
   getSearchResults,
+  getTwSelectionForCurrent,
   getSelection,
   getText,
   getTextRetry,
