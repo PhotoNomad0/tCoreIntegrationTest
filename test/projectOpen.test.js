@@ -157,6 +157,10 @@ describe('Project Open Tests', () => {
           await tCore.launchTranslationWords(settings);
           await tCore.selectGroupMenuItem('God', 15, 6);
           const { selected, selectionPhrase, translatedAs } = await tCore.getTwSelectionForCurrent();
+          const selectionArea = await tCore.getHtml(TCORE.translationWords.selectionArea, true, 0);
+          log("selectionArea: " + selectionArea);
+          const selectionText = await tCore.getText(TCORE.translationWords.selectionArea.currentSelections, 0, true);
+          log("selectionText: " + selectionText);
           await tCore.setToProjectPage(true);
           await app.client.pause(2000);
           utils.testFinished();

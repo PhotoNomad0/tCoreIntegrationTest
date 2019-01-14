@@ -683,7 +683,11 @@ const DEFINITIONS = {
     },
     selectionArea: {
       id: "translation Words Selection Area",
-      selector: "#content > div > div.container-fluid > div:nth-child(2) > div > div > div > div:nth-child(2) > div.verse-check > div:nth-child(1) > div.verse-check-card > div.check-area > div:nth-child(1) > div:nth-child(2) > div > div > span"
+      selector: "#content > div > div.container-fluid > div:nth-child(2) > div > div > div > div:nth-child(2) > div.verse-check > div:nth-child(1) > div.verse-check-card > div.check-area > div:nth-child(1) > div:nth-child(2) > div > div > span",
+      currentSelections: {
+        id: "Current Selections",
+        selector: "#content > div > div.container-fluid > div:nth-child(2) > div > div > div > div:nth-child(2) > div.verse-check > div:nth-child(1) > div.verse-check-card > div.check-area > div:nth-child(1) > div:nth-child(2) > div > div > span > span",
+      }
     }
   }
 };

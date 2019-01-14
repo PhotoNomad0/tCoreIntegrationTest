@@ -199,16 +199,50 @@ function verifyTextIsMatched(text, matchText) {
  * read current text in element
  * @param {Object} elementObj - item to read
  * @param {Number} delay - optional time to wait before reading
+ * @param {Boolean} catchError - if true we log error, but don't fail test
  * @return {Promise<*>}
  */
-async function getText(elementObj, delay = 0) {
-  const id = elementDescription(elementObj);   
+async function getText(elementObj, delay = 0, catchError = false) {
+  const id = elementDescription(elementObj);
   log('reading "' + id + '"');
   let text;
-  await app.client.pause(delay).getText(elementObj.selector).then(text_ => {
-    text = text_;
-    log('value of "' + id + '" is "' + text + '"');
-  });
+  try {
+    await app.client.pause(delay).getText(elementObj.selector).then(text_ => {
+      text = text_;
+      log('value of "' + id + '" is "' + text + '"');
+    });
+  } catch (e) {
+    log(id + " error thrown: " + getSafeErrorMessage(e));
+    if (!catchError) {
+      throw (e);
+    }
+  }
+  return text;
+}
+
+/**
+ * read current HTML in element
+ * @param {Object} elementObj - item to read
+ * @param {Boolean} outerHtml - returns outer html if true, else inner html
+ * @param {Number} delay - optional time to wait before reading
+ * @param {Boolean} catchError - if true we log error, but don't fail test
+ * @return {Promise<*>}
+ */
+async function getHtml(elementObj, outerHtml = false, delay = 0, catchError = false) {
+  const id = elementDescription(elementObj);
+  log('reading "' + id + '"');
+  let text;
+  try {
+    await app.client.pause(delay).getHTML(elementObj.selector, outerHtml).then(html => {
+      text = html;
+      log('value of "' + id + '" is "' + text + '"');
+    });
+  } catch (e) {
+    log(id + " error thrown: " + getSafeErrorMessage(e));
+    if (!catchError) {
+      throw (e);
+    }
+  }
   return text;
 }
 
@@ -1414,6 +1448,7 @@ const tCoreSupport = {
   getCheckBoxRetry,
   getChildIndices,
   getCleanupFileList,
+  getHtml,
   getLogFilePath,
   getManifestTcVersion,
   getPackageJson,
