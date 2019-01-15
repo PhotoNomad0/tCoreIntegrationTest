@@ -187,15 +187,32 @@ async function checkLogs() {
   return error;
 }
 
-after(async() => { // runs after all tests
+/**
+ * runs after all test suites completed
+ */
+after(async() => { 
   if (app !== "FINISHED") {
     tCore.initializeTest(app, ++testCount, navigationDelay);
+    try {
+      app.browserWindow.close();
+    } catch (e) {
+      console.error("window close failed: ", e);
+      log("window close failed: " + tCore.getSafeErrorMessage(e));
+    }
     const error = await checkLogs();
     try {
       await tCoreConnect.stopApp(app);
     } catch (e) {
       console.error("App shutdown failed: ", e);
       log("App shutdown failed: " + tCore.getSafeErrorMessage(e));
+
+      try {
+        app.mainProcess.exit(0);
+        app.rendererProcess.exit(0);
+      } catch (e) {
+        console.error("App exit failed: ", e);
+        log("App exit failed: " + tCore.getSafeErrorMessage(e));
+      }
     }
     app = "FINISHED";
 
@@ -252,6 +269,7 @@ function getElapsedTestTime() {
  * @return {Promise<void>}
  */
 async function afterEachTest(testCleanup_ = true) {
+  tCore.disableLogging(false); // make sure logging enabled
   testsRun++;
   if (testCleanup_) {
     await testCleanup();

@@ -683,11 +683,30 @@ const DEFINITIONS = {
     },
     selectionArea: {
       id: "translation Words Selection Area",
-      selector: "#content > div > div.container-fluid > div:nth-child(2) > div > div > div > div:nth-child(2) > div.verse-check > div:nth-child(1) > div.verse-check-card > div.check-area > div:nth-child(1) > div:nth-child(2) > div > div > span",
+      selector: "#content > div > div.container-fluid > div:nth-child(2) > div > div > div > div:nth-child(2) > div.verse-check > div:nth-child(1) > div.verse-check-card > div.check-area > div:nth-child(1) > div:nth-child(2) > div > div",
       currentSelections: {
         id: "Current Selections",
-        selector: "#content > div > div.container-fluid > div:nth-child(2) > div > div > div > div:nth-child(2) > div.verse-check > div:nth-child(1) > div.verse-check-card > div.check-area > div:nth-child(1) > div:nth-child(2) > div > div > span > span",
+        selector: "#content > div > div.container-fluid > div:nth-child(2) > div > div > div > div:nth-child(2) > div.verse-check > div:nth-child(1) > div.verse-check-card > div.check-area > div:nth-child(1) > div:nth-child(2) > div > div > span",
+      },
+      currentSelections2: {
+        id: "Current Selections",
+        selector: "#content > div > div.container-fluid > div:nth-child(2) > div > div > div > div:nth-child(2) > div.verse-check > div:nth-child(1) > div.verse-check-card > div.check-area > div:nth-child(1) > div.ltr-content > div > span",
       }
+    },
+    cancel: {
+      id: "Cancel Button",
+      text: "Cancel",
+      selector: "#content > div > div.container-fluid > div:nth-child(2) > div > div > div > div:nth-child(2) > div.verse-check > div:nth-child(1) > div.verse-check-card > div.actions-area > button:nth-child(1)"
+    },
+    clearSelections: {
+      id: "Clear Selection Button",
+      text: "Clear Selection",
+      selector: "#content > div > div.container-fluid > div:nth-child(2) > div > div > div > div:nth-child(2) > div.verse-check > div:nth-child(1) > div.verse-check-card > div.actions-area > button:nth-child(2)"
+    },
+    save: {
+      id: "Save Button",
+      text: "Save",
+      selector: "#content > div > div.container-fluid > div:nth-child(2) > div > div > div > div:nth-child(2) > div.verse-check > div:nth-child(1) > div.verse-check-card > div.actions-area > button:nth-child(3)"
     }
   }
 };

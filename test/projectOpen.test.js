@@ -125,7 +125,7 @@ describe('Project Open Tests', () => {
         utils.testFinished();
       });
 
-      describe.only('should succeed open en_ultx_mat_book.zip, should not lose tw god', () => {
+      describe('should succeed open en_ultx_mat_book.zip, should not lose tw god', () => {
         it('open project', async () => {
           const languageId = "en";
           const bookId = "mat";
@@ -148,7 +148,7 @@ describe('Project Open Tests', () => {
           utils.testFinished();
         });
 
-        it('should succeed to open tW after overwrite', async () => {
+        it('should succeed to open tW and make selection for God', async () => {
           await tCore.setToToolPage(false);
           const settings = {
             onChecks: ["Key Terms"],
@@ -157,12 +157,105 @@ describe('Project Open Tests', () => {
           await tCore.launchTranslationWords(settings);
           await tCore.selectGroupMenuItem('God', 15, 6);
           const { selected, selectionPhrase, translatedAs } = await tCore.getTwSelectionForCurrent();
-          const selectionArea = await tCore.getHtml(TCORE.translationWords.selectionArea, true, 0);
-          log("selectionArea: " + selectionArea);
-          const selectionText = await tCore.getText(TCORE.translationWords.selectionArea.currentSelections, 0, true);
-          log("selectionText: " + selectionText);
+          let selections = await tCore.getSelections();
+          log("initial selectionText: " + JSON.stringify(selections, null, 2));
+          
+          if (selections && selections.length) {
+            await tCore.clickOn(TCORE.translationWords.clearSelections); // clear selections
+          }
+
+          const selectWord = "God";
+          const success = await tCore.makeTwSelection(selectWord);
+          if (!success) {
+            log ("Failed to select word");
+            assert.ok(false);
+          }
+
+          await tCore.clickOn(TCORE.translationWords.save); // save selection
+          await app.client.pause(500);
+
+          selections = await tCore.getSelections();
+          log("selectionText: " + JSON.stringify(selections, null, 2));
+          
           await tCore.setToProjectPage(true);
-          await app.client.pause(2000);
+          await app.client.pause(500);
+          utils.testFinished();
+        });
+
+        it('should succeed open es-419_tit_no_git.zip with missing verses, rename', async () => {
+          const languageId = "es-419";
+          const bookId = "tit";
+          const {bookName} = utils.getBibleData(bookId);
+          const continueOnProjectInfo = true;
+          const projectName = 'es-419_tit_no_git';
+          const projectSource = path.join(TEST_FILE_PATH, projectName + ".zip");
+          const projectSettings = {
+            projectSource,
+            projectName,
+            targetLangId: "reg",
+            languageId,
+            languageDirectionLtr: true,
+            bookName,
+            missingVerses: true
+          };
+          const newProjectName = `${languageId}_${projectSettings.targetLangId}_${bookId}_book`;
+          const projectPath = path.join(tCore.PROJECT_PATH, newProjectName);
+          if (fs.existsSync(projectPath)) {
+            delete projectSettings.projectSource; // if already present then skip deletion
+            projectSettings.projectName = newProjectName;
+            projectSettings.noProjectInfoDialog = true;
+            projectSettings.noRename = true;
+          }
+          await tCore.doOpenProject(projectSettings, continueOnProjectInfo, newProjectName, true);
+          utils.testFinished();
+        });
+
+        it('open project', async () => {
+          const languageId = "en";
+          const bookId = "mat";
+          const {bookName} = utils.getBibleData(bookId);
+          const continueOnProjectInfo = true;
+          const projectName = 'en_ultx_mat_book';
+          const projectSettings = {
+            projectName,
+            targetLangId: "ultx",
+            languageId,
+            languageDirectionLtr: true,
+            bookName,
+            noProjectInfoDialog: true,
+            noRename: true
+          };
+          const newProjectName = `${languageId}_${projectSettings.targetLangId}_${bookId}_book`;
+          await tCore.doOpenProject(projectSettings, continueOnProjectInfo, newProjectName, true);
+          utils.testFinished();
+        });
+
+        it('should succeed to open tW and still have selection for God', async () => {
+          await tCore.setToToolPage(false);
+          const settings = {
+            onChecks: ["Key Terms"],
+            offChecks: ["Other Terms", "Names"]
+          };
+          await tCore.launchTranslationWords(settings);
+          await tCore.selectGroupMenuItem('God', 15, 6);
+          await app.client.pause(100);
+          const { selected, selectionPhrase, translatedAs } = await tCore.getTwSelectionForCurrent();
+          let selections = await tCore.getSelections();
+          log("initial selectionText: " + JSON.stringify(selections, null, 2));
+
+          let success = false;
+          const selectWord = "God";
+          if (selections && selections.length) {
+            success = (selections.length === 1) && (selections[0].text === selectWord) && (translatedAs === selectWord);
+          }
+          
+          if (!success) {
+            log ("Failed keep selected word: " + selectWord);
+            assert.ok(false);
+          }
+
+          await tCore.setToProjectPage(true);
+          await app.client.pause(500);
           utils.testFinished();
         });
       });

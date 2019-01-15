@@ -11,6 +11,7 @@ const zipFileHelpers = require('./zipFileHelpers');
 // import { expect } from 'chai';
 
 let renameIsBroken = false;
+let disableLog = false;
 
 let app;
 let version;
@@ -65,6 +66,15 @@ function validateManifestVersion(projectPath) {
 function getCleanupFileList() {
   return cleanupFileList;
 }
+
+/**
+ * used to temporarily disable logging
+ * @param {Boolean} disable - if true then disable, else enables logging again
+ */
+function disableLogging(disable = false) {
+  disableLog = disable;
+}
+
 
 function logVersion() {
   log('**** App version "' + version + '" ****');
@@ -840,11 +850,13 @@ function getLogFilePath(test = -1) {
 }
 
 function log(text, testNum = -1) {
-  const output = (new Date().toUTCString()) + ": " + text;
-  console.log(output);
-  const logPath = getLogFilePath(testNum);
-  const current = fs.existsSync(logPath) ? fs.readFileSync(logPath) : "";
-  fs.writeFileSync(logPath, current + output + "\n");
+  if (!disableLog) {
+    const output = (new Date().toUTCString()) + ": " + text;
+    console.log(output);
+    const logPath = getLogFilePath(testNum);
+    const current = fs.existsSync(logPath) ? fs.readFileSync(logPath) : "";
+    fs.writeFileSync(logPath, current + output + "\n");
+  }
 }
 
 function mockDialogPath(file, isSaveDialog = false) {
@@ -990,7 +1002,9 @@ async function setCheckBoxRetry(elementObj, newState, count = 20) {
       log("Failed to click " + elementDescription(elementObj) + " on try " + (i+1));
     }
     await app.client.pause(500);
+    disableLog = true;
     state = await getSelection(elementObj);
+    disableLog = false;
     if (state === newState) {
       break;
     }
@@ -1006,6 +1020,7 @@ async function setCheckBoxRetry(elementObj, newState, count = 20) {
  */
 async function getCheckBoxRetry(elementObj, count = 20) {
   let state = false;
+  disableLog = true;
   for (let i = 0; i < count; i++) {
     try {
       state = await getSelection(elementObj);
@@ -1015,12 +1030,14 @@ async function getCheckBoxRetry(elementObj, count = 20) {
       await app.client.pause(500);
     }
   }
+  disableLog = false;
   return state;
 }
 
 async function findToolCardNumber(name) {
   let cardText;
   const childIndexesArray = await getChildIndices(TCORE.toolsList);
+  disableLog = true;
   for (let i of childIndexesArray) {
     try {
       cardText = await getText(TCORE.toolsList.toolN(i, ' card ' + i).title);
@@ -1028,12 +1045,14 @@ async function findToolCardNumber(name) {
       break;
     }
     if (cardText === name) {
+      disableLog = false;
       log("Card `" + name + "` found at position " + i);
       return i;
     } else {
       log("Skipping Card `" + cardText + "` at position " + i);
     }
   }
+  disableLog = false;
   log("Card not found for: '" + name + "'");
   return -1;
 }
@@ -1048,6 +1067,7 @@ async function findToolCardNumber(name) {
  */
 async function findPositionOfText(elementGetter, matchText, match = (item, match) => (item === match), maxCount = 200) {
   let foundPos = -1;
+  disableLog = true;
   for (let pos = 1; pos < maxCount; pos++) {
     const element = elementGetter(pos);
     try {
@@ -1061,6 +1081,7 @@ async function findPositionOfText(elementGetter, matchText, match = (item, match
       // skip
     }
   }
+  disableLog = false;
   return foundPos;
 }
 
@@ -1275,10 +1296,13 @@ async function unzipTestProjectIntoProjects(projectSettings) {
  * @param {Object} projectSettings
  * @param {Boolean} continueOnProjectInfo
  * @param {String} projectName - name to initially give project in project folders
+ * @param {Boolean} noInitialDelete
  * @return {Promise<void>}
  */
-async function doOpenProject(projectSettings, continueOnProjectInfo, projectName) {
-  projectRemoval(projectName);
+async function doOpenProject(projectSettings, continueOnProjectInfo, projectName, noInitialDelete = false) {
+  if (!noInitialDelete) {
+    projectRemoval(projectName);
+  }
   await unzipTestProjectIntoProjects(projectSettings);
   const projectPath = path.join(PROJECT_PATH, projectSettings.projectName);
   const initialManifestVersion = getManifestTcVersion(projectPath);
@@ -1295,7 +1319,11 @@ async function doOpenProject(projectSettings, continueOnProjectInfo, projectName
   }
 
   if (!projectSettings.noProjectInfoDialog) {
-    await navigateProjectInfoDialog({...projectSettings, saveChanges: continueOnProjectInfo});
+    const settings = {...projectSettings, continue: continueOnProjectInfo};
+    if (!projectSettings.saveChanges && !projectSettings.overwrite && !projectSettings.cancel) {
+      settings.continue = true;
+    }
+    await navigateProjectInfoDialog(settings);
   }
 
   if (projectSettings.mergeConflicts) {
@@ -1331,8 +1359,8 @@ async function verifyTextRetry(elementObj, text, count = 20) {
 
 /**
  * makes sure checkbox is set to desired toggle value
- * @param elementObj
- * @param desiredValue
+ * @param {Object} elementObj - item to verify
+ * @param {Boolean} desiredValue
  * @return {Promise<void>}
  */
 async function setCheckboxToDesired(elementObj, desiredValue) {
@@ -1340,7 +1368,9 @@ async function setCheckboxToDesired(elementObj, desiredValue) {
   if (currentValue !== desiredValue) {
     await setCheckBoxRetry(elementObj, desiredValue);
   }
+  disableLog = true;
   const newValue = await getSelection(elementObj);
+  disableLog = false;
   if (desiredValue !== newValue) {
     log ("failed to set '" + elementDescription(elementObj) + "' to " + desiredValue);
     assert.equal(desiredValue, newValue);
@@ -1431,11 +1461,267 @@ function setRenameIsBroken(broken = false) {
   renameIsBroken = broken;
 }
 
+/**
+ * get position of element
+ * @param {Object} elementObj - item to verify
+ * @return {Promise<null|Object>} - rectangle
+ */
+async function getElementPosition(elementObj) {
+  const id = elementDescription(elementObj);
+  let position_ = null;
+  try {
+    const size = await app.client.getElementSize(elementObj.selector);
+    const location = await app.client.getLocation(elementObj.selector);
+    position_ = {
+      width: size.width,
+      height: size.height,
+      x: location.x,
+      y: location.y
+    };
+  } catch (e) {
+    log(id + " error: " + e);
+  }
+  return position_;
+}
+
+/**
+ * tries to select text by making a guess at position to click.  It does some iterative guessing and is currently 
+ * limited to only a single word in search text
+ * 
+ * @param {String} selectWord
+ * @param {Number} occurrence - in case multiple occurrences
+ * @return {Promise<Boolean>} - true if successful
+ */
+async function makeTwSelection(selectWord, occurrence = 0) {
+  let success = false;
+  const elementObj = TCORE.translationWords.selectionArea;
+  const id = elementDescription(elementObj);
+  log("Finding position of '" + selectWord + "' in " + id);
+  const selectionText = await getText(elementObj, 0, true);
+  // log("selectionArea: " + initialSelectionArea);
+  let pos = selectionText.indexOf(selectWord);
+  while ((pos >= 0) && (occurrence > 0)) {
+    pos = selectionText.indexOf(selectWord, pos + 1);
+    occurrence--;
+  }
+  if (pos < 0) {
+    log(id + " could not find: " + selectWord);
+  } else {
+    const parentRect = await getElementPosition(elementObj);
+    log("rect= " + JSON.stringify(parentRect, null, 2));
+
+    let selections = await getSelections(elementObj.currentSelections); // this gives us height of line
+    if (!selections || !selections.length) { // make a selection and clean
+      const pos = getPositionInRectangle(parentRect, 0.5, 0.5);
+      await clickAtPositionInElement(TCORE.translationWords.selectionArea, pos);
+      await app.client.pause(100);
+      selections = await getSelections(elementObj.currentSelections);
+      await clickOn({ ...selections[0], id: "Selection" }); // unselect
+      await app.client.pause(100);
+    }
+    let selection = selections[0];
+    const lineHeight = selection.rectangle.height;
+    const lines = Math.round(parentRect.height / lineHeight);
+    let ratio = (pos + selectWord.length / 2) / selectionText.length;
+    while (!success) {
+      const lineNum = Math.floor(parentRect.height * ratio / lineHeight);
+      const yPos = lineNum * lineHeight + lineHeight / 2;
+      const xRatio = (ratio - lineNum / lines) * lines;
+      const xPos = parentRect.width * xRatio;
+      const lastClick = {x: xPos, y: yPos};
+      await clickAtPositionInElement(elementObj, lastClick);
+      await app.client.pause(100);
+      selections = await getSelections(elementObj.currentSelections); // this gives us height of line
+      if (selections && selections.length) {
+        for (let selection of selections) {
+          if (selection.text === selectWord) {
+            success = true;
+            break;
+          }
+        }
+      }
+      if (!success) {
+        const spans = await getText(elementObj.currentSelections, 0, true);
+        if (spans.length <= 1) { // we missed
+          ratio *= 0.75; // shift left and retry
+        } else { // we clicked on something
+          await clickOn({...selections[0], id: "Selection"}); // unselect
+          await app.client.pause(100);
+          let pos = spans[0].indexOf(selectWord);
+          selection = selections[0];
+          if (pos >= 0) { // we need to move to left
+            const moveLeftNumChars = spans[0].length - pos + 1;
+            const moveLeft = (moveLeftNumChars) / 2 + selection.text.length / 2;
+            const ratioAdust = (moveLeft) / selectionText.length;
+            ratio -= ratioAdust;
+          } else { // we need to move to right
+            pos = spans[2].indexOf(selectWord);
+            const moveRightNumChars = pos + selection.text.length + 1;
+            const moveRight = (moveRightNumChars) / 2 + selection.text.length / 2;
+            const ratioAdust = (moveRight) / selectionText.length;
+            ratio += ratioAdust;
+          }
+        }
+      }
+      
+    }
+  }
+  return success;
+}
+
+const CLICK_TYPES = {
+  DOUBLE_CLICK: 'double',
+  LEFT_CLICK: 'left',
+  RIGHT_CLICK: 'right',
+};
+
+/**
+ * do a click within element
+ * @param {Object} elementObj - item to verify
+ * @param {Object} position - x,y
+ * @param {String} clickType - type of click, default is double
+ * @return {Promise<void>}
+ */
+async function clickAtPositionInElement(elementObj, position, clickType = CLICK_TYPES.DOUBLE_CLICK) {
+  const id = elementDescription(elementObj);
+  if (position) {
+    // make integers
+    const x = Math.round(position.x);
+    const y = Math.round(position.y);
+    log(clickType + " clicking on '" + id + "' at (x=" + x + ", y=" + y + ")");
+    try {
+      switch (clickType) {
+        case CLICK_TYPES.LEFT_CLICK:
+          await app.client.leftClick(elementObj.selector, x, y);
+          break;
+          
+        case CLICK_TYPES.RIGHT_CLICK:
+          await app.client.rightClick(elementObj.selector, x, y);
+          break;
+          
+        default:
+          await app.client.moveToObject(elementObj.selector, x, y).doDoubleClick();
+          break;
+      }
+    } catch (e) {
+      log(id + ": error thrown: " + getSafeErrorMessage(e));
+    }
+  }
+}
+
+/**
+ * find relative position in rectangle
+ * @param {Object} rectangle - rectangle to click in center of
+ * @param {Number} xRatio
+ * @param {Number} yRatio
+ * @return {Object} - x and y of center of rectangle
+ */
+function getPositionInRectangle(rectangle, xRatio, yRatio) {
+  let position = {};
+  if (rectangle) {
+    const x = rectangle.width * xRatio;
+    const y = rectangle.height * yRatio;
+    position = {
+      x, y
+    };
+  }
+  return position;
+}
+
+/**
+ * get array of selections
+ * @return {Promise<Array>}
+ */
+async function getSelections() {
+  let elementObj = TCORE.translationWords.selectionArea.currentSelections;
+  const selections = [];
+  const id = elementDescription(elementObj);
+  let elements = await app.client.$$(elementObj.selector);
+  if (!elements.length) { // fall back to review screen
+    elementObj = TCORE.translationWords.selectionArea.currentSelections2;
+    elements = await app.client.$$(elementObj.selector);
+  }
+  for (let element of elements) {
+    let background = "";
+    let childSelector = null;
+    try {
+      childSelector = elementObj.selector + ":nth-child(" + (element.index+1) + ")";
+      const style = await app.client.$(childSelector).getAttribute('style');
+      background = style.includes('background-color');
+    } catch (e) {
+      log(id + ": error thrown: " + getSafeErrorMessage(e));
+    }
+    if (background) {
+      let selectionText = null;
+      let rectangle = null;
+      try {
+        selectionText = await app.client.getText(childSelector);
+        rectangle = await getElementPosition({ selector: childSelector});
+      } catch (e) {
+        log(id + ": error thrown: " + getSafeErrorMessage(e));
+      }
+      if (selectionText !== null) {
+        selections.push({ text: selectionText, rectangle, selector: childSelector, index: element.index });
+      }
+    }
+  }
+  return selections;
+}
+
+/**
+ * replace inner html for element
+ * @param {Object} elementObj - item to verify
+ * @param {String} newText
+ * @return {Promise<{success: boolean}>}
+ */
+async function changeInnerHtml(elementObj, newText) {
+  let args_ = {
+    newText
+  };
+  let results2 = { success: false };
+  try {
+    const results = await app.client.selectorExecute(elementObj.selector, function (elements, argsJson) {
+      let success = false;
+      const args = JSON.parse(argsJson);
+      let message = '';
+      if (elements.length > 0) {
+        message = "Found " + elements.length + " elements";
+        try {
+          elements[0].innerHTML = args.newText;
+          success = true;
+        } catch (e) {
+          message += "\nselection error thrown: " + e;
+        }
+      } else {
+        message = "No elements found";
+      }
+      const results = {
+        args,
+        message,
+        success
+      };
+      return JSON.stringify(results);
+
+    }, JSON.stringify(args_));
+    results2 = JSON.parse(results);
+  } catch (e) {
+    log("\n error thrown: " + getSafeErrorMessage(e));
+  }
+  if (!results2.success) {
+    log("Failed to set html to " + newText);
+    assert.ok(false);
+  }
+  return results2;
+}
+
 const tCoreSupport = {
+  CLICK_TYPES,
   PROJECT_PATH,
+  clickAtPositionInElement,
   clickOn,
   clickOnRetry,
   delayWhileWaitDialogShown,
+  disableLogging,
   dismissOldDialogs,
   doExportToCsv,
   doExportToUsfm,
@@ -1448,12 +1734,15 @@ const tCoreSupport = {
   getCheckBoxRetry,
   getChildIndices,
   getCleanupFileList,
+  getElementPosition,
   getHtml,
   getLogFilePath,
   getManifestTcVersion,
   getPackageJson,
+  getPositionInRectangle,
   getSafeErrorMessage,
   getSearchResults,
+  getSelections,
   getTwSelectionForCurrent,
   getSelection,
   getText,
@@ -1465,6 +1754,7 @@ const tCoreSupport = {
   launchTranslationWords,
   log,
   logVersion,
+  makeTwSelection,
   mockDialogPath,
   navigateCopyrightDialog,
   navigateDialog,

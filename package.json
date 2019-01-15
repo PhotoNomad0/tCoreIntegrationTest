@@ -47,7 +47,8 @@
     "path-extra": "^4.2.1",
     "rimraf": "^2.6.2",
     "spectron": "5.0.0",
-    "spectron-dialog-addon": "0.1.1"
+    "spectron-dialog-addon": "0.1.1",
+    "webdriverio": "4.14.1"
   },
   "engines": {
     "node": "^8.12.0"
