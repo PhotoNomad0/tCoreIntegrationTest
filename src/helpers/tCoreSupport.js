@@ -599,9 +599,9 @@ async function navigateCopyrightDialog(settings) {
     }
   }
   if (settings.continue) {
-    await navigateDialog(TCORE.missingVersesCheckerDialog, 'continue');
+    await navigateDialog(TCORE.copyrightDialog, 'continue');
   } else {
-    await navigateDialog(TCORE.missingVersesCheckerDialog, 'cancel');
+    await navigateDialog(TCORE.copyrightDialog, 'cancel');
   }
 }
 
@@ -672,7 +672,7 @@ function projectRemoval(projectName, noRemoval = false) {
 
 /**
  * wait for dialog with retry
- * @param {Object} elementObj - item to verify
+ * @param {Object} elementObj - element to use
  * @param {number} count - retry count
  * @param {Boolean} expectVisible - if true then expect dialog to be shown, else expect to be hidden
  * @return {Promise<void>}
@@ -688,7 +688,14 @@ function getNoRename(projectInfoSettings) {
   return projectInfoSettings.noRename || renameIsBroken; // use global flag when rename is broken so we can test the rest
 }
 
-async function dismissDialogIfPresent(elementObj, prompt, acknowledgeButton) {
+/**
+ * clears leftover dialogs from previous test
+ * @param {Object} elementObj - element to use
+ * @param {String} prompt - expected text on dialog
+ * @param {Object} acknowledgeButton - optional element to click if item found
+ * @return {Promise<boolean>}
+ */
+async function dismissDialogIfPresent(elementObj, prompt = null, acknowledgeButton = null) {
   let found = false;
   const name = elementDescription(elementObj);
   try {
@@ -699,12 +706,19 @@ async function dismissDialogIfPresent(elementObj, prompt, acknowledgeButton) {
       visible = false;
     }
     if (visible) {
-      const text = await getText(elementObj);
-      if ((text === prompt) || text.includes(prompt)) {
-        log("Leftover Dialog shown " + name + ", dismissing");
+      found = false;
+      if (prompt) {
+        const text = await getText(elementObj);
+        if ((text === prompt) || text.includes(prompt)) {
+          log("Leftover Dialog shown " + name + ", dismissing");
+          found = true;
+        }
+      } else {
         found = true;
-        await clickOn(acknowledgeButton);
       }
+    }
+    if (found && acknowledgeButton) {
+      await clickOn(acknowledgeButton);
     }
   } catch (e) {
     log(name + " error caught: " + getSafeErrorMessage(e));
@@ -718,9 +732,29 @@ async function dismissDialogIfPresent(elementObj, prompt, acknowledgeButton) {
  */
 async function dismissOldDialogs(finished) {
   let leftOversFound = false;
-  leftOversFound = leftOversFound || await dismissDialogIfPresent(TCORE.importErrorDialog, "Error occurred while importing your project", TCORE.importErrorDialog.ok);
-  leftOversFound = leftOversFound || await dismissDialogIfPresent(TCORE.renamedDialog, "Your local project has been named", TCORE.renamedDialog.ok);
-  leftOversFound = leftOversFound || await dismissDialogIfPresent(TCORE.alignmentsResetDialog, TCORE.alignmentsResetDialog.prompt.text, TCORE.alignmentsResetDialog.ok);
+  
+  let dialogPresent = await dismissDialogIfPresent(TCORE.copyrightDialog,
+    null, TCORE.copyrightDialog.cancel);
+  if (dialogPresent) {
+    await app.client.pause(500);
+    await navigateDialog(TCORE.importCancelDialog, 'cancelImport');
+  }
+  leftOversFound = leftOversFound ||  dialogPresent;
+
+  dialogPresent = await dismissDialogIfPresent(TCORE.projectInfoCheckerDialog,
+    null, TCORE.projectInfoCheckerDialog.cancel);
+  if (dialogPresent) {
+    await app.client.pause(500);
+    await navigateDialog(TCORE.importCancelDialog, 'cancelImport');
+  }
+  leftOversFound = leftOversFound ||  dialogPresent;
+
+  leftOversFound = leftOversFound || await dismissDialogIfPresent(TCORE.importErrorDialog,
+    "Error occurred while importing your project", TCORE.importErrorDialog.ok);
+  leftOversFound = leftOversFound || await dismissDialogIfPresent(TCORE.renamedDialog,
+    "Your local project has been named", TCORE.renamedDialog.ok);
+  leftOversFound = leftOversFound || await dismissDialogIfPresent(TCORE.alignmentsResetDialog,
+    TCORE.alignmentsResetDialog.prompt.text, TCORE.alignmentsResetDialog.ok);
   if (leftOversFound) {
     let message = "";
     if (!finished) {

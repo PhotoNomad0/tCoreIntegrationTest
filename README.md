@@ -55,6 +55,7 @@ Open Chrome to `chrome://inspect`
 ## Troubleshooting
 - When tests fail prematurely with no indication, may need to increase timeout() on test.
 - When clicks aren't working, you may still have `chrome://inspect` open from previous debugging or the chrome debugger.
+- When unit tests lose ability to set text on inputs or other strange errors - reboot?
 - get console logs:  `await app.client.getRenderProcessLogs();`
 
 ## Unresolved
