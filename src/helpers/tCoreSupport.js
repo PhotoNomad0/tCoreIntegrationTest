@@ -155,6 +155,62 @@ async function verifyProjectInfoDialog(expectedProjectSettings) {
 }
 
 /**
+ * wraps a promise in a timeout, allowing the promise to reject if not resolve with a specific period of time
+ * @param {integer} ms - milliseconds to wait before rejecting promise if not resolved
+ * @param {Promise} promise to monitor
+ * @Example
+ *  promiseTimeout(1000, fetch('https://courseof.life/johndoherty.json'))
+ *      .then(function(cvData){
+ *          alert(cvData);
+ *      })
+ *      .catch(function(){
+ *          alert('request either failed or timedout');
+ *      });
+ */
+function promiseTimeout(ms, promise){
+  return new Promise(function(resolve, reject){
+
+    // create a timeout to reject promise if not resolved
+    var timer = setTimeout(function(){
+      reject(new Error("promise timeout"));
+    }, ms);
+
+    promise
+      .then(function(res){
+        clearTimeout(timer);
+        resolve(res);
+      })
+      .catch(function(err){
+        clearTimeout(timer);
+        reject(err);
+      });
+  });
+}
+
+// /**
+//  * set value in input
+//  * @param {Object} elementObj - item to set
+//  * @param {string} text
+//  * @return {Promise<void>}
+//  */
+// async function setValue(elementObj, text) {
+//   await app.client.pause(navigationDelay);
+//   log('setting "' + elementDescription(elementObj) + '" to "' + text + '"');
+//   //TODO: seems to fail with empty string
+//   await promiseTimeout(10000, app.client.element(elementObj.selector).setValue(text)).catch(err => {
+//     log("Error: " + getSafeErrorMessage(err));
+//   });
+//   await app.client.pause(200);
+//   const value = await promiseTimeout(10000, await app.client.getValue(elementObj.selector));
+//   if (value !== text) {
+//     log('**** failed setting "' + elementObj.id + '", now is "' + value + '"');
+//     await promiseTimeout(10000, app.client.element(elementObj.selector).setValue(text)); // retry set value
+//     await app.client.pause(200);
+//   }
+//   await app.client.getValue(elementObj.selector).should.eventually.equal(text);
+// }
+
+/**
  * set value in input
  * @param {Object} elementObj - item to set
  * @param {string} text
@@ -1319,9 +1375,9 @@ async function doOpenProject(projectSettings, continueOnProjectInfo, projectName
   }
 
   if (!projectSettings.noProjectInfoDialog) {
-    const settings = {...projectSettings, continue: continueOnProjectInfo};
+    const settings = {...projectSettings};
     if (!projectSettings.saveChanges && !projectSettings.overwrite && !projectSettings.cancel) {
-      settings.continue = true;
+      settings.continue = continueOnProjectInfo;
     }
     await navigateProjectInfoDialog(settings);
   }

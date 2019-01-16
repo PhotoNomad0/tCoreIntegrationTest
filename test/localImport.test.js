@@ -1,5 +1,4 @@
 /* eslint-disable quotes,no-console, no-unused-vars */
-const assert = require('assert');
 const path = require('path');
 const fs = require('fs-extra');
 const ospath = require('ospath');
@@ -176,7 +175,7 @@ describe('Local Import Tests', () => {
       });
     }
   });
-});
+}).timeout(1000000);
 
 //
 // helpers

@@ -1,5 +1,4 @@
 /* eslint-disable quotes,no-console, no-unused-vars */
-const assert = require('assert');
 const path = require('path');
 const fs = require('fs-extra');
 const ospath = require('ospath');
@@ -168,18 +167,17 @@ describe('Project Open Tests', () => {
           const success = await tCore.makeTwSelection(selectWord);
           if (!success) {
             log ("Failed to select word");
-            assert.ok(false);
+          } else {
+            await tCore.clickOn(TCORE.translationWords.save); // save selection
+            await app.client.pause(500);
           }
-
-          await tCore.clickOn(TCORE.translationWords.save); // save selection
-          await app.client.pause(500);
 
           selections = await tCore.getSelections();
           log("selectionText: " + JSON.stringify(selections, null, 2));
           
           await tCore.setToProjectPage(true);
           await app.client.pause(500);
-          utils.testFinished();
+          utils.testFinished(success);
         });
 
         it('should succeed open es-419_tit_no_git.zip with missing verses, rename', async () => {
@@ -251,16 +249,15 @@ describe('Project Open Tests', () => {
           
           if (!success) {
             log ("Failed keep selected word: " + selectWord);
-            assert.ok(false);
           }
 
           await tCore.setToProjectPage(true);
           await app.client.pause(500);
-          utils.testFinished();
+          utils.testFinished(success);
         });
       });
     }
-  });
+  }).timeout(1000000);
 });
 
 //

@@ -1,6 +1,5 @@
 /* eslint-disable quotes,no-console, no-unused-vars */
 const TCORE = require('./page-objects/elements');
-const assert = require('assert');
 const tCore = require('../src/helpers/tCoreSupport');
 const utils = require('../src/helpers/utils');
 const UNSUPPORTED_PROJECT_MESSAGE = "This project contains data from an old version of translationCore which is not supported in this release. For help opening this project or to restart checking, please contact help@door43.org.";
@@ -61,16 +60,21 @@ describe('Online Import Tests', () => {
       await tCore.navigateOnlineImportDialog(importConfig);
       searchResults = await tCore.getSearchResults();
       log("searchResults: " + JSON.stringify(searchResults, null, 2));
-      const index = tCore.indexInSearchResults(searchResults, "fr_ulb_tit_book");
-      assert.equal(index >= 0, true);
-      await tCore.selectSearchItem(index, 'https://git.door43.org/tCore-test-data/fr_ulb_tit_book');
+      const projectName = "fr_ulb_tit_book";
+      const index = tCore.indexInSearchResults(searchResults, projectName);
+      const success = (index >= 0);
+      if (success) {
+        await tCore.selectSearchItem(index, 'https://git.door43.org/tCore-test-data/fr_ulb_tit_book');
 
-      searchResults = await tCore.getSearchResults();
-      // log("searchResults: " + JSON.stringify(searchResults, null, 2));
+        searchResults = await tCore.getSearchResults();
+        // log("searchResults: " + JSON.stringify(searchResults, null, 2));
 
-      await tCore.navigateDialog(TCORE.onlineImportDialog, 'cancel');
-      await tCore.verifyOnSpecificPage(TCORE.projectsPage);
-      utils.testFinished();
+        await tCore.navigateDialog(TCORE.onlineImportDialog, 'cancel');
+        await tCore.verifyOnSpecificPage(TCORE.projectsPage);
+      } else {
+        log("Could not find project " + projectName);
+      }
+      utils.testFinished(success);
     });
 
     it('do online import with cancel on Project Info', async () => {
@@ -504,7 +508,7 @@ describe('Online Import Tests', () => {
       });
     }
   });
-});
+}).timeout(1000000);
 
 //
 // helpers

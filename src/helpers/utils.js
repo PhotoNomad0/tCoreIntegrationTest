@@ -9,6 +9,7 @@ const BIBLE_SIZES = require('../../test/fixtures/index.json');
 const BooksOfTheBible = require('./BooksOfTheBible');
 const downloadHelpers = require('./downloadHelpers');
 const zipFileHelpers = require('./zipFileHelpers');
+const assert = require('assert');
 
 const TEST_PROJECTS_URL = "https://git.door43.org/tCore-test-data/Test_Projects/archive/master.zip";
 const TEST_PATH = path.join(ospath.home(), 'translationCore', 'testing');
@@ -31,9 +32,17 @@ function log(text, test = -1) {
   tCore.log(text, test);
 }
 
-function testFinished() {
-  log("test finished");
+/**
+ * flags that test finished 
+ * @param {Boolean} passed - if true then test was successful
+ */
+function testFinished(passed = true) {
+  log("test finished called");
   finished = true;
+  if (!passed) {
+    log("!!! test failed !!!!");
+    assert.ok(passed); // flag to system that test errored
+  }
 }
 
 function getTestCount() {

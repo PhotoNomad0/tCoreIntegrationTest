@@ -1,5 +1,4 @@
 /* eslint-disable quotes,no-console, no-unused-vars */
-const assert = require('assert');
 const path = require('path');
 const fs = require('fs-extra');
 const ospath = require('ospath');
@@ -73,16 +72,16 @@ describe('Project export Tests', () => {
       it('should succeed export to USFM test project  en_ult_tit_book with alignments', async () => {
         const projectName = 'en_ult_tit_book';
         const expectedLength = 137610;
-        const outputFile = await testExportToUsfm(projectName, projectName + ".3.usfm", true, true, expectedLength);
-        utils.testFinished();
+        const success = await testExportToUsfm(projectName, projectName + ".3.usfm", true, true, expectedLength);
+        utils.testFinished(success);
       });
 
       it('should succeed export to USFM test project  en_ult_tit_book without alignments', async () => {
         const projectName = 'en_ult_tit_book';
         usfm2OutputFileName = projectName + ".2.usfm";
         const expectedLength = 5909;
-        const outputFile = await testExportToUsfm(projectName, usfm2OutputFileName, true, false, expectedLength);
-        utils.testFinished();
+        const success = await testExportToUsfm(projectName, usfm2OutputFileName, true, false, expectedLength);
+        utils.testFinished(success);
       });
 
       it('should succeed export to CSV test project  en_ult_tit_book', async () => {
@@ -130,7 +129,6 @@ describe('Project export Tests', () => {
           projectSource,
           projectName,
           newTargetLangId,
-          newLanguageId,
           languageDirectionLtr: true,
           bookName,
           noRename: true,
@@ -285,13 +283,14 @@ describe('Project export Tests', () => {
           languageId,
           languageDirectionLtr: true,
           bookName,
+          saveChanges: true,
           noRename: true
         };
         await doProjectOpenAndExportTest(languageId, newTargetLangId, bookId, projectSettings, continueOnProjectInfo, true, true, testFile, importPath);
       });
     }
   });
-});
+}).timeout(1000000);
 
 //
 // helpers
@@ -326,6 +325,7 @@ async function doProjectOpenAndExportTest(languageId, targetLangId, bookId, proj
  * @param exportAlignments
  */
 function verifyUsfm(importPath, outputFile, hasAlignments, exportAlignments) {
+  let success = true;
   log("Reading input USFM");
   let sourceUsfm = trimIdTag(fs.readFileSync(importPath).toString());
   log("input USFM length=" + sourceUsfm.length);
@@ -338,15 +338,16 @@ function verifyUsfm(importPath, outputFile, hasAlignments, exportAlignments) {
     if (sourceUsfm !== outputUsfm) {
       log("output: " + outputUsfm.substr(0, 100));
       log("does not equal\n input: " + sourceUsfm.substr(0, 100));
-      assert.equal(sourceUsfm, outputUsfm, "output does not equal source");
+      success = (sourceUsfm === outputUsfm);
     }
   } else if (exportAlignments) {
     const short = outputUsfm.length < sourceUsfm.length * 0.9;
     if (short) {
       log("output seems short");
-      assert.ok(!short, "output seems short");
+      success = !short;
     }
   }
+  return success;
 }
 
 /**
@@ -368,8 +369,8 @@ async function doUsfmImportExportTest(languageId, targetLangId, bookId, projectS
   const projectName = `${languageId}_${targetLangId}_${bookId}_book`;
   await tCore.doLocalProjectImport(projectSettings, continueOnProjectInfo, projectName);
   const outputFile = await tCore.doExportToUsfm(project_id, outputFileName, hasAlignments, exportAlignments, TEST_PATH);
-  verifyUsfm(importPath, outputFile, hasAlignments, exportAlignments);
-  utils.testFinished();
+  const success = verifyUsfm(importPath, outputFile, hasAlignments, exportAlignments);
+  utils.testFinished(success);
 }
 
 function modifyTitus(pathToBook) {
@@ -384,10 +385,11 @@ async function testExportToUsfm(projectName, outputFileName, hasAlignments, expo
   const outputFile = await tCore.doExportToUsfm(projectName, outputFileName, hasAlignments, exportAlignments, TEST_PATH);
   const outputUsfm = trimIdTag(fs.readFileSync(outputFile).toString());
   log("output USFM length=" + outputUsfm.length);
-  if (outputUsfm.length !== expectedLength) {
+  const success = (outputUsfm.length === expectedLength);
+  if (!success) {
     log("USFM output should be length " + outputUsfm.length + ", but is " + outputUsfm.length);
-    assert.ok(outputUsfm.length === outputUsfm.length);
   }
+  return success;
 }
 
 /**
