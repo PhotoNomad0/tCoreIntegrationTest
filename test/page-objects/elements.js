@@ -633,7 +633,8 @@ const DEFINITIONS = {
     },
     close: {
       id: "Close",
-      selector: "//body/div[8]/div[2]/div[3]/button"
+      selector: "/html/body/div[8]/div[2]/div/div[3]/button",
+      text: "Close"
     }
   },
   verseEditor: {
@@ -641,15 +642,18 @@ const DEFINITIONS = {
     selector: "#verse-editor-field",
     next: {
       id: "Verse Editor Next",
-      selector: "body div.stepper-body > div.actions > button.btn-prime"
+      selector: "body div.stepper-body > div.actions > button.btn-prime",
+      text: "Next"
     },
     save: {
       id: "Verse Editor Save",
-      selector: "body div.stepper-body > div.actions > button.btn-prime"
+      selector: "body div.stepper-body > div.actions > button.btn-prime",
+      text: "Save"
     },
     cancel: {
       id: "Verse Editor Cancel",
-      selector: "body div.stepper-body > div.actions > button.btn-second"
+      selector: "body div.stepper-body > div.actions > button.btn-second",
+      text: "Cancel"
     },
     reasonSpelling: {
       id: "Reason Spelling",

@@ -12,8 +12,8 @@ let useElectron = false;
 // ****************************
 // launch from app source
 // ****************************
-// const appFolder = '../../../testDir/translationCoreTest'; 
-const appFolder = '../../../translationCore';
+const appFolder = '../../../testDir/translationCoreTest'; 
+// const appFolder = '../../../translationCore';
 const appStartupFile = 'src/es6-init.js';
 appFolderPath = path.join(__dirname, appFolder);
 appStartupPath = path.join(appFolderPath, appStartupFile);

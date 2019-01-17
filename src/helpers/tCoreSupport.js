@@ -689,6 +689,36 @@ function getNoRename(projectInfoSettings) {
 }
 
 /**
+ * tests to see if dialog is currently shown
+ * @param {Object} elementObj - element to use
+ * @param {String} prompt - expected text on dialog (optional)
+ * @return {Promise<boolean>} - true if dialog is currently visible
+ */
+async function isDialogVisible(elementObj, prompt = null) {
+  const name = elementDescription(elementObj);
+  let found = false;
+  let visible = false;
+  try {
+    visible = await app.client.isVisible(elementObj.selector);
+  } catch (e) {
+    visible = false;
+  }
+  if (visible) {
+    found = false;
+    if (prompt) {
+      const text = await getText(elementObj);
+      if ((text === prompt) || text.includes(prompt)) {
+        log("Leftover Dialog shown " + name + ", dismissing");
+        found = true;
+      }
+    } else {
+      found = true;
+    }
+  }
+  return found;
+}
+
+/**
  * clears leftover dialogs from previous test
  * @param {Object} elementObj - element to use
  * @param {String} prompt - expected text on dialog
@@ -699,24 +729,7 @@ async function dismissDialogIfPresent(elementObj, prompt = null, acknowledgeButt
   let found = false;
   const name = elementDescription(elementObj);
   try {
-    let visible = false;
-    try {
-      visible = await app.client.isVisible(elementObj.selector);
-    } catch (e) {
-      visible = false;
-    }
-    if (visible) {
-      found = false;
-      if (prompt) {
-        const text = await getText(elementObj);
-        if ((text === prompt) || text.includes(prompt)) {
-          log("Leftover Dialog shown " + name + ", dismissing");
-          found = true;
-        }
-      } else {
-        found = true;
-      }
-    }
+    found = await isDialogVisible(elementObj, prompt);
     if (found && acknowledgeButton) {
       await clickOn(acknowledgeButton);
     }
@@ -788,6 +801,7 @@ async function navigateImportResults(continueOnProjectInfo, projectInfoSettings,
         renamedDialogConfig.prompt.id = 'Project Renamed Prompt';
         log("Checking for rename prompt: " + renamedDialogConfig.prompt.text);
         await navigateGeneralDialog(renamedDialogConfig, 'ok');
+        await app.client.pause(500);
       }
       if (projectInfoSettings.brokenAlignments) {
         log("Navigating Broken Alignments");
@@ -1840,6 +1854,7 @@ const tCoreSupport = {
   getValue,
   indexInSearchResults,
   initializeTest,
+  isDialogVisible,
   launchTool,
   launchTranslationWords,
   log,
