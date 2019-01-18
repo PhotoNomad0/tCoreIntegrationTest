@@ -83,8 +83,8 @@ describe('WA Tests', () => {
     ];
 
     const alignEachVerse = false; // alignment is still glitchy
-    const closeOnEachEdit = false; // set this true for leak testing (very slow)
-    const testCount = 2;
+    const closeOnEachEdit = false; // set this true for leak testing (makes it very slow)
+    const testCount = 2; // set this count high to do leak testing
     let chapterCount = 0;
     let chapterFinished = 0;
     let verseAttemptedCount = 0;
@@ -194,6 +194,7 @@ describe('WA Tests', () => {
 
               if (closeOnEachEdit) {
                 await tCore.clickOnRetry(TCORE.expandedScripturePane.close);
+                await app.client.pause(500);
               }
               
               let verseEndTime = new Date();
@@ -207,8 +208,11 @@ describe('WA Tests', () => {
               }
             }
 
-            await tCore.makeSureExpandedScripturePaneIsClosed();
-
+            if (!closeOnEachEdit) {
+              await tCore.clickOnRetry(TCORE.expandedScripturePane.close);
+              await app.client.pause(500);
+            }
+            
             let averageVerseEditTime = ((new Date()) - chapterStartTime) / 1000 / verseCount;
             log("Chapter " + chapter + " finished, Number of verses= " + verseCount);
             log("Average verse edit time " + round1(averageVerseEditTime) + " seconds");
