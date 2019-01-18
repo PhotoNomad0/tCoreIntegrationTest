@@ -148,7 +148,7 @@ describe('Project Open Tests', () => {
         });
 
         it('should succeed to open tW and make selection for God', async () => {
-          await tCore.setToToolPage(false);
+          await tCore.setToToolPage();
           const settings = {
             onChecks: ["Key Terms"],
             offChecks: ["Other Terms", "Names"]
@@ -175,7 +175,7 @@ describe('Project Open Tests', () => {
           selections = await tCore.getSelections();
           log("selectionText: " + JSON.stringify(selections, null, 2));
           
-          await tCore.setToProjectPage(true);
+          await tCore.setToProjectPage();
           await app.client.pause(500);
           utils.testFinished(success);
         });
@@ -229,7 +229,7 @@ describe('Project Open Tests', () => {
         });
 
         it('should succeed to open tW and still have selection for God', async () => {
-          await tCore.setToToolPage(false);
+          await tCore.setToToolPage();
           const settings = {
             onChecks: ["Key Terms"],
             offChecks: ["Other Terms", "Names"]
@@ -251,7 +251,7 @@ describe('Project Open Tests', () => {
             log ("Failed keep selected word: " + selectWord);
           }
 
-          await tCore.setToProjectPage(true);
+          await tCore.setToProjectPage();
           await app.client.pause(500);
           utils.testFinished(success);
         });

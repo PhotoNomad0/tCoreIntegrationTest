@@ -423,7 +423,12 @@ async function navigateDialog(elementObj, clickOn_ = null, exact = true) {
   }
 }
 
-async function setToProjectPage(fromTool = false) {
+/**
+ * select project Page
+ * @return {Promise<void>}
+ */
+async function setToProjectPage() {
+  const fromTool = await isDialogVisible(TCORE.groupMenu.header);
   if (fromTool) {
     await clickOn(TCORE.projectNavigationFromTool);
   } else {
@@ -432,7 +437,12 @@ async function setToProjectPage(fromTool = false) {
   await verifyOnSpecificPage(TCORE.projectsPage);
 }
 
-async function setToToolPage(fromTool = false) {
+/**
+ * select tool page
+ * @return {Promise<void>}
+ */
+async function setToToolPage() {
+  const fromTool = await isDialogVisible(TCORE.groupMenu.header);
   if (fromTool) {
     await clickOn(TCORE.toolNavigationFromTool);
   } else {
@@ -1439,6 +1449,17 @@ async function launchTranslationWords(settings = {}) {
 }
 
 /**
+ * launch wordAlignment
+ * @return {Promise<void>}
+ */
+async function launchWordAlignment() {
+  const toolName = "Word Alignment";
+  await launchTool(toolName);
+  await app.client.pause(2000);
+  await waitForDialogRetry(TCORE.groupMenu.header, 40);
+}
+
+/**
  * search through project cards to find card number that has project name
  * @param {String} projectName
  * @return {Promise<number>}
@@ -1946,6 +1967,7 @@ const tCoreSupport = {
   isDialogVisible,
   launchTool,
   launchTranslationWords,
+  launchWordAlignment,
   log,
   logVersion,
   makeSureExpandedScripturePaneIsClosed,

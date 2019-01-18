@@ -51,9 +51,7 @@ describe('WA Tests', () => {
       assert.ok(chapters);
       const projectName = `${languageId}_${newTargetLangId}_${bookId}_book`;
       await tCore.doLocalProjectImport(projectSettings, continueOnProjectInfo, projectName);
-      await tCore.launchTool("Word Alignment");
-      await app.client.pause(6000);
-      await tCore.navigateDialog(TCORE.groupMenu.header);
+      await tCore.launchWordAlignment();
       utils.testFinished();
     });
 
@@ -67,8 +65,11 @@ describe('WA Tests', () => {
         log("Pane " + i + ": " + paneText);
       }
       success = success && await tCore.validateScripturePane();
-      await tCore.clickOnRetry(TCORE.wordAlignment.expandScripturePane);
-      await app.client.pause(500);
+      await tCore.clickOnRetry(TCORE.toolScripturePane.closeN(1));
+      await tCore.setToToolPage();
+      await tCore.launchWordAlignment();
+      // target language should be restored on restart
+      success = success && await tCore.validateScripturePane();
       utils.testFinished(success);
     });
     
@@ -94,7 +95,7 @@ describe('WA Tests', () => {
       const {chapters, bookName} = utils.getBibleData(bookId);
       const newTargetLangId = utils.generateTargetLanguageID(sources.length > 1 ? 0 : testNum % 2); // if repeatedly testing same project, alternate ids
 
-      describe('WA ' + bookId, () => {
+      describe('Edit ' + bookId + ' in WA', () => {
         it('does USFM import of ' + bookId + ' and opens WA, Test run = ' + testNum, async () => {
           log("Loading '" + importFile + "' for testing");
           const languageId = "en";
@@ -109,9 +110,7 @@ describe('WA Tests', () => {
           assert.ok(chapters);
           const projectName = `${languageId}_${newTargetLangId}_${bookId}_book`;
           await tCore.doLocalProjectImport(projectSettings, continueOnProjectInfo, projectName);
-          await tCore.launchTool("Word Alignment");
-          await app.client.pause(6000);
-          await tCore.navigateDialog(TCORE.groupMenu.header);
+          await tCore.launchWordAlignment();
           utils.testFinished();
         });
 
@@ -208,6 +207,8 @@ describe('WA Tests', () => {
               }
             }
 
+            await tCore.makeSureExpandedScripturePaneIsClosed();
+
             let averageVerseEditTime = ((new Date()) - chapterStartTime) / 1000 / verseCount;
             log("Chapter " + chapter + " finished, Number of verses= " + verseCount);
             log("Average verse edit time " + round1(averageVerseEditTime) + " seconds");
@@ -227,12 +228,12 @@ describe('WA Tests', () => {
           // const logs = await app.client.getRenderProcessLogs();
           // log("Logs:\n" + JSON.stringify(logs, null, 2));
           const visible = await tCore.makeSureExpandedScripturePaneIsClosed();
-          if (visible && closeOnEachEdit) {
+          if (visible) {
             log("Expanded Scripture Pane left up");
           }
-          await tCore.setToProjectPage(true);
-          await app.client.pause(6000);
-          utils.testFinished();
+          await tCore.setToProjectPage();
+          await app.client.pause(500);
+          utils.testFinished(!visible);
         });
       });
     }

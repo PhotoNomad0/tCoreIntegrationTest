@@ -508,7 +508,13 @@ const DEFINITIONS = {
     paneN: function(pos) {
       return {
         id: "Scripture Pane " + pos,
-        selector: "div.pane-container:nth-child(" + pos + ")"
+        selector: "div.pane-container:nth-child(" + pos + ")",
+      };
+    },
+    closeN: function(pos) {
+      return {
+        id: "Scripture Pane " + pos,
+        selector: "div.pane-container:nth-child(" + pos + ") > div.pane-title-container > span"
       };
     },
   },

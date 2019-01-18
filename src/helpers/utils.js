@@ -289,7 +289,7 @@ async function afterEachTest(testCleanup_ = true) {
     message = "#### Test # " + testCount + " did not finish ####\n- " + testName;
     failedTests.push(testCount + ": " + testName);
   } else {
-    message = "Test " + testCount + " Ended Successfully: " + testName;
+    message = "Test # " + testCount + " Ended Successfully: " + testName;
   }
   log(message);
   log(message, 0);

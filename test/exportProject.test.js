@@ -60,11 +60,9 @@ describe('Project export Tests', () => {
       });
 
       it('should succeed to open WA after import', async () => { // make sure project WA is up to date
-        await tCore.setToToolPage(false);
-        await tCore.launchTool("Word Alignment");
-        await app.client.pause(6000);
-        await tCore.navigateDialog(TCORE.groupMenu.header);
-        await tCore.setToProjectPage(true);
+        await tCore.setToToolPage();
+        await tCore.launchWordAlignment();
+        await tCore.setToProjectPage();
         await app.client.pause(2000);
         utils.testFinished();
       });
@@ -148,21 +146,17 @@ describe('Project export Tests', () => {
       });
 
       it('should succeed to open WA after overwrite', async () => {
-        await tCore.setToToolPage(false);
-        await tCore.launchTool("Word Alignment");
-        await app.client.pause(6000);
-        await tCore.navigateDialog(TCORE.groupMenu.header);
-        await tCore.setToProjectPage(true);
+        await tCore.setToToolPage();
+        await tCore.launchWordAlignment();
+        await tCore.setToProjectPage();
         await app.client.pause(2000);
         utils.testFinished();
       });
 
       it('should succeed to open tW after overwrite', async () => {
-        await tCore.setToToolPage(false);
-        await tCore.launchTool("translationWords");
-        await app.client.pause(6000);
-        await tCore.navigateDialog(TCORE.groupMenu.header);
-        await tCore.setToProjectPage(true);
+        await tCore.setToToolPage();
+        await tCore.launchTranslationWords();
+        await tCore.setToProjectPage();
         await app.client.pause(2000);
         utils.testFinished();
       });
@@ -174,21 +168,17 @@ describe('Project export Tests', () => {
       });
 
       it('should succeed to open WA after CSV export', async () => {
-        await tCore.setToToolPage(false);
-        await tCore.launchTool("Word Alignment");
-        await app.client.pause(6000);
-        await tCore.navigateDialog(TCORE.groupMenu.header);
-        await tCore.setToProjectPage(true);
+        await tCore.setToToolPage();
+        await tCore.launchWordAlignment();
+        await tCore.setToProjectPage();
         await app.client.pause(2000);
         utils.testFinished();
       });
 
       it('should succeed to open tW after CSV export', async () => {
-        await tCore.setToToolPage(false);
-        await tCore.launchTool("translationWords");
-        await app.client.pause(6000);
-        await tCore.navigateDialog(TCORE.groupMenu.header);
-        await tCore.setToProjectPage(true);
+        await tCore.setToToolPage();
+        await tCore.launchTranslationWords();
+        await tCore.setToProjectPage();
         await app.client.pause(2000);
         utils.testFinished();
       });
