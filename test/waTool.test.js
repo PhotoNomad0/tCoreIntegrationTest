@@ -32,7 +32,49 @@ describe('WA Tests', () => {
     await utils.afterAll();
   });
 
-  describe('WA Edit Tests', () => {
+  describe('Scripture Pane testing', () => {
+    const bookId = "jud", importFile = '66-JUD.usfm';
+    const {chapters, bookName} = utils.getBibleData(bookId);
+
+    it('does USFM import of ' + bookId + ' and opens WA', async () => {
+      log("Loading '" + importFile + "' for testing");
+      const newTargetLangId = 'zttt';
+      const languageId = "en";
+      const continueOnProjectInfo = true;
+      const projectSettings = {
+        importPath: path.join(TEST_FILE_PATH, importFile),
+        license: 'ccShareAlike',
+        bookName: bookName,
+        newTargetLangId,
+        newLanguageId: languageId
+      };
+      assert.ok(chapters);
+      const projectName = `${languageId}_${newTargetLangId}_${bookId}_book`;
+      await tCore.doLocalProjectImport(projectSettings, continueOnProjectInfo, projectName);
+      await tCore.launchTool("Word Alignment");
+      await app.client.pause(6000);
+      await tCore.navigateDialog(TCORE.groupMenu.header);
+      utils.testFinished();
+    });
+
+    it('test Scripture Pane', async () => {
+      let success = true;
+      await tCore.navigateRetry(TCORE.toolScripturePane);
+      const panesCount = await tCore.getChildIndices(TCORE.toolScripturePane.panes);
+      // log("Found " + panesCount.length + " panes in Scripture Panes");
+      for (let i = 1, len = panesCount.length; i <= len; i++) {
+        const paneText = await tCore.getText(TCORE.toolScripturePane.paneN(i));
+        log("Pane " + i + ": " + paneText);
+      }
+      success = success && await tCore.validateScripturePane();
+      await tCore.clickOnRetry(TCORE.wordAlignment.expandScripturePane);
+      await app.client.pause(500);
+      utils.testFinished(success);
+    });
+    
+  });
+
+  describe('Edit Tests', () => {
     const sources = [
       { bookId: "jud", importFile: '66-JUD.usfm' },
       { bookId: "tit", importFile: 'hi_test_tit.usfm' },
@@ -79,7 +121,7 @@ describe('WA Tests', () => {
             log("Test run " + testNum + ", importFile '" + importFile + "'");
             chapterCount++;
             let success = true;
-            await makeSureExpandedScripturePaneIsClosed();
+            await tCore.makeSureExpandedScripturePaneIsClosed();
             assert.ok(chapters);
             const verseCount = chapters[chapter];
             verseAttemptedCount += verseCount;
@@ -184,7 +226,7 @@ describe('WA Tests', () => {
           log("Test run '" + testNum + ", closing importFile '" + importFile + "'");
           // const logs = await app.client.getRenderProcessLogs();
           // log("Logs:\n" + JSON.stringify(logs, null, 2));
-          const visible = await makeSureExpandedScripturePaneIsClosed();
+          const visible = await tCore.makeSureExpandedScripturePaneIsClosed();
           if (visible && closeOnEachEdit) {
             log("Expanded Scripture Pane left up");
           }
@@ -201,10 +243,17 @@ describe('WA Tests', () => {
 // helpers
 //
 
-async function getElementCenter(sourceCard, name) {
-  let location = await app.client.getLocation(sourceCard.selector);
+/**
+ * finds the center coordinates of an element
+ * @param {Object} elementObj - item to use
+ * @param {String} name - optional name to use
+ * @return {Promise<{x: number, y: number}>}
+ */
+async function getElementCenter(elementObj, name = null) {
+  name = name || tCore.elementDescription(elementObj);
+  let location = await app.client.getLocation(elementObj.selector);
   log(name + " Location: " + JSON.stringify(location));
-  let size = await app.client.getElementSize(sourceCard.selector);
+  let size = await app.client.getElementSize(elementObj.selector);
   log(name + " Size: " + JSON.stringify(size));
   return { x: Math.round(location.x + size.width/2), y:  Math.round(location.y + size.height/2) };
 }
@@ -257,21 +306,6 @@ async function dragWordsToAlignment(sourceItems, destinationItem) {
   // await app.client.touchUp(dropLocation.x, dropLocation.y);
 
   await app.client.dragAndDrop(sourceCard.selector, alignmentTarget.selector);
-}
-
-async function makeSureExpandedScripturePaneIsClosed() {
-  const visible = await app.client.isVisible(TCORE.expandedScripturePane.selector);
-  if (visible) {
-    log("Expanded Scripture Pane left up");
-    const visibleEditor = await app.client.isVisible(TCORE.verseEditor.cancel.selector);
-    if (visibleEditor) {
-      log("verse editor open, closing");
-      await tCore.clickOnRetry(TCORE.verseEditor.cancel);
-    }
-    log("closing Expanded Scripture Pane");
-    await tCore.clickOnRetry(TCORE.expandedScripturePane.close);
-  }
-  return visible;
 }
 
 function round1(value) {

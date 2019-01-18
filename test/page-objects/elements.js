@@ -498,6 +498,20 @@ const DEFINITIONS = {
       };
     },
   },
+  toolScripturePane: {
+    id: "Scripture Pane Container",
+    selector: "div.panes-container",
+    panes: {
+      id: "Scripture Panes",
+      selector: "div.pane-container"
+    },
+    paneN: function(pos) {
+      return {
+        id: "Scripture Pane " + pos,
+        selector: "div.pane-container:nth-child(" + pos + ")"
+      };
+    },
+  },
   toolsList: {
     id: "Tool Cards",
     selector: "#content > div > div.container-fluid > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(2) > div > div > div > div",

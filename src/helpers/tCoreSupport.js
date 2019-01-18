@@ -745,6 +745,8 @@ async function dismissDialogIfPresent(elementObj, prompt = null, acknowledgeButt
  */
 async function dismissOldDialogs(finished) {
   let leftOversFound = false;
+
+  leftOversFound = leftOversFound || await makeSureExpandedScripturePaneIsClosed();
   
   let dialogPresent = await dismissDialogIfPresent(TCORE.copyrightDialog,
     null, TCORE.copyrightDialog.cancel);
@@ -776,9 +778,77 @@ async function dismissOldDialogs(finished) {
       message = "#### Leftover Dialog found and dismissed ####";
     }
     log(message);
-    log(message, 0);
+    log(message, 0); // add to overall test results
   }
   return leftOversFound;
+}
+
+/**
+ * close up scripture pane
+ * @return {Promise<void>}
+ */
+async function makeSureExpandedScripturePaneIsClosed() {
+  const visible = await app.client.isVisible(TCORE.expandedScripturePane.selector);
+  if (visible) {
+    log("Expanded Scripture Pane left up");
+    const visibleEditor = await app.client.isVisible(TCORE.verseEditor.cancel.selector);
+    if (visibleEditor) {
+      log("verse editor open, closing");
+      await clickOnRetry(TCORE.verseEditor.cancel);
+    }
+    log("closing Expanded Scripture Pane");
+    await clickOnRetry(TCORE.expandedScripturePane.close);
+  }
+  return visible;
+}
+
+/**
+ * returns array of Header text for the scripture panes
+ * @return {Promise<Array>}
+ */
+async function getScripturePaneHeaders() {
+  const panesCount = await getChildIndices(TCORE.toolScripturePane.panes);
+  // log("Found " + panesCount.length + " panes in Scripture Panes");
+  const len = panesCount.length;
+  const headers = [];
+  for (let i = 1; i <= len; i++) {
+    const paneText = await getText(TCORE.toolScripturePane.paneN(i));
+    let split = paneText.split('\n');
+    split = split.slice(0, 2);
+    const header = split.join('\n');
+    headers.push(header);
+    log("Pane " + i + ": " + split.join(" :: "));
+  }
+  return headers;
+}
+
+/**
+ * makes sure scripture pane has required panes
+ * @return {Promise<boolean>}
+ */
+async function validateScripturePane() {
+  let success = true;
+  const name = elementDescription(TCORE.toolScripturePane);
+  try {
+    await navigateRetry(TCORE.toolScripturePane);
+    const headers = await getScripturePaneHeaders();
+    if (headers.length < 2) {
+      log("Failed, should be at least 2 panes but only " + headers.length + " panes found");
+      success = false;
+    }
+    const requiredPanes = ["Target Language", "Original Language"];
+    for (let matchText of requiredPanes) {
+      const found = headers.find(header => (header.includes(matchText)));
+      if (!found) {
+        log("Could not find " + matchText);
+        success = false;
+      }
+    }
+  } catch(e) {
+    log(name + " validation failed");
+    success = false;
+  }
+  return success;
 }
 
 async function navigateImportResults(continueOnProjectInfo, projectInfoSettings, projectName) {
@@ -904,11 +974,11 @@ function indexInSearchResults(searchResults, match, column = 0) {
  * returns array of indices of an elements children.  Not sure why this is preferred.  Is it 
  *      possible that there could be a sparse array returned?
  * @param elementObj
- * @return {Promise<number[]>}
+ * @return {Promise<number[]>} - an array of indices for each element found
  */
 async function getChildIndices(elementObj) {
   const elements = await app.client.$$(elementObj.selector);
-  const childIndexesArray = Array.from(Array(elements.length + 1).keys()).splice(1);
+  const childIndexesArray = Array.from(Array(elements.length + 1).keys()).splice(1); // this is from an example - strange algorithm, but it works
   log("Found " + childIndexesArray.length + " for " + elementDescription(elementObj));
   return childIndexesArray;
 }
@@ -953,6 +1023,11 @@ function getLogFilePath(test = -1) {
   return `./logging/log${testNum}.txt`;
 }
 
+/**
+ * adds log entry to log file for current test as well as console
+ * @param {String} text
+ * @param {Number} testNum - if given, then will write to specific test log file
+ */
 function log(text, testNum = -1) {
   if (!disableLog) {
     const output = (new Date().toUTCString()) + ": " + text;
@@ -1022,6 +1097,13 @@ function elementDescription(elementObj) {
   return (elementObj.id || elementObj.text || elementObj.selector);
 }
 
+/**
+ * click on element, with retries
+ * @param {Object} elementObj - item to click on
+ * @param {Number} count - maximum number of retries
+ * @param {Number} delay - time to wait between retries
+ * @return {Promise<void>}
+ */
 async function clickOnRetry(elementObj, count = 10, delay = 500) {
   await retryStep(count, async () => {
     await clickOn(elementObj);
@@ -1029,6 +1111,13 @@ async function clickOnRetry(elementObj, count = 10, delay = 500) {
   delay);
 }
 
+/**
+ * makes sure the dialog is visible, with retries
+ * @param {Object} elementObj - item to use
+ * @param {Number} count - maximum number of retries
+ * @param {Number} delay - time to wait between retries
+ * @return {Promise<void>}
+ */
 async function navigateRetry(elementObj, count = 20, delay = 500) {
   let success = false;
   const name = elementDescription(elementObj);
@@ -1859,6 +1948,7 @@ const tCoreSupport = {
   launchTranslationWords,
   log,
   logVersion,
+  makeSureExpandedScripturePaneIsClosed,
   makeTwSelection,
   mockDialogPath,
   navigateCopyrightDialog,
@@ -1885,6 +1975,7 @@ const tCoreSupport = {
   startTcore,
   unzipTestProjectIntoProjects,
   validateManifestVersion,
+  validateScripturePane,
   verifyOnSpecificPage,
   verifyProjectInfoDialog,
   verifyText,

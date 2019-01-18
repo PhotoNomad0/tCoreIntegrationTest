@@ -286,7 +286,7 @@ async function afterEachTest(testCleanup_ = true) {
   await logMemoryUsage();
   let message = "";
   if (!finished) {
-    message = "#### Test " + testCount + " did not finish ####\n- " + testName;
+    message = "#### Test # " + testCount + " did not finish ####\n- " + testName;
     failedTests.push(testCount + ": " + testName);
   } else {
     message = "Test " + testCount + " Ended Successfully: " + testName;
