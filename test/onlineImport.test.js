@@ -8,7 +8,8 @@ let app;
 const testCount = 1; // number of time to repeat import tests
 
 describe('Online Import Tests', () => {
-
+  const expectedUser = "photonomad1";
+  
   before(async () => {
     app = await utils.beforeAll();
   });
@@ -25,6 +26,44 @@ describe('Online Import Tests', () => {
     await utils.afterAll();
   });
   
+  describe('DCS Rename Tests', () => {
+    it('do online import access cancel', async () => {
+      const success = await verifyUserName(expectedUser, true);
+
+      const searchConfig = {
+        user: 'tCore-test-data',
+        languageID: 'fr',
+        bookID: "tit",
+        import: false,
+        search: true,
+        cancel: false
+      };
+      const results = await doOnlineSearch(searchConfig);
+      const availableTypes = getUnusedIdentifiers(results.searchResults, 2);
+      log("availableTypes: " + JSON.stringify(availableTypes, null, 2));
+      utils.testFinished();
+    });
+
+    it('online import tc-desktop should succeed https://git.door43.org/tCore-test-data/fr_test_tit_book', async () => {
+      const sourceProject = "https://git.door43.org/tCore-test-data/fr_test_tit_book";
+      const languageId = "fr";
+      const bookId = "tit";
+      const projectInfoSettings = {
+        languageName: "français",
+        languageId,
+        resourceId: "Unlocked Literal Bible",
+        targetLangId: "test",
+        languageDirectionLtr: true,
+        bookName: "Titus (tit)",
+        noRename: true
+      };
+      const continueOnProjectInfo = true;
+      const projectName = `${languageId}_${projectInfoSettings.targetLangId}_${bookId}_book`;
+      await tCore.doOnlineProjectImport(projectName, sourceProject, continueOnProjectInfo, projectInfoSettings);
+    });
+    
+  });
+
   describe('Misc. Tests', () => {
     it('do online import access cancel', async () => {
       await tCore.setToProjectPage();
@@ -36,45 +75,18 @@ describe('Online Import Tests', () => {
     });
 
     it('do online search', async () => {
-      let searchResults;
-      await tCore.setToProjectPage();
-      await tCore.openImportDialog(TCORE.importTypeOptions.online);
-      await tCore.navigateDialog(TCORE.onlineAccessDialog, 'access_internet');
-
-      // get initial results
-      const importConfigInitial = {
-        import: false,
-        waitForInitialSearchCompletion: true
-      };
-      await tCore.navigateOnlineImportDialog(importConfigInitial);
-      // searchResults = await getSearchResults();
-      // log("searchResults: " + JSON.stringify(searchResults, null, 2));
-
-      // do search
-      const importConfig = {
+      const searchConfig = {
         user: 'tCore-test-data',
         languageID: 'fr',
+        bookID: "tit",
         import: false,
-        search: true
+        search: true,
+        select: 'fr_ulb_tit_book',
+        cancel: true
       };
-      await tCore.navigateOnlineImportDialog(importConfig);
-      searchResults = await tCore.getSearchResults();
-      log("searchResults: " + JSON.stringify(searchResults, null, 2));
-      const projectName = "fr_ulb_tit_book";
-      const index = tCore.indexInSearchResults(searchResults, projectName);
-      const success = (index >= 0);
-      if (success) {
-        await tCore.selectSearchItem(index, 'https://git.door43.org/tCore-test-data/fr_ulb_tit_book');
-
-        searchResults = await tCore.getSearchResults();
-        // log("searchResults: " + JSON.stringify(searchResults, null, 2));
-
-        await tCore.navigateDialog(TCORE.onlineImportDialog, 'cancel');
-        await tCore.verifyOnSpecificPage(TCORE.projectsPage);
-      } else {
-        log("Could not find project " + projectName);
-      }
-      utils.testFinished(success);
+      const results = await doOnlineSearch(searchConfig);
+      log("searchResults: " + JSON.stringify(results.searchResults, null, 2));
+      utils.testFinished(results.success);
     });
 
     it('do online import with cancel on Project Info', async () => {
@@ -513,6 +525,111 @@ describe('Online Import Tests', () => {
 //
 // helpers
 //
+
+/**
+ * finds identifiers that don't match current repos
+ * @param {Array} searchResults
+ * @param {Number} count - how many identifiers needed
+ * @return {Array}
+ */
+function getUnusedIdentifiers(searchResults, count) {
+  log("searchResults: " + JSON.stringify(searchResults, null, 2));
+  const availableTypes = [];
+  for (let i = 100; i < 400; i++) {
+    const newTargetLangId = utils.generateTargetLanguageID(i);
+    let matchFound = false;
+    for (let repo of searchResults) {
+      const repoName = repo[0];
+      const split = repoName.split('_');
+      const match = split.find(part => (part.toLowerCase() === newTargetLangId));
+      if (match) {
+        matchFound = true;
+        break;
+      }
+    }
+    if (!matchFound) {
+      availableTypes.push(newTargetLangId);
+    }
+    if (availableTypes.length >= count) {
+      break;
+    }
+  }
+  return availableTypes;
+}
+
+/**
+ * do online search
+ * @param {Object} searchConfig
+ * @return {Promise<{success: boolean, searchResults: Array, url: String}>}
+ */
+async function doOnlineSearch(searchConfig) {
+  let searchResults = null;
+  let success = false;
+  let url = null;
+  await tCore.setToProjectPage();
+  await tCore.openImportDialog(TCORE.importTypeOptions.online);
+  await tCore.navigateDialog(TCORE.onlineAccessDialog, 'access_internet');
+
+  // get initial results
+  const importConfigInitial = {
+    import: false,
+    waitForInitialSearchCompletion: true
+  };
+  
+  // save flags for later
+  const doImport = searchConfig.import; 
+  delete searchConfig.import;
+  const doCancel = searchConfig.cancel;
+  delete searchConfig.cancel;
+
+  // do search
+  await tCore.navigateOnlineImportDialog(searchConfig);
+  searchResults = await tCore.getSearchResults();
+  log("searchResults: " + JSON.stringify(searchResults, null, 2));
+  if (searchConfig.select) {
+    const index = tCore.indexInSearchResults(searchResults, searchConfig.select);
+    success = (index >= 0);
+    if (success) {
+      if (searchConfig.select) {
+        await tCore.selectSearchItem(index);
+        await app.client.pause(500);
+        url = await tCore.getValue(TCORE.onlineImportDialog.enterURL);
+      }
+    } else {
+      log("Could not find project " + searchConfig.select);
+    }
+  } else {
+    success = true;
+  }
+  if (doImport) {
+    await tCore.navigateDialog(TCORE.onlineImportDialog, 'import', false);
+    await tCore.navigateDialog(TCORE.onlineAccessDialog, 'access_internet');
+  } else if (doCancel) {
+    await tCore.navigateDialog(TCORE.onlineImportDialog, 'cancel');
+    await tCore.verifyOnSpecificPage(TCORE.projectsPage);
+  }
+  return {searchResults, success, url};
+}
+
+/**
+ * make sure we are using correct user
+ * @param {String} expectedUser
+ * @param {Boolean} throwException - if true will throw expection if current user is not expectedUser
+ * @return {Promise<boolean>} true if correct user
+ */
+async function verifyUserName(expectedUser, throwException = true) {
+  const currentUser = await tCore.getText(TCORE.userNavigation);
+  const success = (expectedUser === currentUser);
+  if (!success) {
+    const message = "Configured user should be '" + expectedUser + "' not '" + currentUser + "'\nEither login as '" +
+      expectedUser + "' or change test to use '" + currentUser + "'";
+    log(message);
+    if (throwException) {
+      throw(message);
+    }
+  }
+  return success;
+}
 
 function log(text) {
   utils.log(text);

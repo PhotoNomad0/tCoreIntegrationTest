@@ -211,7 +211,7 @@ function promiseTimeout(ms, promise){
 // }
 
 /**
- * set value in input
+ * set value in an input element
  * @param {Object} elementObj - item to set
  * @param {string} text
  * @return {Promise<void>}
@@ -313,7 +313,7 @@ async function getHtml(elementObj, outerHtml = false, delay = 0, catchError = fa
 }
 
 /**
- * read current value in element
+ * read current value in an input element
  * @param {Object} elementObj - item to read
  * @param {Number} delay - optional time to wait before reading
  * @return {Promise<*>}
@@ -487,6 +487,18 @@ async function navigateOnlineImportDialog(importConfig) {
   }
   if (importConfig.languageID) {
     await setValue(TCORE.onlineImportDialog.languageID, importConfig.languageID);
+  }
+  if (importConfig.bookID) {
+    await clickOnRetry(TCORE.onlineImportDialog.bookDropDownButton);
+    await app.client.pause(500);
+    const bookNames = await getText(TCORE.onlineImportDialog.bookMenuItems);
+    log("Books: " + JSON.stringify(bookNames, null, 2));
+    const matchBook = "(" + importConfig.bookID + ")";
+    const bookItemPos = bookNames.findIndex(title => (title.includes(matchBook)));
+    log("bookItemPos: " + bookItemPos);
+    if (bookItemPos >= 0) {
+      await clickOnRetry(TCORE.onlineImportDialog.bookMenuItemN(bookItemPos+1));
+    }
   }
   if (importConfig.search) {
     await navigateDialog(TCORE.onlineImportDialog, 'search');
@@ -1001,13 +1013,18 @@ async function getSearchResults() {
   log("Getting Search Results:");
   const childIndexesArray = await getChildIndices(TCORE.onlineImportDialog.searchResults);
   // log("childIndexesArray: " + JSON.stringify(childIndexesArray));
-  const searchResults = [];
+  let searchResults = [];
   for (let item of childIndexesArray) {
     // log("item: " + item);
     const searchResultN = TCORE.onlineImportDialog.searchResultN(item);
     const text = await getText(searchResultN);
     const params = parseSearchResult(text);
     searchResults.push(params);
+  }
+  if ((searchResults.length === 1) && (searchResults[0].length === 1)) {
+    if (searchResults[0][0] === "No project matching your search criteria was found.") {
+      searchResults = []; // if just empty marker, then return empty array
+    }
   }
   return searchResults;
 }
@@ -1018,8 +1035,15 @@ async function selectSearchItem(index, verifyText) {
   const clickOnCheckbox = TCORE.onlineImportDialog.searchResultCheckBoxN(index);
   await clickOn(clickOnCheckbox);
   if (verifyText) {
-    log('verifying selected URL "' + verifyText + '"');
-    await waitForValue(TCORE.onlineImportDialog.enterURL, verifyText);
+    log('verifying selected URL equals "' + verifyText + '"');
+    try {
+      await waitForValue(TCORE.onlineImportDialog.enterURL, verifyText);
+    } catch(e) {
+      log("Verify failed");
+      const value = await getValue(TCORE.onlineImportDialog.enterURL);
+      log('But current URL equals "' + value + '"');
+      throw(e);
+    }
   }
 }
 

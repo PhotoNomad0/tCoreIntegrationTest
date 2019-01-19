@@ -320,6 +320,19 @@ const DEFINITIONS = {
       selector: "body > div:nth-child(11) > div > div:nth-child(1) > div > div > div:nth-child(1) > div:nth-child(5) > div > div:nth-child(2) > input[type=\"text\"]",
       id: "Language ID"
     },
+    bookMenuItemN: function(pos) {
+      return {
+        selector: "body > div:nth-child(12) > div > div > div > div:nth-child(" + pos + ") > span",
+        id: "Book Name " + pos
+      };
+    },
+    bookMenuItems: {
+      selector: "body > div:nth-child(12) > div > div > div > div",
+      id: "Book Names"
+    },
+    bookDropDownButton: {
+      selector: "body > div:nth-child(11) > div > div:nth-child(1) > div > div > div:nth-child(1) > div:nth-child(5) > div > div:nth-child(3) > div button"
+    },
     enterURL: {
       selector: "body > div:nth-child(11) > div > div:nth-child(1) > div > div > div:nth-child(1) > div:nth-child(4) > div > input[type=\"text\"]",
       id: "Enter URL"
@@ -456,7 +469,7 @@ const DEFINITIONS = {
   },
   toolsPage: {
     selector: "#content > div > div.container-fluid > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(1) > div > div > div > div > div",
-    text: "Select a tool and a gateway language from the list.\nIn this version of translationCore, the translationWords tool and the Word Alignment tool support New Testament projects.",
+    text: "Select a tool and a gateway language from the list.\nIn this version of translationCore, the translationWords tool supports projects from the New Testament and the Word Alignment tool supports projects from the whole Bible.",
     id: "Tools Page"
   },
   projectsPage: {
