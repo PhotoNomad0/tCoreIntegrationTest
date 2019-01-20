@@ -913,6 +913,44 @@ async function navigateImportResults(continueOnProjectInfo, projectInfoSettings,
   }
 }
 
+/**
+ * does the second half of import
+ * @param {Object} projectSettings
+ * @param {Boolean} continueOnProjectInfo
+ * @param {String} projectName
+ * @return {Promise<void>}
+ */
+async function doNavigateImport(projectSettings, continueOnProjectInfo, projectName) {
+// navigate project information dialog
+  const projectInfoConfig = {
+    ...projectSettings,
+    continue: continueOnProjectInfo
+  };
+
+  if (!projectSettings.noProjectInfoDialog) {
+    await delayWhileWaitDialogShown();
+    await navigateProjectInfoDialog(projectInfoConfig);
+  }
+
+  if (projectSettings.mergeConflicts) {
+    await navigateMergeConflictDialog({continue: true});
+  }
+
+  if (projectSettings.missingVerses) {
+    await navigateMissingVersesDialog({continue: true});
+  }
+
+  await navigateImportResults(continueOnProjectInfo, projectSettings, projectName);
+}
+
+/**
+ * navigates through the whole online import process
+ * @param {String} projectName
+ * @param {String} sourceProject - URL of project to import
+ * @param {Boolean} continueOnProjectInfo
+ * @param {Object} projectSettings
+ * @return {Promise<void>}
+ */
 async function doOnlineProjectImport(projectName, sourceProject, continueOnProjectInfo, projectSettings) {
   projectRemoval(projectName, projectSettings.noProjectRemoval);
   await setToProjectPage();
@@ -927,7 +965,7 @@ async function doOnlineProjectImport(projectName, sourceProject, continueOnProje
     search: false
   };
   await navigateOnlineImportDialog(importConfig);
-  
+
   if (projectSettings.preProjectInfoErrorMessage) {
     await delayWhileWaitDialogShown();
     const importErrorDialog = _.cloneDeep(TCORE.importErrorDialog);
@@ -935,30 +973,58 @@ async function doOnlineProjectImport(projectName, sourceProject, continueOnProje
     await waitForDialog(TCORE.importErrorDialog);
     await navigateGeneralDialog(importErrorDialog, 'ok');
     await verifyOnSpecificPage(TCORE.projectsPage);
-    return;
+  } else {
+    await doNavigateImport(projectSettings, continueOnProjectInfo, projectName);
   }
+}
 
-  // navigate project information dialog
-  const projectInfoConfig = {
-    ...projectSettings,
-    continue: continueOnProjectInfo
-  };
-  
-  if (!projectSettings.noProjectInfoDialog) {
-    await delayWhileWaitDialogShown();
-    await navigateProjectInfoDialog(projectInfoConfig);
+/**
+ * do online search
+ * @param {Object} searchConfig
+ * @return {Promise<{success: boolean, searchResults: Array, url: String}>}
+ */
+async function doOnlineSearch(searchConfig) {
+  let searchResults = null;
+  let success = false;
+  let url = null;
+  await setToProjectPage();
+  await openImportDialog(TCORE.importTypeOptions.online);
+  await navigateDialog(TCORE.onlineAccessDialog, 'access_internet');
+
+  // save flags for later
+  const doImport = searchConfig.import;
+  delete searchConfig.import;
+  const doCancel = searchConfig.cancel;
+  delete searchConfig.cancel;
+
+  // do search
+  await navigateOnlineImportDialog(searchConfig);
+  searchResults = await getSearchResults();
+  log("searchResults: " + JSON.stringify(searchResults, null, 2));
+  if (searchConfig.select) {
+    const index = indexInSearchResults(searchResults, searchConfig.select);
+    success = (index >= 0);
+    if (success) {
+      if (searchConfig.select) {
+        await selectSearchItem(index);
+        await app.client.pause(500);
+        url = await getValue(TCORE.onlineImportDialog.enterURL);
+      }
+    } else {
+      log("Could not find project " + searchConfig.select);
+    }
+  } else {
+    success = true;
   }
-
-  if (projectSettings.mergeConflicts) {
-    await navigateMergeConflictDialog({continue: true});
+  if (doImport) {
+    await navigateDialog(TCORE.onlineImportDialog, 'import', false);
+    await navigateDialog(TCORE.onlineAccessDialog, 'access_internet');
+    await doNavigateImport(searchConfig, true, searchConfig.newProjectName);
+  } else if (doCancel) {
+    await navigateDialog(TCORE.onlineImportDialog, 'cancel');
+    await verifyOnSpecificPage(TCORE.projectsPage);
   }
-
-  if (projectSettings.missingVerses) {
-    await navigateMissingVersesDialog({ continue: true});
-  }
-
-  await navigateImportResults(continueOnProjectInfo, projectSettings, projectName);
-  // fs.removeSync(projectPath); // TODO: cannot remove until deselected
+  return {searchResults, success, url};
 }
 
 function parseSearchResult(text) {
@@ -1829,17 +1895,17 @@ async function clickAtPositionInElement(elementObj, position, clickType = CLICK_
     log(clickType + " clicking on '" + id + "' at (x=" + x + ", y=" + y + ")");
     try {
       switch (clickType) {
-        case CLICK_TYPES.LEFT_CLICK:
-          await app.client.leftClick(elementObj.selector, x, y);
-          break;
-          
-        case CLICK_TYPES.RIGHT_CLICK:
-          await app.client.rightClick(elementObj.selector, x, y);
-          break;
-          
-        default:
-          await app.client.moveToObject(elementObj.selector, x, y).doDoubleClick();
-          break;
+      case CLICK_TYPES.LEFT_CLICK:
+        await app.client.leftClick(elementObj.selector, x, y);
+        break;
+        
+      case CLICK_TYPES.RIGHT_CLICK:
+        await app.client.rightClick(elementObj.selector, x, y);
+        break;
+        
+      default:
+        await app.client.moveToObject(elementObj.selector, x, y).doDoubleClick();
+        break;
       }
     } catch (e) {
       log(id + ": error thrown: " + getSafeErrorMessage(e));
@@ -1964,6 +2030,8 @@ const tCoreSupport = {
   doExportToCsv,
   doExportToUsfm,
   doLocalProjectImport,
+  doNavigateImport,
+  doOnlineSearch,
   doOnlineProjectImport,
   doOpenProject,
   elementDescription,

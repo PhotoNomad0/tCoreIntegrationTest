@@ -38,7 +38,7 @@ describe('Online Import Tests', () => {
         search: true,
         cancel: false
       };
-      const results = await doOnlineSearch(searchConfig);
+      const results = await tCore.doOnlineSearch(searchConfig);
       const availableTypes = getUnusedIdentifiers(results.searchResults, 2);
       log("availableTypes: " + JSON.stringify(availableTypes, null, 2));
       utils.testFinished();
@@ -84,7 +84,7 @@ describe('Online Import Tests', () => {
         select: 'fr_ulb_tit_book',
         cancel: true
       };
-      const results = await doOnlineSearch(searchConfig);
+      const results = await tCore.doOnlineSearch(searchConfig);
       log("searchResults: " + JSON.stringify(results.searchResults, null, 2));
       utils.testFinished(results.success);
     });
@@ -555,60 +555,6 @@ function getUnusedIdentifiers(searchResults, count) {
     }
   }
   return availableTypes;
-}
-
-/**
- * do online search
- * @param {Object} searchConfig
- * @return {Promise<{success: boolean, searchResults: Array, url: String}>}
- */
-async function doOnlineSearch(searchConfig) {
-  let searchResults = null;
-  let success = false;
-  let url = null;
-  await tCore.setToProjectPage();
-  await tCore.openImportDialog(TCORE.importTypeOptions.online);
-  await tCore.navigateDialog(TCORE.onlineAccessDialog, 'access_internet');
-
-  // get initial results
-  const importConfigInitial = {
-    import: false,
-    waitForInitialSearchCompletion: true
-  };
-  
-  // save flags for later
-  const doImport = searchConfig.import; 
-  delete searchConfig.import;
-  const doCancel = searchConfig.cancel;
-  delete searchConfig.cancel;
-
-  // do search
-  await tCore.navigateOnlineImportDialog(searchConfig);
-  searchResults = await tCore.getSearchResults();
-  log("searchResults: " + JSON.stringify(searchResults, null, 2));
-  if (searchConfig.select) {
-    const index = tCore.indexInSearchResults(searchResults, searchConfig.select);
-    success = (index >= 0);
-    if (success) {
-      if (searchConfig.select) {
-        await tCore.selectSearchItem(index);
-        await app.client.pause(500);
-        url = await tCore.getValue(TCORE.onlineImportDialog.enterURL);
-      }
-    } else {
-      log("Could not find project " + searchConfig.select);
-    }
-  } else {
-    success = true;
-  }
-  if (doImport) {
-    await tCore.navigateDialog(TCORE.onlineImportDialog, 'import', false);
-    await tCore.navigateDialog(TCORE.onlineAccessDialog, 'access_internet');
-  } else if (doCancel) {
-    await tCore.navigateDialog(TCORE.onlineImportDialog, 'cancel');
-    await tCore.verifyOnSpecificPage(TCORE.projectsPage);
-  }
-  return {searchResults, success, url};
 }
 
 /**
