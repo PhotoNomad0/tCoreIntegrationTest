@@ -904,6 +904,14 @@ async function navigateImportResults(continueOnProjectInfo, projectInfoSettings,
         // const prompt = await getText(TCORE.alignmentsResetDialog.prompt);
         await verifyText(TCORE.alignmentsResetDialog.prompt, TCORE.alignmentsResetDialog.prompt.text);
         await navigateDialog(TCORE.alignmentsResetDialog, 'ok');
+      } 
+      if (projectInfoSettings.dcsRename) {
+        log("Navigating DCS Rename");
+        const renamedDialogConfig = _.cloneDeep(TCORE.renameOnDcsDialog);
+        renamedDialogConfig.prompt.text = TCORE.renameOnDcsDialog.prompt.matchingText(projectName);
+        await waitForDialogRetry(renamedDialogConfig);
+        await verifyText(renamedDialogConfig.prompt, renamedDialogConfig.prompt.text);
+        await navigateDialog(renamedDialogConfig, 'rename');
       }
     }
     await verifyOnSpecificPage(TCORE.toolsPage);

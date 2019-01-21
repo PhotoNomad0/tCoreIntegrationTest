@@ -90,6 +90,7 @@ describe('Online Import Tests', () => {
         newTargetLangId,
         sourceProject,
         brokenAlignments: true,
+        dcsRename: true,
         import: true
       };
       const continueOnProjectInfo = true;

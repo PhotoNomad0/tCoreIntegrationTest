@@ -156,6 +156,30 @@ const DEFINITIONS = {
       text: "Overwrite Project"
     }
   },
+  renameOnDcsDialog: {
+    ...TEMPLATES.generalAlertDialog,
+    id: "Rename DCS Dialog",
+    title: {
+      selector: TEMPLATES.generalAlertDialog.title.selector,
+      text: "Alert",
+      id: "Rename DCS Title"
+    },
+    prompt: {
+      selector: TEMPLATES.generalAlertDialog.prompt.selector,
+      id: "Rename DCS Prompt",
+      matchingText: function(projectName) {
+        return  `Your project has been renamed<br/><b>${projectName}</b><br/>What would you like to do with this project's existing Door43 repository?`;
+      }
+    },
+    rename: {
+      selector: TEMPLATES.generalAlertDialog.prime.selector,
+      text: "Rename Repository"
+    },
+    createNew: {
+      selector: TEMPLATES.generalAlertDialog.secondary.selector,
+      text: "Create New Repository"
+    }
+  },
   renamedDialog: {
     ...TEMPLATES.generalAlertDialog,
     id: "Renamed Dialog",
