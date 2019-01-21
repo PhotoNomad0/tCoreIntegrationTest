@@ -501,6 +501,10 @@ const DEFINITIONS = {
       id: "Project Card Menu 'Export to CSV'",
       selector: TEMPLATES.projectCardMenuItemN(3)
     },
+    projectCardMenuUploadDCS: {
+      id: "Project Card Menu 'Upload to Door43'",
+      selector: TEMPLATES.projectCardMenuItemN(5)
+    },
     projectCards: {
       selector: "#content > div > div.container-fluid > div:nth-child(2) > div > div > div:nth-child(2) > div:nth-child(2) > div > div > div:nth-child(1) > div > div"
     },

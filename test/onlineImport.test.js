@@ -27,41 +27,56 @@ describe('Online Import Tests', () => {
   });
   
   describe('DCS Rename Tests', () => {
+    let availableTypes;
+    let currentProject;
+
+    afterEach(async () => {
+      await utils.afterEachTest(false);
+    });
+    
     it('do online import access cancel', async () => {
       const success = await verifyUserName(expectedUser, true);
 
       const searchConfig = {
-        user: 'tCore-test-data',
-        languageID: 'fr',
+        user: expectedUser,
+        languageID: 'el',
         bookID: "tit",
         import: false,
         search: true,
         cancel: false
       };
       const results = await tCore.doOnlineSearch(searchConfig);
-      const availableTypes = getUnusedIdentifiers(results.searchResults, 2);
+      availableTypes = getUnusedIdentifiers(results.searchResults, 2);
       log("availableTypes: " + JSON.stringify(availableTypes, null, 2));
       utils.testFinished();
     });
 
-    it('online import tc-desktop should succeed https://git.door43.org/tCore-test-data/fr_test_tit_book', async () => {
-      const sourceProject = "https://git.door43.org/tCore-test-data/fr_test_tit_book";
-      const languageId = "fr";
+    it('online import tc-desktop should succeed https://git.door43.org/tCore-test-data/el_tit', async () => {
+      const sourceProject = "https://git.door43.org/tCore-test-data/el_tit";
+      const languageId = "el";
+      const newTargetLangId = availableTypes[0];
       const bookId = "tit";
       const projectInfoSettings = {
-        languageName: "français",
         languageId,
-        resourceId: "Unlocked Literal Bible",
-        targetLangId: "test",
-        languageDirectionLtr: true,
-        bookName: "Titus (tit)",
-        noRename: true
+        newTargetLangId,
+        sourceProject,
+        brokenAlignments: true,
+        import: true
       };
       const continueOnProjectInfo = true;
-      const projectName = `${languageId}_${projectInfoSettings.targetLangId}_${bookId}_book`;
-      await tCore.doOnlineProjectImport(projectName, sourceProject, continueOnProjectInfo, projectInfoSettings);
+      const projectName = `${languageId}_${newTargetLangId}_${bookId}_book`;
+      await tCore.projectRemoval(projectName);
+      await tCore.navigateOnlineImportDialog(projectInfoSettings);
+      await tCore.doNavigateImport(projectInfoSettings, continueOnProjectInfo, projectName);
+      currentProject = projectName;
+      await tCore.dismissOldDialogs(true, true);
+      utils.testFinished();
     });
-    
+
+    it('do upload to DCS', async () => {
+      const results = await testUploadToDCS(currentProject, expectedUser);
+      utils.testFinished();
+    });
   });
 
   describe('Misc. Tests', () => {
@@ -525,6 +540,12 @@ describe('Online Import Tests', () => {
 //
 // helpers
 //
+
+async function testUploadToDCS(projectName, userName) {
+  const success = true;
+  await tCore.doUploadToDCS(projectName, userName);
+  return success;
+}
 
 /**
  * finds identifiers that don't match current repos

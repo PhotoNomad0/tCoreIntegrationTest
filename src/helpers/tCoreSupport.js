@@ -765,7 +765,7 @@ async function dismissDialogIfPresent(elementObj, prompt = null, acknowledgeButt
  * check for leftover dialogs
  * @return {Promise<boolean>}
  */
-async function dismissOldDialogs(finished) {
+async function dismissOldDialogs(finished, throwException = false) {
   let leftOversFound = false;
 
   leftOversFound = leftOversFound || await makeSureExpandedScripturePaneIsClosed();
@@ -801,6 +801,9 @@ async function dismissOldDialogs(finished) {
     }
     log(message);
     log(message, 0); // add to overall test results
+    if (throwException) {
+      throw(message);
+    }
   }
   return leftOversFound;
 }
@@ -1718,6 +1721,28 @@ async function doExportToUsfm(projectName, outputFileName, hasAlignments, export
 }
 
 /**
+ * do upload to DCS
+ * @param {String} projectName - project name to export
+ * @param {String} userName
+ * @return {Promise<string>}
+ */
+async function doUploadToDCS(projectName, userName) {
+  await setToProjectPage();
+  const cardNumber = await findProjectCardNumber(projectName);
+  assert.ok(cardNumber >= 0, "Could not find project card");
+  await clickOnRetry(TCORE.projectsList.projectCardN(cardNumber).menu);
+  await clickOnRetry(TCORE.projectsList.projectCardMenuUploadDCS);
+  await navigateDialog(TCORE.onlineAccessDialog, 'access_internet');
+
+  await app.client.pause(1000);
+  await delayWhileWaitDialogShown();
+  await waitForDialog(TCORE.exportResultsDialog);
+  const expectedText = `${userName}, ${userName}, your project was successfully uploaded. https://git.door43.org/${userName}/${projectName}`;
+  await verifyTextRetry(TCORE.exportResultsDialog.prompt, expectedText);
+  await clickOnRetry(TCORE.exportResultsDialog.ok);
+}
+
+/**
  * do export to CSV
  * @param {String} projectName - project name to export
  * @param {String} outputFileName - name for output file
@@ -2034,6 +2059,7 @@ const tCoreSupport = {
   doOnlineSearch,
   doOnlineProjectImport,
   doOpenProject,
+  doUploadToDCS,
   elementDescription,
   findToolCardNumber,
   findProjectCardNumber,
