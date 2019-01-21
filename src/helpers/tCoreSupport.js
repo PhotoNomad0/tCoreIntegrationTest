@@ -925,6 +925,107 @@ async function navigateImportResults(continueOnProjectInfo, projectInfoSettings,
 }
 
 /**
+ * generate an ID based on test count (so it will be unique)
+ * @param {Number} testCount_ 
+ * @return {string}
+ */
+function generateTargetLanguageID(testCount_ = -1) {
+  let major = 0;
+  let minor = (testCount_ >= 0) ? testCount_ : testCount; // if text count not given, use internal test count
+  if (minor > 25) {
+    major = minor / 26;
+    minor = minor % 26;
+  }
+  const newTargetLangId = ("zt" + String.fromCharCode(97 + major) + String.fromCharCode(97 + minor)).toLowerCase();
+  return newTargetLangId;
+}
+
+/**
+ * finds identifiers that don't match current repos
+ * @param {Array} searchResults
+ * @param {Number} count - how many identifiers needed
+ * @return {Array}
+ */
+function getUnusedIdentifiers(searchResults, count) {
+  log("searchResults: " + JSON.stringify(searchResults, null, 2));
+  const availableTypes = [];
+  for (let i = 100; i < 400; i++) {
+    const newTargetLangId = generateTargetLanguageID(i);
+    let matchFound = false;
+    for (let repo of searchResults) {
+      const repoName = repo[0];
+      const split = repoName.split('_');
+      const match = split.find(part => (part.toLowerCase() === newTargetLangId));
+      if (match) {
+        matchFound = true;
+        break;
+      }
+    }
+    if (!matchFound) {
+      availableTypes.push(newTargetLangId);
+    }
+    if (availableTypes.length >= count) {
+      break;
+    }
+  }
+  return availableTypes;
+}
+
+/**
+ * make sure we are using correct user
+ * @param {String} expectedUser
+ * @param {Boolean} throwException - if true will throw expection if current user is not expectedUser
+ * @return {Promise<boolean>} true if correct user
+ */
+async function verifyUserName(expectedUser, throwException = true) {
+  const currentUser = await getText(TCORE.userNavigation);
+  const success = (expectedUser === currentUser);
+  if (!success) {
+    const message = "Configured user should be '" + expectedUser + "' not '" + currentUser + "'\nEither login as '" +
+      expectedUser + "' or change test to use '" + currentUser + "'";
+    log(message);
+    if (throwException) {
+      throw(message);
+    }
+  }
+  return success;
+}
+
+async function doOnlineProjectSearchAndImport(projectSettings_) {
+  const projectSettings = _.cloneDeep(projectSettings_);
+  let success = true;
+  if (projectSettings.user) {
+    await verifyUserName(projectSettings.user, true);
+  }
+  projectSettings.search = true;
+  const results = await doOnlineSearch(projectSettings);
+  const availableTypes = getUnusedIdentifiers(results.searchResults, 2);
+  log("availableTypes: " + JSON.stringify(availableTypes, null, 2));
+
+  // import project
+  const newTargetLangId = availableTypes[0];
+  const projectName = `${projectSettings.languageID}_${newTargetLangId}_${projectSettings.bookID}_book`;
+  const continueOnProjectInfo = true;
+  projectSettings.newTargetLangId = newTargetLangId;
+  projectSettings.import = true;
+  delete projectSettings.search;
+  delete projectSettings.languageID;
+  delete projectSettings.bookID;
+  delete projectSettings.user;
+  delete projectSettings.sourceProject;
+  await projectRemoval(projectName);
+  await navigateOnlineImportDialog(projectSettings);
+  try {
+    await doNavigateImport(projectSettings, continueOnProjectInfo, projectName);
+  } catch(e) {
+    log("Error: " + getSafeErrorMessage(e));
+    success = false;
+  }
+  success = success && !await dismissOldDialogs(true, false);
+  return {success, availableTypes, projectName};
+}
+
+/**
  * does the second half of import
  * @param {Object} projectSettings
  * @param {Boolean} continueOnProjectInfo
@@ -2065,11 +2166,13 @@ const tCoreSupport = {
   doNavigateImport,
   doOnlineSearch,
   doOnlineProjectImport,
+  doOnlineProjectSearchAndImport,
   doOpenProject,
   doUploadToDCS,
   elementDescription,
   findToolCardNumber,
   findProjectCardNumber,
+  generateTargetLanguageID,
   getCheckBoxRetry,
   getChildIndices,
   getCleanupFileList,
@@ -2086,6 +2189,7 @@ const tCoreSupport = {
   getSelection,
   getText,
   getTextRetry,
+  getUnusedIdentifiers,
   getValue,
   indexInSearchResults,
   initializeTest,
@@ -2126,6 +2230,7 @@ const tCoreSupport = {
   verifyOnSpecificPage,
   verifyProjectInfoDialog,
   verifyText,
+  verifyUserName,
   verifyValue,
   waitForDialog,
   waitForElementToComeAndGo,

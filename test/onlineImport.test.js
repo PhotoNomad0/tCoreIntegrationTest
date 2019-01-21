@@ -1,4 +1,5 @@
 /* eslint-disable quotes,no-console, no-unused-vars */
+const _ = require('lodash');
 const TCORE = require('./page-objects/elements');
 const tCore = require('../src/helpers/tCoreSupport');
 const utils = require('../src/helpers/utils');
@@ -26,75 +27,48 @@ describe('Online Import Tests', () => {
     await utils.afterAll();
   });
   
-  describe('DCS Rename Tests', () => {
+  describe.only('DCS Rename Tests', () => {
     let availableTypes;
     let currentProject;
 
     afterEach(async () => {
       await utils.afterEachTest(false);
     });
+
+    const config = {
+      sourceProject: "https://git.door43.org/tCore-test-data/el_tit",
+      languageID: 'el',
+      bookID: "tit",
+      user: expectedUser,
+      brokenAlignments: true
+    };
     
-    it('do online import access cancel', async () => {
-      const success = await verifyUserName(expectedUser, true);
-
-      const searchConfig = {
-        user: expectedUser,
-        languageID: 'el',
-        bookID: "tit",
-        import: false,
-        search: true,
-        cancel: false
-      };
-      const results = await tCore.doOnlineSearch(searchConfig);
-      availableTypes = getUnusedIdentifiers(results.searchResults, 2);
-      log("availableTypes: " + JSON.stringify(availableTypes, null, 2));
-      utils.testFinished();
-    });
-
-    it('online import tc-desktop should succeed https://git.door43.org/tCore-test-data/el_tit', async () => {
-      const sourceProject = "https://git.door43.org/tCore-test-data/el_tit";
-      const languageId = "el";
-      const newTargetLangId = availableTypes[0];
-      const bookId = "tit";
-      const projectInfoSettings = {
-        languageId,
-        newTargetLangId,
-        sourceProject,
-        brokenAlignments: true,
-        import: true
-      };
-      const continueOnProjectInfo = true;
-      const projectName = `${languageId}_${newTargetLangId}_${bookId}_book`;
-      await tCore.projectRemoval(projectName);
-      await tCore.navigateOnlineImportDialog(projectInfoSettings);
-      await tCore.doNavigateImport(projectInfoSettings, continueOnProjectInfo, projectName);
-      currentProject = projectName;
-      await tCore.dismissOldDialogs(true, true);
-      utils.testFinished();
-    });
-
-    it('do upload to DCS', async () => {
-      const results = await testUploadToDCS(currentProject, expectedUser);
-      utils.testFinished();
+    it('do import and upload ' + config.sourceProject, async () => {
+      const config_ = _.cloneDeep(config);
+      config_.dcsRename = true;
+      const results = await tCore.doOnlineProjectSearchAndImport(config_);
+      availableTypes = results.availableTypes;
+      currentProject = results.projectName;
+      // upload project
+      await tCore.doUploadToDCS(currentProject, config.user);
+      utils.testFinished(results.success);
     });
 
     it('online import of uploaded user project should succeed with DCS rename', async () => {
       const sourceProject = `https://git.door43.org/${expectedUser}/${currentProject}`;
-      const languageId = "el";
       const newTargetLangId = availableTypes[1];
-      const bookId = "tit";
       const projectInfoSettings = {
-        languageId,
-        bookId,
+        languageId: config.languageID,
+        bookId: config.bookID,
         targetLangId: availableTypes[0],
         newTargetLangId,
         sourceProject,
-        brokenAlignments: true,
+        brokenAlignments: config.brokenAlignments,
         dcsRename: true,
         import: true
       };
       const continueOnProjectInfo = true;
-      const projectName = `${languageId}_${newTargetLangId}_${bookId}_book`;
+      const projectName = `${projectInfoSettings.languageId}_${newTargetLangId}_${projectInfoSettings.bookId}_book`;
       await tCore.doOnlineProjectImport(projectName, sourceProject, continueOnProjectInfo, projectInfoSettings);
       utils.testFinished();
     });
@@ -568,56 +542,6 @@ async function testUploadToDCS(projectName, userName) {
   return success;
 }
 
-/**
- * finds identifiers that don't match current repos
- * @param {Array} searchResults
- * @param {Number} count - how many identifiers needed
- * @return {Array}
- */
-function getUnusedIdentifiers(searchResults, count) {
-  log("searchResults: " + JSON.stringify(searchResults, null, 2));
-  const availableTypes = [];
-  for (let i = 100; i < 400; i++) {
-    const newTargetLangId = utils.generateTargetLanguageID(i);
-    let matchFound = false;
-    for (let repo of searchResults) {
-      const repoName = repo[0];
-      const split = repoName.split('_');
-      const match = split.find(part => (part.toLowerCase() === newTargetLangId));
-      if (match) {
-        matchFound = true;
-        break;
-      }
-    }
-    if (!matchFound) {
-      availableTypes.push(newTargetLangId);
-    }
-    if (availableTypes.length >= count) {
-      break;
-    }
-  }
-  return availableTypes;
-}
-
-/**
- * make sure we are using correct user
- * @param {String} expectedUser
- * @param {Boolean} throwException - if true will throw expection if current user is not expectedUser
- * @return {Promise<boolean>} true if correct user
- */
-async function verifyUserName(expectedUser, throwException = true) {
-  const currentUser = await tCore.getText(TCORE.userNavigation);
-  const success = (expectedUser === currentUser);
-  if (!success) {
-    const message = "Configured user should be '" + expectedUser + "' not '" + currentUser + "'\nEither login as '" +
-      expectedUser + "' or change test to use '" + currentUser + "'";
-    log(message);
-    if (throwException) {
-      throw(message);
-    }
-  }
-  return success;
-}
 
 function log(text) {
   utils.log(text);

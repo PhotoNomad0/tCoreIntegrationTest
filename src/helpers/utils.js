@@ -65,19 +65,12 @@ function getBibleData(bookId) {
 }
 
 /**
- * 
- * @param testCount_
+ * generate an ID based on test count (so it will be unique)
+ * @param {Number} testCount_
  * @return {string}
  */
 function generateTargetLanguageID(testCount_ = -1) {
-  let major = 0;
-  let minor = (testCount_ >= 0) ? testCount_ : testCount; // if text count not given, use internal test count
-  if (minor > 25) {
-    major = minor / 26;
-    minor = minor % 26;
-  }
-  const newTargetLangId = ("zt" + String.fromCharCode(97 + major) + String.fromCharCode(97 + minor)).toLowerCase();
-  return newTargetLangId;
+  return tCore.generateTargetLanguageID((testCount_ >= 0) ? testCount_ : testCount);
 }
 
 async function logMemoryUsage() {
