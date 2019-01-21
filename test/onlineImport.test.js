@@ -77,6 +77,26 @@ describe('Online Import Tests', () => {
       const results = await testUploadToDCS(currentProject, expectedUser);
       utils.testFinished();
     });
+
+    it('online import of uploaded user project should succeed with DCS rename', async () => {
+      const sourceProject = `https://git.door43.org/${expectedUser}/${currentProject}`;
+      const languageId = "el";
+      const newTargetLangId = availableTypes[1];
+      const bookId = "tit";
+      const projectInfoSettings = {
+        languageId,
+        bookId,
+        targetLangId: availableTypes[0],
+        newTargetLangId,
+        sourceProject,
+        brokenAlignments: true,
+        import: true
+      };
+      const continueOnProjectInfo = true;
+      const projectName = `${languageId}_${newTargetLangId}_${bookId}_book`;
+      await tCore.doOnlineProjectImport(projectName, sourceProject, continueOnProjectInfo, projectInfoSettings);
+      utils.testFinished();
+    });
   });
 
   describe('Misc. Tests', () => {

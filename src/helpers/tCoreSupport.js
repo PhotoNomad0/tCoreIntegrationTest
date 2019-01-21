@@ -962,7 +962,6 @@ async function doOnlineProjectImport(projectName, sourceProject, continueOnProje
 
   // do import
   const importConfig = {
-    languageID: 'fr',
     sourceProject,
     import: true,
     search: false
