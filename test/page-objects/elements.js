@@ -649,17 +649,24 @@ const DEFINITIONS = {
         id: "Check Section " + groupItem + ", verse " + (label || verseItem),
         selector: "#groups-menu-container > div.groups > div:nth-child(" + groupItem + ") > div:nth-child(" + (verseItem+1) + ")"
       };
+    }
+  },
+  groupMenuWA: {
+    id: "Group Menu",
+    header: {
+      id: "Group Menu Header",
+      selector: "//*[@id=\"content\"]/div/div[5]/div[2]/div/div/div/nav/li/div"
     },
     chapterN: function(position, chapter) {
       return {
         id: "Chapter " + chapter,
-        selector: "#groups-menu-container > div.groups > div:nth-child(" + position + ") > div"
+        selector: "//*[@id=\"content\"]/div/div[5]/div[2]/div/div/div/nav/div[" + (position*2-1) + "]",
       };
     },
     verseItemN: function(groupItem, verseItem) {
       return {
         id: "Chapter " + groupItem + ", verse " + verseItem,
-        selector: "#groups-menu-container > div.groups > div:nth-child(" + groupItem + ") > div:nth-child(" + (verseItem+1) + ")"
+        selector: "//*[@id=\"content\"]/div/div[5]/div[2]/div/div/div/nav/div[" + (groupItem*2-1) + "]/div[" + (verseItem) + "]"
       };
     }
   },

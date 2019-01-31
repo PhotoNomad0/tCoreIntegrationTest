@@ -32,7 +32,7 @@ describe('WA Tests', () => {
     await utils.afterAll();
   });
 
-  describe('Scripture Pane testing', () => {
+  describe.skip('Scripture Pane testing', () => {
     const bookId = "jud", importFile = '66-JUD.usfm';
     const {chapters, bookName} = utils.getBibleData(bookId);
 
@@ -82,9 +82,9 @@ describe('WA Tests', () => {
       { bookId: "act", importFile: '45-ACT.usfm' }
     ];
 
-    const alignEachVerse = false; // alignment is still glitchy
-    const closeOnEachEdit = false; // set this true for leak testing (makes it very slow)
-    const testCount = 2; // set this count high to do leak testing
+    const alignEachVerse = true; // alignment is still glitchy
+    const closeOnEachEdit = true; // set this true for leak testing (makes it very slow)
+    const testCount = 1; // set this count high to do leak testing
     let chapterCount = 0;
     let chapterFinished = 0;
     let verseAttemptedCount = 0;
@@ -126,7 +126,7 @@ describe('WA Tests', () => {
             verseAttemptedCount += verseCount;
             assert.ok(verseCount);
             log("Chapter " + chapter + ", Number of verses= " + verseCount);
-            await tCore.clickOnRetry(TCORE.groupMenu.chapterN(chapter, 'c' + chapter));
+            await tCore.clickOnRetry(TCORE.groupMenuWA.chapterN(chapter, 'c' + chapter));
             let verseStartTime = new Date();
             let chapterStartTime = verseStartTime;
             const times = [];
@@ -135,14 +135,14 @@ describe('WA Tests', () => {
               log("Editing verse " + verse);
               
               if ((verse === 1) || closeOnEachEdit) {
-                await tCore.clickOnRetry(TCORE.groupMenu.verseItemN(chapter, verse));
+                await tCore.clickOnRetry(TCORE.groupMenuWA.verseItemN(chapter, verse));
                 const sourceCard = TCORE.wordAlignment.wordListCardN((verse % 3) + 1);
                 await tCore.clickOnRetry(sourceCard);
                 const cardOL = await tCore.getText(TCORE.wordAlignment.alignmentOL(3));
                 log("cardOL= " + cardOL);
                 
                 // await app.client.dragAndDrop(sourceCard.selector,TCORE.wordAlignment.alignmentTargetDrop(1).selector);
-                // await dragWordsToAlignment([2, 3], 3);
+                // await dragWordsToAlignment([2,3], 3);
                 // await dragWordsToAlignment([1, 4], 2);
                 // await dragWordsToAlignment([5, 6], 3);
                 // await dragWordsToAlignment([7, 8], 1);

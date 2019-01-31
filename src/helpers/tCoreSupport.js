@@ -1657,7 +1657,7 @@ async function launchWordAlignment() {
   const toolName = "Word Alignment";
   await launchTool(toolName);
   await app.client.pause(2000);
-  await waitForDialogRetry(TCORE.groupMenu.header, 40);
+  await waitForDialogRetry(TCORE.groupMenuWA.header, 40);
 }
 
 /**
